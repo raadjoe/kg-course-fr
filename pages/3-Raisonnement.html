@@ -68,10 +68,13 @@
         }
         .rdf-table tr:nth-child(even) td { background: #0d1117; }
         .dim-grid {
-            display: grid; grid-template-columns: 20% 1fr 1fr; gap: 1px;
-            background: #3d4168; border-radius: 6px; overflow: hidden;
+            display: grid; grid-template-columns: 20% 1fr 1fr;
+            border-radius: 6px; overflow: hidden;
         }
-        .dim-grid > div { padding: 0.5rem 0.7rem; min-width: 0; overflow-wrap: break-word; }
+        .dim-grid > div {
+            padding: 0.5rem 0.7rem; min-width: 0; overflow-wrap: break-word;
+            border: 1px solid #3d4168;
+        }
         blockquote {
             border-left: 4px solid #4f8ef7;
             padding-left: 1rem;
@@ -302,11 +305,11 @@
         <div class="fragment" data-fragment-index="3" style="background:#111826; color:#eef0ff;">Aucun raisonnement automatique, tout doit être explicite</div>
         <div class="fragment" data-fragment-index="3" style="background:#111826; color:#eef0ff;">Raisonnement automatique (RDFS/OWL) pour déduire de nouveaux faits</div>
 
-        <div class="fragment" data-fragment-index="4" style="background:#0d1117; color:#4f8ef7; font-weight:600;">Monde</div>
+        <div class="fragment" data-fragment-index="4" style="background:#0d1117; color:#4f8ef7; font-weight:600;">Complétude</div>
         <div class="fragment" data-fragment-index="4" style="background:#0d1117; color:#eef0ff;">Hypothèse du monde fermé</div>
         <div class="fragment" data-fragment-index="4" style="background:#0d1117; color:#eef0ff;">Hypothèse du monde ouvert, détaillée juste après</div>
 
-        <div class="fragment" data-fragment-index="5" style="background:#111826; color:#4f8ef7; font-weight:600;">Noms</div>
+        <div class="fragment" data-fragment-index="5" style="background:#111826; color:#4f8ef7; font-weight:600;">Identité</div>
         <div class="fragment" data-fragment-index="5" style="background:#111826; color:#eef0ff;">Hypothèse du nom unique</div>
         <div class="fragment" data-fragment-index="5" style="background:#111826; color:#eef0ff;">Pas d'hypothèse du nom unique, détaillée juste après</div>
     </div>
