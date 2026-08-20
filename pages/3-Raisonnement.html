@@ -67,6 +67,11 @@
             padding: 0.3rem 0.6rem; border: 1px solid #444; color: #eef0ff;
         }
         .rdf-table tr:nth-child(even) td { background: #0d1117; }
+        .dim-grid {
+            display: grid; grid-template-columns: 20% 1fr 1fr; gap: 1px;
+            background: #3d4168; border-radius: 6px; overflow: hidden;
+        }
+        .dim-grid > div { padding: 0.5rem 0.7rem; min-width: 0; overflow-wrap: break-word; }
         blockquote {
             border-left: 4px solid #4f8ef7;
             padding-left: 1rem;
@@ -124,6 +129,7 @@
         .reveal a:hover       { color: #7eb8f7; }
         .reveal .controls     { color: #4f8ef7; }
         .reveal .progress span { background: #4f8ef7; }
+        .reveal .fragment:focus { outline: none; }
     </style>
 </head>
 
@@ -275,34 +281,34 @@
 
 <section>
     <h3>Base de données relationnelle / ontologie</h3>
-    <div style="display:grid; grid-template-columns:16% 1fr 1fr; gap:1px; background:#3d4168; border-radius:6px; overflow:hidden; font-size:0.68em;">
-        <div style="background:#1e3a5f; color:#7eb8f7; font-weight:700; padding:0.5rem 0.7rem;">Dimension</div>
-        <div style="background:#1e3a5f; color:#7eb8f7; font-weight:700; padding:0.5rem 0.7rem;">Base de données relationnelle</div>
-        <div style="background:#1e3a5f; color:#7eb8f7; font-weight:700; padding:0.5rem 0.7rem;">Ontologie</div>
+    <div class="dim-grid" style="font-size:0.68em;">
+        <div style="background:#1e3a5f; color:#7eb8f7; font-weight:700;">Dimension</div>
+        <div style="background:#1e3a5f; color:#7eb8f7; font-weight:700;">Base de données relationnelle</div>
+        <div style="background:#1e3a5f; color:#7eb8f7; font-weight:700;">Ontologie</div>
 
-        <div style="background:#0d1117; color:#4f8ef7; font-weight:600; padding:0.5rem 0.7rem;">Objectif</div>
-        <div style="background:#0d1117; color:#eef0ff; padding:0.5rem 0.7rem;">Structurer les données pour un stockage et une interrogation efficaces</div>
-        <div style="background:#0d1117; color:#eef0ff; padding:0.5rem 0.7rem;">Représenter des connaissances pour raisonner et communiquer entre humains et machines</div>
+        <div style="background:#0d1117; color:#4f8ef7; font-weight:600;">Objectif</div>
+        <div style="background:#0d1117; color:#eef0ff;">Structurer les données pour un stockage et une interrogation efficaces</div>
+        <div style="background:#0d1117; color:#eef0ff;">Représenter des connaissances pour raisonner et communiquer entre humains et machines</div>
 
-        <div class="fragment" data-fragment-index="1" style="background:#111826; color:#4f8ef7; font-weight:600; padding:0.5rem 0.7rem;">Schéma</div>
-        <div class="fragment" data-fragment-index="1" style="background:#111826; color:#eef0ff; padding:0.5rem 0.7rem;">Rigide, fixé à l'avance</div>
-        <div class="fragment" data-fragment-index="1" style="background:#111826; color:#eef0ff; padding:0.5rem 0.7rem;">Flexible, peut évoluer sans tout redéfinir</div>
+        <div class="fragment" data-fragment-index="1" style="background:#111826; color:#4f8ef7; font-weight:600;">Schéma</div>
+        <div class="fragment" data-fragment-index="1" style="background:#111826; color:#eef0ff;">Rigide, fixé à l'avance</div>
+        <div class="fragment" data-fragment-index="1" style="background:#111826; color:#eef0ff;">Flexible, peut évoluer sans tout redéfinir</div>
 
-        <div class="fragment" data-fragment-index="2" style="background:#0d1117; color:#4f8ef7; font-weight:600; padding:0.5rem 0.7rem;">Construction</div>
-        <div class="fragment" data-fragment-index="2" style="background:#0d1117; color:#eef0ff; padding:0.5rem 0.7rem;">Construite fréquemment à partir de zéro</div>
-        <div class="fragment" data-fragment-index="2" style="background:#0d1117; color:#eef0ff; padding:0.5rem 0.7rem;">Réutilisée dès que possible</div>
+        <div class="fragment" data-fragment-index="2" style="background:#0d1117; color:#4f8ef7; font-weight:600;">Construction</div>
+        <div class="fragment" data-fragment-index="2" style="background:#0d1117; color:#eef0ff;">Construite fréquemment à partir de zéro</div>
+        <div class="fragment" data-fragment-index="2" style="background:#0d1117; color:#eef0ff;">Réutilisée dès que possible</div>
 
-        <div class="fragment" data-fragment-index="3" style="background:#111826; color:#4f8ef7; font-weight:600; padding:0.5rem 0.7rem;">Raisonnement</div>
-        <div class="fragment" data-fragment-index="3" style="background:#111826; color:#eef0ff; padding:0.5rem 0.7rem;">Aucun raisonnement automatique, tout doit être explicite</div>
-        <div class="fragment" data-fragment-index="3" style="background:#111826; color:#eef0ff; padding:0.5rem 0.7rem;">Raisonnement automatique (RDFS/OWL) pour déduire de nouveaux faits</div>
+        <div class="fragment" data-fragment-index="3" style="background:#111826; color:#4f8ef7; font-weight:600;">Raisonnement</div>
+        <div class="fragment" data-fragment-index="3" style="background:#111826; color:#eef0ff;">Aucun raisonnement automatique, tout doit être explicite</div>
+        <div class="fragment" data-fragment-index="3" style="background:#111826; color:#eef0ff;">Raisonnement automatique (RDFS/OWL) pour déduire de nouveaux faits</div>
 
-        <div class="fragment" data-fragment-index="4" style="background:#0d1117; color:#4f8ef7; font-weight:600; padding:0.5rem 0.7rem;">Monde</div>
-        <div class="fragment" data-fragment-index="4" style="background:#0d1117; color:#eef0ff; padding:0.5rem 0.7rem;">Hypothèse du monde fermé</div>
-        <div class="fragment" data-fragment-index="4" style="background:#0d1117; color:#eef0ff; padding:0.5rem 0.7rem;">Hypothèse du monde ouvert, détaillée juste après</div>
+        <div class="fragment" data-fragment-index="4" style="background:#0d1117; color:#4f8ef7; font-weight:600;">Monde</div>
+        <div class="fragment" data-fragment-index="4" style="background:#0d1117; color:#eef0ff;">Hypothèse du monde fermé</div>
+        <div class="fragment" data-fragment-index="4" style="background:#0d1117; color:#eef0ff;">Hypothèse du monde ouvert, détaillée juste après</div>
 
-        <div class="fragment" data-fragment-index="5" style="background:#111826; color:#4f8ef7; font-weight:600; padding:0.5rem 0.7rem;">Noms</div>
-        <div class="fragment" data-fragment-index="5" style="background:#111826; color:#eef0ff; padding:0.5rem 0.7rem;">Hypothèse du nom unique</div>
-        <div class="fragment" data-fragment-index="5" style="background:#111826; color:#eef0ff; padding:0.5rem 0.7rem;">Pas d'hypothèse du nom unique, détaillée juste après</div>
+        <div class="fragment" data-fragment-index="5" style="background:#111826; color:#4f8ef7; font-weight:600;">Noms</div>
+        <div class="fragment" data-fragment-index="5" style="background:#111826; color:#eef0ff;">Hypothèse du nom unique</div>
+        <div class="fragment" data-fragment-index="5" style="background:#111826; color:#eef0ff;">Pas d'hypothèse du nom unique, détaillée juste après</div>
     </div>
 </section>
 
