@@ -329,6 +329,12 @@
 
 <section>
     <h3>Il faut nommer les choses</h3>
+    <img src="../figures/naming-everything.png" alt=""
+                 style="max-width:45%; object-fit:contain; border-radius:6px;">
+</section>
+
+<section>
+    <h3>Il faut nommer les choses</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:1.2rem;">En représentation de connaissances, il est nécessaire de nommer les entités et les relations.</p>
     <p> 
         <strong style="color:#7eb8f7;">Exemples d'entités :</strong> personnes, lieux, concepts, événements, organisations, protéines, gènes, maladies…<br>
@@ -336,8 +342,6 @@
     <p>
         <strong style="color:#7eb8f7;">Exemples de relations :</strong> aGagné, estLocaliséÀ, estDeNationalité, estParentDe, estAuteurDe…
     </p>
-    <img src="../figures/naming-everything.png" alt=""
-                 style="max-width:100%; max-height:30vh; object-fit:contain; border-radius:6px;">
 </section>
 
 <section>
@@ -450,20 +454,26 @@
 <section>
     <h3>Un IRI est opaque par nature</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Un IRI est un identifiant global, pas un nom en langage naturel. Sa lisibilité est un <em>choix</em> de l'éditeur, non une garantie.</p>
-    <div class="two-col" style="font-size:0.8em;">
-        <div class="box" style="border-left:3px solid #7eb8f7;">
-            <p style="color:#7eb8f7; font-size:0.85em; margin:0 0 0.6rem 0; font-weight:600;">DBpedia : IRIs lisibles</p>
-            <p style="color:#6b7099; font-size:0.8em; margin:0 0 0.25rem 0;">Roland-Garros :</p>
-            <code style="display:block; font-size:0.78em;">&lt;http://dbpedia.org/resource/Roland-Garros&gt;</code>
-            <p style="color:#6b7099; font-size:0.8em; margin:0.55rem 0 0.25rem 0;">Carlos Alcaraz :</p>
-            <code style="display:block; font-size:0.78em;">&lt;http://dbpedia.org/resource/Carlos_Alcaraz&gt;</code>
+    <div class="box" style="text-align:left; margin-top:0.6rem;">
+        <p style="color:#eef0ff; font-size:0.85em; font-weight:600; margin:0 0 0.6rem 0;">Roland-Garros</p>
+        <div class="kv-row" style="margin-bottom:0.4rem;">
+            <span class="kv-label" style="min-width:80px; color:#7eb8f7;">DBpedia</span>
+            <code style="font-size:0.76em; white-space:nowrap;">&lt;http://dbpedia.org/resource/Roland-Garros&gt;</code>
         </div>
-        <div class="box fragment" style="border-left:3px solid #4f8ef7;">
-            <p style="color:#4f8ef7; font-size:0.85em; margin:0 0 0.6rem 0; font-weight:600;">Wikidata : IRIs opaques</p>
-            <p style="color:#6b7099; font-size:0.8em; margin:0 0 0.25rem 0;">Roland-Garros :</p>
-            <code style="display:block; font-size:0.78em;">&lt;http://www.wikidata.org/entity/Q43605&gt;</code>
-            <p style="color:#6b7099; font-size:0.8em; margin:0.55rem 0 0.25rem 0;">Carlos Alcaraz :</p>
-            <code style="display:block; font-size:0.78em;">&lt;http://www.wikidata.org/entity/Q85518537&gt;</code>
+        <div class="kv-row" style="margin-bottom:0;">
+            <span class="kv-label" style="min-width:80px; color:#4f8ef7;">Wikidata</span>
+            <code style="font-size:0.76em; white-space:nowrap;">&lt;http://www.wikidata.org/entity/Q43605&gt;</code>
+        </div>
+    </div>
+    <div class="box fragment" style="text-align:left; margin-top:0.6rem;">
+        <p style="color:#eef0ff; font-size:0.85em; font-weight:600; margin:0 0 0.6rem 0;">Carlos Alcaraz</p>
+        <div class="kv-row" style="margin-bottom:0.4rem;">
+            <span class="kv-label" style="min-width:80px; color:#7eb8f7;">DBpedia</span>
+            <code style="font-size:0.76em; white-space:nowrap;">&lt;http://dbpedia.org/resource/Carlos_Alcaraz&gt;</code>
+        </div>
+        <div class="kv-row" style="margin-bottom:0;">
+            <span class="kv-label" style="min-width:80px; color:#4f8ef7;">Wikidata</span>
+            <code style="font-size:0.76em; white-space:nowrap;">&lt;http://www.wikidata.org/entity/Q85518537&gt;</code>
         </div>
     </div>
     <div class="box box-blue fragment" style="margin-top:0.7rem; font-size:0.78em;">
