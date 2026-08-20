@@ -237,11 +237,40 @@
 </section>
 
 <section>
-    <h3>Des ontologies bien réelles</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">Une ontologie n'est pas toujours réinventée : de nombreux vocabulaires existants se réutilisent tels quels.</p>
-    <div class="kv-row"><span class="kv-label">FOAF</span><span class="kv-body">Décrit des personnes et leurs relations sociales. Déjà croisée en 3.3 avec <code>foaf:Person</code>.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">schema.org</span><span class="kv-body">Vocabulaire utilisé par Google pour le Knowledge Graph, vu au chapitre 1.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">SNOMED-CT, UniProt</span><span class="kv-body">Ontologies médicales et biologiques citées au chapitre 1, avec des centaines de milliers de concepts.</span></div>
+    <h3>Vocabulaire ou ontologie ?</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">Beaucoup de vocabulaires RDF se limitent à nommer des classes et des propriétés. Une ontologie, au sens fort, ajoute des règles logiques qu'un raisonneur peut réellement exploiter.</p>
+    <div class="two-col">
+        <div class="box" style="border-left:3px solid #ff9f43;">
+            <strong style="color:#ff9f43;">Vocabulaire</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#eef0ff;">Une hiérarchie de classes (<code>rdfs:subClassOf</code>), peu ou pas de restrictions OWL. Utile pour nommer et indexer, mais un raisonneur n'en tire presque rien de nouveau.</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7;">Ontologie (raisonnement)</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#eef0ff;">Restrictions, disjonctions, propriétés caractérisées (transitive, fonctionnelle, inverse...). Un raisonneur peut classifier automatiquement et détecter des incohérences.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>schema.org : un vocabulaire, pas une ontologie</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">Le vocabulaire utilisé par Google pour son Knowledge Graph, déjà vu au chapitre 1.</p>
+    <div class="kv-row"><span class="kv-label">Taille</span><span class="kv-body">Plus de 800 types et 1 500 propriétés, pour couvrir presque tous les domaines.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Structure</span><span class="kv-body">Une simple hiérarchie de classes, quasiment aucune restriction OWL en pratique.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Limite</span><span class="kv-body">Un raisonneur n'y trouve presque rien à déduire : ce n'est pas sa fonction.</span></div>
+</section>
+
+<section>
+    <h3>SNOMED CT : le raisonnement à l'échelle</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">La terminologie clinique de référence, utilisée dans les dossiers médicaux de plus de 50 pays.</p>
+    <div class="kv-row"><span class="kv-label">Taille</span><span class="kv-body">Environ 370 000 concepts cliniques et 1,37 million de relations.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Formalisme</span><span class="kv-body">Écrite dans le profil <code>OWL EL</code>, pensée dès le départ pour le raisonnement automatique.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Usage réel</span><span class="kv-body">Des raisonneurs (<em>ELK</em>, <em>Snorocket</em>) classifient automatiquement chaque nouveau concept clinique et vérifient la cohérence de toute la terminologie.</span></div>
+</section>
+
+<section>
+    <h3>D'autres ontologies pensées pour le raisonnement</h3>
+    <div class="kv-row"><span class="kv-label">Gene Ontology</span><span class="kv-body">Fonctions des gènes et protéines. Le raisonneur <em>ELK</em> y infère automatiquement plus de <strong style="color:#4ade80;">32 000</strong> relations <code>subClassOf</code> non écrites à la main.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">FIBO</span><span class="kv-body">Ontologie financière (<em>Financial Industry Business Ontology</em>), en <code>OWL 2 DL</code>. Des banques l'utilisent pour classifier automatiquement des instruments financiers complexes et vérifier leur cohérence.</span></div>
 </section>
 
 <section>
