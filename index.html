@@ -1,340 +1,190 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta name="robots" content="noindex, nofollow">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Graphes de Connaissances</title>
 
-	<title>BDR - Joe Raad</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-color: #020408;
+            background-image:
+                repeating-linear-gradient(rgba(79,142,247,0.16) 0px, rgba(79,142,247,0.16) 1px, transparent 1px, transparent 60px),
+                repeating-linear-gradient(90deg, rgba(79,142,247,0.16) 0px, rgba(79,142,247,0.16) 1px, transparent 1px, transparent 60px);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            color: #eef0ff;
+            display: flex;
+            justify-content: center;
+            padding: 4rem 1.5rem 3rem;
+        }
+        main { width: 100%; max-width: 780px; }
 
-	<link rel="stylesheet" href="dist/reset.css">
-	<link rel="stylesheet" href="dist/reveal.css">
-	<link rel="stylesheet" href="dist/theme/night.css">
-	<link rel="stylesheet" href="css/custom.css">
+        .part-label {
+            display: inline-block;
+            background: #4f8ef7;
+            color: #09090f;
+            font-size: 0.72em;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.9rem;
+            border-radius: 3px;
+            margin-bottom: 1.4rem;
+        }
+        h1 {
+            font-size: 2em;
+            line-height: 1.25;
+            margin: 0 0 0.3rem 0;
+            color: #eef0ff;
+        }
+        .author {
+            font-size: 0.95em;
+            color: #aaa;
+            margin: 0 0 1.6rem 0;
+        }
+        .author a { color: #4f8ef7; text-decoration: none; }
+        .author a:hover { color: #7eb8f7; }
 
-	<!-- Theme used for syntax highlighted code -->
-	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+        .description {
+            font-size: 1em;
+            line-height: 1.7;
+            color: #c9d2e8;
+            margin: 0 0 2.6rem 0;
+            max-width: 680px;
+        }
+        .description strong { color: #eef0ff; }
+
+        .section-heading {
+            font-size: 0.7em;
+            font-weight: 700;
+            color: #6b7099;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            margin-bottom: 1rem;
+        }
+
+        .chapters {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .chapter-card {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            border: 1px solid #3d4168;
+            border-radius: 8px;
+            padding: 1rem 1.3rem;
+            background: #0d1117;
+            text-decoration: none;
+            transition: border-color 0.15s ease, background 0.15s ease;
+        }
+        .chapter-card:hover {
+            border-color: #4f8ef7;
+            background: #101828;
+        }
+        .chapter-num {
+            flex-shrink: 0;
+            width: 2.6rem;
+            font-family: monospace;
+            font-size: 1.5em;
+            font-weight: 900;
+            color: rgba(79,142,247,0.55);
+            text-align: center;
+        }
+        .chapter-body h2 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1.02em;
+            color: #eef0ff;
+        }
+        .chapter-body p {
+            margin: 0;
+            font-size: 0.82em;
+            color: #aaa;
+            line-height: 1.5;
+        }
+        .status-tag {
+            margin-left: auto;
+            flex-shrink: 0;
+            font-size: 0.62em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.55rem;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+        .status-done { color: #4ade80; background: rgba(46,204,113,0.12); }
+        .status-todo { color: #6b7099; background: rgba(107,112,153,0.12); }
+
+        footer {
+            margin-top: 3rem;
+            font-size: 0.72em;
+            color: #3d4168;
+        }
+    </style>
 </head>
 
 <body>
-	<div class="reveal">
-		<div class="slides">
-			<section>
-				<h2>BASES DE DONNÉES RELATIONNELLES</h2>
-				<br>
-				<h3>BACHELOR HEPTA</h3>
-				</p>
-				<p>
-				<h3><a href="http://joe-raad.com">Joe Raad</a>
-					<h3>
-						</p>
-			</section>
-			<section id="fragments">
-				<h3>Qu'est-ce qu'une base de données relationnelle (BDR) ?</h3>
-				<p>
-					C'est un système de gestion de données qui organisent les informations en tables interconnectées.
-				</p>
-				<p class="fragment">
-					Les BDR permettent de stocker, organiser et interroger des données de manière structurée.
-				</p>
-			</section>
-			<section>
-				<h3>Les feuilles de calcul sont-elles des BDR ?</h3>
-				<img src="figures/feuilles-de-calcul.png" alt="Logo IBM" style="max-width: 50%; height: auto;">
-				<p>
-					Les feuilles de calcul (comme Excel, Sheets, LibreOfficeCalc) sont accessibles et faciles à utiliser
-					ce qui les rend populaires pour des
-					tâches simples de gestion de données.
-				</p>
-				<p class="fragment">
-					Elles peuvent être considérées comme des bases de données simples, 
-					<strong>mais elles ne sont pas des BDR.</strong>
-				</p>
-			</section>
+<main>
+    <div class="part-label">Bachelor HEPTA</div>
+    <h1>Graphes de connaissances : fondements et applications</h1>
+    <p class="author">Cours par <a href="http://joe-raad.com">Joe Raad</a></p>
 
-			<section>
-				<h3>Fonctionnalités des feuilles de calcul</h3>
-				<p>
-					Avec une feuille de calcul, il est possible de :
-				<ul>
-					<li class="fragment">Stocker des données de façon structurée.
-					<li class="fragment">Trier, filtrer et rechercher des données.
-					<li class="fragment">Effectuer des calculs en utilisant des formules.
-					<li class="fragment">Créer des graphiques pour visualiser les données.
-					<li class="fragment">Partager et collaborer sur les données avec d’autres utilisateurs.
-				</ul>
-				</p>
+    <p class="description">
+        Ce cours explore les <strong>graphes de connaissances</strong> : comment structurer, relier et interroger des données à l'échelle du Web grâce aux standards du <strong>Web Sémantique</strong> (RDF, RDFS, OWL, SPARQL). À partir d'exemples réels (Wikidata, DBpedia, Roland-Garros...), il couvre la modélisation de données en triplets, le raisonnement automatique sur un graphe, l'interrogation de graphes ouverts, et les fondements symboliques sur lesquels s'appuie aujourd'hui l'intelligence artificielle.
+    </p>
 
-			</section>
+    <div class="section-heading">Chapitres</div>
+    <div class="chapters">
+        <a class="chapter-card" href="pages/0-Plan.html">
+            <span class="chapter-num">00</span>
+            <span class="chapter-body">
+                <h2>Plan du module</h2>
+                <p>Objectifs, plan du cours et modalités d'évaluation.</p>
+            </span>
+            <span class="status-tag status-done">Fait</span>
+        </a>
+        <a class="chapter-card" href="pages/1-Introduction.html">
+            <span class="chapter-num">01</span>
+            <span class="chapter-body">
+                <h2>Introduction</h2>
+                <p>Le Web, ses limites, le Web Sémantique et les graphes de connaissances.</p>
+            </span>
+            <span class="status-tag status-done">Fait</span>
+        </a>
+        <a class="chapter-card" href="pages/2-RDF.html">
+            <span class="chapter-num">02</span>
+            <span class="chapter-body">
+                <h2>RDF</h2>
+                <p>Le modèle de données : IRIs, littéraux, blank nodes, syntaxes, contextualisation.</p>
+            </span>
+            <span class="status-tag status-done">Fait</span>
+        </a>
+        <a class="chapter-card" href="pages/3-Raisonnement.html">
+            <span class="chapter-num">03</span>
+            <span class="chapter-body">
+                <h2>Raisonnement</h2>
+                <p>RDFS et une introduction à OWL pour déduire de nouveaux faits.</p>
+            </span>
+            <span class="status-tag status-done">Fait</span>
+        </a>
+        <a class="chapter-card" href="pages/4-SPARQL.html">
+            <span class="chapter-num">04</span>
+            <span class="chapter-body">
+                <h2>SPARQL</h2>
+                <p>Le langage de requête pour interroger un graphe de connaissances.</p>
+            </span>
+            <span class="status-tag status-done">Fait</span>
+        </a>
+    </div>
 
-			<section>
-				<h3>Limites des feuilles de calcul</h3>
-				<ul>
-					<li class="fragment">Sécurité et permissions limitées
-					<li class="fragment">Peu adaptée aux grands volumes
-					<li class="fragment">Pas de gestion de conflits
-					<li class="fragment">Pas de langage de requête
-					<li class="fragment">Redondance des données
-					<li class="fragment">Aucune garantie d’intégrité
-				</ul>
-				<aside class="notes">
-					- Sécurité et permissions limitées : Il est difficile de contrôler précisément qui peut voir ou
-					modifier les données.
-					- Peu adaptée aux grands volumes : Les performances diminuent rapidement avec de grandes quantités
-					de données.
-					- Pas multi-utilisateur : Les conflits apparaissent facilement si plusieurs personnes éditent le
-					fichier en même temps.
-					- Pas de langage de requête : On utilise des formules à la place d’un langage structuré comme SQL.
-					- Redondance des données : Les mêmes informations peuvent être dupliquées à plusieurs endroits, ce
-					qui augmente le risque d’erreurs.
-					- Aucune garantie d’intégrité : Il n’y a pas de règles automatiques pour empêcher les incohérences
-					ou les erreurs logiques dans les données.
-				</aside>
-			</section>
-
-			<section id="fragments">
-				<h3>Pourquoi utiliser une BDR ?</h3>
-				<p>
-				<ul>
-					<li class="fragment">Éviter la redondance des données</li>
-					<li class="fragment">Améliorer l'intégrité des données</li>
-					<li class="fragment">Interroger des données complexes</li>
-					<li class="fragment">Gérer et manipuler de grandes quantités de données</li>
-					<li class="fragment">Sécuriser les données (permissions utilisateurs)</li>
-					<li class="fragment">Gérer l'accès concurrent</li>
-				</ul>
-				</p>
-			</section>
-
-
-			<section data-transition="slide" data-background-transition="zoom">
-
-				<section>
-					<h3>Cas pratique:</h3>
-					<p>
-						Organisation des résultats des finales de Rolland Garros.
-					</p>
-					<img src="figures/rg-logo.svg" alt="Roland Garros"
-						style="max-width: 20%; height: auto;">
-				</section>
-				<section>
-					<h3>Gestion avec les feuilles de calcul</h3>
-					<img src="figures/example-rg.png" alt="Feuille de calcul des finales de Roland Garros"
-						style="max-width: 100%; height: auto;">
-				</section>
-				<section>
-					<h3>Redondance</h3>
-					<p>
-						La date de naissance de Nadal ne changera pas mais répété à plusieurs reprises.
-					</p>
-					<img src="figures/example-rg.png" alt="Feuille de calcul des finales de Roland Garros"
-						style="max-width: 100%; height: auto;">
-				</section>
-				<section>
-					<h3>Incohérence</h3>
-					<p>
-						Risque d’erreurs de saisie (ex : "Espagne", "Espagnol", "espagnole").
-					</p>
-					<img src="figures/example-rg.png" alt="Feuille de calcul des finales de Roland Garros"
-						style="max-width: 100%; height: auto;">
-				</section>
-				<section>
-					<h3>Manque d’intégrité</h3>
-					<p>
-						Aucune règle n’empêche le même joueur d’avoir deux dates de naissances différentes ou de jouer contre lui même
-					</p>
-					<img src="figures/example-rg.png" alt="Feuille de calcul des finales de Roland Garros"
-						style="max-width: 100%; height: auto;">
-				</section>
-				<section>
-					<h3>Difficulté d’analyse</h3>
-					<p>
-						Pour connaître le nombre de victoires de Nadal, il faudra uniformiser les données puis compter le nombre de fois où son nom apparait comme num joueur désigné par “victoire”
-					</p>
-					<img src="figures/example-rg.png" alt="Feuille de calcul des finales de Roland Garros"
-						style="max-width: 100%; height: auto;">
-				</section>
-				<section>
-					<h3>Passage à l’échelle</h3>
-					<p>
-						Plus la table grandit, avec des détails sur chaque partie de chaque match, plus les problèmes s’accentuent.
-					</p>
-					<img src="figures/example-rg.png" alt="Feuille de calcul des finales de Roland Garros"
-						style="max-width: 100%; height: auto;">
-				</section>
-				<section>
-					<h3>La solution en BDR</h3>
-					<img src="figures/example-rg-bd.png" alt="Feuille de calcul des finales de Roland Garros"
-						style="max-width: 70%; height: auto;">
-				</section>
-			</section>
-			<section>
-				<h3>Conclusion</h3>
-				<p>
-					Les feuilles de calcul sont pratiques pour des tâches simples, mais elles ne sont pas adaptées pour la gestion de données complexes et volumineuses.
-					</p>
-				<p class="fragment">
-					Les BDR sont essentielles pour la gestion des données dans de nombreux domaines, notamment les
-					entreprises, les administrations publiques, les transactions financières et les applications web.
-				</p>
-				<aside class="notes">
-					Par exemple, dans les entreprises, elles permettent de centraliser des informations critiques telles que les données clients, les commandes, les stocks ou la comptabilité. 
-					Dans les administrations publiques, elles servent à gérer des bases de données citoyennes (état civil, impôts, sécurité sociale). 
-					Dans le secteur des transactions financières, les BDR assurent la fiabilité et la traçabilité des opérations bancaires en temps réel, tout en garantissant la sécurité des données sensibles. 
-					Enfin, dans les applications web, comme les sites e-commerce ou les réseaux sociaux, elles gèrent efficacement les profils utilisateurs, les contenus, les historiques d’achat ou les interactions en ligne, tout en permettant un accès rapide et simultané à des millions d’utilisateurs.
-				</aside>
-			</section>
-			<section>
-				<h3>Objectifs du cours</h3>
-				<p>
-					À la fin de ce cours, vous serez capable de:
-				<ol>
-					<li>Comprendre l’histoire et la motivation des BDR</li>
-					<li>Modéliser des données de manière efficace</li>
-					<li>Créer une base de données dans un SGBD</li>
-					<li>Interroger les données avec SQL</li>
-				</ol>
-				</p>
-			</section>
-
-			<section>
-				<h3>Histoire des BDR</h3>
-				<p>
-					Les BDR ont été introduites dans les années 1970 par Edgar F. Codd, qui a proposé le modèle
-					relationnel.
-					<img src="figures/codd-image.jpeg" alt="Feuille de calcul des finales de Roland Garros"
-						style="max-width: 60%; height: auto;">
-				</p>
-			</section>
-			<section>
-				<h3>Stockage des données avant les bases de données</h3>
-				<p>
-					Jusqu'aux années 1960, les données étaient principalement stockées dans des fichiers physiques
-					(cartes perforées, bandes magnétiques, fichiers séquentiels sur disque). Chaque application gérait
-					ses propres fichiers, ce qui rendait le partage et la maintenance des données complexes et sujets
-					aux erreurs.
-				</p>
-			</section>
-			<section>
-				<h3>L'apparition des systèmes hiérarchiques</h3>
-				<p>
-					Dans les années 1960, IBM introduit le système hiérarchique IMS (Information Management System) pour
-					la mission Apollo. Les données étaient organisées en arborescences, ce qui améliorait la gestion
-					mais restait rigide et difficile à adapter à de nouveaux besoins.
-				</p>
-			</section>
-			<section>
-				<h3>Les limites des modèles hiérarchiques</h3>
-				<p>
-					Les modèles hiérarchiques dominaient jusqu'au début des années 1970. Ils souffraient
-					d'un manque de flexibilité, de redondance et de complexité dans la navigation et la modification des
-					données.
-				</p>
-			</section>
-			<section>
-				<h3>Fondation des BDR</h3>
-				<p>
-					<small>En 1970, Edgar F. (Ted) Codd, chercheur chez IBM, publie l'article fondateur.</small>
-				</p>
-				<p>
-					Il propose d'organiser les données en tables (relations), indépendamment de la structure physique,
-					pour plus de flexibilité et de simplicité.
-				</p>
-				<img src="figures/codd-paper.png" alt="Papier de Ted Codd" style="max-width: 50%; height: auto;">
-			</section>
-			<section>
-				<h3>Systèmes de gestion de base de données (SGBD)</h3>
-				<p>
-					IBM développe le prototype System R dans les années 1970, mais c'est Oracle qui lance en 1979 le
-					premier SGBD relationnel commercial.
-				</p>
-				<img src="figures/IBM-logo.jpeg" alt="Logo IBM" style="max-width: 20%; height: auto;">
-				
-				<p>
-					<small>D'autres acteurs comme IBM (DB2) et Ingres suivent rapidement, adoptant aussi le modèle
-						relationnel de Codd.</small>
-				</p>
-			</section>
-			<section>
-				<h3>L'arrivée du langage SQL</h3>
-				<p>
-					Le langage SQL (Structured Query Language) est conçu dans le cadre du projet System R chez IBM au
-					milieu des années 1970. Il devient rapidement le standard pour interroger et manipuler les bases de
-					données relationnelles, et est adopté par tous les grands SGBD dès les années 1980.
-				</p>
-			</section>
-			<section>
-				<h3>Motivation des BDR</h3>
-				<p>
-					Les BDR permettent de structurer les données, d'assurer leur intégrité et de faciliter leur
-					manipulation.
-				</p>
-			</section>
-			<section>
-				<h3>Modélisation des données</h3>
-				<p>
-					La modélisation des données est le processus de création d'un modèle abstrait qui représente les
-					données et leurs relations.
-				</p>
-			</section>
-
-			<section>
-				<h3>Modèle relationnel</h3>
-				<p>
-					Le modèle relationnel organise les données en tables, où chaque table représente une entité et les
-					colonnes représentent les attributs de cette entité.
-				</p>
-			</section>
-			<section>
-				<h3>Création d’une BDR</h3>
-				<p>
-					Pour créer une base de données relationnelle, on utilise un SGBD (Système de Gestion de Base de
-					Données) comme MySQL, PostgreSQL ou SQLite.
-				</p>
-			</section>
-			<section>
-				<h3>Interrogation des données avec SQL</h3>
-				<p>
-					SQL (Structured Query Language) est le langage standard pour interagir avec les bases de données
-					relationnelles.
-				</p>
-			</section>
-			<section>
-				<h3>Le cours est divisé en plusieurs sections</h3>
-				<ol>
-					<li>Introduction aux BDR</li>
-					<li>Modélisation des données</li>
-					<li>Création d’une BDR</li>
-					<li>Interrogation des données avec SQL</li>
-				</ol>
-			</section>
-
-			<section>
-				<h3>Conclusion</h3>
-				<p>
-					Les bases de données relationnelles sont essentielles pour la gestion des données dans de nombreux
-					domaines.
-				</p>
-			</section>
-		</div>
-	</div>
-
-	<script src="dist/reveal.js"></script>
-	<script src="plugin/notes/notes.js"></script>
-	<script src="plugin/markdown/markdown.js"></script>
-	<script src="plugin/highlight/highlight.js"></script>
-	<script>
-		// More info about initialization & config:
-		// - https://revealjs.com/initialization/
-		// - https://revealjs.com/config/
-		Reveal.initialize({
-			hash: true,
-
-			// Learn about plugins: https://revealjs.com/plugins/
-			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
-		});
-	</script>
+    <footer>Utilisez les flèches du clavier ou cliquez pour naviguer dans chaque diaporama.</footer>
+</main>
 </body>
-
 </html>
