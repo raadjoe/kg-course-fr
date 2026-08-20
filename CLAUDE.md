@@ -25,7 +25,7 @@ Ces quatre règles s'appliquent à **toute** slide écrite dans ce projet, sans 
 
 1. **Aucun tiret cadratin (`—`) dans le texte des slides.** Ni dans les titres, ni dans le corps, ni dans les notes de code. Remplacer par une virgule, un deux-points, un point (nouvelle phrase), ou reformuler. Le tiret court `-` reste autorisé dans un mot composé (`Web 2.0`, `court-circuit`) mais jamais comme ponctuation de séparation.
 2. **Une idée par slide, sans exception.** Si une idée a plusieurs facettes (plusieurs phrases d'un texte à traduire, plusieurs faits à établir, plusieurs mécanismes à comparer), elle se déroule sur **plusieurs slides successives**, une facette à la fois, plutôt que d'être compressée sur une seule. Voir la section [Densité et lisibilité](#-densité-et-lisibilité).
-3. **Suivre le style réel des chapitres 1 et 2**, pas un template générique. `pages/1-Introduction.html` et `pages/2-RDF.html` sont la référence de vérité : mêmes classes CSS, mêmes couleurs, mêmes gabarits de diviseurs. Ne jamais inventer une classe CSS sans la définir dans le bloc `<style>` du fichier (règle historique, toujours valide : deux classes, `.code-badge` et `.code-note`, ont été utilisées dans `2-RDF.html` sans jamais être définies, elles s'affichent donc sans aucun style, voir [Anatomie d'un fichier de chapitre](#-anatomie-réelle-dun-fichier-de-chapitre) pour la correction à reprendre).
+3. **Suivre le style réel des chapitres 1 et 2**, pas un template générique. `pages/1-Introduction.html` et `pages/2-Modélisation.html` sont la référence de vérité : mêmes classes CSS, mêmes couleurs, mêmes gabarits de diviseurs. Ne jamais inventer une classe CSS sans la définir dans le bloc `<style>` du fichier (règle historique, toujours valide : deux classes, `.code-badge` et `.code-note`, ont été utilisées dans `2-Modélisation.html` sans jamais être définies, elles s'affichent donc sans aucun style, voir [Anatomie d'un fichier de chapitre](#-anatomie-réelle-dun-fichier-de-chapitre) pour la correction à reprendre).
 4. **Un contraste de couleur soigné.** Le texte qui porte une idée importante ne doit jamais être écrit dans une couleur de note de bas de page. Voir [Palette de couleurs et contraste](#-palette-de-couleurs-et-contraste).
 
 ---
@@ -35,14 +35,14 @@ Ces quatre règles s'appliquent à **toute** slide écrite dans ce projet, sans 
 Le fil rouge historique du cours est un graphe de connaissances sur **Roland-Garros et le tennis** (joueurs, tournois, classements, ATP/WTA), un contexte concret, international, et bien couvert par Wikidata.
 
 - **Les exemples sportifs sont préférés**, pour la continuité pédagogique d'un chapitre à l'autre.
-- **Ils ne sont pas obligatoires.** Quand un autre domaine sert mieux l'idée à enseigner (éviter la lassitude d'un exercice qui recycle toujours les mêmes faits, illustrer un concept avec un exemple plus parlant, coller à un jeu de données réel pour le chapitre 5), il faut changer de domaine sans hésiter. C'est déjà le cas dans `2-RDF.html` : l'exercice "texte vers triplets" utilise la Tour Eiffel plutôt que le tennis, précisément pour sortir du fil rouge répété sur plusieurs slides consécutives.
+- **Ils ne sont pas obligatoires.** Quand un autre domaine sert mieux l'idée à enseigner (éviter la lassitude d'un exercice qui recycle toujours les mêmes faits, illustrer un concept avec un exemple plus parlant, coller à un jeu de données réel pour le chapitre 5), il faut changer de domaine sans hésiter. C'est déjà le cas dans `2-Modélisation.html` : l'exercice "texte vers triplets" utilise la Tour Eiffel plutôt que le tennis, précisément pour sortir du fil rouge répété sur plusieurs slides consécutives.
 - Dans les deux cas, toujours des **données réelles et vérifiables** (vrais noms, vraies dates, vrais QIDs Wikidata si pertinent), jamais `foo`/`bar`/`example.org/X`.
 
 ---
 
 ## 🛠️ Workflow
 
-Tu travailles dans **VS Code**. Le projet contient un fichier HTML Reveal.js par chapitre dans `pages/` (`0-Plan.html`, `1-Introduction.html`, `2-RDF.html`, puis les chapitres à venir). L'utilisateur t'indiquera quel fichier ouvrir, ou le fichier sera déjà ouvert dans l'éditeur.
+Tu travailles dans **VS Code**. Le projet contient un fichier HTML Reveal.js par chapitre dans `pages/` (`0-Plan.html`, `1-Introduction.html`, `2-Modélisation.html`, puis les chapitres à venir). L'utilisateur t'indiquera quel fichier ouvrir, ou le fichier sera déjà ouvert dans l'éditeur.
 
 **Procédure standard pour chaque tâche :**
 1. **Lire le fichier ciblé en entier avant d'écrire quoi que ce soit**, même si tu penses déjà connaître sa structure. Le bloc `<style>` en tête de fichier liste les classes réellement disponibles.
@@ -245,7 +245,7 @@ Il n'y a pas de variables CSS `:root` pour les couleurs : elles sont écrites en
 
 ## 🧩 Bibliothèque de composants réels
 
-Catalogue des patterns HTML effectivement utilisés dans `1-Introduction.html` et `2-RDF.html`. Toujours partir d'un de ces patterns plutôt que d'en inventer un nouveau.
+Catalogue des patterns HTML effectivement utilisés dans `1-Introduction.html` et `2-Modélisation.html`. Toujours partir d'un de ces patterns plutôt que d'en inventer un nouveau.
 
 ### Diviseur de chapitre
 Une slide par chapitre, avec un grand numéro en filigrane et un bandeau de titre.
@@ -382,7 +382,7 @@ Pas de classe `big-num` dédiée : un `.box` avec un grand chiffre coloré.
 ```
 
 ### Exercice pédagogique en plusieurs slides
-Pattern établi dans `2-RDF.html` (exercice Tour Eiffel), à reprendre pour tout nouvel exercice "texte vers triplets" ou "modélisation guidée" :
+Pattern établi dans `2-Modélisation.html` (exercice Tour Eiffel), à reprendre pour tout nouvel exercice "texte vers triplets" ou "modélisation guidée" :
 1. **Diviseur de sous-section** : "Exercice : [sujet]", tagline d'une phrase.
 2. **Énoncé** : le texte source complet, dans une boîte de citation.
 3. **Une slide par fait ou par phrase** : la phrase concernée en citation (avec le passage clé mis en couleur), les triplets qu'elle produit révélés en `fragment`, une note courte expliquant le choix (IRI vs littéral, type, etc.).
@@ -452,9 +452,9 @@ Quand aucune image adaptée n'existe, poser un placeholder explicite avec la cla
 |---|---|---|---|
 | 0 | Plan du module | Objectifs, plan, évaluation | Fait |
 | 1 | Introduction | Web, ses limites, Web Sémantique, graphes de connaissances | Fait |
-| 2 | RDF | Modèle de données, IRIs, littéraux, blank nodes, syntaxes, contextualisation (réification, graphes nommés, RDF-star) | Fait |
+| 2 | Modélisation | Modèle de données, IRIs, littéraux, blank nodes, syntaxes, contextualisation (réification, graphes nommés, RDF-star) | Fait |
 | 3 | Raisonnement | RDFS (classes, propriétés, `domain`/`range`, inférence) et une introduction à OWL (restrictions, `owl:sameAs`, raisonnement) | Fait |
-| 4 | SPARQL | Langage de requête : SELECT, patterns, OPTIONAL/FILTER, agrégats, fédération, triplestores et endpoints | Fait |
+| 4 | Interrogation | Langage de requête : SELECT, patterns, OPTIONAL/FILTER, agrégats, fédération, triplestores et endpoints | Fait |
 | 5 | Wikidata | Applications concrètes : construire un graphe depuis un CSV (OntoRefine), interroger Wikidata en détail, lier un graphe local à Wikidata | À écrire |
 
 Le fil rouge tennis/Roland-Garros reste la base par défaut pour les chapitres 3 et 4. Pour le chapitre 5, le choix du jeu de données (sportif ou non) dépendra de ce qui illustre le mieux OntoRefine et le liage à Wikidata : privilégier un CSV réel et propre plutôt que de forcer un jeu de données sportif si un autre convient mieux.
@@ -485,7 +485,7 @@ Le fil rouge tennis/Roland-Garros reste la base par défaut pour les chapitres 3
 > "Lis ce fichier. Ajoute une slide avec badge SPARQL pour montrer OPTIONAL. Max 12 lignes de code, données réelles. Ajoute une `.code-note`."
 
 **Créer un exercice en plusieurs slides :**
-> "Lis ce fichier. Ajoute un exercice 'texte vers triplets' sur [sujet], suivant le pattern établi dans 2-RDF.html : diviseur, énoncé, une slide par phrase, graphe complet. Pas de tiret cadratin, une idée par slide."
+> "Lis ce fichier. Ajoute un exercice 'texte vers triplets' sur [sujet], suivant le pattern établi dans 2-Modélisation.html : diviseur, énoncé, une slide par phrase, graphe complet. Pas de tiret cadratin, une idée par slide."
 
 **Vérifier un fichier :**
 > "Lis ce fichier et liste : (1) les slides avec plus d'une idée principale ou plus de 4 blocs empilés, (2) les blocs de code sans badge ou sans classe `language-*`, (3) toute occurrence de tiret cadratin (—), (4) les classes CSS utilisées mais jamais définies dans le `<style>`."
@@ -494,7 +494,7 @@ Le fil rouge tennis/Roland-Garros reste la base par défaut pour les chapitres 3
 > "Cette slide a 5 points empilés. Coupe-la en plusieurs slides distinctes, 2 à 3 blocs chacune. Préserve le contenu, respecte le style du fichier actuel."
 
 **Créer un fichier de chapitre complet :**
-> "Crée `N-NomDuChapitre.html` en copiant la structure exacte de `2-RDF.html` (même bloc `<style>`, même init Reveal.js, y compris `.code-badge`/`.code-note`). Structure le contenu en diviseur de chapitre, puis diviseurs de section, puis slides de contenu. Pas de tiret cadratin, une idée par slide, contraste soigné."
+> "Crée `N-NomDuChapitre.html` en copiant la structure exacte de `2-Modélisation.html` (même bloc `<style>`, même init Reveal.js, y compris `.code-badge`/`.code-note`). Structure le contenu en diviseur de chapitre, puis diviseurs de section, puis slides de contenu. Pas de tiret cadratin, une idée par slide, contraste soigné."
 
 ---
 
