@@ -1265,8 +1265,8 @@ ex:rafael_nadal  ex:aCommeEntraineurPrincipal  ex:carlos_moya .</code></pre>
         var hljs = RevealHighlight().hljs;
 
         var IRI            = { className: 'meta',     begin: /<[^\s<>]*>/ };
-        var PREFIXED_NAME  = { className: 'symbol',    begin: /[A-Za-z][\w-]*:[A-Za-z_][\w-]*/ };
-        var DATATYPE       = { className: 'symbol',    begin: /\^\^[A-Za-z][\w-]*:[A-Za-z_][\w-]*/ };
+        var PREFIXED_NAME  = { className: 'symbol',    begin: /[\p{L}][\p{L}\p{N}_-]*:[\p{L}_][\p{L}\p{N}_-]*/u };
+        var DATATYPE       = { className: 'symbol',    begin: /\^\^[\p{L}][\p{L}\p{N}_-]*:[\p{L}_][\p{L}\p{N}_-]*/u };
         var LANG_TAG       = { className: 'symbol',    begin: /@[A-Za-z-]+/ };
 
         function turtleLang(hljs) {
@@ -1283,7 +1283,7 @@ ex:rafael_nadal  ex:aCommeEntraineurPrincipal  ex:carlos_moya .</code></pre>
                     hljs.APOS_STRING_MODE,
                     hljs.C_NUMBER_MODE,
                     IRI, DATATYPE, PREFIXED_NAME,
-                    { className: 'variable', begin: /_:[A-Za-z0-9_-]+/ },
+                    { className: 'variable', begin: /_:[\p{L}\p{N}_-]+/u },
                     LANG_TAG
                 ]
             };
@@ -1307,7 +1307,7 @@ ex:rafael_nadal  ex:aCommeEntraineurPrincipal  ex:carlos_moya .</code></pre>
                     hljs.QUOTE_STRING_MODE,
                     hljs.APOS_STRING_MODE,
                     hljs.C_NUMBER_MODE,
-                    { className: 'variable', begin: /[?$][A-Za-z_]\w*/ },
+                    { className: 'variable', begin: /[?$][\p{L}_][\p{L}\p{N}_]*/u },
                     IRI, DATATYPE, PREFIXED_NAME, LANG_TAG
                 ]
             };

@@ -487,9 +487,7 @@
     <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.8em;">
         <div class="box">
             <p style="color:#aaa; margin:0 0 0.4rem 0; font-size:0.9em;">Triplet sans préfixe :</p>
-            <pre style="margin:0; font-size:0.82em;"><code class="language-ntriples">&lt;http://example.org/alcaraz&gt;
-&lt;http://example.org/aGagné&gt;
-&lt;http://example.org/rg2025&gt; .</code></pre>
+            <pre style="margin:0; font-size:0.78em;"><code class="language-ntriples">&lt;http://example.org/alcaraz&gt; &lt;http://example.org/aGagné&gt; &lt;http://example.org/rg2025&gt; .</code></pre>
         </div> 
         <div class="box box-blue fragment">
             <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.9em;">Le même triplet avec préfixe :</p>
@@ -531,7 +529,7 @@ ex:court_chatrier rdf:type  ex:Place .</code></pre>
     <div class="box fragment" style="margin-top:0.7rem; font-size:0.82em;">
         Une même ressource peut avoir <strong>plusieurs types</strong> simultanément :<br>
         <code>ex:rg2025  rdf:type  ex:GrandChelem .</code><br>
-        <code>ex:rg2025  rdf:type  ex:SportsEvent .</code>
+        <code>ex:rg2025  rdf:type  ex:ÉvenementEnFrance .</code>
     </div>
 </section>
 
@@ -1660,8 +1658,8 @@ ex:tour_eiffel  ex:hauteur  330 .
         var hljs = RevealHighlight().hljs;
 
         var IRI            = { className: 'meta',     begin: /<[^\s<>]*>/ };
-        var PREFIXED_NAME  = { className: 'symbol',    begin: /[A-Za-z][\w-]*:[A-Za-z_][\w-]*/ };
-        var DATATYPE       = { className: 'symbol',    begin: /\^\^[A-Za-z][\w-]*:[A-Za-z_][\w-]*/ };
+        var PREFIXED_NAME  = { className: 'symbol',    begin: /[\p{L}][\p{L}\p{N}_-]*:[\p{L}_][\p{L}\p{N}_-]*/u };
+        var DATATYPE       = { className: 'symbol',    begin: /\^\^[\p{L}][\p{L}\p{N}_-]*:[\p{L}_][\p{L}\p{N}_-]*/u };
         var LANG_TAG       = { className: 'symbol',    begin: /@[A-Za-z-]+/ };
 
         function turtleLang(hljs) {
@@ -1678,7 +1676,7 @@ ex:tour_eiffel  ex:hauteur  330 .
                     hljs.APOS_STRING_MODE,
                     hljs.C_NUMBER_MODE,
                     IRI, DATATYPE, PREFIXED_NAME,
-                    { className: 'variable', begin: /_:[A-Za-z0-9_-]+/ },
+                    { className: 'variable', begin: /_:[\p{L}\p{N}_-]+/u },
                     LANG_TAG
                 ]
             };
@@ -1702,7 +1700,7 @@ ex:tour_eiffel  ex:hauteur  330 .
                     hljs.QUOTE_STRING_MODE,
                     hljs.APOS_STRING_MODE,
                     hljs.C_NUMBER_MODE,
-                    { className: 'variable', begin: /[?$][A-Za-z_]\w*/ },
+                    { className: 'variable', begin: /[?$][\p{L}_][\p{L}\p{N}_]*/u },
                     IRI, DATATYPE, PREFIXED_NAME, LANG_TAG
                 ]
             };
