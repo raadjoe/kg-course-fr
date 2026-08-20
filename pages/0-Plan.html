@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow">
+    <title>0-Plan</title>
+
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/night.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../plugin/highlight/monokai.css">
+
+    <style>
+        /* ── Helpers for this deck ───────────────────────────────── */
+        .part-label {
+            display: inline-block;
+            background: #4f8ef7;
+            color: #09090f;
+            font-size: 0.65em;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.8rem;
+            border-radius: 3px;
+            margin-bottom: 1.2rem;
+        }
+        .box {
+            border: 1px solid #3d4168;
+            border-radius: 6px;
+            padding: 0.8rem 1.2rem;
+            background: #0d1117;
+            font-size: 0.82em;
+            line-height: 1.55;
+            margin-top: 0.6rem;
+        }
+        .box-blue { border-color: #4f8ef7; }
+        .img-placeholder {
+            width: 80%;
+            margin: 0.6rem auto;
+            background: #0d1117;
+            border: 2px dashed #3d4168;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            color: #6b7099;
+            font-size: 0.62em;
+            text-align: center;
+            padding: 0.8rem;
+            box-sizing: border-box;
+        }
+        .img-placeholder strong { color: #4f8ef7; font-size: 1.05em; }
+        .img-placeholder .src   { color: #3d4168; }
+        .two-col { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .two-col > div { flex: 1; }
+        .rdf-table { width: 100%; border-collapse: collapse; font-size: 0.72em; }
+        .rdf-table th {
+            background: #1e3a5f; color: #7eb8f7;
+            padding: 0.35rem 0.6rem; border: 1px solid #444; text-align: left;
+        }
+        .rdf-table td {
+            padding: 0.3rem 0.6rem; border: 1px solid #444; color: #eef0ff;
+        }
+        .rdf-table tr:nth-child(even) td { background: #0d1117; }
+        blockquote {
+            border-left: 4px solid #4f8ef7;
+            padding-left: 1rem;
+            color: #aaa;
+            font-style: italic;
+            margin: 0.8rem 0;
+        }
+        .kv-row { display: flex; gap: 1rem; align-items: baseline; margin-bottom: 0.5rem; }
+        .kv-label {
+            min-width: 110px; text-align: right;
+            color: #4f8ef7; font-size: 0.7em; font-family: monospace;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            border-right: 2px solid #3d4168; padding-right: 0.6rem;
+            flex-shrink: 0;
+        }
+        .kv-body { font-size: 0.82em; line-height: 1.5; }
+        code { font-size: 0.85em; color: #7eb8f7; background: #0d1117; padding: 0.1em 0.35em; border-radius: 3px; }
+
+        /* ── Override night theme yellow links ───────────────────── */
+        :root {
+            --r-main-font-size:   34px;
+            --r-link-color:       #4f8ef7;
+            --r-link-color-dark:  #2a5cb8;
+            --r-link-color-hover: #7eb8f7;
+            --r-selection-background-color: #2a5cb8;
+        }
+        .reveal a             { color: #4f8ef7; }
+        .reveal a:hover       { color: #7eb8f7; }
+        .reveal .controls     { color: #4f8ef7; }
+        .reveal .progress span { background: #4f8ef7; }
+    </style>
+</head>
+
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════════════
+  COVER
+═══════════════════════════════════════════════════════════════ -->
+<section>
+    <h2>Graphes de connaissances :</h2>
+    <h2>fondements et applications</h2>
+    <br> <br>
+    <h3>BACHELOR HEPTA</h3>
+                <p>
+                    <h3><a href="http://joe-raad.com">Joe Raad</a></h3>
+                </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  PLAN DU MODULE & OBJECTIFS
+═══════════════════════════════════════════════════════════════ -->
+
+<section data-background-color="#020408" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.25) 0px,rgba(79,142,247,0.25) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.25) 0px,rgba(79,142,247,0.25) 1px,transparent 1px,transparent 60px)" data-transition="slide">
+    <div style="display:flex; align-items:center; gap:2.5rem; justify-content:center; max-width:860px; margin:0 auto;">
+        <div style="font-size:7em; font-weight:900; color:rgba(79,142,247,0.13); line-height:1; flex-shrink:0; font-family:monospace; user-select:none;">00</div>
+        <div style="text-align:left; border-left:3px solid #4f8ef7; padding-left:2rem;">
+            <h2 style="font-size:1.3em; margin:0 0 1.4rem 0; color:#eef0ff;">Plan du module</h2>
+            <!-- <div style="font-size:0.62em; color:#6b7099; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.7rem;">Sections</div>
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">1.1</span>
+                <span>Le Web et ses limites</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">1.2</span>
+                <span>Graphes de connaissances</span>
+            </div> -->
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3 style="margin-bottom: 1.5rem;">Objectifs de ce cours</h3>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 950px; margin: 0 auto; text-align: left;">
+        
+        <div class="box fragment" style="border-top: 3px solid #ff9f43; display: flex; flex-direction: column; justify-content: flex-start; height: 90%;">
+            <div>
+                <span style="font-size: 0.6em; font-weight: 700; color: #ff9f43; text-transform: uppercase; letter-spacing: 0.12em; display: block; margin-bottom: 0.3rem;">1. Comprendre</span>
+                <h4 style="font-size: 0.85em; margin: 0 0 0.8rem 0; color: #fff;">L'enjeu crucial pour l'IA</h4>
+            </div>
+            <p style="font-size: 0.75em; color: #eef0ff; line-height: 1.5; margin: 0;">
+                Saisir les limites du Web textuel actuel et découvrir comment les Graphes de Connaissances servent de socle pour guider l'IA moderne et éliminer les hallucinations des LLMs.
+            </p>
+        </div>
+
+        <div class="box fragment" style="border-top: 3px solid #4f8ef7; display: flex; flex-direction: column; justify-content: flex-start; height: 90%;">
+            <div>
+                <span style="font-size: 0.6em; font-weight: 700; color: #4f8ef7; text-transform: uppercase; letter-spacing: 0.12em; display: block; margin-bottom: 0.3rem;">2. Modéliser</span>
+                <h4 style="font-size: 0.85em; margin: 0 0 0.8rem 0; color: #fff;">Traduire le monde en graphes</h4>
+            </div>
+            <p style="font-size: 0.75em; color: #eef0ff; line-height: 1.5; margin: 0;">
+                Apprendre à structurer des informations réelles en utilisant des standards formels afin de transformer des textes opaques en réseaux de données interprétables par les machines.
+            </p>
+        </div>
+
+        <div class="box fragment" style="border-top: 3px solid #4f8ef7; display: flex; flex-direction: column; justify-content: flex-start; height: 100%;">
+            <div>
+                <span style="font-size: 0.6em; font-weight: 700; color: #4f8ef7; text-transform: uppercase; letter-spacing: 0.12em; display: block; margin-bottom: 0.3rem;">3. Interroger</span>
+                <h4 style="font-size: 0.85em; margin: 0 0 0.8rem 0; color: #fff;">Extraire le sens caché</h4>
+            </div>
+            <p style="font-size: 0.75em; color: #eef0ff; line-height: 1.5; margin: 0;">
+                Maîtriser le langage SPARQL pour poser des questions complexes et utiliser des mécanismes de raisonnement logique pour extraire des faits qui ne sont pas écrits explicitement.
+            </p>
+        </div>
+
+        <div class="box fragment" style="border-top: 3px solid #4f8ef7; display: flex; flex-direction: column; justify-content: flex-start; height: 100%;">
+            <div>
+                <span style="font-size: 0.6em; font-weight: 700; color: #4f8ef7; text-transform: uppercase; letter-spacing: 0.12em; display: block; margin-bottom: 0.3rem;">4. Lier</span>
+                <h4 style="font-size: 0.85em; margin: 0 0 0.8rem 0; color: #fff;">Unir les données mondiales</h4>
+            </div>
+            <p style="font-size: 0.75em; color: #eef0ff; line-height: 1.5; margin: 0;">
+                Exploiter l'architecture du Web Sémantique pour connecter des sources mondiales hétérogènes et transformer des silos isolés en un espace de données global ouvert et interopérable.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Plan du module</h3>
+    <p style="font-size:0.75em; color:#aaa;">Tous les standards ci-dessous sont des recommandations officielles du W3C.</p>
+    <ol>
+        <li><strong>Introduction au Web Sémantique &amp; RDF</strong> <em style="font-size:0.8em; color:#aaa;">(aujourd'hui)</em></li>
+        <li class="fragment"><strong>RDFS</strong> : vocabulaire et raisonnement de base</li>
+        <li class="fragment"><strong>OWL</strong> : ontologies et raisonnement avancé</li>
+        <li class="fragment"><strong>SPARQL</strong> : langage de requête pour les graphes</li>
+        <li class="fragment"><strong>GeoSPARQL</strong> : données géographiques et requêtes spatiales</li>
+    </ol>
+</section>
+
+<section>
+    <h3>À la fin de ce module, vous saurez…</h3>
+    <ul>
+        <li class="fragment"><strong>Créer</strong> des graphes de connaissances capables de raisonner automatiquement sur un domaine</li>
+        <li class="fragment"><strong>Organiser et interroger</strong> des informations sous forme de graphes à l'aide des technologies du Web Sémantique (RDF, RDFS, SPARQL)</li>
+        <li class="fragment"><strong>Travailler</strong> avec des données géographiques grâce à GeoSPARQL</li>
+        <li class="fragment"><strong>Comprendre</strong> les fondements symboliques de l'IA moderne : et pourquoi les KGs sont indispensables aux systèmes d'IA fiables</li>
+    </ul>
+    <p class="fragment" style="margin-top:1rem; font-style:italic; color:#4f8ef7;">
+        Objectif : donner du <em>sens</em> aux données : construire des connaissances que les machines peuvent exploiter.
+    </p>
+</section>
+
+<section>
+    <h3>Evaluation</h3>
+</section>
+
+
+
+
+
+</div><!-- .slides -->
+</div><!-- .reveal -->
+
+<script src="../dist/reveal.js"></script>
+<script src="../plugin/notes/notes.js"></script>
+<script src="../plugin/markdown/markdown.js"></script>
+<script src="../plugin/highlight/highlight.js"></script>
+<script>
+    Reveal.initialize({
+        hash: true,
+        slideNumber: false,
+        pdfSeparateFragments: false,
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+</script>
+</body>
+</html>

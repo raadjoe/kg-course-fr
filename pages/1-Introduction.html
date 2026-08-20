@@ -1,0 +1,1200 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow">
+    <title>1-Introduction</title>
+
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/night.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../plugin/highlight/monokai.css">
+
+    <style>
+        /* ── Helpers for this deck ───────────────────────────────── */
+        .part-label {
+            display: inline-block;
+            background: #4f8ef7;
+            color: #09090f;
+            font-size: 0.65em;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.8rem;
+            border-radius: 3px;
+            margin-bottom: 1.2rem;
+        }
+        .box {
+            border: 1px solid #3d4168;
+            border-radius: 6px;
+            padding: 0.8rem 1.2rem;
+            background: #0d1117;
+            font-size: 0.82em;
+            line-height: 1.55;
+            margin-top: 0.6rem;
+        }
+        .box-blue { border-color: #4f8ef7; }
+        .img-placeholder {
+            width: 80%;
+            margin: 0.6rem auto;
+            background: #0d1117;
+            border: 2px dashed #3d4168;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            color: #6b7099;
+            font-size: 0.62em;
+            text-align: center;
+            padding: 0.8rem;
+            box-sizing: border-box;
+        }
+        .img-placeholder strong { color: #4f8ef7; font-size: 1.05em; }
+        .img-placeholder .src   { color: #3d4168; }
+        .two-col { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .two-col > div { flex: 1; }
+        .rdf-table { width: 100%; border-collapse: collapse; font-size: 0.72em; }
+        .rdf-table th {
+            background: #1e3a5f; color: #7eb8f7;
+            padding: 0.35rem 0.6rem; border: 1px solid #444; text-align: left;
+        }
+        .rdf-table td {
+            padding: 0.3rem 0.6rem; border: 1px solid #444; color: #eef0ff;
+        }
+        .rdf-table tr:nth-child(even) td { background: #0d1117; }
+        blockquote {
+            border-left: 4px solid #4f8ef7;
+            padding-left: 1rem;
+            color: #aaa;
+            font-style: italic;
+            margin: 0.8rem 0;
+        }
+        .kv-row { display: flex; gap: 1rem; align-items: baseline; margin-bottom: 0.5rem; }
+        .kv-label {
+            min-width: 110px; text-align: right;
+            color: #4f8ef7; font-size: 0.7em; font-family: monospace;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            border-right: 2px solid #3d4168; padding-right: 0.6rem;
+            flex-shrink: 0;
+        }
+        .kv-body { font-size: 0.82em; line-height: 1.5; }
+        code { font-size: 0.85em; color: #7eb8f7; background: #0d1117; padding: 0.1em 0.35em; border-radius: 3px; }
+
+        /* ── Override night theme yellow links ───────────────────── */
+        :root {
+            --r-main-font-size:   34px;
+            --r-link-color:       #4f8ef7;
+            --r-link-color-dark:  #2a5cb8;
+            --r-link-color-hover: #7eb8f7;
+            --r-selection-background-color: #2a5cb8;
+        }
+        .reveal a             { color: #4f8ef7; }
+        .reveal a:hover       { color: #7eb8f7; }
+        .reveal .controls     { color: #4f8ef7; }
+        .reveal .progress span { background: #4f8ef7; }
+    </style>
+</head>
+
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════════════
+  COVER
+═══════════════════════════════════════════════════════════════ -->
+<section>
+    <h2>Graphes de connaissances :</h2>
+    <h2>fondements et applications</h2>
+    <br> <br>
+    <h3>BACHELOR HEPTA</h3>
+                <p>
+                    <h3><a href="http://joe-raad.com">Joe Raad</a></h3>
+                </p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  CHAPITRE 1 : INTRODUCTION
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#020408" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.25) 0px,rgba(79,142,247,0.25) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.25) 0px,rgba(79,142,247,0.25) 1px,transparent 1px,transparent 60px)" data-transition="slide">
+    <div style="display:flex; align-items:center; gap:2.5rem; justify-content:center; max-width:860px; margin:0 auto;">
+        <div style="font-size:7em; font-weight:900; color:rgba(79,142,247,0.13); line-height:1; flex-shrink:0; font-family:monospace; user-select:none;">01</div>
+        <div style="text-align:left; border-left:3px solid #4f8ef7; padding-left:2rem;">
+            <div style="font-size:0.52em; font-weight:700; color:#4f8ef7; letter-spacing:0.25em; text-transform:uppercase; margin-bottom:0.6rem;">Chapitre 1</div>
+            <h2 style="font-size:1.3em; margin:0 0 1.4rem 0; color:#eef0ff;">Introduction</h2>
+            <!-- <div style="font-size:0.62em; color:#6b7099; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.7rem;">Sections</div>
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">1.1</span>
+                <span>Le Web et ses limites</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">1.2</span>
+                <span>Graphes de connaissances</span>
+            </div> -->
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 1.1 : LE WEB ET SES LIMITES
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">INTRODUCTION</div>
+    <h2>1. Le Web et ses limites</h2>
+    <p style="color:#aaa;">Contexte, histoire et pourquoi les machines peinent à exploiter les données du Web</p>
+</section>
+
+<section>
+    <h3 style="margin-bottom: 2rem;">Pourquoi commencer par le Web ?</h3>
+
+    <div style="display: flex; flex-direction: column; gap: 0.8rem; max-width: 850px; margin: 0 auto; text-align: left;">
+        
+        <div class="box fragment" style="border-left: 4px solid #4f8ef7; padding: 0.8rem 1.2rem; background: #111827;">
+            <strong style="color: #4f8ef7; font-size: 0.9em; display: block; margin-bottom: 0.2rem;">1. L'infrastructure d'origine</strong>
+            <p style="font-size: 0.78em; margin: 0; color: #eef0ff; line-height: 1.4;">
+                Il représente l'écosystème et l'infrastructure de référence où sont générées et centralisées nos données.
+            </p>
+        </div>
+
+        <div class="box fragment" style="border-left: 4px solid #ff6b6b; padding: 0.8rem 1.2rem; background: #1c1212;">
+            <strong style="color: #ff6b6b; font-size: 0.9em; display: block; margin-bottom: 0.2rem;">2. La barrière des machines</strong>
+            <p style="font-size: 0.78em; margin: 0; color: #eef0ff; line-height: 1.4;">
+                Le revers de la médaille : cette immense bibliothèque textuelle laisse les algorithmes et les IA modernes aveugles face au vrai sens de ces données.
+            </p>
+        </div>
+
+        <div class="box fragment" style="border-left: 4px solid #2ecc71; padding: 0.8rem 1.2rem; background: #0f1c14;">
+            <strong style="color: #2ecc71; font-size: 0.9em; display: block; margin-bottom: 0.2rem;">3. La solution par les Graphes de connaissances</strong>
+            <p style="font-size: 0.78em; margin: 0; color: #eef0ff; line-height: 1.4;">
+                Le cœur de ce cours : apprendre à faire évoluer cette architecture pour interconnecter des connaissances brutes, enfin compréhensibles par les machines et exploitables par les utilisateurs.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section>
+    <h3>Qu'est-ce que le Web ?</h3>
+    <div class="kv-row"><span class="kv-label">Définition</span><span class="kv-body">Système <strong>hypertexte</strong> public fonctionnant sur Internet, permettant de consulter des pages en ligne via un navigateur.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Hyperliens</span><span class="kv-body">Des liens relient les pages entre elles, formant une <strong>toile</strong>. D'où le nom <em>World Wide Web</em>.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Adresse</span><span class="kv-body">Chaque ressource (<em>document, image, vidéo...</em>) possède une adresse unique : une <strong>URL</strong> (Uniform Resource Locator).</span></div>
+</section>
+
+<section>
+    <h3>Web et Internet : deux choses distinctes</h3>
+    <div class="two-col">
+        <div class="box box-blue">
+            <strong style="color:#7eb8f7;">Internet</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em;">Infrastructure mondiale de réseaux et de protocoles (TCP/IP) permettant à des machines de communiquer. Né à la fin des années 1960 (ARPANET*, financé par la DARPA**).</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7;">Le Web</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em;">Service parmi d'autres (email, FTP, VoIP) qui s'appuie sur Internet pour fonctionner. Il utilise des protocoles (HTTP) et des formats de données (HTML) spécifiques.</p>
+        </div>
+    </div>
+    <p class="fragment">Le Web a été inventé environ 20 ans après Internet.</p>
+    <p style="margin-top:0.4rem; font-size:0.65em; color:#888; text-align:left;">* <em>ARPANET</em> : premier réseau informatique militaire américain (1969). <br>** <em>DARPA</em> : agence de recherche avancée du département de la Défense des États-Unis.</p>
+</section>
+
+<section>
+    <h3>Le premier site web</h3>
+    <img src="../figures/premier-site-web.png" alt="Premier site web" style="max-width: 50%; height: auto;">
+    <p style="font-size:0.75em;">Encore accessible aujourd'hui : <code><a href="https://info.cern.ch">https://info.cern.ch</a></code></p>
+    <p>Le projet du web est proposé en 1989 par Tim Berners-Lee au CERN*</p>
+    <p style="margin-top:0.4rem; font-size:0.65em; color:#888; text-align:left;">* Conseil Européen pour la Recherche Nucléaire, à Genève.</p>
+    
+</section>
+
+<section>
+    <h3>Tim Berners-Lee</h3>
+    <div class="two-col">
+        <div>
+            <img src="../figures/tim-berners-lee.png" alt="Tim Berners-Lee" style="max-width: 100%; height: auto;">
+        </div>
+        <div style="font-size:0.78em;">
+            <ul>
+                <br>
+                <li>Informaticien britannique, né en 1955</li>
+                <li class="fragment">Propose le projet Web en 1989 au CERN</li>
+                <li class="fragment">Fonde le World Wide Web Consortium (W3C) en 1994 : l'organisme international qui gère les standards du Web (comme le HTML, CSS, SVG)</li>
+                <li class="fragment">Nommé Chevalier par la Reine d'Angleterre en 2004 (<em>Sir Tim Berners-Lee</em>)</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Web 1.0 (1991-2004) : Le Web de Lecture</h3>
+    <div style="display: flex; gap: 1rem; align-items: center; margin-top: 1rem;">
+        <div style="flex: 0.8;">
+            <img src="../figures/web1.jpg" alt="Netscape / Web 1.0" style="max-width: 90%; height: auto; border-radius: 4px; border: 1px solid #333;">
+        </div>
+        <div style="flex: 1.2; text-align: left; font-size: 0.8em;">
+            <p>Les sites web sont <strong>statiques</strong> : les éditeurs publient les informations et les utilisateurs se contentent de les lire.</p>
+            <p class="fragment" style="margin-top: 0.5rem;"><strong>Technologies clés :</strong> HTML, HTTP, URL. La navigation se fait uniquement en cliquant sur des liens hypertexte de page en page.
+            <div class="box fragment" style="margin-top: 0.8rem; font-size: 0.85em; border-left: 4px solid #4f8ef7;">
+                <strong>L'icône de l'époque :</strong> Le navigateur emblématique <em>Netscape</em>, utilisé pour consulter des annuaires de liens ou des encyclopédies en ligne figées, comme un livre de bibliothèque.
+            </div>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Web 2.0 (2004 à aujourd'hui) : Le Web Participatif</h3>
+    <div style="display: flex; gap: 1rem; align-items: center; margin-top: 1rem;">
+        <div style="flex: 0.9;">
+            <img src="../figures/web2.png" alt="Web 2.0 Social Network" style="max-width: 90%; height: auto; border-radius: 6px;">
+        </div>
+        <div style="flex: 1.1; text-align: left; font-size: 0.75em;">
+            <p>Le contenu n'est plus seulement poussé par des éditeurs, il est massivement <strong>généré par les utilisateurs</strong>.</p>
+            <ul>
+                <li class="fragment">Création collaborative : Wikis, blogs, forums, réseaux sociaux.</li>
+                <li class="fragment">Les interfaces deviennent fluides et applicatives (grâce aux technologies comme Ajax/JavaScript).</li>
+            </ul>
+            <div class="box fragment" style="margin-top:0.6rem; font-size:0.9em; background: #161b22;">
+                Le Web 2.0 marque le début de la participation massive : pour la première fois, n'importe quel utilisateur peut produire et partager du contenu à l'échelle mondiale. C'est la démocratisation du Web.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Le Web d'aujourd'hui en chiffres</h3>
+
+    <p style="font-size: 0.45em; color: #555; margin-top: 1.5rem; text-align: center;">
+        Sources :
+        <a href="https://www.itu.int/en/ITU-D/Statistics/Pages/stat/default.aspx" target="_blank" style="color: #4f8ef7; text-decoration: underline;">ITU</a>,
+        <a href="https://www.netcraft.com/" target="_blank" style="color: #4f8ef7; text-decoration: underline;">Netcraft</a>,
+        <a href="https://datareportal.com/global-digital-overview" target="_blank" style="color: #4f8ef7; text-decoration: underline;">DataReportal</a>.
+    </p>
+
+    <div class="two-col" style="margin-top:1rem;">
+        <div>
+            <div class="box fragment" style="text-align:center; margin-bottom:0.8rem;">
+                <div style="font-size:1.9em; color:#4f8ef7; font-weight:700;">~5,5 milliards</div>
+                <div style="font-size:0.75em; color:#aaa;">d'utilisateurs d'Internet dans le monde</div>
+                <div style="font-size:0.65em; color:#6b7099;">(~68% de la population mondiale en 2025)</div>
+            </div>
+
+            <div class="box fragment" style="text-align:center;">
+                <div style="font-size:1.9em; color:#4f8ef7; font-weight:700;">~1,2 milliard</div>
+                <div style="font-size:0.75em; color:#aaa;">de sites web recensés</div>
+                <div style="font-size:0.65em; color:#6b7099;">(dont environ 200 millions actifs)</div>
+            </div>
+        </div>
+
+        <div>
+            <div class="box fragment" style="text-align:center; margin-bottom:0.8rem;">
+                <div style="font-size:1.9em; color:#4f8ef7; font-weight:700;">~150 ZB</div>
+                <div style="font-size:0.75em; color:#aaa;">de données mondiales créées, capturées ou consommées</div>
+
+                <div style="font-size:0.58em; color:#888; margin-top:0.45rem;">
+                    1 ZB (zettaoctet) = 1 milliard de téraoctets (TB)
+                </div>
+            </div>
+
+            <div class="box fragment" style="text-align:center; display: flex; flex-direction: column; justify-content: center; height: 110px;">
+                <div style="font-size:1em; color:#ff9f43; font-weight:600;">Une masse de données</div>
+                <div style="font-size:0.62em; color:#aaa; margin-top: 0.3rem;">
+                    Principalement composée de contenus non structurés :
+                    textes, images, vidéos et données issues des réseaux sociaux.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DIAPO 1 : VUE D'ENSEMBLE -->
+<section>
+    <h3 style="color: #ffffff; font-weight: 600; margin-bottom: 1rem;">Les 2 angles morts du Web participatif</h3>
+    <p style="color: #a0aec0; font-size: 0.9em; margin-bottom: 2.5rem;">Le Web 2.0 excelle pour connecter les humains, mais manque d'architecture pour les machines.</p>
+
+    <div style="display: flex; gap: 2rem; justify-content: center;">
+        <div class="box fragment" style="flex: 1; border-top: 4px solid #4f8ef7; text-align: left;">
+            <h4 style="color: #4f8ef7; margin-top: 0; font-size: 1.05em;">1. L'opacité sémantique</h4>
+            <p style="font-size: 0.85em; color: #e2e8f0; line-height: 1.5;">Le sens des données n'est pas exprimé de façon formelle. Les machines ne peuvent donc pas en comprendre la signification.</p>
+        </div>
+        <div class="box fragment" style="flex: 1; border-top: 4px solid #ff9f43; text-align: left;">
+            <h4 style="color: #ff9f43; margin-top: 0; font-size: 1.05em;">2. Les silos de données</h4>
+            <p style="font-size: 0.85em; color: #e2e8f0; line-height: 1.5;">Les données sont réparties dans des bases isolées qui ne communiquent pas entre elles.</p>
+        </div>
+    </div>
+</section>
+
+<!-- DIAPO 2 : LIMITE 1 (SÉMANTIQUE) -->
+<section>
+    <h3 style="color: #ffffff; margin-bottom: 1rem;"><span style="color: #4f8ef7;">1. L'opacité sémantique</span></h3>
+    <p style="color: #a0aec0; font-size: 0.9em; margin-bottom: 2rem;">HTML gère le design. Les LLMs gèrent les probabilités. Il manque la <strong>logique formelle</strong>.</p>
+
+    <div class="box box-blue fragment" style="text-align: left; max-width: 850px; margin: 0 auto;">
+        <strong style="color: #4f8ef7; display: block; margin-bottom: 0.8rem; font-size: 1.1em;">Exemple des relations complexes</strong>
+        <p style="font-size: 0.9em; margin: 0 0 1rem 0; line-height: 1.6; color: #e2e8f0;">
+            <em>« Si A est le frère de B, et que B est le fils de C, et que C est la soeur de D... quelle est la relation entre A et D ? »</em>
+        </p>
+        <p style="font-size: 0.85em; margin: 0; line-height: 1.6; color: #a0aec0;">
+            Face à cette question, un modèle de langage va deviner et risque l'erreur. Dans des domaines critiques (médecine, droit), la machine a besoin d'inférences mathématiques exactes, ce que l'architecture Web ne fournit pas nativement.
+        </p>
+    </div>
+</section>
+
+<!-- DIAPO 3 : LIMITE 2 (SILOS) -->
+<section>
+    <h3 style="color: #ffffff; margin-bottom: 0.8rem;"><span style="color: #ff9f43;">2. Les silos de données</span></h3>
+    <p style="color: #a0aec0; font-size: 0.78em; margin-bottom: 1.2rem;">Le Web sait connecter des documents, pas des bases de données hétérogènes.</p>
+
+    <div style="display:flex; flex-direction:column; gap:0.55rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.78em;">
+        <div class="box" style="border-left:4px solid #ff9f43; padding:0.65rem 1rem; display:flex; align-items:baseline; gap:1rem;">
+            <span style="color:#ff9f43; font-family:monospace; font-size:0.75em; text-transform:uppercase; white-space:nowrap; flex-shrink:0; min-width:8rem;">Formats</span>
+            <span style="color:#e2e8f0; line-height:1.5;"><strong>Des langages incompatibles :</strong> chaque source stocke ses données dans des formats qui s'ignorent (HTML, JSON, CSV, etc.).</span>
+        </div>
+        <div class="box fragment" style="border-left:4px solid #ff9f43; padding:0.65rem 1rem; display:flex; align-items:baseline; gap:1rem;">
+            <span style="color:#ff9f43; font-family:monospace; font-size:0.75em; text-transform:uppercase; white-space:nowrap; flex-shrink:0; min-width:8rem;">Identifiants</span>
+            <span style="color:#e2e8f0; line-height:1.5;"><strong>Pas d'identifiant commun :</strong> le même sportif peut apparaître comme <em>"CR7"</em>, <em>"Cristiano Ronaldo"</em> ou <em>"Cristiano dos Santos Aveiro"</em> selon la source (trois chaînes de caractères différentes pour une seule et même personne).</span>
+        </div>
+        <div class="box fragment" style="border-left:4px solid #ff9f43; padding:0.65rem 1rem; display:flex; align-items:baseline; gap:1rem;">
+            <span style="color:#ff9f43; font-family:monospace; font-size:0.75em; text-transform:uppercase; white-space:nowrap; flex-shrink:0; min-width:8rem;">Passerelles</span>
+            <span style="color:#e2e8f0; line-height:1.5;"><strong>Le bricolage des développeurs :</strong> pour croiser ces données, il faut coder manuellement des passerelles (APIs) fragiles et coûteuses à maintenir.</span>
+        </div>
+    </div>
+</section>
+
+<!-- Slide 1 : la question -->
+<section>
+    <h3>Exemple : une question croisée</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:1.2rem;">Pour mesurer l'impact des limites du Web, essayons de répondre à cette question qui croise sport, politique et temporalité :</p>
+    <div style="display:flex; align-items:center; gap:2rem;">
+        <div class="box" style="flex:1.7; border-left:4px solid #4f8ef7; font-style:italic;
+                                font-size:0.82em; background:#0d1a2e; line-height:1.7; text-align:center; padding:1.2rem 1.6rem;">
+            Quels dirigeants politiques ont pris le pouvoir l'année même où leur pays disputait une finale de Coupe du Monde en foot, et parmi eux, lesquels ont fêté un titre de champion ?
+        </div>
+        <div style="flex:0.8; opacity:0.95;">
+            <img src="../figures/question-image.png" alt=""
+                 style="max-width:100%; max-height:30vh; object-fit:contain; border-radius:6px;">
+        </div>
+    </div>
+</section>
+
+<!-- Slide 2 : pourquoi c'est difficile -->
+<section>
+    <h3>Pourquoi c'est difficile pour une machine ?</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.2rem;">Pour répondre, une machine doit croiser trois univers de données totalement séparés sur le Web actuel :</p>
+    <div style="display:flex; flex-direction:column; gap:0.7rem; max-width:820px; margin:0 auto; text-align:left;">
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; display:flex; align-items:baseline; gap:1rem;">
+            <span style="color:#4f8ef7; font-size:0.7em; font-family:monospace; text-transform:uppercase; white-space:nowrap; flex-shrink:0;">Sport</span>
+            <p style="font-size:0.78em; margin:0; color:#aaa; line-height:1.5;">Les finales de la Coupe du Monde FIFA, les pays participants et les résultats, édition par édition.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; display:flex; align-items:baseline; gap:1rem;">
+            <span style="color:#4f8ef7; font-size:0.7em; font-family:monospace; text-transform:uppercase; white-space:nowrap; flex-shrink:0;">Politique</span>
+            <p style="font-size:0.78em; margin:0; color:#aaa; line-height:1.5;">L'historique de tous les mandats politiques de chacun de ces pays, avec leurs dates de début et de fin.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; display:flex; align-items:baseline; gap:1rem;">
+            <span style="color:#4f8ef7; font-size:0.7em; font-family:monospace; text-transform:uppercase; white-space:nowrap; flex-shrink:0;">Temps</span>
+            <p style="font-size:0.78em; margin:0; color:#aaa; line-height:1.5;">Le chevauchement temporel entre les deux événements, à l'année près, pour chaque pays.</p>
+        </div>
+    </div>
+    <div class="box box-blue fragment" style="margin-top:0.9rem; font-size:0.76em; max-width:820px; margin-left:auto; margin-right:auto;">
+        Ces trois univers coexistent sur le Web sous forme de textes et de tableaux épars, sans aucun mécanisme standard permettant à une machine de les relier automatiquement.
+    </div>
+</section>
+
+<section>
+    <h3>L'approche de Google : L'Indexation</h3>
+    <div style="display:flex; align-items:flex-start; gap:2rem;">
+        <div style="flex:1; text-align:left;">
+            <p style="font-size:0.82em;">Un moteur de recherche se base principalement sur la présence statistique de mots-clés juxtaposés (<em>"dirigeant"</em>, <em>"finale"</em>, <em>"pris le pouvoir"</em>).</p>
+            <ul style="font-size:0.78em; margin-top:0.8rem; line-height:1.6;">
+                <li class="fragment">Il renverra des articles de blogs anecdotiques ou des pages Wikipédia séparées.</li>
+                <li class="fragment"><strong>Sa limite structurelle :</strong> il est incapable d'exécuter des "jointures logiques" entre les tableaux de tous les mandats politiques du monde et les tableaux des finales sportives.</li>
+            </ul>
+            <p class="fragment" style="color:#ff9f43; font-size:0.78em; font-weight:bold; margin-top:0.9rem;">
+                Résultat : Google délègue la tâche à l'humain. C'est à l'utilisateur de cliquer sur des dizaines de liens pour effectuer le croisement mentalement.
+            </p>
+        </div>
+        <div style="flex-shrink:0; width:160px; display:flex; align-items:center; justify-content:center; padding-top:0.4rem;">
+            <img src="../figures/search-engines-logos.png" alt="Moteurs de recherche"
+                 style="max-width:200px; opacity:0.9; object-fit:contain; border-radius:4px;">
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>L'approche des LLMs : La Probabilité</h3>
+    <div style="text-align:center; margin:0.1rem 0 1rem 0;">
+        <img src="../figures/LLMs-logos.jpg" alt="LLMs"
+             style="max-height:60px; object-fit:contain; opacity:0.9; border-radius:4px;">
+    </div>
+    <p style="font-size:0.82em; text-align:left;">Un modèle de langage ne consulte pas une base de faits rigoureuse ; il <em>génère le mot suivant le plus statistiquement probable</em> d'après son entraînement.</p>
+    <ul style="font-size:0.78em; margin-top:0.8rem; line-height:1.6;">
+        <li class="fragment">Face à des contraintes temporelles croisées aussi pointues, le modèle mélange facilement les associations de sa mémoire de texte.</li>
+        <li class="fragment" style="color:#ff9f43;"><strong>Le risque d'hallucination :</strong> Il peut modifier de quelques mois la date de passation de pouvoir pour valider la coïncidence, ou attribuer par erreur un titre de champion à un pays finaliste perdant.</li>
+    </ul>
+</section>
+
+<section>
+    <h3>Ces approches contournent le problème sans le résoudre</h3>
+    <div style="display:flex; flex-direction:column; gap:0.5rem; max-width:820px; margin:1rem auto 0; text-align:left; font-size:0.78em;">
+        <div class="box fragment" style="border-left:4px solid #4f8ef7; padding:0.6rem 1rem;">
+            <strong style="color:#4f8ef7;">L'indexation</strong> retrouve des documents qui <em>parlent</em> du sujet,
+            mais ne peut pas raisonner sur des relations logiques entre des faits épars.
+        </div>
+        <div class="box fragment" style="border-left:4px solid #a78bfa; padding:0.6rem 1rem;">
+            <strong style="color:#a78bfa;">Les LLMs</strong> génèrent une réponse plausible,
+            mais sans garantie d'exactitude sur des croisements temporels ou factuels précis.
+        </div>
+        <div class="box fragment" style="border-left:4px solid #ff9f43; background:#1a1200; padding:0.6rem 1rem;">
+            <strong style="color:#ff9f43;">Le problème est structurel :</strong> le Web a été conçu pour que les humains lisent des pages,
+            pas pour que les machines raisonnent sur des données interconnectées.
+        </div>
+    </div>
+    <p class="fragment" style="margin-top:0.9rem; font-size:0.75em; color:#aaa; font-style:italic;">
+        Pour résoudre le problème, il faudra repenser l'architecture même du Web.
+    </p>
+</section>
+
+<section>
+    <h2>L'évolution du Web</h2>
+    <div style="display: flex; gap: 1rem; justify-content: space-between; margin-top: 1.5rem;">
+        <div class="box" style="flex: 1; font-size: 0.72em;">
+            <h4 style="color: #4f8ef7; margin-bottom: 0.5rem;">Web 1.0</h4>
+            <p><strong>Web Statique</strong></p>
+            <p>L'utilisateur est un consommateur passif de pages HTML lues de manière isolée.</p>
+            <p style="font-style: italic; color: #888; margin-top: 0.5rem;">"Lire"</p>
+        </div>
+        <div class="box" style="flex: 1; font-size: 0.72em;">
+            <h4 style="color: #4f8ef7; margin-bottom: 0.5rem;">Web 2.0</h4>
+            <p><strong>Web Social / Collaboratif</strong></p>
+            <p>L'utilisateur devient acteur (blogs, réseaux, wikis). Explosion des données non structurées.</p>
+            <p style="font-style: italic; color: #888; margin-top: 0.5rem;">"Écrire"</p>
+        </div>
+        <div class="box fragment" style="flex: 1; font-size: 0.72em; border-color: #4f8ef7;">
+            <h4 style="color: #a2c2ff; margin-bottom: 0.5rem;">Web Sémantique</h4>
+            <p><strong>Web des données</strong></p>
+            <p>Lier et structurer les données pour que les machines en comprennent le sens.</p>
+            <p style="font-style: italic; color: #4f8ef7; margin-top: 0.5rem;">"Relier &amp; Comprendre"</p>
+            <p style="font-size:0.75em; color:#6b7099; margin-top:0.4rem;">À ne pas confondre avec le Web 3.0 de la blockchain.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Le Web Sémantique</h3>
+    <p style="font-size: 0.8em; color:#aaa; margin-bottom:1.2rem;">Transformer le Web textuel en une <em style="color:#eef0ff;">base de connaissances mondiale interconnectée</em>, lisible par les machines.</p>
+    <div style="display:flex; flex-direction:column; gap:0.55rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.78em;">
+        <div class="box fragment" style="border-left:4px solid #4f8ef7; padding:0.65rem 1rem; display:flex; align-items:baseline; gap:1rem;">
+            <span style="color:#4f8ef7; font-family:monospace; font-size:0.75em; text-transform:uppercase; white-space:nowrap; flex-shrink:0; min-width:7rem;">Identifiants</span>
+            <span style="color:#e2e8f0; line-height:1.5;">Chaque concept (la France, la finale 2022, Emmanuel Macron) reçoit un identifiant universel unique (IRI), sans ambiguïté possible pour la machine.</span>
+        </div>
+        <div class="box fragment" style="border-left:4px solid #a78bfa; padding:0.65rem 1rem; display:flex; align-items:baseline; gap:1rem;">
+            <span style="color:#a78bfa; font-family:monospace; font-size:0.75em; text-transform:uppercase; white-space:nowrap; flex-shrink:0; min-width:7rem;">Relations</span>
+            <span style="color:#e2e8f0; line-height:1.5;">Les liens logiques (<em>"est le pays de l'équipe"</em>, <em>"a débuté son mandat le"</em>) sont typés pour être compris par les machines.</span>
+        </div>
+        <div class="box fragment" style="border-left:4px solid #34d399; padding:0.65rem 1rem; display:flex; align-items:baseline; gap:1rem;">
+            <span style="color:#34d399; font-family:monospace; font-size:0.75em; text-transform:uppercase; white-space:nowrap; flex-shrink:0; min-width:7rem;">Silos brisés</span>
+            <span style="color:#e2e8f0; line-height:1.5;">Les univers du sport et de la politique se croisent nativement, sans passerelles manuelles.</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>La réponse : une requête SPARQL sur Wikidata</h3>
+    <p style="font-size: 0.78em; text-align: left; color: #aaa; margin-bottom: 0.8rem;">
+        En reliant formellement les données, notre question se résout en <strong style="color:#4f8ef7;">une seule requête</strong> lisible par une machine comme par un humain.
+    </p>
+    <img src="../figures/requete-SPARQL-FIFA.png" alt="Requête SPARQL Wikidata — vainqueurs et finalistes de la Coupe du Monde et chefs de gouvernement"
+         style="width: 90%; border-radius: 8px; border: 1px solid #3d4168; display: block; margin: 0 auto;">
+    <p class="fragment" style="font-size: 0.72em; color: #6b7099; margin-top: 0.7rem; text-align: center; font-style: italic;">
+        Quatre blocs logiques : finales FIFA ➔ leurs scores ➔ pays et dirigeants ➔ coïncidence temporelle (année de prise de mandat = année de la finale).
+    </p>
+</section>
+
+<section>
+    <h3>Le résultat : la machine répond en < 5 secondes</h3>
+    <p style="font-size: 0.78em; text-align: left; color: #aaa; margin-bottom: 0.8rem;">
+        Les données de centaines d'éditions FIFA et de pays et des milliers de mandats politiques... croisées instantanément.
+    </p>
+    <img src="../figures/reponse-SPARQL-FIFA.png" alt="Résultats de la requête SPARQL : drapeaux, noms des chefs de gouvernement, statut vainqueur ou finaliste"
+         style="width: 75%; border-radius: 8px; border: 1px solid #3d4168; display: block; margin: 0 auto; -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 60%, transparent 100%); mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 60%, transparent 100%);">
+</section>
+
+<section data-transition="zoom">
+    <p style="font-size: 0.6em; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #4f8ef7; margin-bottom: 0.6rem;">Les résultats les plus récents</p>
+    <img src="../figures/reponse-SPARQL-FIFA-zoom.png" alt="Zoom sur les résultats : drapeaux, noms des chefs de gouvernement et statut vainqueur ou finaliste"
+         style="width: 65%; border-radius: 8px; border: 1px solid #3d4168; display: block; margin: 0 auto; box-shadow: 0 0 40px rgba(79,142,247,0.18); -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 60%, transparent 100%); mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 60%, transparent 100%);">
+    
+          <img src="../figures/reponse-SPARQL-FIFA-zoom2.png" alt="Zoom sur les résultats : drapeaux, noms des chefs de gouvernement et statut vainqueur ou finaliste"
+         style="width: 65%; border-radius: 8px; border: 1px solid #3d4168; display: block; margin: 0 auto; box-shadow: 0 0 40px rgba(79,142,247,0.18); -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 60%, transparent 100%); mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 60%, transparent 100%);">
+    
+</section>
+
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
+    <p style="font-size: 0.65em; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #4f8ef7; margin-bottom: 1.2rem;">La machine ne devine pas : elle <em>déduit</em>.</p>
+    <h2 style="font-size: 1.25em; line-height: 1.35; margin-bottom: 1.4rem;">
+        Deux concepts, une même vision
+    </h2>
+    <div class="two-col fragment" style="font-size: 0.75em; gap: 1.2rem; align-items: stretch;">
+        <div class="box box-blue" style="text-align: left; line-height: 1.65;">
+            <strong style="color:#7eb8f7; font-size:1.05em;">Web Sémantique</strong>
+            <p style="margin-top:0.5rem; color:#aaa;">Vision du W3C (Berners-Lee, 2001) : publier les données du Web avec un <strong>sens explicite</strong> via des standards ouverts.</p>
+            <p style="margin-top:0.5rem; color:#aaa;">Centré sur l'<strong>interopérabilité ouverte</strong> à l'échelle du Web entier.</p>
+        </div>
+        <div class="box" style="text-align: left; line-height: 1.65; border-color: #6b7099;">
+            <strong style="color:#eef0ff; font-size:1.05em;">Graphe de connaissances</strong>
+            <p style="margin-top:0.5rem; color:#aaa;">Terme popularisé par les entreprises (Google, 2012) : base de données structurée en <strong>entités et relations</strong>, publique ou propriétaire.</p>
+            <p style="margin-top:0.5rem; color:#aaa;">Peut reposer sur les standards W3C (Wikidata, DBpedia...) ou sur d'autres technologies.</p>
+        </div>
+    </div>
+    <div class="box fragment" style="margin-top: 1rem; font-size: 0.75em; text-align: center; line-height: 1.6; border-color: #4f8ef7; background: #0d1117;">
+        Ce cours porte sur les graphes de connaissances <strong>du Web Sémantique</strong> : ceux qui utilisent RDF, OWL et SPARQL pour exposer des données <strong>ouvertes, liées et formellement exploitables par inférence</strong>.
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 1.2 : GRAPHES DE CONNAISSANCES
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">INTRODUCTION</div>
+    <h2>2. Graphes de connaissances</h2>
+    <p style="color:#aaa;">Histoire, intelligence artificielle &amp; exemples concrets.</p>
+</section>
+
+
+<!-- ==========================================
+     DIAPO : VISION FONDATRICE - BERNERS-LEE 2001
+     ========================================== -->
+<!-- <section>
+    <h3>La vision fondatrice (2001)</h3>
+    <div class="two-col" style="align-items:center; gap:2rem;">
+        <div style="flex:0.7;">
+            <img src="../figures/tim-berners-lee.png" alt="Tim Berners-Lee" style="max-width:100%; border-radius:6px; border:1px solid #3d4168;">
+        </div>
+        <div style="flex:1.3; font-size:0.82em; text-align:left;">
+            <p style="color:#aaa; margin-bottom:1rem;">En 2001, Tim Berners-Lee publie dans le <em>Scientific American</em> sa vision d'un Web dont les données seraient compréhensibles par les machines.</p>
+            <blockquote>
+                Le Web Sémantique est une extension du Web actuel dans laquelle l'information reçoit un sens bien défini, permettant aux ordinateurs et aux humains de travailler en parfaite coopération.
+            </blockquote>
+            <p class="fragment" style="font-size:0.9em; color:#4f8ef7; font-weight:600; margin:0.8rem 0 0 0;">Les briques concrètes : RDF, RDFS, OWL, SPARQL.</p>
+        </div>
+    </div>
+</section> -->
+
+<!-- Slide 1 : TBL — de l'inventeur du Web à sa vision sémantique -->
+<section>
+    <h3>Du Web au Web Sémantique</h3>
+    <div style="align-items:center; gap:2.2rem; margin-top:0.5rem;">
+            <div style="flex:0.62; text-align:center;">
+            <img src="../figures/tim-berners-lee.png" alt="Tim Berners-Lee"
+                 style="max-width:20%; border-radius:6px; border:1px solid #3d4168;">
+        </div>
+        </div>
+        <div style="flex:1.38; text-align:left; font-size:0.72em;">
+    <div class="kv-row">
+        <span class="kv-label" style="background: #1a202c; color: #4f8ef7; border-left: 3px solid #4f8ef7; font-size:0.78em;">1. L'Idée (1989)</span>
+        <span class="kv-body" style="font-size:0.88em;">
+            Au CERN, Tim Berners-Lee propose un système de gestion de l'information fondé sur des liens hypertexte. Il envisage des liens typés capables de qualifier la nature des relations entre ressources (une intuition qui annonce celle du graphe de connaissances).
+        </span>
+    </div>
+
+    <div class="kv-row fragment" style="margin-top: 0.8rem;">
+        <span class="kv-label" style="background: #1a202c; color: #ff9f43; border-left: 3px solid #ff9f43; font-size:0.78em;">2. Le Pivot (1991)</span>
+        <span class="kv-body" style="font-size:0.88em;">
+            Pour garantir un déploiement mondial immédiat, il fait le choix pragmatique de simplifier cette approche : le standard HTML se limite à la balise <code>&lt;a href&gt;</code>, un hyperlien unidirectionnel à destination purement navigationnelle (pas de sens logique). </span>
+    </div>
+    
+    <div class="kv-row fragment" style="margin-top: 0.8rem;">
+        <span class="kv-label" style="background: #1a202c; color: #2ecc71; border-left: 3px solid #2ecc71; font-size:0.78em;">3. La Suite (2001)</span>
+        <span class="kv-body" style="font-size:0.88em;">
+        Une fois le Web mondialisé, il décide de concrétiser la couche logique qui manquait à son projet. Sa vision du Web sémantique marque le grand retour à son ambition d'origine.
+        </span>
+    </div>
+</section>
+
+<!-- Slide 2 : l'article de 2001 et la citation fondatrice -->
+<section>
+    <h3>L'article fondateur</h3>
+    <div style="align-items:center; gap:2.2rem; margin-top:0.8rem;">
+        <div style="flex:1.25; text-align:left; font-size:0.82em;">
+            <p style="color:#aaa; margin-bottom:0.9rem;">Formalisation de la vision du Web Sémantique dans le <em>Scientific American</em> en 2001.</p>
+            <blockquote style="font-size:0.95em;">
+                Le Web Sémantique est une extension du Web actuel dans laquelle l'information reçoit un sens bien défini, permettant aux ordinateurs et aux humains de travailler en parfaite coopération.
+            </blockquote>
+             </div>
+             <div style="flex:0.75; text-align:center;">
+            <img src="../figures/semantic-web-article.png" alt="Article Scientific American — The Semantic Web"
+                 style="max-width:70%; border-radius:6px; border:1px solid #3d4168;">
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ==========================================
+     DIAPO : AUX ORIGINES
+     ========================================== -->
+<section>
+    <h3>Aux origines : la représentation des connaissances</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.6rem;">Les graphes de connaissances, aussi appelés <em>Knowledge Graphs</em> (abrégé <strong>KG</strong>), héritent de décennies de recherche en IA symbolique.</p>
+    <div class="kv-row fragment">
+        <span class="kv-label">1966</span>
+        <span class="kv-body"><strong>Réseaux sémantiques</strong> (Ross Quillian) : des nœuds représentant des concepts reliés par des arêtes étiquetées. La structure du graphe de connaissances moderne est déjà esquissée.</span>
+    </div>
+    <div class="kv-row fragment">
+        <span class="kv-label">1975</span>
+        <span class="kv-body"><strong>Frames</strong> (Marvin Minsky) : représentation d'objets sous forme de structures à attributs et à valeurs par défaut. L'ancêtre des classes et des propriétés.</span>
+    </div>
+    <!-- <div class="kv-row fragment">
+        <span class="kv-label">Années 1980</span>
+        <span class="kv-body"><strong>Logiques de description</strong> : Les chercheurs utilisaient des logiques de description mathématiquement parfaites, mais beaucoup trop complexes pour être calculées à grande échelle.</span>
+    </div> -->
+</section>
+
+
+
+<!-- ==========================================
+     DIAPO : LE DÉFI DE L'ÉCHELLE
+     ========================================== -->
+<section>
+    <h3>IA symbolique : le défi de l'échelle</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.4rem;">Les logiques formelles des années 1980-2000 étaient mathématiquement exactes, mais ingérables à l'échelle d'Internet.</p>
+    <div class="two-col">
+        <div class="box">
+            <strong style="color:#aaa; font-size:0.92em; display:block; margin-bottom:0.5rem;">Logiques de Description</strong>
+            <p style="font-size:0.8em; margin:0; line-height:1.55; color:#aaa;">Expressivité maximale, raisonnement correct et complet. Mais dans leurs versions les plus expressives, la complexité de calcul devient prohibitive à l'échelle du Web.</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7; font-size:0.92em; display:block; margin-bottom:0.5rem;">La clé du succès des KGs</strong>
+            <p style="font-size:0.8em; margin:0; line-height:1.55; color:#aaa;">Conserver uniquement les fragments de logique utiles et calculables. Sacrifier un peu d'expressivité pour simplifier leur utilisation et gagner la scalabilité à l'échelle mondiale.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; padding-left:0.9rem; border-left:3px solid #4f8ef7;">C'est ce compromis qui distingue les KGs des logiques du premier ordre : suffisamment expressifs pour être utiles, suffisamment simples pour être calculés sur des milliards de faits.</p>
+</section>
+
+<!-- <section>
+    <h3>IA symbolique : le défi de l'échelle</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.4rem;">Le Web Sémantique des années 2000 visait une rigueur mathématique totale, devenue ingérable à l'échelle du Web mondial.</p>
+    <div class="two-col">
+        <div class="box">
+            <strong style="color:#aaa; font-size:0.92em; display:block; margin-bottom:0.5rem;">Ontologies & Logiques Lourdes</strong>
+            <p style="font-size:0.8em; margin:0; line-height:1.55; color:#aaa;">Raisonnement formel complet (OWL/Description Logics). Mais l'expressivité maximale rend la complexité algorithmique prohibitive sur des milliards de triplets.</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7; font-size:0.92em; display:block; margin-bottom:0.5rem;">La clé du succès des KGs</strong>
+            <p style="font-size:0.8em; margin:0; line-height:1.55; color:#aaa;">Adopter des schémas flexibles (graphes) et des fragments logiques légers. Sacrifier la complétude théorique pour garantir des temps de réponse ultra-rapides.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; padding-left:0.9rem; border-left:3px solid #4f8ef7;">C'est le passage d'une logique de <strong>preuve absolue</strong> (raisonneurs complexes) à une logique de <strong>requêtage efficace</strong> (graphes de connaissances) qui a permis le passage à l'échelle.</p>
+</section> -->
+
+<!-- ==========================================
+     DIAPO 3 : LE PILIER BASES DE DONNÉES
+     ========================================== -->
+<section>
+    <h3 style="color: #ffffff; margin-bottom: 1.5rem;">L'évolution des bases de données</h3>
+    <p style="color: #a0aec0; font-size: 0.9em; margin-bottom: 2.5rem;">Parallèlement à l'IA, le monde des bases de données cherchait à briser ses propres limites.</p>
+
+    <div style="display: flex; gap: 2rem; justify-content: center; max-width: 900px; margin: 0 auto;">
+        <div class="box" style="flex: 1; text-align: left; opacity: 0.75;">
+            <strong style="color: #e05c5c; display: block; margin-bottom: 0.5rem; font-size: 0.9em;">Le modèle relationnel (SQL)</strong>
+            <p style="font-size: 0.75em; color: #cbd5e1; margin: 0; line-height: 1.5;">Un schéma figé, des jointures coûteuses entre tables et une structure difficile à faire évoluer face à des sources hétérogènes.</p>
+        </div>
+        <div class="box" style="flex: 1; text-align: left; border-color: #2ecc71;">
+            <strong style="color: #2ecc71; display: block; margin-bottom: 0.5rem; font-size: 0.9em;">Le modèle des graphes</strong>
+            <p style="font-size: 0.75em; color: #cbd5e1; margin: 0; line-height: 1.5;">Un schéma ouvert et extensible : des données hétérogènes issues de sources multiples se lient naturellement, sans restructuration préalable.</p>
+        </div>
+    </div>
+</section>
+
+<section data-background-color="#060d18">
+    <h3 style="color: #ffffff; margin-bottom: 1rem;">
+        Les KGs : une convergence de disciplines
+    </h3>
+    <!-- <p style="color: #a0aec0; font-size: 0.85em; margin-bottom: 0rem;">
+        Les graphes de connaissances se situent à l'intersection de 4 grands domaines de l'informatique.
+    </p> -->
+
+    <div style="width: 100%; max-width: 760px; margin: 0 auto;">
+        <svg viewBox="0 0 800 620" style="width: 100%; height: auto;">
+
+            <defs>
+                <!-- Glow central -->
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="12" result="blur"/>
+                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                </filter>
+
+                <!-- Dégradé central -->
+                <linearGradient id="centerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#1e293b"/>
+                    <stop offset="100%" stop-color="#0f172a"/>
+                </linearGradient>
+            </defs>
+
+            <!-- Cercles -->
+            <circle cx="320" cy="220" r="170"
+                    fill="#4f8ef7" fill-opacity="0.22"
+                    stroke="#4f8ef7" stroke-width="2"/>
+
+            <circle cx="480" cy="220" r="170"
+                    fill="#2ecc71" fill-opacity="0.22"
+                    stroke="#2ecc71" stroke-width="2"/>
+
+            <circle cx="320" cy="390" r="170"
+                    fill="#ff9f43" fill-opacity="0.22"
+                    stroke="#ff9f43" stroke-width="2"/>
+
+            <circle cx="480" cy="390" r="170"
+                    fill="#e05c5c" fill-opacity="0.22"
+                    stroke="#e05c5c" stroke-width="2"/>
+
+            <!-- Domaines -->
+            <text x="230" y="130"
+                  fill="#ffffff"
+                  font-size="17"
+                  font-weight="bold"
+                  text-anchor="middle">
+                REPRÉSENTATION
+            </text>
+
+            <text x="230" y="154"
+                  fill="#ffffff"
+                  font-size="15"
+                  font-weight="bold"
+                  text-anchor="middle">
+                DES CONNAISSANCES
+            </text>
+
+            <text x="230" y="176"
+                  fill="#93c5fd"
+                  font-size="12"
+                  text-anchor="middle">
+                 Logique • Raisonnement
+            </text>
+
+            <text x="570" y="130"
+                  fill="#ffffff"
+                  font-size="17"
+                  font-weight="bold"
+                  text-anchor="middle">
+                BASES DE DONNÉES
+            </text>
+
+            <text x="570" y="154"
+                  fill="#ffffff"
+                  font-size="15"
+                  font-weight="bold"
+                  text-anchor="middle">
+                & STOCKAGE
+            </text>
+
+            <text x="570" y="176"
+                  fill="#86efac"
+                  font-size="12"
+                  text-anchor="middle">
+                Requêtes • Performance
+            </text>
+
+            <text x="225" y="420"
+                  fill="#ffffff"
+                  font-size="17"
+                  font-weight="bold"
+                  text-anchor="middle">
+                TECHNOLOGIES  
+            </text>
+
+            <text x="225" y="444"
+                  fill="#ffffff"
+                  font-size="15"
+                  font-weight="bold"
+                  text-anchor="middle">
+                WEB
+            </text>
+
+            <text x="225" y="466"
+                  fill="#ffd6a5"
+                  font-size="12"
+                  text-anchor="middle">
+                Standards W3C
+            </text>
+
+            <text x="585" y="420"
+                  fill="#ffffff"
+                  font-size="17"
+                  font-weight="bold"
+                  text-anchor="middle">
+                COMPRÉHENSION DU 
+            </text>
+
+            <text x="585" y="444"
+                  fill="#ffffff"
+                  font-size="17"
+                  font-weight="bold"
+                  text-anchor="middle">
+                LANGAGE NATUREL
+            </text>
+
+            <text x="575" y="466"
+                  fill="#fecaca"
+                  font-size="12"
+                  text-anchor="middle">
+                Concepts • Désambiguïsation
+            </text>
+
+            <!-- Liens/intersections
+            <text x="400" y="185"
+                  fill="#cbd5e1"
+                  font-size="12"
+                  text-anchor="middle"
+                  font-family="monospace">
+                Formalisation des concepts
+            </text>
+
+            <text x="400" y="450"
+                  fill="#cbd5e1"
+                  font-size="12"
+                  text-anchor="middle"
+                  font-family="monospace">
+                Construction automatique depuis les textes
+            </text>
+
+            <text x="230" y="305"
+                  fill="#cbd5e1"
+                  font-size="12"
+                  text-anchor="middle"
+                  font-family="monospace">
+                Interopérabilité
+            </text>
+
+            <text x="570" y="305"
+                  fill="#cbd5e1"
+                  font-size="12"
+                  text-anchor="middle"
+                  font-family="monospace">
+                Graph Databases & Requêtage
+            </text> -->
+
+            <!-- Centre -->
+            <g filter="url(#glow)">
+                <rect x="250"
+                      y="275"
+                      width="300"
+                      height="78"
+                      rx="14"
+                      fill="url(#centerGradient)"
+                      stroke="#ffffff"
+                      stroke-width="2.5"/>
+
+                <text x="400"
+                      y="304"
+                      fill="#ffffff"
+                      font-size="17"
+                      font-weight="bold"
+                      text-anchor="middle"
+                      letter-spacing="1">
+                    GRAPHES DE CONNAISSANCES
+                </text>
+
+                <text x="400"
+                      y="330"
+                      fill="#cbd5e1"
+                      font-size="12"
+                      text-anchor="middle">
+                    Web Sémantique
+                </text>
+            </g>
+
+        </svg>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- ==========================================
+     DIAPO : DÉFINITION D'UN GRAPHE DE CONNAISSANCES
+     ========================================== -->
+<section>
+    <h3>Qu'est-ce qu'un graphe de connaissances ?</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.4rem;">Une base de faits structurée, conçue pour être interrogée par des programmes informatiques capables d'en déduire de nouvelles connaissances.</p>
+    <div class="kv-row fragment">
+        <span class="kv-label">Nœuds</span>
+        <span class="kv-body"><strong>Entités du monde réel</strong> : personnes, lieux, œuvres, événements, concepts. Chaque entité possède un identifiant unique et non ambigu.</span>
+    </div>
+    <div class="kv-row fragment">
+        <span class="kv-label">Arêtes</span>
+        <span class="kv-body"><strong>Relations typées et étiquetées</strong> entre entités. Contrairement aux liens hypertexte, elles ont un sens précis : <em>est né à</em>, <em>a remporté</em>, <em>est situé dans</em>.</span>
+    </div>
+    <div class="kv-row fragment">
+        <span class="kv-label">Faits</span>
+        <span class="kv-body"><strong>Triplets sujet-prédicat-objet</strong> : la brique atomique. Chaque triplet est une assertion formelle, vérifiable et exploitable par une machine.</span>
+    </div>
+    <!-- <div class="box box-blue fragment" style="margin-top:1rem; font-size:0.78em;">
+        La différence fondamentale avec une base de données relationnelle : le schéma est ouvert et extensible. Les données et leur structure coexistent dans le même graphe, sans jointures coûteuses.
+    </div> -->
+</section>
+
+<!-- ==========================================
+     DIAPO : EXEMPLE VISUEL D'UN KG
+     ========================================== -->
+<section>
+    <p style="font-size:0.6em; color:#6b7099; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:0.8rem;">Exemple de graphe de connaissances</p>
+    <img src="../figures/example-KG.png" alt="Exemple de graphe de connaissances"
+         style="max-width:90%; max-height:72vh; object-fit:contain; display:block; margin:0 auto; border-radius:6px;">
+    <p style="font-size:0.7em; color:#3d4168; text-align:right; margin-top:0.55rem; margin-bottom:0;">
+        Source : <a href="https://zilliz.com/learn/what-is-knowledge-graph" target="_blank" style="color:#3d4168; text-decoration:none;">zilliz.com</a>
+    </p>
+</section>
+
+
+<!-- ==========================================
+     DIAPO : GRAPHES OUVERTS
+     ========================================== -->
+<section>
+    <h3>Les graphes ouverts de référence</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.4rem;">La communauté académique a construit des bases de connaissances ouvertes fondées sur les standards W3C.</p>
+    
+    <div style="display:flex; flex-direction:column; gap:1rem; max-width:860px; margin:0 auto; margin-bottom: 1.5rem;">
+        <!-- Wikidata -->
+        <div class="box box-blue" style="display:flex; align-items:center; gap:0; padding:0; overflow:hidden;">
+            <div style="flex-shrink:0; width:170px; display:flex; align-items:center; justify-content:center; padding:1.2rem 1.4rem; border-right:1px solid #2a5cb8; background:#060f1e;">
+                <img src="../figures/wikidata-logo.svg" alt="Wikidata" style="max-width:130px; max-height:52px; object-fit:contain;">
+            </div>
+            <div style="flex:1; padding:0.9rem 1.3rem; text-align:left;">
+                <strong style="color:#7eb8f7; display:block; margin-bottom:0.3rem; font-size:0.88em;">Wikidata</strong>
+                <p style="font-size:0.78em; margin:0; line-height:1.55; color:#aaa;">Base de connaissances collaborative de la Wikimedia Foundation. Plus de 13 milliards de faits stockés en triplets RDF, librement interrogeable en ligne. C'est un des principaux graphes ouverts.</p>
+            </div>
+        </div>
+
+        <!-- DBpedia -->
+        <div class="box fragment" style="display:flex; align-items:center; gap:0; padding:0; overflow:hidden;">
+            <div style="flex-shrink:0; width:170px; display:flex; align-items:center; justify-content:center; padding:1.2rem 1.4rem; border-right:1px solid #3d4168; background:#0a0a14;">
+                <img src="../figures/Dbpedia-logo.png" alt="DBpedia" style="max-width:130px; max-height:52px; object-fit:contain;">
+            </div>
+            <div style="flex:1; padding:0.9rem 1.3rem; text-align:left;">
+                <strong style="color:#eef0ff; display:block; margin-bottom:0.3rem; font-size:0.88em;">DBpedia</strong>
+                <p style="font-size:0.78em; margin:0; line-height:1.55; color:#aaa;">Extrait automatiquement les données structurées des infobox Wikipédia pour les exposer sous forme de graphe sémantique interrogeable en ligne. Un des premiers grands graphes accessibles, lancé en 2007.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ajout des autres graphes -->
+    <p class="fragment" style="font-size:0.5em; color:#eef0ff; margin-top:1rem; background: rgba(126, 184, 247, 0.1); padding: 10px; border-radius: 8px;">
+        D'autres initiatives majeures enrichissent cet écosystème ouvert, telles que 
+        <a href="https://yago-knowledge.org/" target="_blank" style="color:#7eb8f7; text-decoration: underline;">YAGO</a>, 
+        <a href="https://babelnet.org/" target="_blank" style="color:#7eb8f7; text-decoration: underline;">BabelNet</a> ou 
+        <a href="https://www.geonames.org/" target="_blank" style="color:#7eb8f7; text-decoration: underline;">GeoNames</a>.
+    </p>
+</section>
+
+
+<!-- ==========================================
+     DIAPO : APPLICATIONS CRITIQUES
+     ========================================== -->
+<section>
+    <h3>Applications dans les domaines critiques</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.4rem;">Dans les secteurs où l'erreur factuelle est inacceptable, les graphes de connaissances s'imposent comme infrastructure de référence.</p>
+    
+    <div class="two-col" style="display:flex; gap:1.2rem;">
+        <!-- Box Santé / Bio -->
+        <div class="box fragment" style="flex:1; border-left:3px solid #2ecc71;">
+            <strong style="color:#eef0ff; display:block; margin-bottom:0.6rem; font-size:0.9em;">Sciences de la Vie & Santé</strong>
+            <ul style="font-size:0.78em; color:#aaa; margin:0; padding-left:1.2rem; line-height:1.55;">
+                <li style="margin-bottom:0.5rem;"><strong style="color:#7eb8f7;">UniProt :</strong> Graphe stockant plus de <strong>200 millions</strong> de séquences protéiques, vital pour la recherche pharmaceutique.</li>
+                <li><strong style="color:#7eb8f7;">SNOMED-CT :</strong> Graphe clinique de plus de <strong>300 000</strong> concepts pour des inférences diagnostiques exactes.</li>
+            </ul>
+        </div>
+        
+        <!-- Box Finance / Économie -->
+        <div class="box fragment" style="flex:1; border-left:3px solid #f1c40f;">
+            <strong style="color:#eef0ff; display:block; margin-bottom:0.6rem; font-size:0.9em;">Finance & Régulation</strong>
+            <ul style="font-size:0.78em; color:#aaa; margin:0; padding-left:1.2rem; line-height:1.55;">
+                <li style="margin-bottom:0.5rem;"><strong style="color:#7eb8f7;">FIBO :</strong> Ontologie du domaine financier pour la conformité réglementaire et la gouvernance entre institutions.</li>
+                <li><strong style="color:#7eb8f7;">Global LEI :</strong> Graphe reliant de millions d'entités légales pour tracer la propriété des entreprises.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:1.2rem; padding-left:0.9rem; border-left:3px solid #4f8ef7;">
+        Dans ces contextes, le raisonnement formel remplace avantageusement les modèles statistiques qui produisent des réponses probables sans garantie d'exactitude.
+    </p>
+</section>
+
+<!-- ==========================================
+     DIAPO : LINKED OPEN DATA CLOUD
+     ========================================== -->
+<section>
+    <h3>Le Linked Open Data Cloud</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.7rem;">Wikidata, DBpedia et les autres graphes ouverts ne fonctionnent pas en vase clos : ils sont explicitement <strong>liés entre eux</strong> par des références croisées en RDF, formant un écosystème de données ouvertes à l'échelle du Web.</p>
+    <img src="../figures/lod-cloud-static.svg" alt="Le nuage des données ouvertes liées (LOD Cloud)"
+         style="max-width:55%; max-height:60vh; object-fit:contain; display:block; margin:0 auto; border-radius:6px;">
+    <p style="font-size:0.42em; color:#3d4168; text-align:right; margin-top:0.4rem; margin-bottom:0;">
+        Source : <a href="https://lod-cloud.net/" target="_blank" style="color:#3d4168; text-decoration:none;">lod-cloud.net</a>
+    </p>
+</section>
+
+<!-- ==========================================
+     DIAPO : L'IRI - ÉLIMINER L'AMBIGUÏTÉ
+     ========================================== -->
+<!-- <section>
+    <h3>Éliminer l'ambiguïté : les identifiants</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.4rem;">Le Web textuel pose un problème central : le même mot désigne des choses différentes selon le contexte.</p>
+    <div class="two-col">
+        <div class="box">
+            <strong style="color:#aaa; font-size:0.92em; display:block; margin-bottom:0.5rem;">Le problème textuel</strong>
+            <p style="font-size:0.8em; margin:0 0 0.7rem 0; line-height:1.55; color:#aaa;">Le mot <strong>"Orange"</strong> désigne un fruit, un opérateur télécom, une ville et une couleur. Une IA doit deviner le sens à partir du contexte environnant.</p>
+            <p style="font-size:0.78em; margin:0; color:#6b7099;">Dans les domaines critiques, deviner n'est pas acceptable.</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7; font-size:0.92em; display:block; margin-bottom:0.5rem;">La solution : l'IRI</strong>
+            <p style="font-size:0.8em; margin:0 0 0.6rem 0; line-height:1.55; color:#aaa;">Chaque entité reçoit un <strong>identifiant mondial unique</strong> (IRI). Deux machines sur deux continents différents parlent exactement de la même chose.</p>
+            <p style="font-size:0.75em; color:#4f8ef7; font-family:monospace; margin:0.25rem 0; line-height:1.6;">wikidata.org/entity/Q13191 <span style="color:#6b7099; font-family:sans-serif; font-size:0.9em;">→ le fruit</span></p>
+            <p style="font-size:0.75em; color:#4f8ef7; font-family:monospace; margin:0; line-height:1.6;">wikidata.org/entity/Q10987 <span style="color:#6b7099; font-family:sans-serif; font-size:0.9em;">→ l'opérateur télécom</span></p>
+        </div>
+    </div>
+</section> -->
+
+<!-- ==========================================
+     DIAPO : LE TOURNANT GOOGLE (2012)
+     ========================================== -->
+<section>
+    <h3>Le tournant industriel : Google (2012)</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.4rem;">En 2012, Google impose les graphes de connaissances comme infrastructure industrielle à son moteur de recherche.</p>
+    <div class="two-col" style="align-items:flex-start;">
+        <div style="flex:1.1;">
+            <div class="box" style="text-align:left;">
+                <p style="font-size:1.05em; color:#eef0ff; font-family:monospace; font-weight:700; margin:0 0 0.7rem 0;">"Things, not strings."</p>
+                <p style="font-size:0.8em; color:#aaa; margin:0 0 0.8rem 0; line-height:1.55;">Le moteur ne doit plus chercher des chaînes de caractères mais indexer des objets du monde réel avec leurs propriétés et leurs relations — Amit Singhal (Blog Google, 2012)</p>
+                <div class="box box-blue" style="margin:0; font-size:0.8em;">
+                    <strong>Le résultat visible :</strong> l'infobox latérale dans les résultats de recherche. Dates, biographies, relations et faits vérifiés, extraits en temps réel d'un graphe de plusieurs milliards d'entités.
+                </div>
+            </div>
+        </div>
+        <div style="flex:0.9;">
+            <!-- IMAGE PLACEHOLDER
+                 Description  : Capture d'écran du Knowledge Panel Google (infobox latérale)
+                                pour une personnalité connue, par exemple Novak Djokovic
+                 Recherche    : screenshot "Google Knowledge Panel" search infobox result
+                 Fichier cible: ../figures/google-knowledge-panel.png -->
+            <div>
+                <img src="../figures/google-search.png" alt="Tim Berners-Lee" style="max-width:80%; border-radius:6px; border:1px solid #3d4168;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     DIAPO : ADOPTION INDUSTRIELLE DES KGs
+     ========================================== -->
+<section>
+    <h3>Les grands graphes industriels</h3>
+<p style="font-size:0.82em; color:#aaa; margin-bottom:1.4rem;">Après Google, les grandes plateformes ont toutes construit leur propre graphe de connaissances propriétaire.</p>
+    <img src="../figures/logos-companies.png" alt="Entreprises ayant déployé des graphes de connaissances"
+         style="max-width:70%; max-height:68vh; object-fit:contain; display:block; margin:0 auto; border-radius:6px;">
+    <p style="font-size:0.5em; color:#3d4168; text-align:right; margin-top:0.5rem; margin-bottom:0;">
+        Source : <a href="https://www.slideshare.net/Frank.van.Harmelen/adoption-of-knowledge-graphs-late-2019" target="_blank" style="color:#3d4168; text-decoration:none;">Frank van Harmelen (2019) <br> https://www.slideshare.net/Frank.van.Harmelen/adoption-of-knowledge-graphs-late-2019</a>
+    </p>
+</section>
+
+<!-- ==========================================
+     DIAPO : GRANDS GRAPHES INDUSTRIELS
+     ========================================== -->
+<section>
+    <h3>Exemples d'usage</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.2rem;">Les KG industriels répondent à des besoins métiers précis. Leur rapport aux standards W3C varie fortement d'un déploiement à l'autre.</p>
+    <div style="display:flex; gap:1rem; text-align:left; align-items:stretch;">
+        <div class="box fragment" style="flex:1; display:flex; flex-direction:column; gap:0.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <strong style="color:#7eb8f7; font-size:0.88em;">Google Knowledge Graph</strong>
+                </div>
+            <p style="font-size:0.75em; color:#aaa; margin:0; line-height:1.5; flex:1;">Indexe des entités du monde réel (personnes, lieux, œuvres) pour alimenter l'infobox de recherche. Utilise <strong>schema.org</strong>, vocabulaire créé conjointement par Google, Microsoft, Yahoo et Yandex, pour annoter les pages web tierces.</p>
+        </div>
+        <div class="box fragment" style="flex:1; display:flex; flex-direction:column; gap:0.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <strong style="color:#7eb8f7; font-size:0.88em;">LinkedIn Economic Graph</strong>
+                </div>
+            <p style="font-size:0.75em; color:#aaa; margin:0; line-height:1.5; flex:1;">Relie compétences, entreprises, offres d'emploi et formations à l'échelle mondiale. S'inspire des principes du Linked Data, mais dans une infrastructure entièrement propriétaire.</p>
+        </div>
+        <div class="box fragment" style="flex:1; display:flex; flex-direction:column; gap:0.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <strong style="color:#7eb8f7; font-size:0.88em;">Amazon Product Graph</strong>
+                 </div>
+            <p style="font-size:0.75em; color:#aaa; margin:0; line-height:1.5; flex:1;">Connecte des milliards de produits, marques et catégories pour le moteur de recommandation. Architecture interne propriétaire, sans exposition RDF publique.</p>
+        </div>
+    </div>
+    </section>
+
+
+
+
+<!-- ==========================================
+     DIAPO : GRAPHES ET LLMS
+     ========================================== -->
+<section>
+    <h3>La complémentarité avec les LLMs</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.4rem;">Les modèles de langage et les graphes de connaissances ne s'opposent pas : ils se complètent.</p>
+    <div class="two-col">
+        <div class="box fragment">
+            <strong style="color:#eef0ff; display:block; margin-bottom:0.4rem;">Modèles de langage (LLMs)</strong>
+            <p style="font-size:0.78em; color:#aaa; margin:0 0 0.5rem 0; line-height:1.55;">Compréhension du langage naturel, génération de texte, flexibilité face aux requêtes imprécises.</p>
+            <p style="font-size:0.75em; color:#6b7099; margin:0;">Limite : hallucinations factuelles, connaissances gelées à la date d'entraînement.</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7; display:block; margin-bottom:0.4rem;">Graphes de connaissances</strong>
+            <p style="font-size:0.78em; color:#aaa; margin:0 0 0.5rem 0; line-height:1.55;">Faits vérifiés, traçabilité des sources, raisonnement formel, mise à jour en temps réel.</p>
+            <p style="font-size:0.75em; color:#6b7099; margin:0;">Limite : nécessite une modélisation structurée, moins flexible face au langage naturel.</p>
+        </div>
+    </div>
+    <div class="box fragment" style="margin-top:0.8rem; font-size:0.78em;">
+        <strong>GraphRAG :</strong> architecture qui enrichit la génération d'un LLM avec des faits structurés extraits d'un graphe de connaissances. Le modèle s'appuie sur ces faits vérifiables plutôt que sur sa seule mémoire statistique, ce qui réduit les hallucinations factuelles.
+    </div>
+</section>
+
+<!-- ==========================================
+     DIAPO : CONCLUSION DE L'INTRODUCTION
+     ========================================== -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
+    
+    <h2 style="font-size:1.25em; margin-bottom:1.4rem;">Synthèse</h2>
+    <div style="display:flex; flex-direction:column; gap:0.65rem; max-width:800px; margin:0 auto; text-align:left;">
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="font-size:0.8em; margin:0; line-height:1.5;">Le Web a été conçu pour les humains. Rendre les données compréhensibles par les machines nécessite une couche structurelle supplémentaire : la <strong>sémantique formelle</strong>.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="font-size:0.8em; margin:0; line-height:1.5;">Un graphe de connaissances représente des faits sous forme de triplets <strong>sujet-prédicat-objet</strong>, avec des entités identifiées de façon non ambiguë.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="font-size:0.8em; margin:0; line-height:1.5;">Cette approche est aujourd'hui au cœur des grandes plateformes web et constitue l'infrastructure de référence dans les domaines critiques.</p>
+        </div>
+    </div>
+    <div class="box box-blue fragment" style="margin-top:0.9rem; font-size:0.8em; max-width:800px; margin-left:auto; margin-right:auto;">
+        Dans ce cours, nous étudions les langages concrets qui donnent vie à ces graphes :
+        <strong>RDF</strong> pour modéliser les faits,
+        <strong>RDFS</strong> et <strong>OWL</strong> pour structurer et raisonner,
+        <strong>SPARQL</strong> pour interroger.
+    </div>
+</section>
+
+
+</div><!-- .slides -->
+</div><!-- .reveal -->
+
+<script src="../dist/reveal.js"></script>
+<script src="../plugin/notes/notes.js"></script>
+<script src="../plugin/markdown/markdown.js"></script>
+<script src="../plugin/highlight/highlight.js"></script>
+<script>
+    Reveal.initialize({
+        hash: true,
+        slideNumber: false,
+        pdfSeparateFragments: false,
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+</script>
+</body>
+</html>

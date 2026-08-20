@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow">
+    <title>4-SPARQL</title>
+
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/night.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../plugin/highlight/monokai.css">
+
+    <style>
+        /* ── Helpers for this deck ───────────────────────────────── */
+        .part-label {
+            display: inline-block;
+            background: #4f8ef7;
+            color: #09090f;
+            font-size: 0.65em;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.8rem;
+            border-radius: 3px;
+            margin-bottom: 1.2rem;
+        }
+        .box {
+            border: 1px solid #3d4168;
+            border-radius: 6px;
+            padding: 0.8rem 1.2rem;
+            background: #0d1117;
+            font-size: 0.82em;
+            line-height: 1.55;
+            margin-top: 0.6rem;
+        }
+        .box-blue { border-color: #4f8ef7; }
+        .img-placeholder {
+            width: 80%;
+            margin: 0.6rem auto;
+            background: #0d1117;
+            border: 2px dashed #3d4168;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            color: #6b7099;
+            font-size: 0.62em;
+            text-align: center;
+            padding: 0.8rem;
+            box-sizing: border-box;
+        }
+        .img-placeholder strong { color: #4f8ef7; font-size: 1.05em; }
+        .img-placeholder .src   { color: #3d4168; }
+        .two-col { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .two-col > div { flex: 1; }
+        .rdf-table { width: 100%; border-collapse: collapse; font-size: 0.72em; }
+        .rdf-table th {
+            background: #1e3a5f; color: #7eb8f7;
+            padding: 0.35rem 0.6rem; border: 1px solid #444; text-align: left;
+        }
+        .rdf-table td {
+            padding: 0.3rem 0.6rem; border: 1px solid #444; color: #eef0ff;
+        }
+        .rdf-table tr:nth-child(even) td { background: #0d1117; }
+        blockquote {
+            border-left: 4px solid #4f8ef7;
+            padding-left: 1rem;
+            color: #aaa;
+            font-style: italic;
+            margin: 0.8rem 0;
+        }
+        .kv-row { display: flex; gap: 1rem; align-items: baseline; margin-bottom: 0.5rem; }
+        .kv-label {
+            min-width: 110px; text-align: right;
+            color: #4f8ef7; font-size: 0.7em; font-family: monospace;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            border-right: 2px solid #3d4168; padding-right: 0.6rem;
+            flex-shrink: 0;
+        }
+        .kv-body { font-size: 0.82em; line-height: 1.5; }
+        code { font-size: 0.85em; color: #7eb8f7; background: #0d1117; padding: 0.1em 0.35em; border-radius: 3px; }
+
+        /* ── Badges et notes de code ──────────────────────────────── */
+        .code-badge {
+            display: inline-block;
+            background: rgba(79,142,247,0.12);
+            color: #7eb8f7;
+            border: 1px solid #4f8ef7;
+            font-size: 0.62em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.15rem 0.6rem;
+            border-radius: 3px;
+            margin-bottom: 0.5rem;
+        }
+        .code-note {
+            font-size: 0.78em;
+            color: #aaa;
+            margin-top: 0.6rem;
+            line-height: 1.5;
+        }
+        .code-note-neg {
+            font-size: 0.78em;
+            color: #e05c5c;
+            margin-top: 0.6rem;
+            line-height: 1.5;
+        }
+
+        /* ── Override night theme yellow links ───────────────────── */
+        :root {
+            --r-main-font-size:   34px;
+            --r-link-color:       #4f8ef7;
+            --r-link-color-dark:  #2a5cb8;
+            --r-link-color-hover: #7eb8f7;
+            --r-selection-background-color: #2a5cb8;
+        }
+        .reveal a             { color: #4f8ef7; }
+        .reveal a:hover       { color: #7eb8f7; }
+        .reveal .controls     { color: #4f8ef7; }
+        .reveal .progress span { background: #4f8ef7; }
+    </style>
+</head>
+
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════════════
+  COVER
+═══════════════════════════════════════════════════════════════ -->
+<section>
+    <h2>Graphes de connaissances :</h2>
+    <h2>fondements et applications</h2>
+    <br><br>
+    <h3>BACHELOR HEPTA</h3>
+    <p>
+        <h3><a href="http://joe-raad.com">Joe Raad</a></h3>
+    </p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  CHAPITRE 4 : SPARQL
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#020408" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.25) 0px,rgba(79,142,247,0.25) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.25) 0px,rgba(79,142,247,0.25) 1px,transparent 1px,transparent 60px)" data-transition="slide">
+    <div style="display:flex; align-items:center; gap:2.5rem; justify-content:center; max-width:860px; margin:0 auto;">
+        <div style="font-size:7em; font-weight:900; color:rgba(79,142,247,0.13); line-height:1; flex-shrink:0; font-family:monospace; user-select:none;">04</div>
+        <div style="text-align:left; border-left:3px solid #4f8ef7; padding-left:2rem;">
+            <div style="font-size:0.52em; font-weight:700; color:#4f8ef7; letter-spacing:0.25em; text-transform:uppercase; margin-bottom:0.6rem;">Chapitre 4</div>
+            <h2 style="font-size:1.3em; margin:0 0 1.4rem 0; color:#eef0ff;">SPARQL</h2>
+            <div style="font-size:0.62em; color:#6b7099; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.7rem;">Sections</div>
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">4.1</span>
+                <span>Introduction</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">4.2</span>
+                <span>Filtrer et combiner</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">4.3</span>
+                <span>Agréger et construire</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">4.4</span>
+                <span>Triplestores, endpoints et fédération</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 4.1 : INTRODUCTION À SPARQL
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">SPARQL</div>
+    <h2>4.1 Introduction à SPARQL</h2>
+    <p style="color:#aaa;">Le langage qui interroge les graphes de connaissances.</p>
+</section>
+
+<section>
+    <h3>SPARQL en une phrase</h3>
+    <div class="box box-blue" style="font-size:0.9em; text-align:center;">
+        <strong style="color:#7eb8f7;">SPARQL Protocol And RDF Query Language</strong><br>
+        <span style="color:#aaa; font-size:0.85em;">un acronyme récursif, comme SQL l'inspire.</span>
+    </div>
+    <p style="font-size:0.82em; color:#eef0ff; margin-top:1rem;">Le langage standard du W3C pour interroger n'importe quel graphe RDF, qu'il fasse dix triplets ou dix milliards.</p>
+</section>
+
+<section>
+    <h3>Vous avez déjà vu SPARQL, sans le savoir</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.6rem;">Cette requête, montrée au chapitre 1, croisait les finales de Coupe du Monde FIFA et les chefs de gouvernement en poste. C'était déjà du SPARQL, sur Wikidata.</p>
+    <img src="../figures/requete-SPARQL-FIFA.png" alt="Requête SPARQL Wikidata, vainqueurs et finalistes de la Coupe du Monde et chefs de gouvernement"
+         style="width:82%; border-radius:8px; border:1px solid #3d4168; display:block; margin:0 auto;">
+    <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.7rem; text-align:center; font-style:italic;">Ce chapitre apprend à lire, puis à écrire, exactement ce genre de requête.</p>
+</section>
+
+<section>
+    <h3>Historique</h3>
+    <div class="kv-row"><span class="kv-label">SPARQL 1.0</span><span class="kv-body">Première recommandation W3C, en <strong>2008</strong>. Pose les bases du langage.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">SPARQL 1.1</span><span class="kv-body">Recommandation W3C en <strong>2013</strong>, nettement plus riche. Les nouveautés seront introduites au fil de ce chapitre.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">SPARQL 1.2</span><span class="kv-body">Une nouvelle version, en cours de conception au W3C au moment de ce cours.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Langage + protocole</span><span class="kv-body">SPARQL n'est pas qu'une syntaxe de requête : c'est aussi un protocole HTTP standardisé, qui permet d'interroger un graphe distant via une simple URL.</span></div>
+</section>
+
+<section>
+    <h3>Une syntaxe familière</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Sélectionner les joueurs espagnols, en SQL puis en SPARQL.</p>
+    <div class="two-col" style="font-size:0.78em;">
+        <div class="box">
+            <p style="color:#aaa; margin:0 0 0.4rem 0; font-size:0.85em;">SQL</p>
+            <pre style="margin:0; font-size:0.85em;"><code class="language-sql">SELECT nom
+FROM Joueurs
+WHERE nationalite = 'Espagne';</code></pre>
+        </div>
+        <div class="box box-blue fragment">
+            <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.85em;">SPARQL</p>
+            <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">SELECT ?nom
+WHERE {
+  ?joueur ex:nom ?nom ;
+          ex:nationalite "Espagne"@fr .
+}</code></pre>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>La vraie différence : tables contre motifs</h3>
+    <div class="kv-row"><span class="kv-label">SQL</span><span class="kv-body">Filtre des <strong>lignes</strong> dans des <strong>tables à schéma fixe</strong>. Les jointures suivent des clés étrangères déclarées à l'avance.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">SPARQL</span><span class="kv-body">Filtre des <strong>motifs de triplets</strong> dans un graphe <strong>sans schéma préétabli</strong>. Les jointures se font en réutilisant la même variable, sans rien déclarer.</span></div>
+</section>
+
+<section>
+    <h3>Le principe : le pattern matching</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.8rem;">Une requête SPARQL est elle-même un petit graphe, avec des trous :<strong> les variables</strong>.<br>On cherche toutes les façons de le faire correspondre au graphe de données.</p>
+    <div style="display:flex; align-items:center; justify-content:center; gap:1.2rem; font-size:0.68em; margin-top:0.6rem;">
+        <div style="text-align:center;">
+            <div style="color:#6b7099; text-transform:uppercase; letter-spacing:0.1em; font-size:0.75em; margin-bottom:0.5rem;">Motif de la requête</div>
+            <div style="display:flex; align-items:center; gap:0.4rem; background:#0d1117; border:1px dashed #4f8ef7; border-radius:6px; padding:0.6rem 0.8rem;">
+                <span style="color:#eef0ff; font-family:monospace;">?joueur</span>
+                <span style="color:#7eb8f7;">ex:nationalite</span>
+                <span style="color:#eef0ff; font-family:monospace;">"Espagne"</span>
+            </div>
+        </div>
+        <div style="color:#4f8ef7; font-size:1.6em;">→</div>
+        <div style="text-align:center;">
+            <div style="color:#6b7099; text-transform:uppercase; letter-spacing:0.1em; font-size:0.75em; margin-bottom:0.5rem;">Graphe de données</div>
+            <div style="display:flex; flex-direction:column; gap:0.35rem; align-items:flex-start;">
+                <div style="display:flex; align-items:center; gap:0.4rem; background:#0f2a1a; border:1.5px solid #2ecc71; border-radius:6px; padding:0.35rem 0.7rem;">
+                    <span style="color:#4ade80; font-family:monospace;">ex:alcaraz</span>
+                    <span style="color:#4ade80;">ex:nationalite</span>
+                    <span style="color:#4ade80; font-family:monospace;">"Espagne"</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:0.4rem; background:#0d1117; border:1px solid #3d4168; border-radius:6px; padding:0.35rem 0.7rem; opacity:0.55;">
+                    <span style="color:#aaa; font-family:monospace;">ex:sinner</span>
+                    <span style="color:#6b7099;">ex:nationalite</span>
+                    <span style="color:#aaa; font-family:monospace;">"Italie"</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.75em; color:#4ade80; margin-top:0.9rem; text-align:center;">Une seule correspondance : <code>?joueur</code> se lie à <code>ex:alcaraz</code>.</p>
+</section>
+
+<section>
+    <h3>Les quatre formes de requêtes</h3>
+    <table class="rdf-table">
+        <thead><tr><th>Forme</th><th>Résultat</th></tr></thead>
+        <tbody>
+            <tr><td><code>SELECT</code></td><td>Une table de résultats (comme SQL)</td></tr>
+            <tr><td><code>CONSTRUCT</code></td><td>Un nouveau graphe RDF</td></tr>
+            <tr><td><code>ASK</code></td><td>Un booléen : vrai ou faux</td></tr>
+            <tr><td><code>DESCRIBE</code></td><td>Une description d'une ressource</td></tr>
+        </tbody>
+    </table>
+    <p style="font-size:0.75em; color:#6b7099; margin-top:0.8rem; text-align:center;"><code>SELECT</code> pour explorer, <code>CONSTRUCT</code> pour matérialiser, <code>ASK</code> pour vérifier, <code>DESCRIBE</code> pour documenter.</p>
+</section>
+
+<section>
+    <h3>La forme de base d'une requête SELECT</h3>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?nom
+WHERE {
+  ?joueur ex:nom ?nom .
+}</code></pre>
+    <p class="code-note">→ <code>PREFIX</code> déclare les abréviations, <code>SELECT</code> choisit les variables à afficher, <code>WHERE</code> contient les motifs à faire correspondre.</p>
+</section>
+
+<section>
+    <h3>Une première requête</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Sur un petit extrait du graphe Roland-Garros que nous allons poser en entier dans la prochaine section :</p>
+    <pre style="font-size:0.75em;"><code class="language-turtle">ex:alcaraz  ex:nom "Carlos Alcaraz" ; ex:nationalite "Espagne" .
+ex:sinner   ex:nom "Jannik Sinner"  ; ex:nationalite "Italie" .</code></pre>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom WHERE {
+  ?joueur ex:nom ?nom ;
+          ex:nationalite "Espagne" .
+}</code></pre>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
+        <code>?nom = "Carlos Alcaraz"</code>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 4.2 : FILTRER ET COMBINER
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">SPARQL</div>
+    <h2>4.2 Filtrer et combiner : les graph patterns</h2>
+    <p style="color:#aaa;">Le même graphe, interrogé de plus en plus finement.</p>
+</section>
+
+<section>
+    <h3>Le graphe complet</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Roland-Garros 2024, cinq joueurs et trois matchs. Toutes les requêtes suivantes interrogent ce même graphe.</p>
+    <span class="code-badge">Turtle</span>
+    <pre style="font-size:0.56em;"><code class="language-turtle">ex:alcaraz  a ex:Joueur ; ex:nom "Carlos Alcaraz" ; ex:nationalite "Espagne" ; ex:classementATP 2 .
+ex:sinner   a ex:Joueur ; ex:nom "Jannik Sinner" ; ex:nationalite "Italie" ; ex:classementATP 3 .
+ex:zverev   a ex:Joueur ; ex:nom "Alexander Zverev" ; ex:nationalite "Allemagne" ; ex:classementATP 6 .
+ex:ruud     a ex:Joueur ; ex:nom "Casper Ruud" ; ex:nationalite "Norvège" .
+ex:djokovic a ex:Joueur ; ex:nom "Novak Djokovic" ; ex:nationalite "Serbie" ; ex:classementATP 1 .
+
+ex:rg2024_demi1  a ex:Match ; ex:tour "Demi-finale" ; ex:joueur1 ex:alcaraz ; ex:joueur2 ex:sinner ; ex:vainqueur ex:alcaraz .
+ex:rg2024_demi2  a ex:Match ; ex:tour "Demi-finale" ; ex:joueur1 ex:zverev  ; ex:joueur2 ex:ruud   ; ex:vainqueur ex:zverev .
+ex:rg2024_finale a ex:Match ; ex:tour "Finale"       ; ex:joueur1 ex:alcaraz ; ex:joueur2 ex:zverev ; ex:vainqueur ex:alcaraz .</code></pre>
+    <p class="code-note">→ Remarquez : <code>ex:ruud</code> n'a pas de <code>ex:classementATP</code>. Un graphe réel est rarement complet.</p>
+</section>
+
+<section>
+    <h3>Le même graphe, en schéma</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Plus facile à suivre visuellement quand on cherche un pattern dans les diapositives suivantes.</p>
+    <div style="width:100%; max-width:640px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 660 280" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+            </defs>
+
+            <line x1="555" y1="10" x2="555" y2="230" stroke="#3d4168" stroke-width="1" stroke-dasharray="3,3"/>
+
+            <line x1="130" y1="110" x2="70" y2="62" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+            <line x1="130" y1="110" x2="190" y2="62" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlue)"/>
+            <line x1="450" y1="110" x2="390" y2="62" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+            <line x1="450" y1="110" x2="510" y2="62" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlue)"/>
+            <line x1="230" y1="190" x2="70" y2="62" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+            <line x1="230" y1="190" x2="390" y2="62" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlue)"/>
+
+            <rect x="75" y="110" width="110" height="40" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="130" y="122" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace">rg2024_demi1</text>
+            <text x="130" y="136" fill="#7eb8f7" font-size="10" font-weight="bold" text-anchor="middle">Demi-finale</text>
+
+            <rect x="395" y="110" width="110" height="40" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="450" y="122" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace">rg2024_demi2</text>
+            <text x="450" y="136" fill="#7eb8f7" font-size="10" font-weight="bold" text-anchor="middle">Demi-finale</text>
+
+            <rect x="175" y="190" width="110" height="40" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="230" y="202" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace">rg2024_finale</text>
+            <text x="230" y="216" fill="#7eb8f7" font-size="10" font-weight="bold" text-anchor="middle">Finale</text>
+
+            <ellipse cx="70" cy="40" rx="46" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
+            <text x="70" y="45" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Alcaraz</text>
+            <text x="70" y="76" fill="#6b7099" font-size="8" text-anchor="middle">Espagne</text>
+            <text x="70" y="87" fill="#6b7099" font-size="8" text-anchor="middle">#2</text>
+
+            <ellipse cx="190" cy="40" rx="46" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
+            <text x="190" y="45" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Sinner</text>
+            <text x="190" y="76" fill="#6b7099" font-size="8" text-anchor="middle">Italie</text>
+            <text x="190" y="87" fill="#6b7099" font-size="8" text-anchor="middle">#3</text>
+
+            <ellipse cx="390" cy="40" rx="46" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
+            <text x="390" y="45" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Zverev</text>
+            <text x="390" y="76" fill="#6b7099" font-size="8" text-anchor="middle">Allemagne</text>
+            <text x="390" y="87" fill="#6b7099" font-size="8" text-anchor="middle">#6</text>
+
+            <ellipse cx="510" cy="40" rx="46" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
+            <text x="510" y="45" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Ruud</text>
+            <text x="510" y="76" fill="#6b7099" font-size="8" text-anchor="middle">Norvège</text>
+            <text x="510" y="87" fill="#ff9f43" font-size="8" text-anchor="middle">classement : ?</text>
+
+            <ellipse cx="600" cy="40" rx="42" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" stroke-dasharray="3,3"/>
+            <text x="600" y="43" fill="#aaa" font-size="11" font-weight="bold" text-anchor="middle">Djokovic</text>
+            <text x="600" y="55" fill="#6b7099" font-size="7" text-anchor="middle">hors de ces matchs</text>
+
+            <line x1="20" y1="252" x2="42" y2="252" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="48" y="255" fill="#2ecc71" font-size="9">ex:vainqueur</text>
+            <line x1="150" y1="252" x2="172" y2="252" stroke="#7eb8f7" stroke-width="1.2"/>
+            <text x="178" y="255" fill="#7eb8f7" font-size="9">ex:joueur1 / ex:joueur2</text>
+        </svg>
+    </div>
+</section>
+
+<section>
+    <h3>Un pattern = une ligne de la clause WHERE</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Un pattern est un triplet où n'importe quelle position, sujet, prédicat ou objet, peut être remplacée par une variable (préfixée par <code>?</code>).</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">?joueur ex:nationalite "Italie" .</code></pre>
+    <p class="code-note">→ Trouve toutes les valeurs de <code>?joueur</code> reliées à <code>"Italie"</code> par <code>ex:nationalite</code>.</p>
+</section>
+
+<section>
+    <h3>Plusieurs patterns : une jointure implicite</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Deux patterns qui partagent la même variable se joignent automatiquement, sans <code>JOIN ON</code> à écrire.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nomVainqueur WHERE {
+  ?match ex:tour "Finale" ;
+         ex:vainqueur ?vainqueur .
+  ?vainqueur ex:nom ?nomVainqueur .
+}</code></pre>
+    <p class="code-note">→ <code>?match</code> relie les deux premiers patterns, <code>?vainqueur</code> relie le deuxième au troisième.</p>
+</section>
+
+<section>
+    <h3>À vous : devinez le résultat</h3>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom WHERE {
+  ?match ex:tour "Demi-finale" ;
+         ex:vainqueur ?vainqueur .
+  ?vainqueur ex:nom ?nom .
+}</code></pre>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.7rem;">Le graphe a deux demi-finales. Combien de résultats ?</p>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+        <code>"Carlos Alcaraz"</code> et <code>"Alexander Zverev"</code>
+    </div>
+</section>
+
+<section>
+    <h3>FILTER : une condition sur une variable</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Un pattern seul ne peut exprimer que de l'égalité. <code>FILTER</code> ajoute des conditions numériques, textuelles ou logiques.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom WHERE {
+  ?joueur ex:nom ?nom ;
+          ex:classementATP ?rang .
+  FILTER(?rang &lt; 5)
+}</code></pre>
+    <p class="code-note">→ Ne garde que les joueurs classés dans les 5 premiers mondiaux.</p>
+</section>
+
+<section>
+    <h3>OPTIONAL : ne pas perdre une ligne</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;"><code>ex:ruud</code> n'a pas de <code>ex:classementATP</code>. Un pattern normal l'exclurait entièrement du résultat.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom ?rang WHERE {
+  ?joueur ex:nom ?nom .
+  OPTIONAL { ?joueur ex:classementATP ?rang . }
+}</code></pre>
+    <p class="code-note">→ Casper Ruud apparaît quand même dans le résultat, avec <code>?rang</code> non liée.</p>
+</section>
+
+<section>
+    <h3>Le piège : filtrer une variable optionnelle</h3>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom ?rang WHERE {
+  ?joueur ex:nom ?nom .
+  OPTIONAL { ?joueur ex:classementATP ?rang . }
+  FILTER(?rang &lt; 10)
+}</code></pre>
+    <p class="code-note-neg">↛ Pour Casper Ruud, <code>?rang</code> n'est pas liée : le <code>FILTER</code> échoue silencieusement et la ligne disparaît, comme si <code>OPTIONAL</code> n'avait servi à rien.</p>
+</section>
+
+<section>
+    <h3>UNION : deux motifs alternatifs</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Trouver les joueurs présents en finale, comme vainqueur ou comme adversaire.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom WHERE {
+  ?match ex:tour "Finale" .
+  { ?match ex:vainqueur ?j . }
+  UNION
+  { ?match ex:joueur2 ?j . }
+  ?j ex:nom ?nom .
+}</code></pre>
+    <p class="code-note">→ Résultat : Carlos Alcaraz (vainqueur) et Alexander Zverev (adversaire), sans doublon.</p>
+</section>
+
+<section>
+    <h3>MINUS contre OPTIONAL</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.7rem;">Une confusion classique : les deux ressemblent à un filtre négatif, mais ne font pas la même chose.</p>
+    <div class="two-col" style="font-size:0.8em;">
+        <div class="box box-blue">
+            <strong style="color:#7eb8f7;">OPTIONAL</strong>
+            <p style="margin-top:0.4rem; font-size:0.9em;">Garde toutes les lignes. Si le motif ne correspond pas, la variable reste simplement non liée.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #ff9f43;">
+            <strong style="color:#ff9f43;">MINUS</strong>
+            <p style="margin-top:0.4rem; font-size:0.9em;">Exclut carrément la ligne si le motif correspond. Sert à écarter des résultats, jamais à les enrichir.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>ORDER BY et LIMIT</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Trier les joueurs classés par rang ATP croissant, ne garder que le podium.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom ?rang WHERE {
+  ?joueur ex:nom ?nom ;
+          ex:classementATP ?rang .
+}
+ORDER BY ?rang
+LIMIT 3</code></pre>
+    <p class="code-note">→ Djokovic (1), Alcaraz (2), Sinner (3).</p>
+</section>
+
+<section>
+    <h3>Le piège : trier sans limiter</h3>
+    <p style="font-size:0.82em; color:#eef0ff; text-align:center; margin-bottom:0.7rem;"><code>ORDER BY</code> sans <code>LIMIT</code> doit trier <strong>tout</strong> le résultat avant de répondre.</p>
+    <div class="box" style="border-left:4px solid #ff9f43;">
+        Sur notre graphe de cinq joueurs, aucun souci. Sur un endpoint public comme Wikidata, avec des millions de résultats potentiels, la même requête peut simplement <strong>expirer</strong> (timeout) avant de renvoyer quoi que ce soit.
+    </div>
+    <p style="font-size:0.75em; color:#6b7099; margin-top:0.7rem; text-align:center;">Toujours ajouter <code>LIMIT</code> en phase d'exploration d'un grand graphe.</p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 4.3 : AGRÉGER ET CONSTRUIRE
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">SPARQL</div>
+    <h2>4.3 Agréger et construire</h2>
+    <p style="color:#aaa;">Résumer un graphe en chiffres, ou en fabriquer un nouveau.</p>
+</section>
+
+<section>
+    <h3>COUNT et GROUP BY</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Compter les matchs par tour du tournoi.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?tour (COUNT(?match) AS ?nb) WHERE {
+  ?match ex:tour ?tour .
+}
+GROUP BY ?tour</code></pre>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
+        <code>"Demi-finale" → 2</code> &nbsp;·&nbsp; <code>"Finale" → 1</code>
+    </div>
+</section>
+
+<section>
+    <h3>DISTINCT : éliminer les doublons</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Carlos Alcaraz apparaît dans deux matchs comme <code>ex:joueur1</code>. Sans <code>DISTINCT</code>, son nom sortirait deux fois.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT DISTINCT ?nom WHERE {
+  ?match ex:joueur1 ?j .
+  ?j ex:nom ?nom .
+}</code></pre>
+    <p class="code-note">→ "Carlos Alcaraz" n'apparaît qu'une seule fois, malgré ses deux matchs.</p>
+</section>
+
+<section>
+    <h3>Les autres agrégats</h3>
+    <div class="kv-row"><span class="kv-label">AVG</span><span class="kv-body">Moyenne d'une valeur numérique.</span></div>
+    <div class="kv-row"><span class="kv-label">MIN / MAX</span><span class="kv-body">Valeur minimale ou maximale.</span></div>
+    <div class="kv-row"><span class="kv-label">SUM</span><span class="kv-body">Somme d'une valeur numérique.</span></div>
+    <span class="code-badge" style="margin-top:0.8rem;">SPARQL</span>
+    <pre><code class="language-sparql">SELECT (AVG(?rang) AS ?rangMoyen) WHERE {
+  ?joueur ex:classementATP ?rang .
+}</code></pre>
+</section>
+
+<section>
+    <h3>CONSTRUCT en pratique</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Fabriquer un raccourci <code>ex:aBattu</code> à partir des matchs. Comme le raisonnement du chapitre 3, mais déclenché par une requête plutôt que par un raisonneur.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">CONSTRUCT { ?vainqueur ex:aBattu ?perdant . }
+WHERE {
+  ?match ex:vainqueur ?vainqueur ;
+         ex:joueur1 ?j1 ; ex:joueur2 ?j2 .
+  BIND(IF(?vainqueur = ?j1, ?j2, ?j1) AS ?perdant)
+}</code></pre>
+    <p class="code-note">→ <code>BIND</code> calcule "l'autre joueur". Le résultat est un nouveau graphe RDF, pas une table.</p>
+</section>
+
+<section>
+    <h3>ASK en pratique</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">"Casper Ruud a-t-il un classement ATP renseigné dans notre graphe ?"</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">ASK {
+  ex:ruud ex:classementATP ?rang .
+}</code></pre>
+    <div class="fragment box" style="text-align:center; margin-top:0.6rem; border-left:4px solid #e05c5c;">
+        <code>false</code>
+    </div>
+    <p class="code-note">→ Un booléen, pas une table : idéal pour une simple vérification.</p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 4.4 : TRIPLESTORES, ENDPOINTS ET FÉDÉRATION
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">SPARQL</div>
+    <h2>4.4 Triplestores, endpoints et fédération</h2>
+    <p style="color:#aaa;">Où vivent les graphes que l'on interroge.</p>
+</section>
+
+<section>
+    <h3>Qu'est-ce qu'un triplestore ?</h3>
+    <div class="kv-row"><span class="kv-label">Définition</span><span class="kv-body">Un moteur de base de données spécialisé dans le stockage et l'interrogation de graphes RDF.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Indexation</span><span class="kv-body">Index sur les permutations de sujet, prédicat, objet (SPO, POS, OSP...), pour retrouver n'importe quel pattern rapidement.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Différence avec SQL</span><span class="kv-body">Un SGBD relationnel (section 2.1) organise des tables à schéma fixe. Un triplestore organise un seul grand graphe, sans schéma préétabli.</span></div>
+</section>
+
+<section>
+    <h3>Des triplestores réels</h3>
+    <table class="rdf-table">
+        <thead><tr><th>Triplestore</th><th>Utilisé par</th></tr></thead>
+        <tbody>
+            <tr><td>Virtuoso</td><td>DBpedia, UniProt</td></tr>
+            <tr><td>Blazegraph</td><td>Wikidata (historiquement)</td></tr>
+            <tr><td>Apache Jena Fuseki</td><td>Projets open source, prototypage</td></tr>
+            <tr><td>GraphDB (Ontotext)</td><td>Le triplestore de ce cours</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Le endpoint SPARQL</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Un triplestore expose son graphe via une URL HTTP qui accepte des requêtes SPARQL : le <strong>endpoint</strong>. C'est le "SPARQL Protocol", la deuxième moitié du standard, à côté du langage lui-même.</p>
+    <div class="box box-blue" style="text-align:center;">
+        <code>https://query.wikidata.org/sparql</code>
+    </div>
+    <p style="font-size:0.75em; color:#6b7099; margin-top:0.7rem; text-align:center;">C'est exactement cet endpoint que la démo FIFA du chapitre 1 interrogeait.</p>
+</section>
+
+<section>
+    <h3>La fédération : interroger plusieurs endpoints</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">La clause <code>SERVICE</code> délègue une partie du motif à un endpoint distant, et combine le résultat avec le reste de la requête locale.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom ?paysWikidata WHERE {
+  ex:alcaraz ex:nom ?nom .
+  SERVICE &lt;https://query.wikidata.org/sparql&gt; {
+    wd:Q85518537 wdt:P27 ?paysWikidata .
+  }
+}</code></pre>
+    <p class="code-note">→ Une partie locale, une partie distante, une seule requête. Le même principe que la démo FIFA du chapitre 1.</p>
+</section>
+
+<section>
+    <h3>Le piège de la fédération</h3>
+    <p style="font-size:0.82em; color:#eef0ff; text-align:center; margin-bottom:0.7rem;">Chaque bloc <code>SERVICE</code> est un aller-retour HTTP séparé vers un serveur distant.</p>
+    <div class="box" style="border-left:4px solid #ff9f43;">
+        Un endpoint distant lent, surchargé ou indisponible ralentit ou fait échouer la requête entière, même si le reste des données est disponible localement. À la différence d'une jointure locale, la latence réseau devient une variable du problème.
+    </div>
+</section>
+
+<section>
+    <h3>GraphDB : le triplestore de ce cours</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Les travaux pratiques de ce module utilisent <strong style="color:#7eb8f7;">GraphDB</strong> (Ontotext) : un triplestore avec son propre endpoint SPARQL, et surtout OntoRefine intégré pour construire un graphe depuis un tableur, sujet du chapitre 5.</p>
+    <!-- IMAGE À AJOUTER
+         Description  : capture d'écran de l'interface GraphDB Workbench, éditeur de requêtes SPARQL
+         Recherche    : "GraphDB Workbench SPARQL editor" site:graphdb.ontotext.com
+         Fichier cible: ../figures/graphdb-workbench.png -->
+    <div class="img-placeholder">
+        <strong>IMAGE À AJOUTER</strong>
+        <span>Interface GraphDB Workbench, éditeur de requêtes SPARQL</span>
+        <span class="src">Recherche : "GraphDB Workbench SPARQL editor"</span>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  CONCLUSION
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
+    <h2 style="font-size:1.25em; margin-bottom:1.2rem;">Synthèse : SPARQL (1/2)</h2>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.84em;">
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">SPARQL interroge un graphe par <strong>filtrage de motifs de triplets</strong> (pattern matching), pas par jointure de tables à schéma fixe. Les variables partagées font office de jointure.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">Quatre formes de requête : <strong>SELECT</strong> (table), <strong>CONSTRUCT</strong> (nouveau graphe), <strong>ASK</strong> (booléen), <strong>DESCRIBE</strong> (description d'une ressource).</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;"><code>FILTER</code> ajoute des conditions, <code>OPTIONAL</code> garde une ligne même sans correspondance, <code>UNION</code> combine des motifs alternatifs, <code>MINUS</code> exclut plutôt qu'il n'enrichit.</p>
+        </div>
+    </div>
+</section>
+
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
+    <h2 style="font-size:1.25em; margin-bottom:1.2rem;">Synthèse : SPARQL (2/2)</h2>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.84em;">
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;"><code>GROUP BY</code> et les agrégats (<code>COUNT</code>, <code>AVG</code>...) résument un graphe en chiffres. <code>ORDER BY</code> sans <code>LIMIT</code> reste un piège sur un grand graphe.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;">Un <strong>triplestore</strong> stocke le graphe, un <strong>endpoint</strong> l'expose en HTTP, la <strong>fédération</strong> (<code>SERVICE</code>) combine plusieurs endpoints en une seule requête. Ce cours utilise <strong>GraphDB</strong>.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;">RDF décrit, RDFS/OWL déduisent, SPARQL interroge. Reste à voir comment <strong>construire</strong> un graphe à partir de données existantes : c'est l'objet du chapitre suivant.</p>
+        </div>
+    </div>
+</section>
+
+
+</div><!-- .slides -->
+</div><!-- .reveal -->
+
+<script src="../dist/reveal.js"></script>
+<script src="../plugin/notes/notes.js"></script>
+<script src="../plugin/markdown/markdown.js"></script>
+<script src="../plugin/highlight/highlight.js"></script>
+<script>
+    /* Ce build de highlight.js ne connaît ni SPARQL ni Turtle : on les déclare nous-mêmes. */
+    (function () {
+        var hljs = RevealHighlight().hljs;
+
+        var IRI            = { className: 'meta',     begin: /<[^\s<>]*>/ };
+        var PREFIXED_NAME  = { className: 'symbol',    begin: /[A-Za-z][\w-]*:[A-Za-z_][\w-]*/ };
+        var DATATYPE       = { className: 'symbol',    begin: /\^\^[A-Za-z][\w-]*:[A-Za-z_][\w-]*/ };
+        var LANG_TAG       = { className: 'symbol',    begin: /@[A-Za-z-]+/ };
+
+        function turtleLang(hljs) {
+            return {
+                case_insensitive: false,
+                keywords: {
+                    keyword: '@prefix @base PREFIX BASE',
+                    literal: 'true false',
+                    built_in: 'a'
+                },
+                contains: [
+                    hljs.COMMENT('#', '$'),
+                    hljs.QUOTE_STRING_MODE,
+                    hljs.APOS_STRING_MODE,
+                    hljs.C_NUMBER_MODE,
+                    IRI, DATATYPE, PREFIXED_NAME,
+                    { className: 'variable', begin: /_:[A-Za-z0-9_-]+/ },
+                    LANG_TAG
+                ]
+            };
+        }
+
+        function sparqlLang(hljs) {
+            return {
+                case_insensitive: true,
+                keywords: {
+                    keyword: 'SELECT CONSTRUCT ASK DESCRIBE WHERE FROM NAMED FILTER OPTIONAL UNION MINUS ' +
+                        'BIND VALUES GROUP BY ORDER LIMIT OFFSET DISTINCT REDUCED HAVING AS SERVICE GRAPH ' +
+                        'PREFIX BASE INSERT DELETE DATA WITH USING DEFAULT ALL SILENT INTO TO CLEAR DROP ' +
+                        'CREATE LOAD COPY MOVE ADD IN NOT EXISTS UNDEF ASC DESC',
+                    literal: 'true false',
+                    built_in: 'a COUNT SUM AVG MIN MAX SAMPLE GROUP_CONCAT BOUND STR LANG LANGMATCHES ' +
+                        'DATATYPE ISIRI ISBLANK ISLITERAL ISNUMERIC IF COALESCE SAMETERM REGEX CONTAINS ' +
+                        'STRSTARTS STRENDS'
+                },
+                contains: [
+                    hljs.COMMENT('#', '$'),
+                    hljs.QUOTE_STRING_MODE,
+                    hljs.APOS_STRING_MODE,
+                    hljs.C_NUMBER_MODE,
+                    { className: 'variable', begin: /[?$][A-Za-z_]\w*/ },
+                    IRI, DATATYPE, PREFIXED_NAME, LANG_TAG
+                ]
+            };
+        }
+
+        hljs.registerLanguage('turtle', turtleLang);
+        hljs.registerLanguage('sparql', sparqlLang);
+    })();
+</script>
+<script>
+    Reveal.initialize({
+        hash: true,
+        slideNumber: false,
+        pdfSeparateFragments: false,
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+</script>
+</body>
+</html>

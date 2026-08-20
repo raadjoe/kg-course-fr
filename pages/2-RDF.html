@@ -1,0 +1,1714 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow">
+    <title>2-RDF</title>
+
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/night.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../plugin/highlight/monokai.css">
+
+    <style>
+        /* ── Helpers for this deck ───────────────────────────────── */
+        .part-label {
+            display: inline-block;
+            background: #4f8ef7;
+            color: #09090f;
+            font-size: 0.65em;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.8rem;
+            border-radius: 3px;
+            margin-bottom: 1.2rem;
+        }
+        .box {
+            border: 1px solid #3d4168;
+            border-radius: 6px;
+            padding: 0.8rem 1.2rem;
+            background: #0d1117;
+            font-size: 0.82em;
+            line-height: 1.55;
+            margin-top: 0.6rem;
+        }
+        .box-blue { border-color: #4f8ef7; }
+        .img-placeholder {
+            width: 80%;
+            margin: 0.6rem auto;
+            background: #0d1117;
+            border: 2px dashed #3d4168;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            color: #6b7099;
+            font-size: 0.62em;
+            text-align: center;
+            padding: 0.8rem;
+            box-sizing: border-box;
+        }
+        .img-placeholder strong { color: #4f8ef7; font-size: 1.05em; }
+        .img-placeholder .src   { color: #3d4168; }
+        .two-col { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .two-col > div { flex: 1; }
+        .rdf-table { width: 100%; border-collapse: collapse; font-size: 0.72em; }
+        .rdf-table th {
+            background: #1e3a5f; color: #7eb8f7;
+            padding: 0.35rem 0.6rem; border: 1px solid #444; text-align: left;
+        }
+        .rdf-table td {
+            padding: 0.3rem 0.6rem; border: 1px solid #444; color: #eef0ff;
+        }
+        .rdf-table tr:nth-child(even) td { background: #0d1117; }
+        blockquote {
+            border-left: 4px solid #4f8ef7;
+            padding-left: 1rem;
+            color: #aaa;
+            font-style: italic;
+            margin: 0.8rem 0;
+        }
+        .kv-row { display: flex; gap: 1rem; align-items: baseline; margin-bottom: 0.5rem; }
+        .kv-label {
+            min-width: 110px; text-align: right;
+            color: #4f8ef7; font-size: 0.7em; font-family: monospace;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            border-right: 2px solid #3d4168; padding-right: 0.6rem;
+            flex-shrink: 0;
+        }
+        .kv-body { font-size: 0.82em; line-height: 1.5; }
+        code { font-size: 0.85em; color: #7eb8f7; background: #0d1117; padding: 0.1em 0.35em; border-radius: 3px; }
+
+        /* ── Override night theme yellow links ───────────────────── */
+        :root {
+            --r-main-font-size:   34px;
+            --r-link-color:       #4f8ef7;
+            --r-link-color-dark:  #2a5cb8;
+            --r-link-color-hover: #7eb8f7;
+            --r-selection-background-color: #2a5cb8;
+        }
+        .reveal a             { color: #4f8ef7; }
+        .reveal a:hover       { color: #7eb8f7; }
+        .reveal .controls     { color: #4f8ef7; }
+        .reveal .progress span { background: #4f8ef7; }
+    </style>
+</head>
+
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════════════
+  COVER
+═══════════════════════════════════════════════════════════════ -->
+<section>
+    <h2>Graphes de connaissances :</h2>
+    <h2>fondements et applications</h2>
+    <br><br>
+    <h3>BACHELOR HEPTA</h3>
+    <p>
+        <h3><a href="http://joe-raad.com">Joe Raad</a></h3>
+    </p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  CHAPITRE 2 : RDF
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#020408" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.25) 0px,rgba(79,142,247,0.25) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.25) 0px,rgba(79,142,247,0.25) 1px,transparent 1px,transparent 60px)" data-transition="slide">
+    <div style="display:flex; align-items:center; gap:2.5rem; justify-content:center; max-width:860px; margin:0 auto;">
+        <div style="font-size:7em; font-weight:900; color:rgba(79,142,247,0.13); line-height:1; flex-shrink:0; font-family:monospace; user-select:none;">02</div>
+        <div style="text-align:left; border-left:3px solid #4f8ef7; padding-left:2rem;">
+            <div style="font-size:0.52em; font-weight:700; color:#4f8ef7; letter-spacing:0.25em; text-transform:uppercase; margin-bottom:0.6rem;">Chapitre 2</div>
+            <h2 style="font-size:1.3em; margin:0 0 1.4rem 0; color:#eef0ff;">RDF</h2>
+            <div style="font-size:0.62em; color:#6b7099; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.7rem;">Sections</div>
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">2.1</span>
+                <span>Le modèle de données</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">2.2</span>
+                <span>Les termes RDF</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">2.3</span>
+                <span>Syntaxe &amp; sérialisations</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">2.4</span>
+                <span>Contextualisation des faits</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 2.1 : MODÈLE DE DONNÉES
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">RDF</div>
+    <h2>2.1 Modèle de données</h2>
+    <p style="color:#aaa;">Le triplet : l'unité atomique de tout graphe de connaissances.</p>
+</section>
+
+<section>
+    <h3>Les limites des approches existantes</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:1.2rem;">Pour <strong>partager et relier des données entre sources hétérogènes</strong>, les modèles classiques montrent vite leurs limites.</p>
+    <div style="display:flex; flex-direction:column; gap:1rem; font-size:0.88em;">
+        <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
+            <span class="kv-label">SQL</span>
+            <span class="kv-body"><strong>Schéma rigide établi à l'avance.</strong> Tout attribut doit être déclaré avant insertion. Fusionner deux bases d'organisations différentes exige un traitement manuel coûteux.</span>
+        </div>
+        <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
+            <span class="kv-label">Property Graphs<br>(Neo4j…)</span>
+            <span class="kv-body"><strong>Identifiants locaux, raisonnement limité.</strong> Les nœuds n'ont pas d'identifiant global, donc relier deux sources impose une convention explicite. Aucune sémantique formelle : pas d'inférence automatique.</span>
+        </div>
+        <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
+            <span class="kv-label">APIs propriétaires</span>
+            <span class="kv-body"><strong>Pas d'interopérabilité native.</strong> Chaque source invente son propre format. Impossible de fusionner ou de raisonner sur des données hétérogènes.</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>RDF : le graphe ouvert et standardisé</h3>
+    <div style="display:flex; flex-direction:column; gap:1rem; font-size:0.85em;">
+        <div class="kv-row" style="margin:20px; align-items:flex-start;">
+            <span class="kv-label">Standard W3C</span>
+            <span class="kv-body">Recommandation officielle depuis 1999.<br>Versions : <a href="https://www.w3.org/TR/1999/REC-rdf-syntax-19990222/" target="_blank">RDF&nbsp;1.0</a> (1999) · <a href="https://www.w3.org/TR/rdf11-concepts/" target="_blank">RDF&nbsp;1.1</a> (2014) · <a href="https://www.w3.org/TR/rdf12-concepts/" target="_blank">RDF&nbsp;1.2</a> (en cours).</span>
+        </div>
+        <div class="kv-row fragment" style="margin:20px; align-items:flex-start;">
+            <span class="kv-label">Schéma ouvert</span>
+            <span class="kv-body">Aucun schéma global à définir au préalable. N'importe quelle source peut ajouter de nouveaux faits sur n'importe quelle entité sans coordination.</span>
+        </div>
+        <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
+            <span class="kv-label">Identifiants globaux</span>
+            <span class="kv-body">Chaque entité reçoit un identifiant global (IRI). Deux bases utilisant le même IRI parlent de la même chose. Si deux sources utilisent des IRIs différents pour la même entité réelle, il suffit de déclarer leur équivalence, sans modifier les données d'origine.</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>La pile du Web Sémantique</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">RDF n'est pas seul : il est la fondation sur laquelle reposent toutes les couches supérieures.</p>
+    <img src="../figures/semantic-web-layers.png" alt=""
+                 style="max-width:100%; max-height:30vh; object-fit:contain; border-radius:6px;">
+    <div class="box box-blue" style="margin-top:0.7rem; font-size:0.78em; line-height:1.55;">
+        <strong>RDF est la couche fondamentale.</strong><br> La brique de base : le <strong>triplet</strong>.
+    </div>
+</section>
+
+<section>
+    <h3>Le triplet : sujet, prédicat, objet</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Un triplet est un fait élémentaire représentant une relation entre deux choses.</p>
+    <div style="display:flex; align-items:center; justify-content:center; gap:1rem; margin:1.2rem 0;">
+        <div style="background:#1e3a5f; padding:0.55rem 1.1rem; border-radius:6px; font-size:0.95em; color:#eef0ff; font-family:monospace; white-space:nowrap;">Carlos Alcaraz</div>
+        <div style="display:flex; align-items:center;">
+            <div style="height:2px; width:40px; background:#4f8ef7;"></div>
+            <div style="background:rgba(79,142,247,0.12); border:1px solid #4f8ef7; padding:0.2rem 0.55rem; border-radius:3px; font-size:0.7em; color:#7eb8f7; white-space:nowrap;">a gagné</div>
+            <div style="height:2px; width:30px; background:#4f8ef7;"></div>
+            <div style="width:0; height:0; border-top:6px solid transparent; border-bottom:6px solid transparent; border-left:10px solid #4f8ef7;"></div>
+        </div>
+        <div style="background:#1e3a5f; padding:0.55rem 1.1rem; border-radius:6px; font-size:0.95em; color:#eef0ff; font-family:monospace; white-space:nowrap;">Roland-Garros 2025</div>
+    </div>
+    <div style="display:flex; gap:1rem; margin-top:0.8rem;">
+        <div class="box fragment" style="flex:1; text-align:center;">
+            <strong style="color:#7eb8f7; display:block; margin-bottom:0.3rem;">Sujet</strong>
+            <p style="font-size:0.78em; color:#aaa; margin:0; line-height:1.4;">La ressource dont on parle. Un noeud du graphe.</p>
+        </div>
+        <div class="box fragment" style="flex:1; text-align:center;">
+            <strong style="color:#7eb8f7; display:block; margin-bottom:0.3rem;">Prédicat</strong>
+            <p style="font-size:0.78em; color:#aaa; margin:0; line-height:1.4;">La relation ou propriété. L'arête étiquetée du graphe.</p>
+        </div>
+        <div class="box fragment" style="flex:1; text-align:center;">
+            <strong style="color:#7eb8f7; display:block; margin-bottom:0.3rem;">Objet</strong>
+            <p style="font-size:0.78em; color:#aaa; margin:0; line-height:1.4;">La valeur ou la ressource liée. Un autre noeud, ou une valeur concrète.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.8rem; text-align:center;">Dans la section 2.2, nous verrons comment représenter ces termes <br> (IRIs, littéraux, blank nodes).</p>
+</section>
+
+<section>
+    <h3>Des faits en langage naturel aux triplets</h3>
+    <div class="two-col" style="font-size:0.8em; margin-top:0.4rem;">
+        <div>
+            <p style="color:#aaa; margin-bottom:0.5rem;">En langage naturel :</p>
+            <ul style="line-height:1.9; color:#eef0ff;">
+                <li>Roland-Garros 2025 est un Grand Chelem</li>
+                <li>Roland-Garros 2025 a lieu à Paris</li>
+                <li>Carlos Alcaraz a gagné Roland-Garros 2025</li>
+                <li>Carlos Alcaraz est de nationalité espagnole</li>
+            </ul>
+        </div>
+        <div class="fragment">
+            <p style="color:#7eb8f7; margin-bottom:0.5rem;">En triplets (notation abstraite) :</p>
+            <table class="rdf-table">
+                <thead><tr><th>Sujet</th><th>Prédicat</th><th>Objet</th></tr></thead>
+                <tbody>
+                    <tr><td>rg2025</td><td>type</td><td>GrandChelem</td></tr>
+                    <tr><td>rg2025</td><td>lieu</td><td>Paris</td></tr>
+                    <tr><td>alcaraz</td><td>aGagné</td><td>rg2025</td></tr>
+                    <tr><td>alcaraz</td><td>nationalité</td><td>Espagne</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.7rem;">Les symboles "rg2025", "alcaraz", "Paris"… sont des identifiants abstraits. Leur représentation formelle (IRIs, littéraux) est l'objet de la section 2.2.</p>
+</section>
+
+<section>
+    <h3>La fusion : avantage clé du modèle</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Deux sources indépendantes décrivent le même tournoi :</p>
+    <div class="two-col" style="font-size:0.78em;">
+        <div>
+            <p style="color:#7eb8f7; margin-bottom:0.3rem;">Source 1 (Wikidata)</p>
+            <table class="rdf-table">
+                <thead><tr><th>Sujet</th><th>Prédicat</th><th>Objet</th></tr></thead>
+                <tbody>
+                    <tr><td>alcaraz</td><td>aGagné</td><td>rg2025</td></tr>
+                    <tr><td>rg2025</td><td>type</td><td>GrandChelem</td></tr>
+                    <tr><td>rg2025</td><td>lieu</td><td>Paris</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="fragment">
+            <p style="color:#7eb8f7; margin-bottom:0.3rem;">Source 2 (ATP Tour)</p>
+            <table class="rdf-table">
+                <thead><tr><th>Sujet</th><th>Prédicat</th><th>Objet</th></tr></thead>
+                <tbody>
+                    <tr><td>alcaraz</td><td>aGagné</td><td>rg2025</td></tr>
+                    <tr><td>rg2025</td><td>points</td><td>2000</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div> <br>
+    <div class="box fragment" style="margin-top:0.7rem; font-size:0.8em;">
+        Fusion par simple <strong>union ensembliste</strong>.<br> Le doublon <code>alcaraz aGagné rg2025</code> est éliminé.<br> Résultat : <strong>4 triplets uniques</strong>.<br> Pas de migration, pas de conflit de schéma.
+    </div>
+</section>
+
+<section>
+    <h3>RDF à l'échelle du Web</h3>
+    <div style="display:flex; gap:1.5rem; margin-top:0.5rem; align-items:stretch;">
+        <div class="box" style="flex:1; text-align:center; padding:1.2rem 1rem;">
+            <div style="font-size:0.72em; color:#6b7099; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem;">Wikidata</div>
+            <div style="font-size:2.4em; color:#4f8ef7; font-weight:700; line-height:1.1;">&gt;17 Md</div>
+            <div style="color:#aaa; font-size:0.78em; margin:0.4rem 0 0.8rem 0;">de triplets RDF</div><br>
+            <div style="font-size:1.5em; color:#7eb8f7; font-weight:700; line-height:1.1;">&gt;122 M</div>
+            <div style="color:#aaa; font-size:0.72em; margin-top:0.3rem;">d'entités avec IRI unique (personnes, lieux, concepts...)</div>
+        </div>
+        <div class="box fragment" style="flex:1; text-align:center; padding:1.2rem 1rem; border-color:#4f8ef7;">
+            <div style="font-size:0.72em; color:#6b7099; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem;">UniProt</div>
+            <div style="font-size:2.4em; color:#4f8ef7; font-weight:700; line-height:1.1;">&gt;232 Md</div>
+            <div style="color:#aaa; font-size:0.78em; margin:0.4rem 0 0.8rem 0;">de triplets RDF</div><br>
+            <div  style="font-size:1.5em; color:#7eb8f7; font-weight:700; line-height:1.1;">&gt;150 M</div>
+            <div style="color:#aaa; font-size:0.72em; margin-top:0.3rem;">d'entités avec IRI unique (protéines, gènes, organismes...)</div>
+        </div>
+    </div>
+    <p class="fragment" style="margin-top:0.7rem; font-size:0.75em; color:#6b7099; font-style:italic; text-align:center;">
+        Sources : statistiques Wikidata 2025 · UniProt RDF release 2026_02.
+    </p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 2.2 : LES TERMES RDF
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">RDF</div>
+    <h2>2.2 Les termes RDF</h2>
+    <p style="color:#aaa;">Comment nommer les choses : IRIs, Littéraux et Blank Nodes.</p>
+</section>
+
+<section>
+    <h3>Il faut nommer les choses</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.2rem;">En représentation de connaissances, il est nécessaire de nommer les entités et les relations.</p>
+    <p> 
+        <strong style="color:#7eb8f7;">Exemples d'entités :</strong> personnes, lieux, concepts, événements, organisations, protéines, gènes, maladies…<br>
+    </p>
+    <p>
+        <strong style="color:#7eb8f7;">Exemples de relations :</strong> aGagné, estLocaliséÀ, estDeNationalité, estParentDe, estAuteurDe…
+    </p>
+    <img src="../figures/naming-everything.png" alt=""
+                 style="max-width:100%; max-height:30vh; object-fit:contain; border-radius:6px;">
+</section>
+
+<section>
+    <h3>Les trois types de termes RDF</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1.2rem;">RDF définit trois et seulement trois types de termes. Chaque type peut occuper certaines positions dans un triplet.</p>
+    <table class="rdf-table" style="font-size:0.78em; margin-top:0.5rem;">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th style="text-align:center;">Sujet</th>
+                <th style="text-align:center;">Prédicat</th>
+                <th style="text-align:center;">Objet</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong style="color:#7eb8f7;">IRI</strong> : identifiant universel</td>
+                <td style="text-align:center; background:#0d2a1a;"><span style="color:#4ade80; font-weight:700;">✓</span></td>
+                <td style="text-align:center; background:#0d2a1a;"><span style="color:#4ade80; font-weight:700;">✓</span></td>
+                <td style="text-align:center; background:#0d2a1a;"><span style="color:#4ade80; font-weight:700;">✓</span></td>
+            </tr>
+            <tr>
+                <td><strong style="color:#7eb8f7;">Littéral</strong> : valeur concrète</td>
+                <td style="text-align:center; background:#2a0d0d;"><span style="color:#f87171; font-weight:700;">✗</span></td>
+                <td style="text-align:center; background:#2a0d0d;"><span style="color:#f87171; font-weight:700;">✗</span></td>
+                <td style="text-align:center; background:#0d2a1a;"><span style="color:#4ade80; font-weight:700;">✓</span></td>
+            </tr>
+            <tr>
+                <td><strong style="color:#7eb8f7;">Blank Node</strong> : ressource anonyme</td>
+                <td style="text-align:center; background:#0d2a1a;"><span style="color:#4ade80; font-weight:700;">✓</span></td>
+                <td style="text-align:center; background:#2a0d0d;"><span style="color:#f87171; font-weight:700;">✗</span></td>
+                <td style="text-align:center; background:#0d2a1a;"><span style="color:#4ade80; font-weight:700;">✓</span></td>
+            </tr>
+        </tbody>
+    </table> <br>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.8rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Les IRIs et blank nodes représentent des ressources (personnes, lieux, concepts, etc).<br>Les littéraux représentent des valeurs brutes (textes, nombres, dates).</p>
+</section>
+
+
+<!-- ── Sous-section : IRIs ──────────────────────────────────── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">2.2.1 IRIs</h3>
+    <p style="color:#aaa;">Internationalized Resource Identifiers : <br>des noms sans ambiguïté à l'échelle mondiale.</p>
+</section>
+
+<section>
+    <h3>Le problème : les chaînes ne sont pas des identifiants</h3>
+    <div class="two-col fragment" style="font-size:0.82em; margin-top:0.4rem; align-items:stretch;">
+        <div class="box" style="border-left:3px solid #f87171;">
+            <p style="color:#f87171; font-size:0.8em; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 0.7rem 0;">Problème 1 : un nom, plusieurs entités</p>
+            <div class="kv-row" style="margin-bottom:0.55rem;">
+                <span class="kv-label" style="min-width:70px;">"Mars"</span>
+                <span class="kv-body">planète · dieu romain de la guerre · barre chocolatée · Bruno Mars</span>
+            </div>
+            <div class="kv-row" style="margin-bottom:0;">
+                <span class="kv-label" style="min-width:70px;">"Mercure"</span>
+                <span class="kv-body">planète · élément chimique · dieu messager · programme spatial NASA</span>
+            </div>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #fbbf24;">
+            <p style="color:#fbbf24; font-size:0.8em; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 0.7rem 0;">Problème 2 : une entité, plusieurs noms</p>
+            <div class="kv-row" style="margin-bottom:0.55rem;">
+                <span class="kv-label" style="min-width:70px;">Nadal</span>
+                <span class="kv-body">"Rafa" · "Rafael Nadal" · "Rafael Nadal Parera" · "El Rey de la Tierra Batida"</span>
+            </div>
+            <div class="kv-row" style="margin-bottom:0;">
+                <span class="kv-label" style="min-width:70px;">Le Pape</span>
+                <span class="kv-body">"Jorge Bergoglio" · "Pape François" · "Pope Francis" · "Papa Francisco"</span>
+            </div>
+        </div>
+    </div>
+    <div class="box box-blue fragment" style="margin-top:0.7rem; font-size:0.78em;">
+        Les machines ne peuvent pas deviner le contexte. Il faut un <strong>identifiant sans ambiguïté, stable et mondial</strong>.
+    </div>
+</section>
+
+<section>
+    <h3>La solution : l'IRI</h3>
+    <div style="font-size:0.9em;">
+        <div class="kv-row"><span class="kv-label">Définition</span><span class="kv-body">Un <strong>IRI</strong> (<em>Internationalized Resource Identifier</em>) est un identifiant <strong>globalement unique</strong> attribué à une ressource (une personne, un lieu, un concept...).</span></div>
+        <div class="kv-row fragment"><span class="kv-label">Unicité garantie</span><span class="kv-body">L'IRI est ancré dans un nom de domaine que son émetteur contrôle. <code>wikidata.org</code> et <code>universite-paris-saclay.fr</code> sont des espaces distincts : aucune collision n'est possible par construction.</span></div>
+        <div class="kv-row fragment"><span class="kv-label">Deux problèmes résolus</span><span class="kv-body">"Mars-planète" et "Mars-dieu" ont deux IRIs distincts. "Jorge Bergoglio" et "Pape François" pointent les deux vers le <em>même</em> IRI.</span></div>
+        <div class="box fragment" style="font-size:0.78em; margin-top:0.8rem;">
+            <code>&lt;https://universite-paris-saclay.fr/enseignants/joeraad&gt;</code><br>cet IRI désigne Joe Raad dans le graphe de l'université, sans ambiguïté, quelle que soit la langue ou la base de données qui le lit.
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>URL, URI et IRI</h3>
+    <div class="kv-row" style="margin-bottom:0.9rem;">
+        <span class="kv-label">URL</span>
+        <span class="kv-body">Adresse d'une page web visitée par un navigateur.<br>
+        <code style="font-size:0.8em;">&lt;https://www.wikidata.org/wiki/Q191067&gt;</code></span>
+    </div>
+    <div class="kv-row fragment" style="margin-bottom:0.9rem;">
+        <span class="kv-label">URI</span>
+        <span class="kv-body">Identifiant d'une ressource, pas forcément une adresse accessible.<br>
+        <code style="font-size:0.8em;">&lt;http://www.wikidata.org/entity/Q191067&gt;</code><br>
+        <code style="font-size:0.8em;">&lt;http://example.org/%C5%9Awi%C4%85tek&gt;</code></span>
+    </div>
+    <div class="kv-row fragment" style="margin-bottom:0.9rem;">
+        <span class="kv-label">IRI</span>
+        <span class="kv-body">URI étendu à l'Unicode complet. Terme de RDF 1.1, utilisé dans ce cours.<br>
+        <code style="font-size:0.8em;">&lt;http://example.org/Świątek&gt;</code></span>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.4rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Toute URL est un IRI, mais l'inverse n'est pas vrai. Ce qui compte pour RDF : l'unicité mondiale, pas l'accessibilité.</p>
+</section>
+
+<section>
+    <h3>Un IRI est opaque par nature</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Un IRI est un identifiant global, pas un nom en langage naturel. Sa lisibilité est un <em>choix</em> de l'éditeur, non une garantie.</p>
+    <div class="two-col" style="font-size:0.8em;">
+        <div class="box" style="border-left:3px solid #7eb8f7;">
+            <p style="color:#7eb8f7; font-size:0.85em; margin:0 0 0.6rem 0; font-weight:600;">DBpedia : IRIs lisibles</p>
+            <p style="color:#6b7099; font-size:0.8em; margin:0 0 0.25rem 0;">Roland-Garros :</p>
+            <code style="display:block; font-size:0.78em;">&lt;http://dbpedia.org/resource/Roland-Garros&gt;</code>
+            <p style="color:#6b7099; font-size:0.8em; margin:0.55rem 0 0.25rem 0;">Carlos Alcaraz :</p>
+            <code style="display:block; font-size:0.78em;">&lt;http://dbpedia.org/resource/Carlos_Alcaraz&gt;</code>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7;">
+            <p style="color:#4f8ef7; font-size:0.85em; margin:0 0 0.6rem 0; font-weight:600;">Wikidata : IRIs opaques</p>
+            <p style="color:#6b7099; font-size:0.8em; margin:0 0 0.25rem 0;">Roland-Garros :</p>
+            <code style="display:block; font-size:0.78em;">&lt;http://www.wikidata.org/entity/Q43605&gt;</code>
+            <p style="color:#6b7099; font-size:0.8em; margin:0.55rem 0 0.25rem 0;">Carlos Alcaraz :</p>
+            <code style="display:block; font-size:0.78em;">&lt;http://www.wikidata.org/entity/Q85518537&gt;</code>
+        </div>
+    </div>
+    <div class="box box-blue fragment" style="margin-top:0.7rem; font-size:0.78em;">
+        Les deux sont des IRIs RDF valides. La signification de l'IRI est définie par les triplets qui lui sont associés (pas par les caractères qui le composent).
+    </div>
+</section>
+
+<section>
+    <h3>Préfixes : abréger les IRIs</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Les IRIs complets sont verbeux. Les préfixes permettent de les abréger dans les fichiers et les requêtes.</p>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.8em;">
+        <div class="box">
+            <p style="color:#aaa; margin:0 0 0.4rem 0; font-size:0.9em;">Triplet sans préfixe :</p>
+            <pre style="margin:0; font-size:0.82em;"><code class="language-ntriples">&lt;http://example.org/alcaraz&gt;
+&lt;http://example.org/aGagné&gt;
+&lt;http://example.org/rg2025&gt; .</code></pre>
+        </div> 
+        <div class="box box-blue fragment">
+            <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.9em;">Le même triplet avec préfixe :</p>
+            <pre style="margin:0; font-size:0.82em;"><code class="language-turtle">@prefix ex: &lt;http://example.org/&gt; .
+
+ex:alcaraz  ex:aGagné  ex:rg2025 .</code></pre>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.8rem;">Le préfixe est un alias : <br><code>ex:rg2025</code> s'expande en <code>&lt;http://example.org/rg2025&gt;</code>.<br><br>La sémantique est identique.</p>
+</section>
+
+<section>
+    <h3>Les préfixes standards du Web Sémantique</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Ces préfixes sont réutilisés dans presque tous les fichiers RDF.<br>Les savoir économise du temps.</p>
+    <pre><code class="language-turtle">@prefix rdf:    &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix xsd:    &lt;http://www.w3.org/2001/XMLSchema#&gt;  .
+@prefix rdfs:   &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix owl:    &lt;http://www.w3.org/2002/07/owl#&gt; .
+</code></pre>
+    <div class="fragment" style="font-size:0.78em; margin-top:0.7rem; display:flex; flex-direction:column; gap:0.3rem;">
+        <div class="kv-row" style="margin:0;"><span class="kv-label" style="min-width:60px;">rdf:</span><span class="kv-body">Termes fondamentaux de RDF : <code>rdf:type</code>, <code>rdf:Property</code>, <code>rdf:nil</code>…</span></div>
+        <div class="kv-row" style="margin:0;"><span class="kv-label" style="min-width:60px;">xsd:</span><span class="kv-body">Types de données XML : <code>xsd:integer</code>, <code>xsd:date</code>, <code>xsd:boolean</code>…</span></div>
+        <div class="kv-row" style="margin:0;"><span class="kv-label" style="min-width:60px;">rdfs:</span><span class="kv-body">Vocabulaires et hiérarchies : <code>rdfs:subClassOf</code>, <code>rdfs:domain</code>… <span style="color:#6b7099;">(chapitre 3)</span></span></div>
+        <div class="kv-row" style="margin:0;"><span class="kv-label" style="min-width:60px;">owl:</span><span class="kv-body">Ontologies complexes : <code>owl:sameAs</code>, <code>owl:TransitiveProperty</code>… <span style="color:#6b7099;">(chapitre 3)</span></span></div>
+         </div>
+</section>
+
+
+<!-- ── Vocabulaire RDF ─────────────────────────────────────── -->
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.95em;">rdf:type</code> : le prédicat universel</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Déclare qu'une ressource est une <strong>instance</strong> d'une classe. C'est de loin le prédicat le plus utilisé dans tout graphe RDF.</p>
+    <pre><code class="language-turtle">@prefix ex:     &lt;http://example.org/&gt; .
+@prefix rdf:    &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+
+ex:alcaraz        rdf:type  ex:Person .
+ex:rg2025         rdf:type  ex:GrandChelem .
+ex:court_chatrier rdf:type  ex:Place .</code></pre>
+    <div class="box fragment" style="margin-top:0.7rem; font-size:0.82em;">
+        Une même ressource peut avoir <strong>plusieurs types</strong> simultanément :<br>
+        <code>ex:rg2025  rdf:type  ex:GrandChelem .</code><br>
+        <code>ex:rg2025  rdf:type  ex:SportsEvent .</code>
+    </div>
+</section>
+
+<section>
+    <h3>Vocabulaire <code style="font-size:0.9em;">rdf:</code> : termes essentiels</h3>
+    <div style="display:flex; flex-direction:column; gap:0.9rem; margin-top:0.5rem; font-size:0.82em;">
+        <div class="kv-row" style="margin:0; align-items:flex-start;">
+            <span class="kv-label" style="text-transform:none;">rdf:Property</span>
+            <div style="flex:1;">
+                Classe de toutes les propriétés RDF. On peut déclarer explicitement qu'un terme est un prédicat :<br>
+                <pre style="margin:0.4rem 0 0; font-size:0.9em;"><code class="language-turtle">ex:vainqueur  rdf:type  rdf:Property .</code></pre>
+            </div>
+        </div>
+        <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
+            <span class="kv-label" style="text-transform:none;">rdf:Statement</span>
+            <span class="kv-body">Classe pour la <strong>réification</strong> : représenter un triplet lui-même comme une ressource, pour l'annoter via <code>rdf:subject</code>, <code>rdf:predicate</code>, <code>rdf:object</code>.<br><span style="color:#6b7099;">→ à voir en section 2.4.</span></span>
+        </div>
+        <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
+            <span class="kv-label" style="text-transform:none;">rdf:langString</span>
+            <span class="kv-body">Type implicite des littéraux avec étiquette de langue.<br><code>"Roland-Garros"@fr</code> a pour datatype <code>rdf:langString</code>, détaillé en section 2.2.2.</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Listes ordonnées : <code style="color:#4f8ef7; font-size:0.9em;">rdf:first</code> / <code style="color:#4f8ef7; font-size:0.9em;">rdf:rest</code> / <code style="color:#4f8ef7; font-size:0.9em;">rdf:nil</code></h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">RDF représente une séquence ordonnée par une <strong>chaîne de nœuds intermédiaires</strong>. Chaque maillon porte l'élément courant (<code>rdf:first</code>) et pointe vers le suivant (<code>rdf:rest</code>). La chaîne se termine par <code>rdf:nil</code>.</p>
+    <br>
+    <!-- Visual chain diagram -->
+    <div style="display:flex; align-items:flex-start; justify-content:center; gap:0.15rem; font-size:0.54em; font-family:monospace; margin:0.45rem 0 0.55rem; background:#0a0a18; border-radius:6px; padding:0.55rem 0.4rem;">
+        <!-- Entry point -->
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.2rem; padding-top:0.3rem;">
+            <div style="background:#0f1424; border:1px solid #3d4168; border-radius:4px; padding:0.22rem 0.45rem; color:#7eb8f7; white-space:nowrap;">ex:rg2025</div>
+            <!-- <div style="color:#6b7099; font-size:0.85em; white-space:nowrap;">ex:classement</div> -->
+        </div>
+        <!-- rdf:rest arrow -->
+        <div style="display:flex; align-items:center; padding-top:0.3rem; flex-direction:column; gap:0.05rem; color:#6b7099; font-size:0.82em;">
+            <span style="white-space:nowrap;">ex:classement</span>
+            <span>──▶</span>
+        </div>
+        <!-- Arrow to chain -->
+        <!-- <div style="display:flex; align-items:center; padding-top:0.3rem; color:#6b7099;">────▶</div> -->
+        <!-- Node _:n1 -->
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.22rem;">
+            <div style="background:#111130; border:1.5px solid #4f8ef7; border-radius:4px; padding:0.22rem 0.55rem; color:#eef0ff; white-space:nowrap;">_:n1</div>
+            <div style="color:#6b7099; font-size:0.82em;">↓ rdf:first</div>
+            <div style="background:#0d1a2e; border:1px solid #3d4168; border-radius:4px; padding:0.18rem 0.45rem; color:#aaa; white-space:nowrap;">ex:alcaraz</div>
+        </div>
+        <!-- rdf:rest arrow -->
+        <div style="display:flex; align-items:center; padding-top:0.3rem; flex-direction:column; gap:0.05rem; color:#6b7099; font-size:0.82em;">
+            <span style="white-space:nowrap;">rdf:rest</span>
+            <span>──▶</span>
+        </div>
+        <!-- Node _:n2 -->
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.22rem;">
+            <div style="background:#111130; border:1.5px solid #4f8ef7; border-radius:4px; padding:0.22rem 0.55rem; color:#eef0ff; white-space:nowrap;">_:n2</div>
+            <div style="color:#6b7099; font-size:0.82em;">↓ rdf:first</div>
+            <div style="background:#0d1a2e; border:1px solid #3d4168; border-radius:4px; padding:0.18rem 0.45rem; color:#aaa; white-space:nowrap;">ex:zverev</div>
+        </div>
+        <!-- rdf:rest arrow -->
+        <div style="display:flex; align-items:center; padding-top:0.3rem; flex-direction:column; gap:0.05rem; color:#6b7099; font-size:0.82em;">
+            <span style="white-space:nowrap;">rdf:rest</span>
+            <span>──▶</span>
+        </div>
+        <!-- Node _:n3 -->
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.22rem;">
+            <div style="background:#111130; border:1.5px solid #4f8ef7; border-radius:4px; padding:0.22rem 0.55rem; color:#eef0ff; white-space:nowrap;">_:n3</div>
+            <div style="color:#6b7099; font-size:0.82em;">↓ rdf:first</div>
+            <div style="background:#0d1a2e; border:1px solid #3d4168; border-radius:4px; padding:0.18rem 0.45rem; color:#aaa; white-space:nowrap;">ex:djokovic</div>
+        </div>
+        <!-- rdf:rest arrow -->
+        <div style="display:flex; align-items:center; padding-top:0.3rem; flex-direction:column; gap:0.05rem; color:#6b7099; font-size:0.82em;">
+            <span style="white-space:nowrap;">rdf:rest</span>
+            <span>──▶</span>
+        </div>
+        <!-- rdf:nil -->
+        <div style="display:flex; align-items:center; padding-top:0.3rem;">
+            <div style="background:#0d0d18; border:1px dashed #3d4168; border-radius:4px; padding:0.22rem 0.55rem; color:#6b7099; white-space:nowrap; font-style:italic;">rdf:nil</div>
+        </div>
+    </div> 
+    <pre><code class="language-turtle">@prefix ex:  &lt;http://example.org/&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+
+ex:rg2025  ex:classement  _:n1 .   # entrée dans la liste
+_:n1  rdf:first  ex:alcaraz .       # 1er élément
+_:n1  rdf:rest   _:n2 .             # → maillon suivant
+_:n2  rdf:first  ex:zverev .        # 2ème élément
+_:n2  rdf:rest   _:n3 .
+_:n3  rdf:first  ex:djokovic .      # 3ème élément
+_:n3  rdf:rest   rdf:nil .          # fin de liste</code></pre>
+
+</section>
+
+
+<!-- ── Sous-section : Littéraux ────────────────────────────── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">2.2.2 Littéraux</h3>
+    <p style="color:#aaa;">Les valeurs concrètes : textes, nombres, dates, booléens.</p>
+</section>
+
+<section>
+    <h3>Qu'est-ce qu'un littéral ?</h3>
+    <div style="font-size:0.83em;">
+        <div class="kv-row"><span class="kv-label">Définition</span><span class="kv-body">Un littéral est une valeur concrète : un texte, un nombre, une date, un booléen. Il ne représente pas une ressource, mais une <strong>donnée brute</strong>.</span></div>
+        <div class="box fragment" style="margin-top:0.55rem; font-size:0.88em;">
+            <strong>Différence fondamentale :</strong> <code>"Alcaraz"</code> est une chaîne de caractères (donnée brute) ; <code>ex:alcaraz</code> est un IRI qui identifie le joueur. Ce ne sont pas la même chose.<br>
+            <span style="color:#6b7099; font-size:0.92em;">→ On relie les deux avec un triplet : <code>ex:alcaraz  ex:nom  "Alcaraz" .</code></span>
+        </div>
+        <div class="kv-row fragment" style="margin-top:0.55rem;"><span class="kv-label">Position</span><span class="kv-body">Un littéral n'est autorisé <strong>qu'en position Objet</strong>. Il ne peut jamais être sujet ni prédicat d'un triplet.</span></div>
+        <div class="kv-row fragment"><span class="kv-label">Trois formes</span><span class="kv-body">
+            Simple : texte sans type : <code>"Carlos Alcaraz"</code><br>
+            Typé : valeur avec datatype : <code>"2025-06-08"^^xsd:date</code><br>
+            Étiqueté : texte avec langue : <code>"terre-battue"@fr</code>
+        </span></div>
+    </div>
+</section>
+
+<section>
+    <h3>Littéraux simples : xsd:string</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">En RDF 1.1, un littéral sans type explicite est un <code>xsd:string</code>. Les deux formes ci-dessous sont rigoureusement identiques :</p>
+    <div class="two-col" style="font-size:0.82em; align-items:stretch;">
+        <div class="box" style="text-align:center;">
+            <p style="color:#aaa; font-size:0.85em; margin:0 0 0.5rem 0;">Forme abrégée</p>
+            <code style="font-size:0.9em;">"Carlos Alcaraz"</code>
+        </div>
+        <div class="box box-blue fragment" style="text-align:center;">
+            <p style="color:#7eb8f7; font-size:0.85em; margin:0 0 0.5rem 0;">Forme complète équivalente</p>
+            <code style="font-size:0.9em;">"Carlos Alcaraz"^^xsd:string</code>
+        </div>
+    </div>
+    <div class="box fragment" style="margin-top:0.7rem; font-size:0.7em; display:flex; flex-direction:column; gap:0.35rem;">
+        <span><strong style="color:#7eb8f7;">Délimiteurs :</strong> <code>"texte"</code> ou <code>'texte'</code> : les deux sont valides.</span>
+        <span><strong style="color:#7eb8f7;">Multi-lignes :</strong> <code>"""texte sur plusieurs lignes"""</code> : triple guillemets.</span>
+    </div>
+    </section>
+
+<section>
+    <h3>Littéraux avec étiquette de langue</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">Syntaxe : <code>"texte"@code-langue</code>. Permet d'associer plusieurs traductions à la même ressource.</p>
+    <pre><code class="language-ntriples">ex:surface1  ex:nom  "terre battue"@fr .
+ex:surface1  ex:nom  "clay"@en .
+ex:surface1  ex:nom  "tierra batida"@es . 
+ex:surface1  ex:nom  "terra battuta"@it . </code></pre>
+    <div class="box fragment" style="margin-top:0.7rem; font-size:0.8em; display:flex; flex-direction:column; gap:0.35rem;">
+        <span>Ces quatre triplets décrivent la <strong>même ressource</strong> : la surface en terre battue.</span>
+    </div>
+    <p class="fragment" style="font-size:0.75em; color:#aaa; margin-top:0.6rem;">Les chaînes <em>sans</em> étiquette de langue sont de type <code>xsd:string</code>. Celles <em>avec</em> étiquette (<code>@fr</code>) sont de type <code>rdf:langString</code> : deux types distincts.</p>
+
+</section>
+
+<section>
+    <h3>Littéraux numériques</h3>
+    <div style="font-size:0.78em; display:flex; flex-direction:column; gap:1rem; margin-top:0.6rem;">
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:integer</span>
+            <span class="kv-body">Entier relatif (positif, négatif ou zéro)<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:alcaraz  ex:classement  "1"^^xsd:integer .</code></span>
+        </div>
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:decimal</span>
+            <span class="kv-body">Décimal exact : pas d'arrondi (finances, mesures)<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:alcaraz  ex:taille  "1.86"^^xsd:decimal .</code></span>
+        </div>
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:double</span>
+            <span class="kv-body">Virgule flottante IEEE 754, notation scientifique possible<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:rg2025  ex:dotation  "2.5e6"^^xsd:double .</code></span>
+        </div>
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:float</span>
+            <span class="kv-body">Virgule flottante simple précision (moins courant)<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:court  ex:superficie  "2804.5"^^xsd:float .</code></span>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.72em; color:#aaa; margin-top:0.8rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Préférer <code>xsd:decimal</code> à <code>xsd:double</code> quand la précision exacte compte.</p>
+</section>
+
+<section>
+    <h3>Littéraux temporels</h3>
+    <div style="font-size:0.76em; display:flex; flex-direction:column; gap:0.8rem;">
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:date</span>
+            <span class="kv-body">Date seule (AAAA-MM-JJ)<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:rg2025  ex:startDate  "2025-05-26"^^xsd:date .</code></span>
+        </div>
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:dateTime</span>
+            <span class="kv-body">Date et heure avec fuseau horaire<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:finale  ex:debut  "2025-06-08T14:00:00+02:00"^^xsd:dateTime .</code></span>
+        </div>
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:time</span>
+            <span class="kv-body">Heure seule (HH:MM:SS)<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:finale  ex:heure  "14:00:00"^^xsd:time .</code></span>
+        </div>
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:gYear</span>
+            <span class="kv-body">Année seule<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:rg2025  ex:annee  "2025"^^xsd:gYear .</code></span>
+        </div>
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:duration</span>
+            <span class="kv-body">Durée : P = période, D = jours, T = temps, H/M = heures/minutes<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:rg2025  ex:duree  "P14D"^^xsd:duration .</code></span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Autres types XSD utiles</h3>
+    <div style="font-size:0.78em; display:flex; flex-direction:column; gap:1rem; margin-top:0.6rem;">
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:boolean</span>
+            <span class="kv-body">Valeur vraie ou fausse<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:alcaraz  ex:estTetesDeSerie  "true"^^xsd:boolean .</code></span>
+        </div>
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:nonNegativeInteger</span>
+            <span class="kv-body">Sous-type de <code>xsd:integer</code> contraint à ≥ 0.<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:alcaraz  ex:nbTitresGrandChelem  "3"^^xsd:nonNegativeInteger .</code></span>
+        </div>
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:anyURI</span>
+            <span class="kv-body">URI stockée comme donnée, non comme identifiant RDF<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:rg2025  ex:siteWeb  "https://www.rolandgarros.com"^^xsd:anyURI .</code></span>
+        </div>
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">xsd:hexBinary</span>
+            <span class="kv-body">Séquence d'octets en hexadécimal<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:logo  ex:hash  "a3f2b1c4"^^xsd:hexBinary .</code></span>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.72em; color:#aaa; margin-top:0.8rem;">
+        Liste complète : <a href="https://www.w3.org/TR/xmlschema11-2/#built-in-datatypes" target="_blank">www.w3.org/TR/xmlschema11-2/#built-in-datatypes</a>
+    </p>
+</section>
+
+<section>
+    <h3>Piège : nombre sans type</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Sans <code>^^xsd:integer</code>, RDF traite la valeur comme du texte. Le tri et la comparaison numériques deviennent impossibles.</p>
+    <div class="two-col">
+        <div class="box" style="border-color:#e07b7b;">
+            <strong style="color:#e07b7b; display:block; margin-bottom:0.5rem;">❌ Non typé</strong>
+            <code style="display:block; background:#0d0d1a; border-radius:5px; padding:0.4em 0.8em; color:#c9d8f0;">ex:alcaraz  ex:classement  "1" .</code>
+            <p style="font-size:0.85em; color:#aaa; margin:0.7rem 0 0; line-height:1.5;">Texte. "10" &lt; "2" en ordre lexicographique — un classement ATP trié ainsi serait erroné.</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7; display:block; margin-bottom:0.5rem;">✓ Typé</strong>
+            <code style="display:block; background:#0d0d1a; border-radius:5px; padding:0.4em 0.8em; color:#c9d8f0;">ex:alcaraz  ex:classement  "1"^^xsd:integer .</code>
+            <p style="font-size:0.85em; color:#aaa; margin:0.7rem 0 0; line-height:1.5;">Entier reconnu. Comparaison, tri et validation numériques fonctionnent correctement.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Piège : date sans type</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Sans <code>^^xsd:date</code>, une date n'est qu'une chaîne. L'ordre lexicographique diffère de l'ordre chronologique.</p>
+    <div class="two-col">
+        <div class="box" style="border-color:#e07b7b;">
+            <strong style="color:#e07b7b; display:block; margin-bottom:0.5rem;">❌ Non typé</strong>
+            <code style="display:block; background:#0d0d1a; border-radius:5px; padding:0.4em 0.8em; color:#c9d8f0;">ex:rg2025  ex:startDate  "2025-05-25" .</code>
+            <p style="font-size:0.85em; color:#aaa; margin:0.7rem 0 0; line-height:1.5;">Texte. "2025-05-25" &lt; "2025-1-01" en ordre lexicographique — résultat chronologiquement faux.</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7; display:block; margin-bottom:0.5rem;">✓ Typé</strong>
+            <code style="display:block; background:#0d0d1a; border-radius:5px; padding:0.4em 0.8em; color:#c9d8f0;">ex:rg2025  ex:startDate  "2025-05-25"^^xsd:date .</code>
+            <p style="font-size:0.85em; color:#aaa; margin:0.7rem 0 0; line-height:1.5;">Date reconnue. Calculs d'intervalles et filtres <code>FILTER(?d > …)</code> fonctionnent en SPARQL.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:1rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Règle générale : un littéral sans <code>^^type</code> est toujours traité comme <code>xsd:string</code>. Toujours typer les nombres et les dates.</p>
+</section>
+
+
+<!-- ── Sous-section : Blank Nodes ──────────────────────────── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">2.2.3 Blank Nodes</h3>
+    <p style="color:#aaa;">Ressources anonymes : représenter l'existence sans nommer.</p>
+</section>
+
+<section>
+    <h3>Le blank node : exister sans identifiant global</h3>
+    <div style="display:flex; flex-direction:column; gap:1rem; margin-top:0.5rem;">
+        <div class="kv-row" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">Définition</span>
+            <span class="kv-body">Un blank node est une ressource <strong>sans IRI</strong>. Elle existe dans le graphe mais n'a pas d'identifiant mondial.</span>
+        </div>
+        <div class="kv-row fragment" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">Positions</span>
+            <span class="kv-body">Autorisé en <strong>Sujet ou Objet</strong>. Jamais en Prédicat.</span>
+        </div>
+        <div class="kv-row fragment" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">Portée</span>
+            <span class="kv-body">Son identifiant local (<code>_:label</code>) n'est valide qu'à l'intérieur du fichier ou du graphe nommé qui le contient.</span>
+        </div>
+        <div class="kv-row fragment" style="align-items:flex-start; margin:0;">
+            <span class="kv-label">Exemple</span>
+            <div style="flex:1; display:flex; flex-direction:column; gap:0.45rem; font-size:0.82em; line-height:1.5;">
+                <span>On sait qu'Alcaraz a un entraîneur qui a lui-même remporté Roland-Garros. On peut décrire cette personne sans lui avoir encore attribué d'IRI.</span>
+                <pre><code class="language-ntriples">ex:alcaraz   ex:aEuEntraineur  _:x .
+_:x  ex:aRemporte      ex:roland_garros .
+_:x  ex:nationalite    ex:Espagne .</code></pre>          
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Notation des blank nodes : _:label</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">Un blank node est référencé par un identifiant local préfixé par <code>_:</code>. Cet identifiant n'a de sens qu'à l'intérieur du fichier.</p>
+    <pre><code class="language-ntriples">@prefix ex:  &lt;http://example.org/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+ex:court_chatrier  ex:coordonnees  _:coord1 .
+_:coord1  ex:latitude   "48.8470"^^xsd:decimal .
+_:coord1  ex:longitude  "2.2493"^^xsd:decimal .
+_:coord1  ex:datum      "WGS84" .</code></pre>
+    <p class="fragment" style="font-size:0.75em; color:#aaa; margin-top:0.4rem;">La notation compacte <code>[ ]</code> pour les blank nodes anonymes sera présentée avec la syntaxe Turtle en section 2.3.</p>
+</section>
+
+<section>
+    <h3>Quand utiliser les blank nodes ?</h3>
+    <div class="two-col" style="font-size:0.82em; align-items:flex-start;">
+        <div class="box" style="border-left:3px solid #7eb8f7;">
+            <strong style="color:#7eb8f7; display:block; margin-bottom:0.4rem;">Bon usage</strong>
+            <p style="font-size:0.88em; color:#aaa; margin:0 0 0.4rem 0; line-height:1.5;">Nœud structurel intermédiaire sans identité propre dans le domaine : coordonnées GPS, intervalle temporel…</p>
+            <p style="font-size:0.85em; color:#aaa; margin:0; line-height:1.5; border-top:1px solid #2a2a4a; padding-top:0.4rem;"><strong style="color:#eef0ff;">Exemple (section 2.2.1) :</strong> les maillons <code>_:n1</code>, <code>_:n2</code>… d'une liste RDF ne représentent aucune entité du domaine ; ils structurent la chaîne <code>rdf:first</code> / <code>rdf:rest</code>.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #e07b7b;">
+            <strong style="color:#e07b7b; display:block; margin-bottom:0.4rem;">Mauvais usage</strong>
+            <p style="font-size:0.88em; color:#aaa; margin:0 0 0.5rem 0; line-height:1.5;">Entité du domaine qui mérite un IRI : un joueur, un tournoi, un court. Un blank node ne peut pas être référencé depuis un autre graphe ni recherché directement par SPARQL.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 2.3 : SYNTAXE ET SÉRIALISATIONS
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">RDF</div>
+    <h2>2.3 Syntaxe &amp; sérialisations</h2>
+    <p style="color:#aaa;">Comment écrire et partager un graphe RDF : les formats d'échange.</p>
+</section>
+
+<section>
+    <h3>Un graphe, plusieurs formats</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Les mêmes triplets RDF peuvent s'écrire dans plusieurs formats. Le choix dépend du contexte, pas des données.</p>
+    <div style="display:flex; gap:0.6rem;">
+        <div class="box" style="flex:1; text-align:center; padding:0.8rem 0.3rem;">
+            <div style="color:#6b7099; font-size:0.6em; font-family:monospace; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:0.35rem;">Machine</div>
+            <strong style="font-size:0.85em;">N-Triples</strong>
+            <div style="color:#6b7099; font-size:0.72em; margin-top:0.25rem;"><code>.nt</code></div>
+        </div>
+        <div class="box" style="flex:1; text-align:center; padding:0.8rem 0.3rem;">
+            <div style="color:#6b7099; font-size:0.6em; font-family:monospace; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:0.35rem;">Legacy / OWL</div>
+            <strong style="font-size:0.85em;">RDF/XML</strong>
+            <div style="color:#6b7099; font-size:0.72em; margin-top:0.25rem;"><code>.rdf</code></div>
+        </div>
+        <div class="box" style="flex:1; text-align:center; padding:0.8rem 0.3rem;">
+            <div style="color:#6b7099; font-size:0.6em; font-family:monospace; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:0.35rem;">APIs web</div>
+            <strong style="font-size:0.85em;">JSON-LD</strong>
+            <div style="color:#6b7099; font-size:0.72em; margin-top:0.25rem;"><code>.jsonld</code></div>
+        </div>
+        <div class="box" style="flex:1; text-align:center; padding:0.8rem 0.3rem;">
+            <div style="color:#6b7099; font-size:0.6em; font-family:monospace; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:0.35rem;">Pages web</div>
+            <strong style="font-size:0.85em;">RDFa</strong>
+            <div style="color:#6b7099; font-size:0.72em; margin-top:0.25rem;">HTML</div>
+        </div>
+        <div class="box" style="flex:1; text-align:center; padding:0.8rem 0.3rem; border-color:#4f8ef7; background:rgba(79,142,247,0.06);">
+            <div style="color:#4f8ef7; font-size:0.6em; font-family:monospace; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:0.35rem;">★ Ce cours</div>
+            <strong style="font-size:0.85em; color:#eef0ff;">Turtle</strong>
+            <div style="color:#6b7099; font-size:0.72em; margin-top:0.25rem;"><code>.ttl</code></div>
+        </div>
+    </div> <br>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:1rem; text-align:center;">Les slides suivantes représentent les mêmes deux triplets dans chaque format :<br>
+    <code>ex:rg2025  ex:vainqueur  ex:alcaraz</code> &nbsp;·&nbsp; <br><code>ex:rg2025  ex:startDate  "2025-05-25"^^xsd:date</code></p>
+</section>
+
+<section>
+    <h3>N-Triples : un triplet par ligne</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Format minimaliste : pas de préfixes, pas de raccourcis. Chaque triplet tient sur une ligne avec IRIs entiers entre <code>&lt;&gt;</code>.</p>
+    <span class="code-badge">N-Triples</span>
+    <pre style="font-size:0.44em;"><code class="language-ntriples">&lt;http://example.org/rg2025&gt;  &lt;http://example.org/vainqueur&gt;  &lt;http://example.org/alcaraz&gt; .
+&lt;http://example.org/rg2025&gt;  &lt;http://example.org/startDate&gt;  "2025-05-25"^^&lt;http://www.w3.org/2001/XMLSchema#date&gt; .</code></pre>
+    <div class="kv-row fragment" style="margin-top:0.5rem; font-size:0.82em;">
+        <span class="kv-label">Pour qui ?</span>
+        <span class="kv-body">Pipelines big data, streaming, échanges machine-to-machine. Chaque ligne est un fait complet, idéal pour partitionner et paralléliser.</span>
+    </div>
+</section>
+
+<section>
+    <h3>RDF/XML : le format historique</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Le premier format officiel du W3C (1999). Très verbeux mais encore omniprésent dans l'écosystème OWL.</p>
+    <pre><code class="language-xml">&lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:ex="http://example.org/"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"&gt;
+
+  &lt;rdf:Description rdf:about="http://example.org/rg2025"&gt;
+    &lt;ex:vainqueur rdf:resource="http://example.org/alcaraz"/&gt;
+    &lt;ex:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"&gt;2025-05-25&lt;/ex:startDate&gt;
+  &lt;/rdf:Description&gt;
+
+&lt;/rdf:RDF&gt;</code></pre>
+    <div class="kv-row fragment" style="margin-top:0.5rem; font-size:0.85em;">
+        <span class="kv-label">Pour qui ?</span>
+        <span class="kv-body">Éditeurs d'ontologies (Protégé), systèmes legacy, raisonneurs OWL qui produisent RDF/XML par défaut. Extension <code>.rdf</code> ou <code>.owl</code>.</span>
+    </div>
+</section>
+
+<section>
+    <h3>JSON-LD : RDF pour les APIs web</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Du JSON enrichi avec un <code>@context</code> qui déclare les mappings vers les IRIs. Lisible par tout outil JSON sans bibliothèque RDF.</p>
+    <pre><code class="language-json">{
+  "@context": {
+    "ex":  "http://example.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "ex:rg2025",
+  "ex:vainqueur": { "@id": "ex:alcaraz" },
+  "ex:startDate": { "@value": "2025-05-25", "@type": "xsd:date" }
+}</code></pre>
+    <!-- <p class="code-note">→ Propriété objet : <code>{ "@id": "…" }</code> (la valeur est un IRI).<br>Propriété de données : <code>{ "@value": "…", "@type": "…" }</code> (la valeur est un littéral typé).</p> -->
+    <div class="kv-row fragment" style="margin-top:0.5rem; font-size:0.85em;">
+        <span class="kv-label">Pour qui ?</span>
+        <span class="kv-body">Développeurs web et APIs REST, annotations <code>schema.org</code> pour le SEO, Google Knowledge Panel. Extension <code>.jsonld</code>.</span>
+    </div>
+</section>
+
+<section>
+    <h3>RDFa : des triplets dans le HTML</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Des attributs ajoutés à du HTML existant, sans fichier séparé. La page reste lisible par le navigateur <em>et</em> par un analyseur RDF.</p>
+    <pre><code class="language-html">&lt;div vocab="http://example.org/"
+     resource="http://example.org/rg2025"&gt;
+
+  &lt;!-- ex:rg2025  ex:vainqueur  ex:alcaraz --&gt;
+  &lt;a property="vainqueur"
+     href="http://example.org/alcaraz"&gt;Carlos Alcaraz&lt;/a&gt;
+
+  &lt;!-- ex:rg2025  ex:startDate  "2025-05-25"^^xsd:date --&gt;
+  &lt;span property="startDate"
+        content="2025-05-25"
+        datatype="http://www.w3.org/2001/XMLSchema#date"&gt;25 mai 2025&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+    <p class="code-note">→ <code>content</code> porte la valeur machine-readable ; le texte affiché ("25 mai 2025") peut différer. <code>href</code> indique un objet IRI.</p>
+    <div class="kv-row fragment" style="margin-top:0.5rem; font-size:0.85em;">
+        <span class="kv-label">Pour qui ?</span>
+        <span class="kv-body">Éditeurs qui annotent des pages HTML existantes sans créer de fichier séparé. Utilisé par <code>schema.org</code> et les rich snippets Google.</span>
+    </div>
+</section>
+
+
+<!-- ── Sous-section : Turtle en détail ───────────────────── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">Turtle : le format de ce cours</h3>
+    <p style="color:#aaa;">Syntaxe compacte et lisible par les humains. Réutilisée mot pour mot dans SPARQL.</p>
+    <p style="color:#6b7099; font-size:0.8em; margin-top:0.5rem;">W3C Recommendation · <a href="https://www.w3.org/TR/turtle/" target="_blank" style="color:#4f8ef7;">www.w3.org/TR/turtle/</a></p>
+</section>
+
+<section>
+    <h3>Structure d'un fichier Turtle</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Un fichier Turtle (extension <code>.ttl</code>) se compose de deux parties :<br>les déclarations de préfixes, puis les triplets.</p>
+    <pre><code class="language-turtle"># 1. Déclarations de préfixes (en tête de fichier)
+@prefix ex:  &lt;http://example.org/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+# 2. Triplets
+ex:rg2025  ex:vainqueur  ex:alcaraz .
+ex:rg2025  ex:startDate  "2025-05-25"^^xsd:date .</code></pre>
+    <div class="box fragment" style="margin-top:0.7rem; font-size:0.78em;">
+        Le point <code>.</code> est le terminateur de chaque bloc de triplets.<br> Il est <strong>obligatoire</strong>, y compris pour le dernier triplet du fichier.
+    </div>
+</section>
+
+<section>
+    <h3>Raccourci 1 : le point-virgule ( ; )</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Quand plusieurs prédicats partagent le même sujet, on les sépare par un point-virgule.</p>
+    <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.82em;">
+        <div class="box">
+            <p style="color:#aaa; font-size:0.85em; margin:0 0 0.3rem 0;">Sans raccourci : sujet répété à chaque ligne :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:alcaraz  a               ex:Person .
+ex:alcaraz  ex:name     "Carlos Alcaraz"@fr .
+ex:alcaraz  ex:nationalite  ex:espagne .
+ex:alcaraz  ex:rang         "1"^^xsd:integer .</code></pre>
+        </div>
+        <div class="box box-blue fragment">
+            <p style="color:#7eb8f7; font-size:0.85em; margin:0 0 0.3rem 0;">Avec <code>;</code> : sujet déclaré une seule fois :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:alcaraz
+    a               ex:Person ;
+    ex:name     "Carlos Alcaraz"@fr ;
+    ex:nationalite  ex:espagne ;
+    ex:rang         "1"^^xsd:integer .</code></pre>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.5rem;"><code>;</code> = même sujet, nouveau prédicat. Le <code>.</code> final clôt le bloc entier.</p>
+</section>
+
+<section>
+    <h3>Raccourci 2 : la virgule ( , )</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Quand le même sujet et le même prédicat ont plusieurs objets, on les sépare par une virgule.</p>
+    <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.82em;">
+        <div class="box">
+            <p style="color:#aaa; font-size:0.85em; margin:0 0 0.3rem 0;">Sans raccourci : sujet et prédicat répétés :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:rg2025  ex:surface  "terre battue"@fr .
+ex:rg2025  ex:surface  "clay"@en .
+ex:rg2025  ex:surface  "arcilla"@es .
+ex:rg2025  ex:surface  "terra battuta"@it .</code></pre>
+        </div>
+        <div class="box box-blue fragment">
+            <p style="color:#7eb8f7; font-size:0.85em; margin:0 0 0.3rem 0;">Avec <code>,</code> : sujet et prédicat déclarés une seule fois :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:rg2025  ex:surface
+    "terre battue"@fr ,
+    "clay"@en ,
+    "arcilla"@es ,
+    "terra battuta"@it .</code></pre>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.5rem;"><code>,</code> = même sujet, même prédicat, nouvel objet.<br>Les raccourcis <code>;</code> et <code>,</code> peuvent se combiner.</p>
+</section>
+
+<section>
+    <h3>Raccourci : <code style="font-size:0.9em;">a</code> pour rdf:type</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;"><code>rdf:type</code> est le prédicat le plus utilisé en RDF.<br>Turtle propose le mot-clé <code>a</code>.</p>
+    <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.82em;">
+        <div class="box">
+            <p style="color:#aaa; font-size:0.85em; margin:0 0 0.3rem 0;">Forme explicite avec <code>rdf:type</code> :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:rg2025  rdf:type  ex:SportsEvent .
+ex:rg2025  rdf:type  ex:GrandChelem .</code></pre>
+        </div>
+        <div class="box box-blue fragment">
+            <p style="color:#7eb8f7; font-size:0.85em; margin:0 0 0.3rem 0;">Avec <code>a</code> (+ virgule pour plusieurs classes) :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:rg2025  a  ex:SportsEvent , ex:GrandChelem .</code></pre>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.5rem;"><code>a</code> est spécifique à Turtle ; il s'expande en: <br><code>&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt;</code>.</p>
+</section>
+
+<section>
+    <h3>Raccourcis numériques et booléens</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Turtle autorise des valeurs non-quotées pour les types courants.<br>Ce sucre syntaxique n'existe pas en N-Triples ni RDF/XML.</p>
+    <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.82em;">
+        <div class="box">
+            <p style="color:#aaa; font-size:0.85em; margin:0 0 0.3rem 0;">Forme explicite (valide dans tous les formats) :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:alcaraz  ex:rang        "1"^^xsd:integer .
+ex:alcaraz  ex:taille      "1.86"^^xsd:decimal .
+ex:alcaraz  ex:tetesSerie  "true"^^xsd:boolean .</code></pre>
+        </div>
+        <div class="box box-blue fragment">
+            <p style="color:#7eb8f7; font-size:0.85em; margin:0 0 0.3rem 0;">Raccourci Turtle :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:alcaraz
+    ex:rang        1 ;
+    ex:taille      1.86 ;
+    ex:tetesSerie  true .</code></pre>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.75em; color:#aaa; margin-top:0.5rem;">Entier sans point → <code>xsd:integer</code> · avec point → <code>xsd:decimal</code> · scientifique → <code>xsd:double</code> · <code>true</code>/<code>false</code> → <code>xsd:boolean</code>.</p>
+</section>
+
+<section>
+    <h3>Raccourci : blank node anonyme avec [ ]</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Un nœud intermédiaire sans identité propre peut être déclaré en ligne avec <code>[ ]</code>, sans lui donner un identifiant <code>_:label</code>.</p>
+    <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.82em;">
+        <div class="box">
+            <p style="color:#aaa; font-size:0.85em; margin:0 0 0.3rem 0;">Sans raccourci : blank node nommé explicitement :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:court_chatrier  ex:coordonnees  _:c .
+_:c  ex:latitude   "48.8470"^^xsd:decimal .
+_:c  ex:longitude  "2.2493"^^xsd:decimal .
+_:c  ex:datum      "WGS84" .</code></pre>
+        </div>
+        <div class="box box-blue fragment">
+            <p style="color:#7eb8f7; font-size:0.85em; margin:0 0 0.3rem 0;">Avec <code>[ ]</code> : blank node anonyme en ligne :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:court_chatrier  ex:coordonnees  [
+    ex:latitude   "48.8470"^^xsd:decimal ;
+    ex:longitude  "2.2493"^^xsd:decimal ;
+    ex:datum      "WGS84"
+] .</code></pre>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.5rem;"><code>[ ]</code> = blank node sans IRI. Les triplets intérieurs s'écrivent avec <code>;</code> comme pour tout sujet Turtle.</p>
+</section>
+
+<section>
+    <h3>Raccourci : liste ordonnée avec ( )</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Une liste ordonnée s'écrit avec <code>( )</code>. Turtle génère automatiquement la chaîne <code>rdf:first</code> / <code>rdf:rest</code> / <code>rdf:nil</code> vue en section 2.2.1.</p>
+    <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.82em;">
+        <div class="box">
+            <p style="color:#aaa; font-size:0.85em; margin:0 0 0.3rem 0;">Sans raccourci : chaîne de blank nodes explicite :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:rg2025  ex:classement  _:n1 .
+_:n1  rdf:first  ex:alcaraz .   _:n1  rdf:rest  _:n2 .
+_:n2  rdf:first  ex:zverev .    _:n2  rdf:rest  _:n3 .
+_:n3  rdf:first  ex:djokovic .  _:n3  rdf:rest  rdf:nil .</code></pre>
+        </div>
+        <div class="box box-blue fragment">
+            <p style="color:#7eb8f7; font-size:0.85em; margin:0 0 0.3rem 0;">Avec <code>( )</code> : liste en une ligne :</p>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:rg2025  ex:classement  ( ex:alcaraz  ex:zverev  ex:djokovic ) .</code></pre>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.5rem;"><code>( )</code> = sucre syntaxique Turtle.<br>Les deux formes produisent exactement le même graphe RDF.</p>
+</section>
+
+<section>
+    <h3>Exemple complet : graphe Roland-Garros</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Préfixes · <code>;</code> · <code>,</code> · <code>a</code> · raccourcis numériques · <code>[ ]</code> : tous les raccourcis Turtle réunis :</p>
+    <pre style="font-size:0.56em;"><code class="language-turtle">@prefix ex:  &lt;http://example.org/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+ex:alcaraz  a               ex:Person ;
+            ex:name         "Carlos Alcaraz"@fr , "Carlos Alcaraz"@en ;
+            ex:nationalite  ex:espagne ;
+            ex:classement   1 .
+
+ex:rg2025   a            ex:GrandChelem ;
+            ex:surface   "terre battue"@fr , "clay"@en , "arcilla"@es ;
+            ex:startDate "2025-05-25"^^xsd:date ;
+            ex:vainqueur ex:alcaraz ;
+            ex:location  [ ex:latitude   48.8470 ;
+                           ex:longitude  2.2493 ] .</code></pre>
+</section>
+
+
+<!-- ── Sous-section : Exercice (Tour Eiffel) ───────────────── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">Exercice : la Tour Eiffel</h3>
+    <p style="color:#aaa;">Traduire un texte en triplets RDF, phrase par phrase.</p>
+</section>
+
+<section>
+    <h3>Énoncé</h3>
+    <div style="background:#0d1a2e; border-left:4px solid #4f8ef7; border-radius:0 6px 6px 0; padding:0.9rem 1.2rem; margin:0.6rem 0 1rem; font-size:0.85em; line-height:1.7; color:#c9d8f0; font-style:italic;">
+        "La Tour Eiffel est un monument métallique situé à Paris, sur le Champ-de-Mars.
+        Elle a été conçue par l'ingénieur Gustave Eiffel et achevée le 31 mars 1889.
+        À l'origine, elle mesurait 300 mètres de hauteur et fut construite pour l'Exposition universelle de 1889."
+    </div>
+    <p style="font-size:0.78em; color:#6b7099; text-align:center;">3 phrases, mais plusieurs faits à représenter.</p>
+</section>
+
+<section>
+    <h3>Phrase 1 → triplets</h3>
+    <div style="background:#0d1a2e; border-left:4px solid #4f8ef7; border-radius:0 6px 6px 0; padding:0.7rem 1rem; margin-bottom:1rem; font-size:0.85em; line-height:1.6; color:#c9d8f0; font-style:italic;">
+        "La Tour Eiffel est un <strong style="color:#7eb8f7;">monument métallique</strong> situé à Paris, sur le <strong style="color:#7eb8f7;">Champ-de-Mars</strong>."
+    </div>
+    <div class="fragment">
+        <pre style="margin:0;"><code class="language-turtle">ex:tour_eiffel  a  ex:Monument .
+
+ex:tour_eiffel  ex:localisation  ex:champ_de_mars .</code></pre>
+    </div>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.7rem;">"est un monument" → <code>rdf:type</code> (raccourci <code>a</code>). Le Champ-de-Mars est un lieu identifiable → IRI en objet, pas un littéral.</p>
+</section>
+
+<section>
+    <h3>Phrase 2 → triplets</h3>
+    <div style="background:#0d1a2e; border-left:4px solid #4f8ef7; border-radius:0 6px 6px 0; padding:0.7rem 1rem; margin-bottom:1rem; font-size:0.85em; line-height:1.6; color:#c9d8f0; font-style:italic;">
+        "Elle a été conçue par l'ingénieur <strong style="color:#7eb8f7;">Gustave Eiffel</strong> et achevée le <strong style="color:#7eb8f7;">31 mars 1889</strong>."
+    </div>
+    <div class="fragment">
+        <pre style="margin:0;"><code class="language-turtle">ex:tour_eiffel  ex:architecte  ex:gustave_eiffel .
+
+ex:tour_eiffel  ex:dateAchevement  "1889-03-31"^^xsd:date .</code></pre>
+    </div>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.7rem;">Gustave Eiffel est une personne identifiable → IRI. La date est une valeur brute → littéral typé <code>xsd:date</code>.</p>
+</section>
+
+<section>
+    <h3>Phrase 3 → triplets</h3>
+    <div style="background:#0d1a2e; border-left:4px solid #4f8ef7; border-radius:0 6px 6px 0; padding:0.7rem 1rem; margin-bottom:1rem; font-size:0.85em; line-height:1.6; color:#c9d8f0; font-style:italic;">
+        "À l'origine, elle mesurait <strong style="color:#7eb8f7;">300 mètres</strong> de hauteur et fut construite pour l'<strong style="color:#7eb8f7;">Exposition universelle de 1889</strong>."
+    </div>
+    <div class="fragment">
+        <pre style="margin:0;"><code class="language-turtle">ex:tour_eiffel  ex:hauteur  300 .
+
+ex:tour_eiffel  ex:construitPour  ex:expo_universelle_1889 .</code></pre>
+    </div>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.7rem;">300 mètres est une mesure → littéral numérique (raccourci Turtle vu en 2.3 → <code>xsd:integer</code>). L'exposition est un événement identifiable → IRI.</p>
+</section>
+
+<section>
+    <h3>Le graphe complet</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Les 6 triplets, regroupés avec le raccourci <code>;</code> vu en 2.3.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">@prefix ex:  &lt;http://example.org/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+ex:tour_eiffel
+    a                  ex:Monument ;
+    ex:localisation    ex:champ_de_mars ;
+    ex:architecte      ex:gustave_eiffel ;
+    ex:dateAchevement  "1889-03-31"^^xsd:date ;
+    ex:hauteur         300 ;
+    ex:construitPour   ex:expo_universelle_1889 .</code></pre>
+    <p class="code-note">→ Un seul <code>rdf:type</code> (<code>a</code>), quatre IRIs en position objet, deux littéraux.</p>
+</section>
+
+<section>
+    <h3>Enrichir le graphe</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.9rem;">Optionnel, mais recommandé : typer aussi les entités référencées, pas seulement <code>ex:tour_eiffel</code>.</p>
+    <pre><code class="language-turtle">ex:champ_de_mars           ex:localisation  ex:paris .
+ex:paris                   a                ex:Ville .
+ex:gustave_eiffel          a                ex:Person .
+ex:expo_universelle_1889   a                ex:Exposition .</code></pre>
+    <div class="box box-blue fragment" style="margin-top:0.8rem; font-size:0.82em;">
+        Sans ces triplets, <code>ex:paris</code>, <code>ex:gustave_eiffel</code> et <code>ex:expo_universelle_1889</code> restent des IRIs muets. Un graphe où toute ressource référencée porte au moins un <code>rdf:type</code> se laisse interroger, valider et faire raisonner bien plus facilement.
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 2.4 : CONTEXTUALISATION DES TRIPLETS
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">RDF</div>
+    <h2>2.4 Contextualisation des triplets</h2>
+    <p style="color:#aaa;">Exprimer la provenance, la temporalité et la confiance au-delà du triplet de base.</p>
+</section>
+
+<section>
+    <h3>Pourquoi contextualiser les triplets ?</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.9rem;">Un triplet RDF de base dit <em>qu'un fait est vrai</em>. Il ne dit pas <strong>qui l'affirme</strong>, <strong>quand</strong>, ni <strong>à quel point on peut lui faire confiance</strong>.</p>
+    <div style="display:flex; flex-direction:column; gap:0.8rem; font-size:0.85em;">
+        <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
+            <span class="kv-label">Provenance</span>
+            <span class="kv-body">Des sites complotistes affirment <code>ex:Obama ex:birthPlace ex:Kenya</code>. Les archives officielles disent <code>ex:Honolulu</code>. Sans annotation de source, les deux coexistent dans un graphe fusionné sans qu'on puisse les distinguer.</span>
+        </div>
+        <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
+            <span class="kv-label">Temporalité</span>
+            <span class="kv-body"><code>ex:france ex:president ex:Hollande</code> était vrai de 2012 à 2017, faux après. Sans date, un raisonneur peut utiliser un fait périmé comme s'il était encore valide aujourd'hui.</span>
+        </div>
+        <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
+            <span class="kv-label">Confiance</span>
+            <span class="kv-body">Un algorithme affirme <code>ex:patient42 ex:diagnostic ex:pneumonie</code> avec 73 % de confiance. Un radiologue l'affirme avec 99 %. Un raisonneur qui traite les deux de façon identique peut prendre une décision incorrecte.</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Trois mécanismes dans le standard RDF</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">RDF offre trois approches, du plus verbeux au plus concis.</p>
+    <div style="display:flex; gap:0.6rem; font-size:0.82em; align-items:stretch;">
+        <div class="box" style="flex:1; border-left:3px solid #4f8ef7;">
+            <strong style="color:#7eb8f7; display:block; margin-bottom:0.4rem;">2.4.1 Réification</strong>
+            <p style="font-size:0.88em; color:#aaa; line-height:1.5; margin:0;">Représenter le triplet lui-même comme une ressource via <code>rdf:Statement</code>, <code>rdf:subject</code>, <code>rdf:predicate</code>, <code>rdf:object</code>.</p>
+            <p style="font-size:0.8em; color:#6b7099; margin:0.5rem 0 0;">Standard depuis RDF 1.0. Verbeux : 6 triplets supplémentaires par annotation.</p>
+        </div>
+        <div class="box fragment" style="flex:1; border-left:3px solid #4f8ef7;">
+            <strong style="color:#7eb8f7; display:block; margin-bottom:0.4rem;">2.4.2 Graphes nommés</strong>
+            <p style="font-size:0.88em; color:#aaa; line-height:1.5; margin:0;">Regrouper des triplets sous un <strong>IRI de graphe</strong>. Chaque graphe est une unité de provenance. Formats : TriG, N-Quads.</p>
+            <p style="font-size:0.8em; color:#6b7099; margin:0.5rem 0 0;">→ Idéal pour attribuer des <em>ensembles</em> de faits à une source.</p>
+        </div>
+        <div class="box fragment" style="flex:1; border-left:3px solid #4f8ef7;">
+            <strong style="color:#7eb8f7; display:block; margin-bottom:0.4rem;">2.4.3 RDF-star</strong>
+            <p style="font-size:0.88em; color:#aaa; line-height:1.5; margin:0;">Annoter <strong>un triplet individuel</strong> en le traitant comme sujet d'autres triplets, sans créer de blank nodes intermédiaires.</p>
+            <p style="font-size:0.8em; color:#6b7099; margin:0.5rem 0 0;">→ Idéal pour annoter un <em>fait précis</em> avec confiance, date, source.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Le cas Armstrong</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.9rem;">Trois assertions sur le même sujet, issues de sources réelles<br><u>mais incompatibles sans contexte.</u></p>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.84em;">
+        <div class="box fragment" style="border-left:3px solid #34d399;">
+            <strong style="color:#34d399; display:block; margin-bottom:0.25rem;">24 juillet 2005 · UCI (Union Cycliste Internationale)</strong>
+            <p style="margin:0; color:#aaa; line-height:1.5;">Armstrong est couronné pour la 7ème fois.<br>L'UCI homologue officiellement <strong style="color:#eef0ff;">7 titres</strong> au Tour de France.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #e07b7b;">
+            <strong style="color:#e07b7b; display:block; margin-bottom:0.25rem;">22 octobre 2012 · UCI (Union Cycliste Internationale)</strong>
+            <p style="margin:0; color:#aaa; line-height:1.5;">Suite à l'enquête USADA sur le dopage systématique, l'UCI retire l'intégralité des titres.<br>Palmarès officiel : <strong style="color:#eef0ff;">0 titre</strong>.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #f59e0b;">
+            <strong style="color:#f59e0b; display:block; margin-bottom:0.25rem;">Depuis 2012 · Communauté cycliste non officielle</strong>
+            <p style="margin:0; color:#aaa; line-height:1.5;">Des médias et observateurs contestent la décision.<br>Armstrong a physiquement remporté ces courses : <strong style="color:#eef0ff;">7 victoires sportives</strong>.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Le problème : RDF sans annotation</h3>
+    <p style="font-size:0.75em; color:#aaa; margin-bottom:0.5rem;">Si l'on tente de représenter ces trois assertions en RDF de base :</p>
+    <span class="code-badge">Turtle</span>
+    <pre style="font-size:0.62em;"><code class="language-turtle">@prefix ex: &lt;http://example.org/&gt; .
+
+ex:armstrong  ex:titresTDF  7 .
+ex:armstrong  ex:titresTDF  0 .</code></pre>
+    <div style="display:flex; flex-direction:column; gap:0.4rem; font-size:0.75em; margin-top:0.5rem;">
+        <div class="box fragment" style="border-left:3px solid #e07b7b; padding:0.4rem 0.75rem;">
+            <span style="color:#e07b7b; font-weight:600;">Contradiction non résolue</span> — <code>7</code> et <code>0</code> coexistent sans qu'un raisonneur sache lequel privilégier.
+        </div>
+        <div class="box fragment" style="border-left:3px solid #e07b7b; padding:0.4rem 0.75rem;">
+            <span style="color:#e07b7b; font-weight:600;">Fusion silencieuse</span> — les deux affirmations <code>ex:titresTDF 7</code> (UCI 2005 et source non officielle) sont <strong>identiques en RDF</strong> : fusionnées en un seul triplet, indiscernables.
+        </div>
+        <div class="box fragment" style="border-left:3px solid #e07b7b; padding:0.4rem 0.75rem;">
+            <span style="color:#e07b7b; font-weight:600;">Ni source ni date</span> — impossible de savoir qui affirme quoi, ni à quel moment.
+        </div>
+    </div>
+    <br><p class="fragment" style="font-size:0.72em; color:#6b7099; margin-top:0.45rem; text-align:center;">Il faut un mécanisme pour <strong style="color:#eef0ff;">contextualiser</strong> chaque assertion individuellement.</p>
+</section>
+
+<!-- ── Sous-section 2.4.1 ─────────────────────────────────── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">2.4.1 Réification</h3>
+    <p style="color:#aaa;">Transformer un triplet en ressource pour l'annoter :<br>la solution historique de RDF 1.0.</p>
+</section>
+
+<section>
+    <h3>La réification : un triplet devient une ressource</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.9rem;">RDF fournit quatre propriétés pour <strong>parler d'un triplet</strong> en le représentant comme une instance de <code>rdf:Statement</code>.</p>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.84em;">
+        <div class="kv-row" style="margin:0;">
+            <span class="kv-label">rdf:Statement</span>
+            <span class="kv-body">Classe RDF qui représente un triplet comme une ressource. On l'identifie par un blank node ou un IRI.</span>
+        </div>
+        <div class="kv-row" style="margin:0;">
+            <span class="kv-label">rdf:subject</span>
+            <span class="kv-body">Pointe vers le <strong>sujet</strong> du triplet réifié.</span>
+        </div>
+        <div class="kv-row" style="margin:0;">
+            <span class="kv-label">rdf:predicate</span>
+            <span class="kv-body">Pointe vers le <strong>prédicat</strong> du triplet réifié.</span>
+        </div>
+        <div class="kv-row" style="margin:0;">
+            <span class="kv-label">rdf:object</span>
+            <span class="kv-body">Pointe vers l'<strong>objet</strong> du triplet réifié. On peut ensuite ajouter librement des propriétés (source, date, confiance…) sur ce <code>rdf:Statement</code>.</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Réification : l'UCI change de position</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.5rem;">Chaque assertion produit un <code>rdf:Statement</code> distinct — même si le sujet et le prédicat sont identiques.</p>
+    <pre style="font-size:0.5em;"><code class="language-turtle">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix ex:  &lt;http://example.org/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+# UCI 2005 — 7 titres homologués
+_:s1  a              rdf:Statement ;
+      rdf:subject    ex:armstrong ;
+      rdf:predicate  ex:titresTDF ;
+      rdf:object     7 ;
+      ex:source      ex:source-uci ;
+      ex:date        "2005-07-24"^^xsd:date .
+
+# UCI 2012 — 0 titre (retrait USADA)
+_:s2  a              rdf:Statement ;
+      rdf:subject    ex:armstrong ;
+      rdf:predicate  ex:titresTDF ;
+      rdf:object     0 ;
+      ex:source      ex:source-uci ;
+      ex:date        "2012-10-22"^^xsd:date .</code></pre>
+    <p class="code-note">→ Même source (<code>ex:source-uci</code>), même sujet, même prédicat — mais deux dates et deux valeurs : la réification les distingue.</p>
+</section>
+
+<section>
+    <h3>Réification : la source non officielle</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.5rem;">La troisième assertion vient d'une source externe qui conteste le retrait officiel.</p>
+    <pre style="font-size:0.5em;"><code class="language-turtle">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix ex:  &lt;http://example.org/&gt; .
+
+# Source non officielle — conteste le retrait
+_:s3  a              rdf:Statement ;
+      rdf:subject    ex:armstrong ;
+      rdf:predicate  ex:titresTDF ;
+      rdf:object     7 ;
+      ex:source      ex:source-velonews ;
+      ex:statut      ex:nonOfficiel .</code></pre>
+    <p class="code-note">→ 3 assertions = 18 triplets de réification au total. Verbeux mais standard RDF 1.0 : aucune extension de syntaxe requise.</p>
+</section>
+
+<!-- ── Sous-section 2.4.2 ─────────────────────────────────── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">2.4.2 Graphes nommés</h3>
+    <p style="color:#aaa;">Associer un contexte de provenance à des ensembles de triplets.</p>
+</section>
+
+<section>
+    <h3>Les graphes nommés : le 4ème élément</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Un triplet RDF peut être associé à un <strong>graphe nommé</strong> (un IRI). On parle alors de <strong>quadruplet</strong> (ou <em>quad</em>).</p>
+    <div class="kv-row fragment">
+        <span class="kv-label">Structure</span>
+        <span class="kv-body">Quadruplet = <strong>(Sujet, Prédicat, Objet, NomDuGraphe)</strong>. L'ensemble de ces quads forme un <em>RDF Dataset</em>.</span>
+    </div>
+    <div class="box fragment" style="font-size:0.58em; margin:0.7rem 0;">
+        <p style="margin:0 0 0.5rem 0; color:#7eb8f7;">Même fait, trois sources — chacune dans son graphe nommé</p>
+        <table class="rdf-table" style="font-size:0.9em;">
+            <thead><tr><th>Sujet</th><th>Prédicat</th><th>Objet</th><th>Graphe</th></tr></thead>
+            <tbody>
+                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>7</td><td>ex:g-uci-2005</td></tr>
+                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>0</td><td>ex:g-uci-2012</td></tr>
+                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>7</td><td>ex:g-unofficial</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="kv-row fragment">
+        <span class="kv-label">RDF Dataset</span>
+        <span class="kv-body">Un dataset = un <strong>graphe par défaut</strong> (sans nom) + N <strong>graphes nommés</strong>, chacun identifié par un IRI.</span>
+    </div>
+</section>
+
+<section>
+    <h3>Deux sérialisations pour les graphes nommés</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Les datasets RDF (graphes nommés) se sérialisent dans deux formats, chacun l'extension naturelle d'un format de triplets.</p>
+    <div class="two-col" style="align-items:stretch;">
+        <div class="box" style="border-left:3px solid #4f8ef7;">
+            <div class="card-tag" style="margin-bottom:0.5rem;">Extension de Turtle</div>
+            <h3 style="color:#eef0ff; margin:0 0 0.4rem;">TriG</h3>
+            <p style="font-size:0.85em; color:#aaa; margin:0 0 0.5rem; line-height:1.5;">Ajoute la syntaxe <code>nomGraphe { … }</code> à Turtle. Lisible, compact, raccourcis Turtle disponibles.</p>
+            <p style="font-size:0.82em; color:#6b7099; margin:0;">Extension fichier : <code style="color:#7eb8f7;">.trig</code></p>
+        </div>
+        <div class="box" style="border-left:3px solid #6b7099;">
+            <div class="card-tag" style="margin-bottom:0.5rem;">Extension de N-Triples</div>
+            <h3 style="color:#eef0ff; margin:0 0 0.4rem;">N-Quads</h3>
+            <p style="font-size:0.85em; color:#aaa; margin:0 0 0.5rem; line-height:1.5;">Ajoute un 4ème élément (nom du graphe) à chaque ligne. Un quad par ligne, IRIs complets, idéal pour le streaming.</p>
+            <p style="font-size:0.82em; color:#6b7099; margin:0;">Extension fichier : <code style="color:#7eb8f7;">.nq</code></p>
+        </div>
+    </div>
+    <p style="font-size:0.79em; color:#6b7099; margin-top:0.9rem; text-align:center;">Dans ce cours, nous utilisons <strong style="color:#eef0ff;">TriG</strong><br>(même syntaxe que Turtle).</p>
+</section>
+
+<section>
+    <h3>Graphes nommés : annoter avec source et date</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Les métadonnées (source, date) sont attachées au <strong>graphe nommé</strong> lui-même, dans le graphe par défaut.</p>
+    <span class="code-badge">TriG</span>
+    <pre style="font-size:0.5em;"><code class="language-turtle">@prefix ex:  &lt;http://example.org/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+# Métadonnées (graphe par défaut)
+ex:g-uci-2005    ex:source  ex:source-uci ;       ex:date    "2005-07-24"^^xsd:date .
+ex:g-uci-2012    ex:source  ex:source-uci ;       ex:date    "2012-10-22"^^xsd:date .
+ex:g-unofficial  ex:source  ex:source-velonews ;  ex:statut  ex:nonOfficiel .
+
+# Contenu de chaque graphe nommé
+ex:g-uci-2005    { ex:armstrong  ex:titresTDF  7 . }
+ex:g-uci-2012    { ex:armstrong  ex:titresTDF  0 . }
+ex:g-unofficial  { ex:armstrong  ex:titresTDF  7 . }</code></pre>
+    <p class="code-note">→ Le triplet <code>ex:titresTDF 7</code> apparaît dans deux graphes distincts : l'IRI du graphe et ses métadonnées permettent de différencier UCI 2005 de la source non officielle.</p>
+</section>
+
+
+<!-- ── Sous-section 2.4.3 ─────────────────────────────────── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">2.4.3 RDF-star</h3>
+    <p style="color:#aaa;">Annoter les triplets eux-mêmes : une syntaxe compacte <br>(en cours de standardisation dans RDF 1.2)</p>
+</section>
+
+<section>
+    <h3>RDF-star : comment ça fonctionne</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">RDF-star permet d'<strong>annoter un triplet</strong> en l'utilisant lui-même comme sujet ou objet d'autres triplets.</p>
+    <div style="display:flex; flex-direction:column; gap:0.55rem; font-size:0.84em; margin-bottom:0.8rem;">
+        <div class="kv-row" style="margin:0;">
+            <span class="kv-label">Syntaxe</span>
+            <span class="kv-body">Un triplet <strong>embarqué</strong> s'écrit entre <code>&lt;&lt; … &gt;&gt;</code> et peut apparaître en position de sujet ou d'objet dans un autre triplet.</span>
+        </div>
+        <div class="kv-row" style="margin:0;">
+            <span class="kv-label">Assertion</span>
+            <span class="kv-body">L'annotation <code>&lt;&lt; S P O &gt;&gt;</code> n'<strong>affirme pas</strong> le triplet S P O. Pour qu'il soit un fait du graphe, il doit être écrit <strong>séparément</strong> : <code>S P O .</code></span>
+        </div>
+    </div>
+    <pre style="font-size:0.62em;"><code class="language-turtle"># 1. Assertion du fait (triplet ordinaire)
+ex:obama  ex:paysDeNaissance  ex:usa .
+
+# 2. Annotation du triplet de la source Fox News (RDF-star)
+&lt;&lt; ex:obama  ex:paysDeNaissance  ex:kenya &gt;&gt;
+    ex:source  ex:source-foxnews ;
+    ex:date    "2011-04-27"^^xsd:date .</code></pre>
+    <p class="code-note">→ L'annotation et l'assertion sont deux triplets distincts. Sans la ligne 1, le fait n'existe pas dans le graphe.</p>
+</section>
+
+<section>
+    <h3>RDF-star : exemple Armstrong</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Les trois assertions coexistent dans le même graphe.<br>Chaque <code>&lt;&lt; … &gt;&gt;</code> identifie précisément l'assertion annotée.</p>
+    
+    <pre style="font-size:0.54em;"><code class="language-turtle">@prefix ex:  &lt;http://example.org/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+# UCI 2005 — 7 titres homologués
+&lt;&lt; ex:armstrong  ex:titresTDF  7 &gt;&gt;
+    ex:source  ex:source-uci ;  ex:date  "2005-07-24"^^xsd:date .
+
+# UCI 2012 — 0 titre (retrait USADA)
+&lt;&lt; ex:armstrong  ex:titresTDF  0 &gt;&gt;
+    ex:source  ex:source-uci ;  ex:date  "2012-10-22"^^xsd:date .
+
+# Source non officielle — 7 titres contestés
+&lt;&lt; ex:armstrong  ex:titresTDF  7 &gt;&gt;
+    ex:source  ex:source-velonews ;  ex:statut  ex:nonOfficiel .</code></pre>
+    <p class="code-note">→ 3 assertions = 9 triplets au total. Aucun blank node intermédiaire — syntaxe plus compacte que la réification.</p>
+</section>
+
+<section>
+    <h3>Choisir le bon mécanisme</h3>
+    <p style="font-size:0.68em; color:#aaa; margin-bottom:0.6rem;">Les trois approches ont la même expressivité. Le choix dépend de la granularité souhaitée et de la compatibilité visée.</p>
+    <table class="rdf-table" style="font-size:0.65em; width:100%;">
+        <thead>
+            <tr><th></th><th>Réification</th><th>Graphes nommés</th><th>RDF-star</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Triplets / assertion</strong><br><span style="color:#6b7099; font-weight:normal;">cas Armstrong (3 assertions)</span></td>
+                <td style="color:#e07b7b; font-weight:600;">18</td>
+                <td style="color:#f59e0b; font-weight:600;">9–12</td>
+                <td style="color:#34d399; font-weight:600;">9</td>
+            </tr>
+            <tr>
+                <td><strong>Granularité</strong></td>
+                <td>Triplet individuel</td>
+                <td style="color:#f59e0b;">Ensemble de triplets</td>
+                <td>Triplet individuel</td>
+            </tr>
+            <tr>
+                <td><strong>Standard</strong></td>
+                <td style="color:#34d399;">RDF 1.0</td>
+                <td style="color:#34d399;">RDF 1.1</td>
+                <td style="color:#f59e0b;">RDF 1.2 (en cours)</td>
+            </tr>
+            <tr>
+                <td><strong>Formats</strong></td>
+                <td>Turtle, N-Triples…</td>
+                <td>TriG, N-Quads</td>
+                <td>Turtle★</td>
+            </tr>
+            <tr>
+                <td><strong>Cas idéal</strong></td>
+                <td>Compatibilité maximale</td>
+                <td style="color:#7eb8f7;">Provenance par lot</td>
+                <td style="color:#7eb8f7;">Annotation précise</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="fragment" style="font-size:0.72em; color:#6b7099; margin-top:0.7rem; text-align:center;">Pour notre scénario : <strong style="color:#7eb8f7;">RDF-star</strong> est le plus concis ; <strong style="color:#7eb8f7;">Graphes nommés</strong> est le plus interopérable.</p>
+</section>
+
+
+<!-- ── Sous-section : Exercice (suite, RDF-star) ───────────── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">Exercice (suite) : RDF-star</h3>
+    <p style="color:#aaa;">Étendre le graphe de la Tour Eiffel pour capturer une évolution dans le temps.</p>
+</section>
+
+<section>
+    <h3>Une hauteur qui évolue</h3>
+    <div style="background:#0d1a2e; border-left:4px solid #4f8ef7; border-radius:0 6px 6px 0; padding:0.9rem 1.2rem; margin:0.6rem 0 1rem; font-size:0.85em; line-height:1.7; color:#c9d8f0; font-style:italic;">
+        "Depuis l'installation d'une nouvelle antenne en 2022, la Tour Eiffel culmine à <strong style="color:#7eb8f7;">330 mètres</strong>, contre <strong style="color:#7eb8f7;">300 mètres</strong> lors de son inauguration en 1889."
+    </div>
+    <div class="box box-blue fragment" style="font-size:0.82em;">
+        Le graphe contient déjà <code>ex:tour_eiffel ex:hauteur 300</code>. Ce n'est pas une contradiction entre deux sources : les deux hauteurs sont vraies, chacune à sa date. Il faut dater <strong>chaque assertion individuellement</strong>, avec RDF-star.
+    </div>
+</section>
+
+<section>
+    <h3>Décomposition</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.8rem;">Deux assertions à écrire, chacune avec sa date de validité :</p>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.82em;">
+        <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
+            <span class="kv-label">1889</span>
+            <span class="kv-body"><code>ex:tour_eiffel  ex:hauteur  300</code> : valable depuis le <code>"1889-03-31"^^xsd:date</code></span>
+        </div>
+        <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
+            <span class="kv-label">2022</span>
+            <span class="kv-body"><code>ex:tour_eiffel  ex:hauteur  330</code> : valable depuis le <code>"2022-01-01"^^xsd:date</code></span>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Rappel : <code>&lt;&lt; S P O &gt;&gt;</code> désigne le triplet lui-même, asserté séparément (<code>S P O .</code>) pour exister dans le graphe.</p>
+</section>
+
+<section>
+    <h3>Correction : RDF-star</h3>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">@prefix ex:  &lt;http://example.org/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+ex:tour_eiffel  ex:hauteur  300 .
+&lt;&lt; ex:tour_eiffel  ex:hauteur  300 &gt;&gt;
+    ex:depuis  "1889-03-31"^^xsd:date .
+
+ex:tour_eiffel  ex:hauteur  330 .
+&lt;&lt; ex:tour_eiffel  ex:hauteur  330 &gt;&gt;
+    ex:depuis  "2022-01-01"^^xsd:date .</code></pre>
+    <p class="code-note">→ Les deux assertions coexistent sans contradiction : chacune est individuellement datée, sans blank node ni graphe nommé intermédiaire.</p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  CONCLUSION
+═══════════════════════════════════════════════════════════════ -->
+
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
+    <h2 style="font-size:1.25em; margin-bottom:1.2rem;">Synthèse — RDF (1/2)</h2>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.84em;">
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">Toute connaissance est un <strong>triplet (Sujet, Prédicat, Objet)</strong>. Le sujet et le prédicat sont toujours des IRIs ; l'objet peut être un IRI ou un littéral.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">Les <strong>IRIs</strong> identifient les ressources de façon globale et unique sur le Web. Ils s'abrègent avec <code>@prefix</code> en Turtle. Un IRI identifie une ressource, pas un document.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">Les <strong>littéraux</strong> sont toujours typés (<code>^^xsd:integer</code>, <code>^^xsd:date</code>…) ou étiquetés par langue (<code>@fr</code>, <code>@en</code>). Sans type explicite : <code>xsd:string</code>.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">Les <strong>blank nodes</strong> (<code>_:label</code> ou <code>[ ]</code> en Turtle) sont des ressources anonymes sans IRI global : utiles pour les structures intermédiaires, non référençables de l'extérieur.</p>
+        </div>
+    </div>
+</section>
+
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
+    <h2 style="font-size:1.25em; margin-bottom:1.2rem;">Synthèse — RDF (2/2)</h2>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.84em;">
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;">RDF peut être sérialisé dans plusieurs formats (N-Triples, RDF/XML, JSON-LD, RDFa…), chacun adapté à un usage différent. Dans ce cours, nous utilisons <strong>Turtle</strong> — lisible par les humains et réutilisé mot pour mot par le langage de requête SPARQL.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;">Pour contextualiser les triplets (provenance, temporalité, confiance) : les <strong>graphes nommés</strong> attribuent un ensemble de faits à une source, et <strong>RDF-star</strong> annote un triplet individuel directement.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;">RDF dit <em>quels faits existent</em>. Il ne dit pas encore <em>ce qu'on peut en déduire</em>. Le chapitre suivant introduit <strong>RDFS et OWL</strong> : les langages qui permettent aux machines de faire des inférences automatiques.</p>
+        </div>
+    </div>
+</section>
+
+</div><!-- .slides -->
+</div><!-- .reveal -->
+
+<script src="../dist/reveal.js"></script>
+<script src="../plugin/notes/notes.js"></script>
+<script src="../plugin/markdown/markdown.js"></script>
+<script src="../plugin/highlight/highlight.js"></script>
+<script>
+    /* Ce build de highlight.js ne connaît ni SPARQL ni Turtle : on les déclare nous-mêmes. */
+    (function () {
+        var hljs = RevealHighlight().hljs;
+
+        var IRI            = { className: 'meta',     begin: /<[^\s<>]*>/ };
+        var PREFIXED_NAME  = { className: 'symbol',    begin: /[A-Za-z][\w-]*:[A-Za-z_][\w-]*/ };
+        var DATATYPE       = { className: 'symbol',    begin: /\^\^[A-Za-z][\w-]*:[A-Za-z_][\w-]*/ };
+        var LANG_TAG       = { className: 'symbol',    begin: /@[A-Za-z-]+/ };
+
+        function turtleLang(hljs) {
+            return {
+                case_insensitive: false,
+                keywords: {
+                    keyword: '@prefix @base PREFIX BASE',
+                    literal: 'true false',
+                    built_in: 'a'
+                },
+                contains: [
+                    hljs.COMMENT('#', '$'),
+                    hljs.QUOTE_STRING_MODE,
+                    hljs.APOS_STRING_MODE,
+                    hljs.C_NUMBER_MODE,
+                    IRI, DATATYPE, PREFIXED_NAME,
+                    { className: 'variable', begin: /_:[A-Za-z0-9_-]+/ },
+                    LANG_TAG
+                ]
+            };
+        }
+
+        function sparqlLang(hljs) {
+            return {
+                case_insensitive: true,
+                keywords: {
+                    keyword: 'SELECT CONSTRUCT ASK DESCRIBE WHERE FROM NAMED FILTER OPTIONAL UNION MINUS ' +
+                        'BIND VALUES GROUP BY ORDER LIMIT OFFSET DISTINCT REDUCED HAVING AS SERVICE GRAPH ' +
+                        'PREFIX BASE INSERT DELETE DATA WITH USING DEFAULT ALL SILENT INTO TO CLEAR DROP ' +
+                        'CREATE LOAD COPY MOVE ADD IN NOT EXISTS UNDEF ASC DESC',
+                    literal: 'true false',
+                    built_in: 'a COUNT SUM AVG MIN MAX SAMPLE GROUP_CONCAT BOUND STR LANG LANGMATCHES ' +
+                        'DATATYPE ISIRI ISBLANK ISLITERAL ISNUMERIC IF COALESCE SAMETERM REGEX CONTAINS ' +
+                        'STRSTARTS STRENDS'
+                },
+                contains: [
+                    hljs.COMMENT('#', '$'),
+                    hljs.QUOTE_STRING_MODE,
+                    hljs.APOS_STRING_MODE,
+                    hljs.C_NUMBER_MODE,
+                    { className: 'variable', begin: /[?$][A-Za-z_]\w*/ },
+                    IRI, DATATYPE, PREFIXED_NAME, LANG_TAG
+                ]
+            };
+        }
+
+        hljs.registerLanguage('turtle', turtleLang);
+        hljs.registerLanguage('sparql', sparqlLang);
+    })();
+</script>
+<script>
+    Reveal.initialize({
+        hash: true,
+        slideNumber: false,
+        pdfSeparateFragments: false,
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+</script>
+</body>
+</html>

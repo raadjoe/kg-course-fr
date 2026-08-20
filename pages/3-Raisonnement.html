@@ -1,0 +1,1300 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow">
+    <title>3-Raisonnement</title>
+
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/night.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../plugin/highlight/monokai.css">
+
+    <style>
+        /* ── Helpers for this deck ───────────────────────────────── */
+        .part-label {
+            display: inline-block;
+            background: #4f8ef7;
+            color: #09090f;
+            font-size: 0.65em;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.8rem;
+            border-radius: 3px;
+            margin-bottom: 1.2rem;
+        }
+        .box {
+            border: 1px solid #3d4168;
+            border-radius: 6px;
+            padding: 0.8rem 1.2rem;
+            background: #0d1117;
+            font-size: 0.82em;
+            line-height: 1.55;
+            margin-top: 0.6rem;
+        }
+        .box-blue { border-color: #4f8ef7; }
+        .img-placeholder {
+            width: 80%;
+            margin: 0.6rem auto;
+            background: #0d1117;
+            border: 2px dashed #3d4168;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            color: #6b7099;
+            font-size: 0.62em;
+            text-align: center;
+            padding: 0.8rem;
+            box-sizing: border-box;
+        }
+        .img-placeholder strong { color: #4f8ef7; font-size: 1.05em; }
+        .img-placeholder .src   { color: #3d4168; }
+        .two-col { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .two-col > div { flex: 1; }
+        .rdf-table { width: 100%; border-collapse: collapse; font-size: 0.72em; }
+        .rdf-table th {
+            background: #1e3a5f; color: #7eb8f7;
+            padding: 0.35rem 0.6rem; border: 1px solid #444; text-align: left;
+        }
+        .rdf-table td {
+            padding: 0.3rem 0.6rem; border: 1px solid #444; color: #eef0ff;
+        }
+        .rdf-table tr:nth-child(even) td { background: #0d1117; }
+        blockquote {
+            border-left: 4px solid #4f8ef7;
+            padding-left: 1rem;
+            color: #aaa;
+            font-style: italic;
+            margin: 0.8rem 0;
+        }
+        .kv-row { display: flex; gap: 1rem; align-items: baseline; margin-bottom: 0.5rem; }
+        .kv-label {
+            min-width: 110px; text-align: right;
+            color: #4f8ef7; font-size: 0.7em; font-family: monospace;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            border-right: 2px solid #3d4168; padding-right: 0.6rem;
+            flex-shrink: 0;
+        }
+        .kv-body { font-size: 0.82em; line-height: 1.5; }
+        code { font-size: 0.85em; color: #7eb8f7; background: #0d1117; padding: 0.1em 0.35em; border-radius: 3px; }
+
+        /* ── Badges et notes de code ──────────────────────────────── */
+        .code-badge {
+            display: inline-block;
+            background: rgba(79,142,247,0.12);
+            color: #7eb8f7;
+            border: 1px solid #4f8ef7;
+            font-size: 0.62em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.15rem 0.6rem;
+            border-radius: 3px;
+            margin-bottom: 0.5rem;
+        }
+        .code-note {
+            font-size: 0.78em;
+            color: #aaa;
+            margin-top: 0.6rem;
+            line-height: 1.5;
+        }
+        .code-note-neg {
+            font-size: 0.78em;
+            color: #e05c5c;
+            margin-top: 0.6rem;
+            line-height: 1.5;
+        }
+
+        /* ── Override night theme yellow links ───────────────────── */
+        :root {
+            --r-main-font-size:   34px;
+            --r-link-color:       #4f8ef7;
+            --r-link-color-dark:  #2a5cb8;
+            --r-link-color-hover: #7eb8f7;
+            --r-selection-background-color: #2a5cb8;
+        }
+        .reveal a             { color: #4f8ef7; }
+        .reveal a:hover       { color: #7eb8f7; }
+        .reveal .controls     { color: #4f8ef7; }
+        .reveal .progress span { background: #4f8ef7; }
+    </style>
+</head>
+
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════════════
+  COVER
+═══════════════════════════════════════════════════════════════ -->
+<section>
+    <h2>Graphes de connaissances :</h2>
+    <h2>fondements et applications</h2>
+    <br><br>
+    <h3>BACHELOR HEPTA</h3>
+    <p>
+        <h3><a href="http://joe-raad.com">Joe Raad</a></h3>
+    </p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  CHAPITRE 3 : RAISONNEMENT
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#020408" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.25) 0px,rgba(79,142,247,0.25) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.25) 0px,rgba(79,142,247,0.25) 1px,transparent 1px,transparent 60px)" data-transition="slide">
+    <div style="display:flex; align-items:center; gap:2.5rem; justify-content:center; max-width:860px; margin:0 auto;">
+        <div style="font-size:7em; font-weight:900; color:rgba(79,142,247,0.13); line-height:1; flex-shrink:0; font-family:monospace; user-select:none;">03</div>
+        <div style="text-align:left; border-left:3px solid #4f8ef7; padding-left:2rem;">
+            <div style="font-size:0.52em; font-weight:700; color:#4f8ef7; letter-spacing:0.25em; text-transform:uppercase; margin-bottom:0.6rem;">Chapitre 3</div>
+            <h2 style="font-size:1.3em; margin:0 0 1.4rem 0; color:#eef0ff;">Raisonnement</h2>
+            <div style="font-size:0.62em; color:#6b7099; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.7rem;">Sections</div>
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">3.1</span>
+                <span>Le raisonnement automatique</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">3.2</span>
+                <span>RDFS</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">3.3</span>
+                <span>OWL</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">3.4</span>
+                <span>Démo : Protégé</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 3.1 : LE RAISONNEMENT AUTOMATIQUE
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">RAISONNEMENT</div>
+    <h2>3.1 Le raisonnement automatique</h2>
+    <p style="color:#aaa;">Contexte, histoire et langages avant RDFS et OWL.</p>
+</section>
+
+<section>
+    <h3>Ce que RDF ne dit pas</h3>
+    <div style="background:#0d1a2e; border-left:4px solid #4f8ef7; border-radius:0 6px 6px 0; padding:0.9rem 1.2rem; margin:0.6rem 0 1rem; font-size:0.85em; line-height:1.7; color:#c9d8f0; font-style:italic;">
+        "RDF dit quels faits existent. Il ne dit pas ce qu'on peut en déduire."
+    </div>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:1rem;">Comment une machine peut-elle produire de nouveaux faits, jamais écrits explicitement dans le graphe ?</p>
+</section>
+
+<section>
+    <h3>Qu'est-ce que le raisonnement ?</h3>
+    <div class="kv-row"><span class="kv-label">Définition</span><span class="kv-body">Dériver <strong>de nouveaux faits</strong> à partir de faits existants et de règles logiques, sans qu'un humain les ait écrits explicitement.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Faits assertés</span><span class="kv-body">Les triplets écrits directement dans le graphe : ce que RDF représente seul.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Faits inférés</span><span class="kv-body">Les triplets qu'un moteur de raisonnement <strong>ajoute automatiquement</strong>, en appliquant des règles aux faits assertés.</span></div>
+</section>
+
+<section>
+    <h3>Un exemple classique : le syllogisme</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">La forme d'inférence la plus ancienne, décrite par Aristote il y a plus de 2000 ans.</p>
+    <div style="background:#0d1a2e; border-left:4px solid #4f8ef7; border-radius:0 6px 6px 0; padding:0.9rem 1.2rem; margin:0.6rem 0 1rem; font-size:0.9em; line-height:1.9; color:#c9d8f0; font-style:italic;">
+        Tous les hommes sont mortels.<br>
+        Socrate est un homme.<br>
+        <strong style="color:#7eb8f7; font-style:normal;">Donc Socrate est mortel.</strong>
+    </div>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; text-align:center;">La troisième phrase n'a jamais été écrite :<br>elle est <strong style="color:#eef0ff;">déduite</strong> des deux premières.</p>
+</section>
+
+<section>
+    <h3>Le même principe, appliqué à un graphe</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Le graphe ne contient que des faits assertés. Un moteur de raisonnement peut en tirer davantage.</p>
+    <div class="kv-row"><span class="kv-label">Faits assertés</span><span class="kv-body"><code>ex:djokovic ex:aRemporté ex:rg2023</code>. <code>ex:rg2023 ex:surface ex:terreBattue</code>.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Règle</span><span class="kv-body">Tout joueur ayant remporté un tournoi sur terre battue est un <code>ex:ChampionTerre</code>.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Fait inféré</span><span class="kv-body"><code>ex:djokovic rdf:type ex:ChampionTerre</code>, sans que ce triplet ait jamais été écrit.</span></div>
+    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.8rem; text-align:center;">L'ensemble des classes et des règles qui rendent cette inférence possible porte un nom : une <strong style="color:#7eb8f7;">ontologie</strong>.</p>
+</section>
+
+<section>
+    <h3>D'où vient le mot "ontologie" ?</h3>
+    <div class="kv-row"><span class="kv-label">Étymologie</span><span class="kv-body">Du grec ancien <em>ón</em> / <em>ontos</em> (l'être) et <em>logia</em> (l'étude). À l'origine, une branche de la philosophie.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Chez Aristote</span><span class="kv-body">Déjà dans l'Antiquité, la question de ce qui existe et de comment le catégoriser en genres et espèces.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">En informatique</span><span class="kv-body">Le mot est repris par l'intelligence artificielle dans les années 1980-1990, dans un sens plus étroit et plus pratique.</span></div>
+</section>
+
+<section>
+    <h3>La définition en intelligence artificielle</h3>
+    <blockquote>
+        "Une ontologie est une spécification explicite d'une conceptualisation."
+        <p style="font-size:0.7em; color:#6b7099; margin-top:0.5rem; font-style:normal;">Tom Gruber, 1993, la définition la plus citée du domaine.</p>
+    </blockquote>
+    <p style="font-size:0.82em; color:#aaa; margin-top:1rem;">Dans ce cours, l'ontologie, c'est le <strong style="color:#7eb8f7;">vocabulaire</strong> RDFS/OWL d'un graphe : ses classes, ses propriétés, ses règles. Les triplets RDF sont les <strong style="color:#eef0ff;">données</strong> qui s'appuient dessus.</p>
+</section>
+
+<section>
+    <h3>Des ontologies bien réelles</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">Une ontologie n'est pas toujours réinventée : de nombreux vocabulaires existants se réutilisent tels quels.</p>
+    <div class="kv-row"><span class="kv-label">FOAF</span><span class="kv-body">Décrit des personnes et leurs relations sociales. Déjà croisée en 3.3 avec <code>foaf:Person</code>.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">schema.org</span><span class="kv-body">Vocabulaire utilisé par Google pour le Knowledge Graph, vu au chapitre 1.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">SNOMED-CT, UniProt</span><span class="kv-body">Ontologies médicales et biologiques citées au chapitre 1, avec des centaines de milliers de concepts.</span></div>
+</section>
+
+<section>
+    <h3>Base de données relationnelle contre ontologie</h3>
+    <table class="rdf-table" style="font-size:0.72em;">
+        <thead><tr><th>Base de données relationnelle</th><th>Ontologie</th></tr></thead>
+        <tbody>
+            <tr><td>Structurer les instances pour le stockage et l'interrogation</td><td>Ajouter de la sémantique pour la communication humains-machines</td></tr>
+            <tr><td>Construite fréquemment à partir de zéro</td><td>Réutilisée dès que possible</td></tr>
+            <tr><td>Hypothèse du monde fermé</td><td>Hypothèse du monde ouvert, détaillée juste après</td></tr>
+            <tr><td>Hypothèse du nom unique</td><td>Pas d'hypothèse du nom unique, détaillée juste après</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Un fait absent est-il faux, ou juste inconnu ?</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Le graphe ne dit rien sur les tournois sur gazon de Djokovic. Faut-il en conclure qu'il n'en a jamais gagné ?</p>
+    <div class="two-col">
+        <div class="box" style="border-left:3px solid #ff9f43;">
+            <strong style="color:#ff9f43;">Base de données<br>(Closed World Assumption)</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Hypothèse du monde clos. Tout fait absent est considéré faux : une ligne manquante est une réponse en soi.</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7;">Graphe de connaissances (Open World Assumption)</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Hypothèse du monde ouvert. Un fait absent est seulement inconnu : peut être vrai, faux, ou jamais renseigné.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Conséquence directe pour le raisonnement : un moteur qui suit l'OWA ne peut jamais conclure qu'un fait est faux uniquement parce qu'il est absent du graphe.</p>
+</section>
+
+<section>
+    <h3>Exemple concret : une ontologie universitaire</h3>
+    <div style="width:100%; max-width:480px; margin:0.3rem auto 0.5rem;">
+        <svg viewBox="0 0 580 210" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+                <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#6b7099"/>
+                </marker>
+            </defs>
+
+            <line x1="218" y1="40" x2="322" y2="40" stroke="#7eb8f7" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+            <text x="240" y="32" fill="#7eb8f7" font-size="9">inscrit</text>
+
+            <ellipse cx="160" cy="40" rx="58" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="160" y="45" fill="#eef0ff" font-size="13" font-weight="bold" text-anchor="middle">Etudiant</text>
+            <ellipse cx="380" cy="40" rx="55" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="380" y="45" fill="#eef0ff" font-size="13" font-weight="bold" text-anchor="middle">Cours</text>
+
+            <line x1="85" y1="148" x2="145" y2="62" stroke="#3d4168" stroke-width="1.3" stroke-dasharray="3,3" marker-end="url(#arrowMuted)"/>
+            <text x="72" y="118" fill="#6b7099" font-size="7">rdf:type</text>
+            <line x1="195" y1="147" x2="170" y2="63" stroke="#3d4168" stroke-width="1.3" stroke-dasharray="3,3" marker-end="url(#arrowMuted)"/>
+            <text x="196" y="110" fill="#6b7099" font-size="7">rdf:type</text>
+            <line x1="345" y1="146" x2="372" y2="63" stroke="#3d4168" stroke-width="1.3" stroke-dasharray="3,3" marker-end="url(#arrowMuted)"/>
+            <text x="368" y="118" fill="#6b7099" font-size="7">rdf:type</text>
+            <line x1="470" y1="148" x2="392" y2="62" stroke="#3d4168" stroke-width="1.3" stroke-dasharray="3,3" marker-end="url(#arrowMuted)"/>
+            <text x="447" y="110" fill="#6b7099" font-size="7">rdf:type</text>
+
+            <line x1="226" y1="165" x2="272" y2="165" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+            <text x="228" y="157" fill="#2ecc71" font-size="9">inscrit</text>
+            <path d="M210,180 Q345,215 445,182" fill="none" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+            <text x="290" y="203" fill="#2ecc71" font-size="9">inscrit</text>
+
+            <ellipse cx="70" cy="165" rx="36" ry="18" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="70" y="170" fill="#eef0ff" font-size="12" text-anchor="middle">etu1</text>
+            <ellipse cx="190" cy="165" rx="36" ry="18" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="190" y="170" fill="#eef0ff" font-size="12" text-anchor="middle">etu2</text>
+            <ellipse cx="330" cy="165" rx="58" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="330" y="162" fill="#eef0ff" font-size="10" text-anchor="middle">web_</text>
+            <text x="330" y="175" fill="#eef0ff" font-size="10" text-anchor="middle">sémantique</text>
+            <ellipse cx="480" cy="165" rx="72" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="480" y="162" fill="#eef0ff" font-size="10" text-anchor="middle">graphes_</text>
+            <text x="480" y="175" fill="#eef0ff" font-size="10" text-anchor="middle">connaissances</text>
+        </svg>
+    </div>
+    <p style="font-size:0.82em; color:#eef0ff; text-align:center; margin-top:0.3rem;"><code>etu1</code> est-il inscrit au cours de <code>web_sémantique</code> ?</p>
+    <div class="two-col" style="margin-top:0.5rem;">
+        <div class="box" style="border-left:3px solid #ff9f43; text-align:center;">
+            <strong style="color:#ff9f43;">Base de données</strong>
+            <p style="margin-top:0.3rem; font-size:0.82em; color:#aaa;">Non.</p>
+        </div>
+        <div class="box box-blue fragment" style="text-align:center;">
+            <strong style="color:#7eb8f7;">Ontologie</strong>
+            <p style="margin-top:0.3rem; font-size:0.82em; color:#aaa;">On ne sait pas : rien n'affirme le contraire.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Deux noms, une seule entité ?</h3>
+    <div class="kv-row"><span class="kv-label">Nom unique (UNA)</span><span class="kv-body">En base de données relationnelle, deux identifiants différents désignent toujours deux entités différentes.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Absente des KGs</span><span class="kv-body">Un graphe de connaissances ne suppose pas cela. <code>ex:djokovic</code> et <code>wd:Q5812</code> peuvent désigner la même personne, sans qu'un moteur de raisonnement le devine tout seul.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">La solution</span><span class="kv-body">Le déclarer explicitement avec <code>owl:sameAs</code>, présenté en détail en section 3.3.</span></div>
+</section>
+
+<section>
+    <h3>Exemple concret : la même ontologie universitaire</h3>
+    <div style="width:100%; max-width:480px; margin:0.3rem auto 0.5rem;">
+        <svg viewBox="0 0 580 210" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowBlue2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+                <marker id="arrowGreen2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowMuted2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#6b7099"/>
+                </marker>
+            </defs>
+
+            <line x1="218" y1="40" x2="322" y2="40" stroke="#7eb8f7" stroke-width="1.5" marker-end="url(#arrowBlue2)"/>
+            <text x="240" y="32" fill="#7eb8f7" font-size="9">inscrit</text>
+
+            <ellipse cx="160" cy="40" rx="58" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="160" y="45" fill="#eef0ff" font-size="13" font-weight="bold" text-anchor="middle">Etudiant</text>
+            <ellipse cx="380" cy="40" rx="55" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="380" y="45" fill="#eef0ff" font-size="13" font-weight="bold" text-anchor="middle">Cours</text>
+
+            <line x1="85" y1="148" x2="145" y2="62" stroke="#3d4168" stroke-width="1.3" stroke-dasharray="3,3" marker-end="url(#arrowMuted2)"/>
+            <text x="72" y="118" fill="#6b7099" font-size="7">rdf:type</text>
+            <line x1="195" y1="147" x2="170" y2="63" stroke="#3d4168" stroke-width="1.3" stroke-dasharray="3,3" marker-end="url(#arrowMuted2)"/>
+            <text x="196" y="110" fill="#6b7099" font-size="7">rdf:type</text>
+            <line x1="345" y1="146" x2="372" y2="63" stroke="#3d4168" stroke-width="1.3" stroke-dasharray="3,3" marker-end="url(#arrowMuted2)"/>
+            <text x="368" y="118" fill="#6b7099" font-size="7">rdf:type</text>
+            <line x1="470" y1="148" x2="392" y2="62" stroke="#3d4168" stroke-width="1.3" stroke-dasharray="3,3" marker-end="url(#arrowMuted2)"/>
+            <text x="447" y="110" fill="#6b7099" font-size="7">rdf:type</text>
+
+            <line x1="226" y1="165" x2="272" y2="165" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen2)"/>
+            <text x="228" y="157" fill="#2ecc71" font-size="9">inscrit</text>
+            <path d="M210,180 Q345,215 445,182" fill="none" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen2)"/>
+            <text x="290" y="203" fill="#2ecc71" font-size="9">inscrit</text>
+
+            <ellipse cx="70" cy="165" rx="36" ry="18" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="70" y="170" fill="#eef0ff" font-size="12" text-anchor="middle">etu1</text>
+            <ellipse cx="190" cy="165" rx="36" ry="18" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="190" y="170" fill="#eef0ff" font-size="12" text-anchor="middle">etu2</text>
+            <ellipse cx="330" cy="165" rx="58" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="330" y="162" fill="#eef0ff" font-size="10" text-anchor="middle">web_</text>
+            <text x="330" y="175" fill="#eef0ff" font-size="10" text-anchor="middle">sémantique</text>
+            <ellipse cx="480" cy="165" rx="72" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="480" y="162" fill="#eef0ff" font-size="10" text-anchor="middle">graphes_</text>
+            <text x="480" y="175" fill="#eef0ff" font-size="10" text-anchor="middle">connaissances</text>
+        </svg>
+    </div>
+    <p style="font-size:0.82em; color:#eef0ff; text-align:center; margin-top:0.3rem;">À combien de cours <code>etu2</code> est-il inscrit ?</p>
+    <div class="two-col" style="margin-top:0.5rem;">
+        <div class="box" style="border-left:3px solid #ff9f43; text-align:center;">
+            <strong style="color:#ff9f43;">Base de données</strong>
+            <p style="margin-top:0.3rem; font-size:0.82em; color:#aaa;">2, avec certitude.</p>
+        </div>
+        <div class="box box-blue fragment" style="text-align:center;">
+            <strong style="color:#7eb8f7;">Ontologie</strong>
+            <p style="margin-top:0.3rem; font-size:0.82em; color:#aaa;">Au moins 1 : rien n'affirme que <code>web_sémantique</code> et <code>graphes_connaissances</code> sont deux cours distincts.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Deux formes de raisonnement</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Le mot "raisonnement" recouvre deux familles de méthodes très différentes.</p>
+    <div class="two-col">
+        <div class="box box-blue">
+            <strong style="color:#7eb8f7;">Symbolique, déductif</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Applique des règles logiques explicites. Chaque conclusion est garantie correcte si les prémisses le sont. C'est l'objet de ce chapitre.</p>
+        </div>
+        <div class="box fragment">
+            <strong style="color:#eef0ff;">Statistique, inductif</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Prédit des relations probables à partir de motifs observés (embeddings de graphes, modèles de langage). Une probabilité, pas une garantie.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; text-align:center;">Les deux se complètent : c'est le principe du GraphRAG vu au chapitre 1, un modèle de langage s'appuyant sur des faits garantis par un graphe.</p>
+</section>
+
+<section>
+    <h3>De la logique symbolique aux standards du Web</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:1rem;">Les réseaux sémantiques (1966) et les frames (1975), vus au chapitre 1, sont les ancêtres directs des langages de raisonnement du Web.</p>
+    <div class="kv-row fragment"><span class="kv-label">1980-2000</span><span class="kv-body"><strong>Logiques de description</strong> : formalisation mathématique du raisonnement sur des classes et des relations, offrant un cadre formel décidable, mais posant des défis de passage à l'échelle sur le Web.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">2004</span><span class="kv-body"><strong>RDFS</strong> devient une recommandation du W3C : un fragment très léger, calculable à grande échelle.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">2004, 2009</span><span class="kv-body"><strong>OWL</strong> devient recommandation W3C en 2004, puis <strong>OWL 2</strong> en 2009 : plus expressif, hérité directement des logiques de description.</span></div>
+</section>
+
+<section>
+    <h3>À quoi sert le raisonnement aujourd'hui ?</h3>
+    <div style="display:flex; gap:1rem;">
+        <div class="box fragment" style="flex:1; border-left:3px solid #4f8ef7;">
+            <strong style="color:#4f8ef7;">Classification</strong>
+            <p style="font-size:0.8em; color:#eef0ff; margin-top:0.4rem;">Ranger automatiquement une entité dans la bonne hiérarchie de classes.</p>
+        </div>
+        <div class="box fragment" style="flex:1; border-left:3px solid #ff9f43;">
+            <strong style="color:#ff9f43;">Cohérence</strong>
+            <p style="font-size:0.8em; color:#eef0ff; margin-top:0.4rem;">Détecter des faits contradictoires dans un graphe.</p>
+        </div>
+        <div class="box fragment" style="flex:1; border-left:3px solid #2ecc71;">
+            <strong style="color:#2ecc71;">Requêtes enrichies</strong>
+            <p style="font-size:0.8em; color:#eef0ff; margin-top:0.4rem;">Répondre à une question avec des faits jamais écrits explicitement.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Un quatrième usage majeur : l'intégration de données provenant de sources hétérogènes, en reliant leurs vocabulaires respectifs par des règles communes.</p>
+</section>
+
+<section>
+    <h3>Appliquer les règles : deux stratégies</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Une fois les règles définies, à quel moment faut-il les appliquer ?</p>
+    <div class="two-col">
+        <div class="box box-blue">
+            <strong style="color:#7eb8f7;">Matérialisation</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Calcule tous les faits inférés à l'avance et les stocke dans le graphe. Les requêtes deviennent rapides, mais chaque mise à jour doit tout recalculer.</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7;">Réécriture de requêtes</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Ne stocke que les faits assertés. Chaque requête est étendue à la volée avec les règles. Le graphe reste léger, mais chaque requête coûte plus cher.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.9rem; text-align:center;">En anglais : forward chaining pour la matérialisation, backward chaining pour la réécriture de requêtes.</p>
+</section>
+
+<section>
+    <h3>Le compromis expressivité / passage à l'échelle</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.8rem;">RDFS et OWL occupent deux points différents sur ce compromis, hérité du choix déjà posé au chapitre 1.</p>
+    <div class="two-col">
+        <div class="box box-blue">
+            <strong style="color:#7eb8f7;">RDFS</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Peu expressif, mais son inférence se calcule instantanément, même sur des milliards de triplets.</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7;">OWL</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Beaucoup plus expressif, avec plusieurs profils qui font varier le coût de calcul.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; text-align:center;">La suite du chapitre présente ces deux langages en détail : RDFS (3.2), puis OWL (3.3).</p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 3.2 : RDFS
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">RAISONNEMENT</div>
+    <h2>3.2 RDFS</h2>
+    <p style="color:#aaa;">Structurer le vocabulaire du graphe pour permettre l'inférence.</p>
+</section>
+
+<section>
+    <h3>RDFS en une phrase</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">RDFS ajoute à RDF le vocabulaire minimal pour décrire des classes et des propriétés, et pour en tirer des inférences simples.</p>
+    <div class="kv-row"><span class="kv-label">Ajoute</span><span class="kv-body"><code>rdfs:Class</code>, <code>rdfs:subClassOf</code>, <code>rdfs:subPropertyOf</code>, <code>rdfs:domain</code>, <code>rdfs:range</code>.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Laisse de côté</span><span class="kv-body">Disjonction entre classes, cardinalités, caractéristiques de propriétés (symétrie, transitivité). Réservé à OWL, section 3.3.</span></div>
+</section>
+
+<section>
+    <h3>Qu'est-ce qu'une classe ?</h3>
+    <div class="kv-row"><span class="kv-label">Définition</span><span class="kv-body">Un ensemble de ressources qui partagent une même nature : <code>ex:Person</code>, <code>ex:Match</code>, <code>ex:Tournoi</code>...</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Instance</span><span class="kv-body">Une ressource appartient à une classe via <code>rdf:type</code>, vu au chapitre 2 : <code>ex:djokovic rdf:type ex:Person</code>.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">rdfs:Class</span><span class="kv-body">Pour déclarer qu'un terme est lui-même une classe : <code>ex:Person rdf:type rdfs:Class</code>.</span></div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.8rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Inutile de l'écrire à la main : dès qu'une classe est utilisée dans un <code>rdf:type</code>, RDFS le déduit automatiquement<br>(via la règle du <code>rdfs:range</code> vue plus loin).</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.95em;">rdfs:subClassOf</code> : une relation stricte</h3>
+    <p style="font-size:0.88em; color:#eef0ff; margin-bottom:0.8rem;">A <code>rdfs:subClassOf</code> B signifie : <strong style="color:#7eb8f7;">toute instance de A est nécessairement une instance de B</strong>, sans exception.</p>
+    <p style="font-size:0.8em; color:#aaa;">Une relation d'inclusion stricte entre deux ensembles de ressources, pas une simple association ou un rapprochement thématique.</p>
+</section>
+
+<section>
+    <h3>Ce qui est <code style="font-size:0.85em;">subClassOf</code>, ce qui ne l'est pas</h3>
+    <div class="two-col">
+        <div class="box" style="border-left:3px solid #2ecc71;">
+            <strong style="color:#2ecc71;">Correct</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;"><code>ex:GrandChelem rdfs:subClassOf ex:Tournoi</code>. Tout Grand Chelem est bien un tournoi.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #e05c5c;">
+            <strong style="color:#e05c5c;">Incorrect</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;"><code>ex:Set rdfs:subClassOf ex:Match</code>. Un set n'est pas une sorte de match : il en est une <strong style="color:#eef0ff;">partie</strong>.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">"Plus large" ou "fait partie de" ne suffisent pas : seule une véritable relation de généralisation justifie <code>subClassOf</code>.</p>
+</section>
+
+<section>
+    <h3>La hiérarchie en cercles emboîtés</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.6rem;">Chaque classe plus spécifique est entièrement contenue dans la classe plus générale.</p>
+    <div style="width:100%; max-width:400px; margin:0 auto;">
+        <svg viewBox="0 0 400 400" style="width:100%; height:auto;">
+            <circle cx="200" cy="200" r="170" fill="#4f8ef7" fill-opacity="0.06" stroke="#4f8ef7" stroke-width="2"/>
+            <circle cx="200" cy="200" r="115" fill="#4f8ef7" fill-opacity="0.12" stroke="#7eb8f7" stroke-width="2"/>
+            <circle cx="200" cy="200" r="60"  fill="#4f8ef7" fill-opacity="0.22" stroke="#eef0ff" stroke-width="2"/>
+            <text x="200" y="48"  fill="#4f8ef7" font-size="17" font-weight="bold" text-anchor="middle">ÉvénementSportif</text>
+            <text x="200" y="103" fill="#7eb8f7" font-size="16" font-weight="bold" text-anchor="middle">Match</text>
+            <text x="200" y="205" fill="#eef0ff" font-size="16" font-weight="bold" text-anchor="middle">MatchSimple</text>
+        </svg>
+    </div>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">rdfs:subPropertyOf</code> : organiser les propriétés</h3>
+    <p style="font-size:0.88em; color:#eef0ff; margin-bottom:0.8rem;">P <code>rdfs:subPropertyOf</code> Q signifie : <strong style="color:#7eb8f7;">tout triplet utilisant P entraîne le même triplet avec Q</strong>.</p>
+    <p style="font-size:0.8em; color:#aaa;">Le même principe que <code>subClassOf</code>, appliqué aux relations plutôt qu'aux classes.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">rdfs:domain</code> et <code style="color:#4f8ef7; font-size:0.9em;">rdfs:range</code></h3>
+    <div class="kv-row"><span class="kv-label">domain</span><span class="kv-body">Type attendu du <strong>sujet</strong>. Seul un <code>ex:Person</code> peut <code>ex:aRemporté</code> quelque chose.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">range</span><span class="kv-body">Type attendu de l'<strong>objet</strong>. Ce qu'on <code>ex:aRemporté</code> est toujours un <code>ex:Match</code>.</span></div>
+</section>
+
+<section>
+    <h3>Les règles utiles de RDFS</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.7rem;">Six règles suffisent à couvrir l'essentiel de ce que RDFS permet de déduire.</p>
+    <table class="rdf-table" style="font-size:0.72em;">
+        <thead>
+            <tr><th>Règle</th><th>Prémisses</th><th>Conclusion</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Transitivité de <code>subClassOf</code></td>
+                <td><code>A subClassOf B</code>.<br><code>B subClassOf C</code></td>
+                <td><code>A subClassOf C</code></td>
+            </tr>
+            <tr>
+                <td>Héritage de type</td>
+                <td><code>X rdf:type A</code>.<br><code>A subClassOf B</code></td>
+                <td><code>X rdf:type B</code></td>
+            </tr>
+            <tr>
+                <td>Transitivité de <code>subPropertyOf</code></td>
+                <td><code>P subPropertyOf Q</code>.<br><code>Q subPropertyOf R</code></td>
+                <td><code>P subPropertyOf R</code></td>
+            </tr>
+            <tr>
+                <td>Héritage de triplet</td>
+                <td><code>X P Y</code>.<br><code>P subPropertyOf Q</code></td>
+                <td><code>X Q Y</code></td>
+            </tr>
+            <tr>
+                <td><code>domain</code></td>
+                <td><code>P domain C</code>.<br><code>X P Y</code></td>
+                <td><code>X rdf:type C</code></td>
+            </tr>
+            <tr>
+                <td><code>range</code></td>
+                <td><code>P range C</code>.<br><code>X P Y</code></td>
+                <td><code>Y rdf:type C</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.7rem; text-align:center;">À vous de les appliquer, une par une, sur les slides suivantes.</p>
+</section>
+
+<section>
+    <h3>À vous : transitivité de <code style="font-size:0.85em;">subClassOf</code></h3>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:MatchSimple  rdfs:subClassOf  ex:Match .
+ex:Match        rdfs:subClassOf  ex:ÉvénementSportif .</code></pre>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:MatchSimple</code> ?</p>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+        <code style="font-size:1em;">ex:MatchSimple  rdfs:subClassOf  ex:ÉvénementSportif</code>
+    </div>
+</section>
+
+<section>
+    <h3>À vous : héritage de type</h3>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:rg2024_finale  a  ex:MatchSimple .
+ex:MatchSimple    rdfs:subClassOf  ex:Match .</code></pre>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:rg2024_finale</code> ?</p>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+        <code style="font-size:1em;">ex:rg2024_finale  a  ex:Match .</code>
+    </div>
+</section>
+
+<section>
+    <h3>À vous : transitivité de <code style="font-size:0.85em;">subPropertyOf</code></h3>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:aRemporté  rdfs:subPropertyOf  ex:aJoué .
+ex:aJoué      rdfs:subPropertyOf  ex:aParticipéÀ .</code></pre>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:aRemporté</code> ?</p>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+        <code style="font-size:1em;">ex:aRemporté  rdfs:subPropertyOf  ex:aParticipéÀ .</code>
+    </div>
+</section>
+
+<section>
+    <h3>À vous : héritage de triplet</h3>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:djokovic   ex:aRemporté  ex:rg2023 .
+ex:aRemporté  rdfs:subPropertyOf  ex:aJoué .</code></pre>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:djokovic</code> ?</p>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+        <code style="font-size:1em;">ex:djokovic  ex:aJoué  ex:rg2023 .</code>
+    </div>
+</section>
+
+<section>
+    <h3>À vous : <code style="font-size:0.85em;">domain</code></h3>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:aRemporté  rdfs:domain  ex:Person .
+ex:djokovic   ex:aRemporté  ex:rg2023 .</code></pre>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:djokovic</code> ?</p>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+        <code style="font-size:1em;">ex:djokovic  a  ex:Person .</code>
+    </div>
+</section>
+
+<section>
+    <h3>À vous : <code style="font-size:0.85em;">range</code></h3>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:aRemporté  rdfs:range  ex:Match .
+ex:djokovic   ex:aRemporté  ex:rg2023 .</code></pre>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:rg2023</code> ?</p>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+        <code style="font-size:1em;">ex:rg2023  a  ex:Match .</code>
+    </div>
+</section>
+
+<section>
+    <h3>Le piège : domain et range ne valident rien</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">RDFS ne rejette jamais un triplet. Il ne fait qu'en déduire d'autres, même absurdes.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:aRemporté  rdfs:domain  ex:Person ;
+              rdfs:range   ex:Match .
+
+ex:court_chatrier  ex:aRemporté  ex:alcaraz .</code></pre>
+    <div class="box" style="border-left:4px solid #e05c5c; margin-top:0.7rem;">
+        <strong style="color:#e05c5c;">Aucune erreur.</strong>
+        <p style="font-size:0.85em; color:#eef0ff; margin-top:0.3rem;">Un raisonneur RDFS déduit <code>ex:court_chatrier a ex:Person</code> et <code>ex:alcaraz a ex:Match</code> : un court devenu une personne, un joueur devenu un match, sans jamais signaler le problème.</p>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.7rem; text-align:center;">Conséquence directe de l'hypothèse du monde ouvert (OWA), vue en 3.1.</p>
+</section>
+
+<section>
+    <h3>Expressivité contre facilité d'utilisation</h3>
+    <div class="two-col">
+        <div class="box box-blue">
+            <strong style="color:#7eb8f7;">Ce que RDFS gagne</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Six règles simples, calculables en une seule passe, même sur des milliards de triplets. Aucune ambiguïté de calcul.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #ff9f43;">
+            <strong style="color:#ff9f43;">Ce que RDFS perd</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Aucun mécanisme de validation. Une donnée mal saisie produit une inférence silencieuse plutôt qu'une erreur.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Pour valider réellement un graphe, et rejeter les données incorrectes, il faut un langage de contraintes comme SHACL, hors du champ de RDFS et OWL.</p>
+</section>
+
+<section>
+    <h3>Le reste du vocabulaire RDFS</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">D'autres termes existent, mais sans pouvoir d'inférence : ils documentent le graphe plutôt qu'ils ne le structurent.</p>
+    <div class="kv-row"><span class="kv-label">Documentation</span><span class="kv-body"><code>rdfs:label</code>, <code>rdfs:comment</code>, <code>rdfs:seeAlso</code>, <code>rdfs:isDefinedBy</code> : lisibles par un humain, ignorés par un raisonneur.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Rarement utilisés</span><span class="kv-body"><code>rdfs:Resource</code>, <code>rdfs:Literal</code>, <code>rdfs:Datatype</code>, le vocabulaire des conteneurs (<code>rdfs:member</code>...) : présents dans le standard, peu présents en pratique.</span></div>
+</section>
+
+<section>
+    <h3>Les limites de RDFS</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.9rem;">Six règles suffisent pour une hiérarchie simple, mais RDFS ne peut exprimer aucune de ces idées :</p>
+    <div class="kv-row fragment"><span class="kv-label">Disjonction</span><span class="kv-body">Qu'un <code>ex:MatchSimple</code> ne peut jamais être aussi un <code>ex:MatchDouble</code>.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Cardinalité</span><span class="kv-body">Qu'un match a exactement un vainqueur, ni zéro ni deux.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Caractéristiques</span><span class="kv-body">Qu'une propriété est symétrique, transitive, ou fonctionnelle.</span></div>
+    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.8rem; text-align:center;">OWL comble ces manques, section 3.3.</p>
+</section>
+
+<section>
+    <h3>RDFS : la partie visible de l'iceberg</h3>
+    <div style="position:relative; width:90%; margin:0 auto;">
+        <img src="../figures/owl.png" alt="Un iceberg : RDFS est la partie émergée, OWL est la partie immergée, bien plus vaste"
+             style="width:100%; height:auto; display:block; border-radius:6px; border:1px solid #3d4168;">
+        <div style="position:absolute; top:8%; left:50%; transform:translateX(-50%); background:rgba(9,9,15,0.8); border:1px solid #4f8ef7; border-radius:4px; padding:0.15rem 0.9rem;">
+            <strong style="color:#7eb8f7; font-size:0.8em;">RDFS</strong>
+        </div>
+        <div style="position:absolute; top:56%; left:50%; transform:translateX(-50%); background:rgba(9,9,15,0.8); border:1px solid #4f8ef7; border-radius:4px; padding:0.15rem 0.9rem;">
+            <strong style="color:#eef0ff; font-size:0.9em;">OWL</strong>
+        </div>
+    </div>
+    <p style="font-size:0.78em; color:#aaa; margin-top:0.8rem; text-align:center;">Ce qui a été vu en 3.2 n'est que la partie émergée de ce qu'un langage de raisonnement peut exprimer.</p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 3.3 : OWL
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">RAISONNEMENT</div>
+    <h2>3.3 OWL</h2>
+    <p style="color:#aaa;">Les constructions les plus utiles, pas le langage entier.</p>
+</section>
+
+<section>
+    <h3>OWL en une phrase</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">OWL comble les manques de RDFS identifiés en 3.2, et ajoute la possibilité de raisonner sur l'identité des entités. Trois blocs structurent cette section.</p>
+    <div class="kv-row"><span class="kv-label">3.3.1</span><span class="kv-body">Caractéristiques de propriétés : transitivité, symétrie, réflexivité, fonctionnalité.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">3.3.2</span><span class="kv-body">Identité : déclarer que deux IRIs désignent la même entité ou non, avec <code>owl:sameAs</code> ou <code>owl:differentFrom</code>.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">3.3.3</span><span class="kv-body">Classes : disjonction, intersection, union, cardinalité, équivalence.</span></div>
+    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.8rem; text-align:center;">OWL est un langage vaste. Cette section couvre seulement ses constructions les plus utiles en pratique.</p>
+</section>
+
+
+<!-- ── Sous-section 3.3.1 : Caractéristiques de propriétés ── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">3.3.1 Caractéristiques de propriétés</h3>
+    <p style="color:#aaa;">Donner un comportement logique aux relations du graphe.</p>
+</section>
+
+<section>
+    <h3>Propriétés transitives</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">N'importe quelle propriété métier peut être déclarée transitive, pas seulement <code>subClassOf</code> et <code>subPropertyOf</code> vus en 3.2.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:estSituéDans  a  owl:TransitiveProperty .
+
+ex:court_chatrier  ex:estSituéDans  ex:paris .
+ex:paris           ex:estSituéDans  ex:france .</code></pre>
+    <p class="code-note">→ On en déduit <code>ex:court_chatrier ex:estSituéDans ex:france</code>.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:SymmetricProperty</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Une relation qui vaut toujours dans les deux sens.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:aJouéContre  a  owl:SymmetricProperty .
+
+ex:djokovic  ex:aJouéContre  ex:alcaraz .</code></pre>
+    <p class="code-note">→ On en déduit <code>ex:alcaraz ex:aJouéContre ex:djokovic</code>.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:AsymmetricProperty</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">L'opposé exact de la symétrie : si la relation est vraie dans un sens, elle est nécessairement fausse dans l'autre.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:pèreDe  a  owl:AsymmetricProperty .
+
+ex:sebastian_nadal  ex:pèreDe  ex:rafael_nadal .</code></pre>
+    <p class="code-note-neg">↛ <code>ex:rafael_nadal ex:pèreDe ex:sebastian_nadal</code><br>ne peut pas être vrai en même temps : Rafael ne peut pas être le père de son propre père.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:ReflexiveProperty</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Toute ressource est liée à elle-même par cette propriété, même sans l'écrire.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:aMêmeNationalitéQue  a  owl:ReflexiveProperty .</code></pre>
+    <p class="code-note">→ On en déduit <code>ex:djokovic ex:aMêmeNationalitéQue ex:djokovic</code>, pour absolument tout le monde. Le même principe que la réflexivité de <code>owl:sameAs</code>, vue en 3.3.2, mais applicable à n'importe quelle propriété.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:IrreflexiveProperty</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">L'opposé exact de la réflexivité : aucune ressource ne peut être liée à elle-même par cette propriété.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:aBattu  a  owl:IrreflexiveProperty .</code></pre>
+    <p class="code-note-neg">↛ <code>ex:djokovic ex:aBattu ex:djokovic</code> est impossible : un joueur ne peut pas se battre lui-même.</p>
+</section>
+
+<section>
+    <h3>Qu'est-ce qu'être incohérent ?</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">Un graphe est incohérent quand il affirme, directement ou par inférence, deux faits qu'aucune interprétation ne peut satisfaire ensemble.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:pèreDe  a  owl:AsymmetricProperty .
+
+ex:sebastian_nadal  ex:pèreDe  ex:rafael_nadal .
+ex:rafael_nadal     ex:pèreDe  ex:sebastian_nadal .</code></pre>
+    <p class="code-note-neg">↛ Contradiction directe : les deux triplets ne peuvent pas être vrais en même temps.</p>
+    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.7rem; text-align:center;">D'autres violations produisent le même effet : une propriété irréflexive utilisée sur soi-même, une cardinalité dépassée, deux classes disjointes partageant une instance.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:inverseOf</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Déclare que deux propriétés décrivent la même relation, vue depuis chaque extrémité.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:aRemporté  owl:inverseOf  ex:remportéPar .
+
+ex:djokovic  ex:aRemporté  ex:rg2023 .</code></pre>
+    <p class="code-note">→ On en déduit <code>ex:rg2023 ex:remportéPar ex:djokovic</code>.</p>
+</section>
+
+<section>
+    <h3>Propriétés fonctionnelles</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Un sujet ne peut avoir qu'une seule valeur pour cette propriété.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:dateNaissance  a  owl:FunctionalProperty .
+
+ex:djokovic  ex:dateNaissance  "1987-05-22"^^xsd:date .</code></pre>
+    <p class="code-note-neg">↛ Une seconde date de naissance pour <code>ex:djokovic</code> contredirait cette déclaration.</p>
+</section>
+
+<section>
+    <h3>Propriétés fonctionnelles inverses</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Une valeur ne peut appartenir qu'à un seul sujet : elle identifie ce sujet de façon unique.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:numeroLicence  a  owl:InverseFunctionalProperty .
+
+ex:djokovic  ex:numeroLicence  "ATP-12345" .
+ex:joueur_x  ex:numeroLicence  "ATP-12345" .</code></pre>
+    <p class="code-note">→ Même numéro de licence, donc même joueur : on en déduit <code>ex:djokovic owl:sameAs ex:joueur_x</code>.</p>
+</section>
+
+
+<!-- ── Sous-section 3.3.2 : Identité ────────────────────────── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">3.3.2 Identité</h3>
+    <p style="color:#aaa;">Décider quand deux IRIs désignent la même entité.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:sameAs</code> : la même chose, deux noms</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Déclare explicitement que deux IRIs désignent la même entité du monde réel, la solution à l'absence d'UNA vue en 3.1.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">@prefix ex:  &lt;http://example.org/&gt; .
+@prefix wd:  &lt;http://www.wikidata.org/entity/&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+
+ex:djokovic  owl:sameAs  wd:Q5812 .</code></pre>
+    <p class="code-note">→ <code>ex:djokovic</code> (notre graphe) et <code>wd:Q5812</code> (Wikidata) désignent la même personne.</p>
+</section>
+
+<section>
+    <h3><code style="font-size:0.85em;">sameAs</code> : l'impact sur l'exemple universitaire</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Rappel de 3.1 : sans le savoir, <code>etu2</code> était inscrit à "au moins 1" cours, faute de savoir si <code>web_sémantique</code> et <code>graphes_connaissances</code> sont un seul et même cours.</p>
+    <div style="width:100%; max-width:320px; margin:0.2rem auto 0.3rem;">
+        <svg viewBox="0 0 380 190" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowGreen3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+            </defs>
+            <line x1="85" y1="85" x2="165" y2="52" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen3)"/>
+            <text x="88" y="78" fill="#2ecc71" font-size="8">inscrit</text>
+            <line x1="85" y1="105" x2="175" y2="138" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen3)"/>
+            <text x="88" y="120" fill="#2ecc71" font-size="8">inscrit</text>
+            <line x1="210" y1="64" x2="228" y2="126" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="130" y="98" fill="#a78bfa" font-size="9">owl:sameAs =</text>
+            <ellipse cx="55" cy="95" rx="34" ry="17" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="55" y="100" fill="#eef0ff" font-size="11" text-anchor="middle">etu2</text>
+            <ellipse cx="210" cy="45" rx="55" ry="19" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="210" y="42" fill="#eef0ff" font-size="9" text-anchor="middle">web_</text>
+            <text x="210" y="54" fill="#eef0ff" font-size="9" text-anchor="middle">sémantique</text>
+            <ellipse cx="230" cy="145" rx="68" ry="19" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="230" y="142" fill="#eef0ff" font-size="9" text-anchor="middle">graphes_</text>
+            <text x="230" y="154" fill="#eef0ff" font-size="9" text-anchor="middle">connaissances</text>
+        </svg>
+    </div>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:web_sémantique  owl:sameAs  ex:graphes_connaissances .</code></pre>
+    <div class="box box-blue fragment" style="text-align:center; margin-top:0.5rem;">
+        <strong style="color:#7eb8f7;">Nouvelle réponse : au moins 1 cours.</strong>
+        <p style="font-size:0.75em; color:#aaa; margin-top:0.3rem;">Les deux noms fusionnent en un seul cours. Sous l'OWA, rien n'exclut d'autres inscriptions non renseignées : "exactement 1" resterait une conclusion abusive.</p>
+    </div>
+</section>
+
+<section>
+    <h3>Les propriétés de <code style="font-size:0.85em;">sameAs</code></h3>
+    <div class="kv-row"><span class="kv-label">Transitif</span><span class="kv-body">Si A <code>sameAs</code> B et B <code>sameAs</code> C, alors A <code>sameAs</code> C.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Symétrique</span><span class="kv-body">Si A <code>sameAs</code> B, alors B <code>sameAs</code> A.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Réflexif</span><span class="kv-body">A <code>sameAs</code> A est toujours vrai, même sans l'écrire.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Substituabilité</span><span class="kv-body">Chaque triplet connu sur A s'applique aussi à B, et inversement : ce que l'on sait de l'un est reporté sur l'autre.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Opposé</span><span class="kv-body"><code>owl:differentFrom</code> affirme au contraire que deux IRIs désignent des entités distinctes.</span></div>
+</section>
+
+<section>
+    <h3><code style="font-size:0.85em;">differentFrom</code> : l'impact sur l'exemple universitaire</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">La déclaration inverse résout l'incertitude dans l'autre sens.</p>
+    <div style="width:100%; max-width:320px; margin:0.2rem auto 0.3rem;">
+        <svg viewBox="0 0 380 190" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowGreen4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+            </defs>
+            <line x1="85" y1="85" x2="165" y2="52" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen4)"/>
+            <text x="88" y="78" fill="#2ecc71" font-size="8">inscrit</text>
+            <line x1="85" y1="105" x2="175" y2="138" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen4)"/>
+            <text x="88" y="120" fill="#2ecc71" font-size="8">inscrit</text>
+            <line x1="210" y1="64" x2="228" y2="126" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="112" y="98" fill="#a78bfa" font-size="9">owl:differentFrom ≠</text>
+            <ellipse cx="55" cy="95" rx="34" ry="17" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="55" y="100" fill="#eef0ff" font-size="11" text-anchor="middle">etu2</text>
+            <ellipse cx="210" cy="45" rx="55" ry="19" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="210" y="42" fill="#eef0ff" font-size="9" text-anchor="middle">web_</text>
+            <text x="210" y="54" fill="#eef0ff" font-size="9" text-anchor="middle">sémantique</text>
+            <ellipse cx="230" cy="145" rx="68" ry="19" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="230" y="142" fill="#eef0ff" font-size="9" text-anchor="middle">graphes_</text>
+            <text x="230" y="154" fill="#eef0ff" font-size="9" text-anchor="middle">connaissances</text>
+        </svg>
+    </div>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:web_sémantique  owl:differentFrom  ex:graphes_connaissances .</code></pre>
+    <div class="box box-blue fragment" style="text-align:center; margin-top:0.5rem;">
+        <strong style="color:#7eb8f7;">Nouvelle réponse : au moins 2 cours.</strong>
+        <p style="font-size:0.75em; color:#aaa; margin-top:0.3rem;">Les deux cours sont désormais garantis distincts. Sous l'OWA, rien n'exclut d'autres inscriptions non renseignées : "exactement 2" resterait une conclusion abusive.</p>
+    </div>
+</section>
+
+<section>
+    <h3>Le piège : <code style="font-size:0.85em;">sameAs</code> n'est pas "ressemble à"</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">Deux joueurs distincts qui partagent un nom de famille ne sont pas la même personne.</p>
+    <div class="box" style="border-left:4px solid #e05c5c;">
+        <strong style="color:#e05c5c;">Incorrect</strong>
+        <p style="font-size:0.85em; color:#eef0ff; margin-top:0.3rem;"><code>ex:williams_serena owl:sameAs ex:williams_venus</code>. Deux sœurs, deux personnes, deux IRIs distincts : ce n'est pas une question de ressemblance ou de similarité.</p>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.7rem; text-align:center;">À cause de la transitivité, une seule erreur de <code>sameAs</code> fusionne silencieusement deux entités, et tout ce qu'on sait sur elles.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:equivalentClass</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Ce que <code>owl:sameAs</code> fait pour deux individus, <code>owl:equivalentClass</code> le fait pour deux classes : elles décrivent exactement le même ensemble de ressources.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+
+ex:Person  owl:equivalentClass  foaf:Person .</code></pre>
+    <p class="code-note">→ Toute instance de <code>ex:Person</code> est aussi une instance de <code>foaf:Person</code>, et inversement.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:equivalentProperty</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Et au niveau des propriétés : deux propriétés de vocabulaires différents qui expriment exactement la même relation.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+
+ex:name  owl:equivalentProperty  foaf:name .</code></pre>
+    <p class="code-note">→ <code>ex:alcaraz ex:name "Carlos Alcaraz"</code> entraîne aussi <code>ex:alcaraz foaf:name "Carlos Alcaraz"</code>.</p>
+</section>
+
+
+<!-- ── Sous-section 3.3.3 : Classes ─────────────────────────── -->
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">3.3.3 Classes</h3>
+    <p style="color:#aaa;">Contraindre, combiner et aligner les classes du graphe.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:Thing</code> et <code style="color:#4f8ef7; font-size:0.9em;">owl:Nothing</code></h3>
+    <div class="kv-row"><span class="kv-label">owl:Thing</span><span class="kv-body">La classe universelle. Toute ressource en est implicitement membre.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">owl:Nothing</span><span class="kv-body">La classe vide. Aucune ressource ne peut en être membre.</span></div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.8rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Si un raisonneur déduit qu'une ressource appartient à <code>owl:Nothing</code>, le graphe est incohérent : le même phénomène que la violation de propriété vue en 3.3.1, mais au niveau des classes.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:disjointWith</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Deux classes disjointes n'ont jamais d'instance en commun, l'inverse exact de la hiérarchie emboîtée vue en 3.2.</p>
+    <div style="width:100%; max-width:340px; margin:0.4rem auto 0.6rem;">
+        <svg viewBox="0 0 400 220" style="width:100%; height:auto;">
+            <circle cx="130" cy="110" r="90" fill="#4f8ef7" fill-opacity="0.14" stroke="#7eb8f7" stroke-width="2"/>
+            <circle cx="270" cy="110" r="90" fill="#4f8ef7" fill-opacity="0.14" stroke="#7eb8f7" stroke-width="2"/>
+            <text x="130" y="115" fill="#eef0ff" font-size="15" font-weight="bold" text-anchor="middle">MatchSimple</text>
+            <text x="270" y="115" fill="#eef0ff" font-size="15" font-weight="bold" text-anchor="middle">MatchDouble</text>
+        </svg>
+    </div>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:MatchSimple  owl:disjointWith  ex:MatchDouble .</code></pre>
+    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.6rem; text-align:center;">Un match à la fois <code>MatchSimple</code> et <code>MatchDouble</code> deviendrait une instance de <code>owl:Nothing</code> : le graphe serait incohérent.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:intersectionOf</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Une nouvelle classe définie comme l'ensemble des ressources qui appartiennent à toutes les classes listées à la fois.</p>
+    <div style="width:100%; max-width:340px; margin:0.4rem auto 0.6rem;">
+        <svg viewBox="0 0 400 220" style="width:100%; height:auto;">
+            <circle cx="135" cy="110" r="85" fill="#4f8ef7" fill-opacity="0.18" stroke="#7eb8f7" stroke-width="2"/>
+            <circle cx="265" cy="110" r="85" fill="#4f8ef7" fill-opacity="0.18" stroke="#7eb8f7" stroke-width="2"/>
+            <text x="90"  y="45" fill="#7eb8f7" font-size="14" font-weight="bold" text-anchor="middle">Gaucher</text>
+            <text x="310" y="45" fill="#7eb8f7" font-size="14" font-weight="bold" text-anchor="middle">Champion</text>
+            <text x="200" y="115" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">intersection</text>
+        </svg>
+    </div>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:ChampionGaucher  a  owl:Class ;
+    owl:intersectionOf  ( ex:Gaucher  ex:ChampionGrandChelem ) .</code></pre>
+    <p class="code-note">→ La syntaxe <code>( ... )</code> est le raccourci Turtle pour les listes, vu en 2.3.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:unionOf</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Une nouvelle classe définie comme l'ensemble des ressources qui appartiennent à au moins une des classes listées.</p>
+    <div style="width:100%; max-width:340px; margin:0.4rem auto 0.6rem;">
+        <svg viewBox="0 0 400 220" style="width:100%; height:auto;">
+            <circle cx="135" cy="110" r="85" fill="#7eb8f7" fill-opacity="0.28" stroke="#7eb8f7" stroke-width="2"/>
+            <circle cx="265" cy="110" r="85" fill="#7eb8f7" fill-opacity="0.28" stroke="#7eb8f7" stroke-width="2"/>
+            <text x="90"  y="45" fill="#eef0ff" font-size="14" font-weight="bold" text-anchor="middle">RolandGarros</text>
+            <text x="310" y="45" fill="#eef0ff" font-size="14" font-weight="bold" text-anchor="middle">Wimbledon</text>
+        </svg>
+    </div>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:VainqueurMajeur  a  owl:Class ;
+    owl:unionOf  ( ex:VainqueurRolandGarros  ex:VainqueurWimbledon ) .</code></pre>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:complementOf</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Une nouvelle classe définie comme tout ce qui n'appartient pas à la classe donnée.</p>
+    <div style="width:100%; max-width:260px; margin:0.4rem auto 0.6rem;">
+        <svg viewBox="0 0 300 220" style="width:100%; height:auto;">
+            <circle cx="150" cy="110" r="95" fill="#7eb8f7" fill-opacity="0.22" stroke="#7eb8f7" stroke-width="2"/>
+            <circle cx="150" cy="110" r="45" fill="#0d1117" stroke="#e05c5c" stroke-width="2"/>
+            <text x="150" y="115" fill="#e05c5c" font-size="13" font-weight="bold" text-anchor="middle">Champion</text>
+            <text x="150" y="28"  fill="#eef0ff" font-size="13" font-weight="bold" text-anchor="middle">NonChampion</text>
+        </svg>
+    </div>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:NonChampion  a  owl:Class ;
+    owl:complementOf  ex:Champion .</code></pre>
+</section>
+
+<!-- <section>
+    <h3>Cardinalité</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Un match a exactement un vainqueur, ni zéro ni deux.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:Match  rdfs:subClassOf  [
+    a                owl:Restriction ;
+    owl:onProperty   ex:remportéPar ;
+    owl:cardinality  1
+] .</code></pre>
+    <p class="code-note">→ Toute instance de <code>ex:Match</code> doit avoir exactement une valeur pour <code>ex:remportéPar</code>.</p>
+</section> -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 3.4 : DÉMO PROTÉGÉ
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">RAISONNEMENT</div>
+    <h2>3.4 Démo : Protégé</h2>
+    <p style="color:#aaa;">Modéliser et raisonner sur des joueurs et des entraîneurs avec un éditeur d'ontologies.</p>
+</section>
+
+<section>
+    <h3>Qu'est-ce que Protégé ?</h3>
+    <img src="../figures/protégé.png" alt="Logo Protégé" style="width:200px; height:auto; display:block; margin:0.5rem auto 0.8rem;"/>
+    <div class="kv-row"><span class="kv-label">Définition</span><span class="kv-body">Un éditeur d'ontologies graphique gratuit, développé à Stanford, le plus utilisé pour construire et tester des graphes RDFS et OWL.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Raisonneurs</span><span class="kv-body">Intègre des moteurs d'inférence (HermiT, Pellet) qui calculent automatiquement les faits déduits.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Usage</span><span class="kv-body">Éditer les classes et propriétés dans une interface graphique, puis observer les triplets inférés sans écrire une seule requête.</span></div>
+</section>
+
+<section>
+    <h3>Le sujet : joueurs et entraîneurs</h3>
+    <div style="background:#0d1a2e; border-left:4px solid #4f8ef7; border-radius:0 6px 6px 0; padding:0.9rem 1.2rem; margin:0.6rem 0 1rem; font-size:0.85em; line-height:1.7; color:#c9d8f0; font-style:italic;">
+        "Rafael Nadal est entraîné par son oncle Toni Nadal, puis par Carlos Moyá. Novak Djokovic et Carlos Alcaraz ont joué l'un contre l'autre, et Djokovic est mieux classé qu'Alcaraz, lui-même mieux classé qu'Alexander Zverev."
+    </div>
+    <p style="font-size:0.78em; color:#6b7099; text-align:center;">Des joueurs, des entraîneurs, un classement : de quoi tester RDFS et OWL ensemble.</p>
+</section>
+
+<section>
+    <h3>Les classes : Personne, Joueur, Entraineur</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Une hiérarchie RDFS, complétée par une disjonction OWL.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:Joueur      rdfs:subClassOf  ex:Personne .
+ex:Entraineur  rdfs:subClassOf  ex:Personne .
+ex:Joueur      owl:disjointWith  ex:Entraineur .</code></pre>
+    <p class="code-note">→ Dans cette ontologie, personne ne peut être à la fois <code>ex:Joueur</code> et <code>ex:Entraineur</code>.</p>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">ex:entraine</code> et <code style="color:#4f8ef7; font-size:0.9em;">ex:aCommeEntraineur</code></h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Deux propriétés inverses l'une de l'autre, vues en 3.3.1.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:entraine  owl:inverseOf  ex:aCommeEntraineur .</code></pre>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">ex:aClasséAuDessusDe</code> : une propriété transitive</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Si un joueur est classé au-dessus d'un deuxième, lui-même classé au-dessus d'un troisième, le premier est classé au-dessus du troisième.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:aClasséAuDessusDe  a  owl:TransitiveProperty .</code></pre>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">ex:aJouéContre</code> : une propriété symétrique</h3>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:aJouéContre  a  owl:SymmetricProperty .</code></pre>
+</section>
+
+<section>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">ex:aCommeEntraineurPrincipal</code> : une propriété fonctionnelle</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Un joueur n'a qu'un seul entraîneur principal à la fois.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:aCommeEntraineurPrincipal  a  owl:FunctionalProperty .</code></pre>
+</section>
+
+<section>
+    <h3>Le graphe complet</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.6rem;">Les seuls faits assertés. Tout le reste sera déduit par le raisonneur.</p>
+    <span class="code-badge">Turtle</span>
+    <pre style="font-size:0.56em;"><code class="language-turtle">ex:rafael_nadal  a  ex:Joueur .      ex:toni_nadal   a  ex:Entraineur .
+ex:djokovic      a  ex:Joueur .      ex:carlos_moya  a  ex:Entraineur .
+ex:alcaraz       a  ex:Joueur .
+ex:zverev        a  ex:Joueur .
+
+ex:toni_nadal  ex:entraine  ex:rafael_nadal .
+
+ex:djokovic  ex:aJouéContre        ex:alcaraz .
+ex:djokovic  ex:aClasséAuDessusDe  ex:alcaraz .
+ex:alcaraz   ex:aClasséAuDessusDe  ex:zverev .
+
+ex:rafael_nadal  ex:aCommeEntraineurPrincipal  ex:toni_nadal .</code></pre>
+</section>
+
+<section>
+    <h3>À vous : qui est l'entraîneur de qui ?</h3>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:toni_nadal  ex:entraine  ex:rafael_nadal .</code></pre>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:rafael_nadal</code> ?</p>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+        <code style="font-size:1em;">ex:rafael_nadal  ex:aCommeEntraineur  ex:toni_nadal .</code>
+    </div>
+</section>
+
+<section>
+    <h3>À vous : qui a joué contre qui ?</h3>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:djokovic  ex:aJouéContre  ex:alcaraz .</code></pre>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:alcaraz</code> ?</p>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+        <code style="font-size:1em;">ex:alcaraz  ex:aJouéContre  ex:djokovic .</code>
+    </div>
+</section>
+
+<section>
+    <h3>À vous : le classement en chaîne</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Aucun triplet ne relie directement <code>ex:djokovic</code> à <code>ex:zverev</code>.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:djokovic  ex:aClasséAuDessusDe  ex:alcaraz .
+ex:alcaraz   ex:aClasséAuDessusDe  ex:zverev .</code></pre>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire ?</p>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+        <code style="font-size:1em;">ex:djokovic  ex:aClasséAuDessusDe  ex:zverev .</code>
+    </div>
+    <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.7rem; text-align:center;">La transitivité seule suffit, sans passer par une règle RDFS intermédiaire.</p>
+</section>
+
+<section>
+    <h3>Le piège : un entraîneur principal fonctionnel</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Historiquement, Toni Nadal puis Carlos Moyá ont tous deux été présentés comme l'entraîneur principal de Rafael Nadal.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:rafael_nadal  ex:aCommeEntraineurPrincipal  ex:toni_nadal .
+ex:rafael_nadal  ex:aCommeEntraineurPrincipal  ex:carlos_moya .</code></pre>
+    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;"><code>ex:aCommeEntraineurPrincipal</code> est fonctionnelle. Que peut-on en déduire ?</p>
+    <div class="fragment box" style="text-align:center; margin-top:0.6rem; border-left:4px solid #e05c5c;">
+        <code style="font-size:1em;">ex:toni_nadal  owl:sameAs  ex:carlos_moya .</code>
+    </div>
+    <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.7rem; text-align:center;">Sans <code>owl:differentFrom</code> pour les séparer, le raisonneur fusionne deux entraîneurs bien réels et bien distincts en une seule personne.</p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  CONCLUSION
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
+    <h2 style="font-size:1.25em; margin-bottom:1.2rem;">Synthèse : Raisonnement (1/2)</h2>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.84em;">
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">Le <strong>raisonnement</strong> dérive de nouveaux faits à partir de faits existants et de règles, sans qu'un humain les écrive. Sous l'<strong>hypothèse du monde ouvert</strong> (OWA), un fait absent est seulement inconnu, jamais faux.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;"><strong>RDFS</strong> structure le vocabulaire avec six règles simples (<code>subClassOf</code>, <code>subPropertyOf</code>, <code>domain</code>, <code>range</code>), calculables en une seule passe, même sur des milliards de triplets.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;"><code>domain</code> et <code>range</code> ne valident rien : ce sont des règles d'inférence, pas des contraintes. Une donnée mal saisie produit une inférence silencieuse, jamais une erreur.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">Le raisonnement se <strong>matérialise</strong> à l'avance ou se <strong>recalcule à la volée</strong> à chaque requête. Il sert à classer, détecter les incohérences, enrichir les réponses et intégrer des données hétérogènes.</p>
+        </div>
+    </div>
+</section>
+
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
+    <h2 style="font-size:1.25em; margin-bottom:1.2rem;">Synthèse : Raisonnement (2/2)</h2>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.84em;">
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;"><strong>OWL</strong> ajoute des caractéristiques de propriétés (transitive, symétrique, réflexive, et leurs opposés) et la notion d'<strong>identité</strong> : <code>owl:sameAs</code> pour les individus, <code>owl:equivalentClass</code> et <code>owl:equivalentProperty</code> pour les classes et les propriétés.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;">Violer ces règles rend un graphe <strong>incohérent</strong> (<code>owl:Nothing</code>). Combiner des classes (<code>disjointWith</code>, <code>intersectionOf</code>, <code>unionOf</code>, <code>complementOf</code>) et contraindre leur cardinalité affine encore la modélisation.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;">RDF décrit les faits. RDFS et OWL en déduisent d'autres. Il reste à savoir <em>interroger</em> tous ces faits, assertés comme inférés : c'est l'objet du chapitre suivant, <strong>SPARQL</strong>.</p>
+        </div>
+    </div>
+</section>
+
+
+</div><!-- .slides -->
+</div><!-- .reveal -->
+
+<script src="../dist/reveal.js"></script>
+<script src="../plugin/notes/notes.js"></script>
+<script src="../plugin/markdown/markdown.js"></script>
+<script src="../plugin/highlight/highlight.js"></script>
+<script>
+    /* Ce build de highlight.js ne connaît ni SPARQL ni Turtle : on les déclare nous-mêmes. */
+    (function () {
+        var hljs = RevealHighlight().hljs;
+
+        var IRI            = { className: 'meta',     begin: /<[^\s<>]*>/ };
+        var PREFIXED_NAME  = { className: 'symbol',    begin: /[A-Za-z][\w-]*:[A-Za-z_][\w-]*/ };
+        var DATATYPE       = { className: 'symbol',    begin: /\^\^[A-Za-z][\w-]*:[A-Za-z_][\w-]*/ };
+        var LANG_TAG       = { className: 'symbol',    begin: /@[A-Za-z-]+/ };
+
+        function turtleLang(hljs) {
+            return {
+                case_insensitive: false,
+                keywords: {
+                    keyword: '@prefix @base PREFIX BASE',
+                    literal: 'true false',
+                    built_in: 'a'
+                },
+                contains: [
+                    hljs.COMMENT('#', '$'),
+                    hljs.QUOTE_STRING_MODE,
+                    hljs.APOS_STRING_MODE,
+                    hljs.C_NUMBER_MODE,
+                    IRI, DATATYPE, PREFIXED_NAME,
+                    { className: 'variable', begin: /_:[A-Za-z0-9_-]+/ },
+                    LANG_TAG
+                ]
+            };
+        }
+
+        function sparqlLang(hljs) {
+            return {
+                case_insensitive: true,
+                keywords: {
+                    keyword: 'SELECT CONSTRUCT ASK DESCRIBE WHERE FROM NAMED FILTER OPTIONAL UNION MINUS ' +
+                        'BIND VALUES GROUP BY ORDER LIMIT OFFSET DISTINCT REDUCED HAVING AS SERVICE GRAPH ' +
+                        'PREFIX BASE INSERT DELETE DATA WITH USING DEFAULT ALL SILENT INTO TO CLEAR DROP ' +
+                        'CREATE LOAD COPY MOVE ADD IN NOT EXISTS UNDEF ASC DESC',
+                    literal: 'true false',
+                    built_in: 'a COUNT SUM AVG MIN MAX SAMPLE GROUP_CONCAT BOUND STR LANG LANGMATCHES ' +
+                        'DATATYPE ISIRI ISBLANK ISLITERAL ISNUMERIC IF COALESCE SAMETERM REGEX CONTAINS ' +
+                        'STRSTARTS STRENDS'
+                },
+                contains: [
+                    hljs.COMMENT('#', '$'),
+                    hljs.QUOTE_STRING_MODE,
+                    hljs.APOS_STRING_MODE,
+                    hljs.C_NUMBER_MODE,
+                    { className: 'variable', begin: /[?$][A-Za-z_]\w*/ },
+                    IRI, DATATYPE, PREFIXED_NAME, LANG_TAG
+                ]
+            };
+        }
+
+        hljs.registerLanguage('turtle', turtleLang);
+        hljs.registerLanguage('sparql', sparqlLang);
+    })();
+</script>
+<script>
+    Reveal.initialize({
+        hash: true,
+        slideNumber: false,
+        pdfSeparateFragments: false,
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+</script>
+</body>
+</html>

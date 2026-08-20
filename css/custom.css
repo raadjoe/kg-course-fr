@@ -1,0 +1,37 @@
+.reveal {
+  /* Remove font-size override to use Reveal.js default scaling */
+}
+
+.reveal .slides {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 80px 100px; /* Increased padding for more space */
+  box-sizing: border-box;
+}
+
+.reveal section {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.reveal p,
+.reveal ul,
+.reveal ol {
+  font-size: 0.8em; /* Slightly increase paragraph font size for readability */
+}
+
+.reveal h2 {
+  font-size: 1.6em; /* Make h2 headings smaller */
+}
+
+.reveal h3 {
+  font-size: 1em; /* Make h3 headings smaller */
+}
+
+.reveal h4 {
+  font-size: 0.6em; /* Make h4 headings smaller */
+}
