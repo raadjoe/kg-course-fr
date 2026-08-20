@@ -275,13 +275,45 @@
 
 <section>
     <h3>Base de données relationnelle contre ontologie</h3>
-    <table class="rdf-table" style="font-size:0.72em;">
-        <thead><tr><th>Base de données relationnelle</th><th>Ontologie</th></tr></thead>
+    <table class="rdf-table" style="font-size:0.68em;">
+        <thead>
+            <tr>
+                <th style="width:16%;">Dimension</th>
+                <th>Base de données relationnelle</th>
+                <th>Ontologie</th>
+            </tr>
+        </thead>
         <tbody>
-            <tr><td>Structurer les instances pour le stockage et l'interrogation</td><td>Ajouter de la sémantique pour la communication humains-machines</td></tr>
-            <tr><td>Construite fréquemment à partir de zéro</td><td>Réutilisée dès que possible</td></tr>
-            <tr><td>Hypothèse du monde fermé</td><td>Hypothèse du monde ouvert, détaillée juste après</td></tr>
-            <tr><td>Hypothèse du nom unique</td><td>Pas d'hypothèse du nom unique, détaillée juste après</td></tr>
+            <tr>
+                <td style="color:#4f8ef7; font-weight:600;">Objectif</td>
+                <td>Structurer les instances pour le stockage et l'interrogation</td>
+                <td>Ajouter de la sémantique pour la communication humains-machines</td>
+            </tr>
+            <tr class="fragment">
+                <td style="color:#4f8ef7; font-weight:600;">Schéma</td>
+                <td>Rigide, fixé à l'avance</td>
+                <td>Flexible, peut évoluer sans tout redéfinir</td>
+            </tr>
+            <tr class="fragment">
+                <td style="color:#4f8ef7; font-weight:600;">Construction</td>
+                <td>Construite fréquemment à partir de zéro</td>
+                <td>Réutilisée dès que possible</td>
+            </tr>
+            <tr class="fragment">
+                <td style="color:#4f8ef7; font-weight:600;">Raisonnement</td>
+                <td>Aucun raisonnement automatique, tout doit être explicite</td>
+                <td>Raisonnement automatique (RDFS/OWL) pour déduire de nouveaux faits</td>
+            </tr>
+            <tr class="fragment">
+                <td style="color:#4f8ef7; font-weight:600;">Monde</td>
+                <td>Hypothèse du monde fermé</td>
+                <td>Hypothèse du monde ouvert, détaillée juste après</td>
+            </tr>
+            <tr class="fragment">
+                <td style="color:#4f8ef7; font-weight:600;">Noms</td>
+                <td>Hypothèse du nom unique</td>
+                <td>Pas d'hypothèse du nom unique, détaillée juste après</td>
+            </tr>
         </tbody>
     </table>
 </section>
