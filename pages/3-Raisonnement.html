@@ -210,6 +210,22 @@
 </section>
 
 <section>
+    <h3>Deux formes de raisonnement</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Le mot "raisonnement" recouvre deux familles de méthodes très différentes.</p>
+    <div class="two-col">
+        <div class="box box-blue">
+            <strong style="color:#7eb8f7;">Symbolique, déductif</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Applique des règles logiques explicites. Chaque conclusion est garantie correcte si les prémisses le sont. C'est l'objet de ce chapitre.</p>
+        </div>
+        <div class="box fragment">
+            <strong style="color:#eef0ff;">Statistique, inductif</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Prédit des relations probables à partir de motifs observés (embeddings de graphes, modèles de langage). Une probabilité, pas une garantie.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; text-align:center;">Les deux se complètent : c'est le principe du GraphRAG vu au chapitre 1, un modèle de langage s'appuyant sur des faits garantis par un graphe.</p>
+</section>
+
+<section>
     <h3>Un exemple classique : le syllogisme</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">La forme d'inférence la plus ancienne, décrite par Aristote il y a plus de 2000 ans.</p>
     <div style="background:#0d1a2e; border-left:4px solid #4f8ef7; border-radius:0 6px 6px 0; padding:0.9rem 1.2rem; margin:0.6rem 0 1rem; font-size:0.9em; line-height:1.9; color:#c9d8f0; font-style:italic;">
@@ -283,10 +299,10 @@
 </section>
 
 <section>
-    <h3>Base de données relationnelle / ontologie</h3>
+    <h3>BD relationnelle / ontologie</h3>
     <div class="dim-grid" style="font-size:0.68em;">
         <div style="background:#1e3a5f; color:#7eb8f7; font-weight:700;">Dimension</div>
-        <div style="background:#1e3a5f; color:#7eb8f7; font-weight:700;">Base de données relationnelle</div>
+        <div style="background:#1e3a5f; color:#7eb8f7; font-weight:700;">BD relationnelle</div>
         <div style="background:#1e3a5f; color:#7eb8f7; font-weight:700;">Ontologie</div>
 
         <div style="background:#0d1117; color:#4f8ef7; font-weight:600;">Objectif</div>
@@ -465,24 +481,8 @@
 </section>
 
 <section>
-    <h3>Deux formes de raisonnement</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Le mot "raisonnement" recouvre deux familles de méthodes très différentes.</p>
-    <div class="two-col">
-        <div class="box box-blue">
-            <strong style="color:#7eb8f7;">Symbolique, déductif</strong>
-            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Applique des règles logiques explicites. Chaque conclusion est garantie correcte si les prémisses le sont. C'est l'objet de ce chapitre.</p>
-        </div>
-        <div class="box fragment">
-            <strong style="color:#eef0ff;">Statistique, inductif</strong>
-            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Prédit des relations probables à partir de motifs observés (embeddings de graphes, modèles de langage). Une probabilité, pas une garantie.</p>
-        </div>
-    </div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; text-align:center;">Les deux se complètent : c'est le principe du GraphRAG vu au chapitre 1, un modèle de langage s'appuyant sur des faits garantis par un graphe.</p>
-</section>
-
-<section>
     <h3>De la logique symbolique aux standards du Web</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:1rem;">Les réseaux sémantiques (1966) et les frames (1975), vus au chapitre 1, sont les ancêtres directs des langages de raisonnement du Web.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:1rem;">Ces mécanismes de déduction ne sont pas nés avec le Web : ils héritent d'une longue tradition en logique et en intelligence artificielle. Les réseaux sémantiques (1966) et les frames (1975), vus au chapitre 1, sont les ancêtres directs des langages de raisonnement du Web.</p>
     <div class="kv-row fragment"><span class="kv-label">1980-2000</span><span class="kv-body"><strong>Logiques de description</strong> : formalisation mathématique du raisonnement sur des classes et des relations, offrant un cadre formel décidable, mais posant des défis de passage à l'échelle sur le Web.</span></div>
     <div class="kv-row fragment"><span class="kv-label">2004</span><span class="kv-body"><strong>RDFS</strong> devient une recommandation du W3C : un fragment très léger, calculable à grande échelle.</span></div>
     <div class="kv-row fragment"><span class="kv-label">2004, 2009</span><span class="kv-body"><strong>OWL</strong> devient recommandation W3C en 2004, puis <strong>OWL 2</strong> en 2009 : plus expressif, hérité directement des logiques de description.</span></div>
