@@ -453,9 +453,9 @@ Quand aucune image adaptée n'existe, poser un placeholder explicite avec la cla
 | 0 | Plan du module | Objectifs, plan, évaluation | Fait |
 | 1 | Introduction | Web, ses limites, Web Sémantique, graphes de connaissances | Fait |
 | 2 | RDF | Modèle de données, IRIs, littéraux, blank nodes, syntaxes, contextualisation (réification, graphes nommés, RDF-star) | Fait |
-| 3 | Raisonnement | RDFS (classes, propriétés, `domain`/`range`, inférence) et une introduction à OWL (restrictions, `owl:sameAs`, raisonnement) | À écrire |
-| 4 | SPARQL | Langage de requête : SELECT, patterns, OPTIONAL/FILTER, agrégats, fédération | À écrire |
-| 5 | (nom à définir) | Applications concrètes : construire un graphe depuis un CSV (OntoRefine), interroger Wikidata en détail, lier un graphe local à Wikidata | À écrire |
+| 3 | Raisonnement | RDFS (classes, propriétés, `domain`/`range`, inférence) et une introduction à OWL (restrictions, `owl:sameAs`, raisonnement) | Fait |
+| 4 | SPARQL | Langage de requête : SELECT, patterns, OPTIONAL/FILTER, agrégats, fédération, triplestores et endpoints | Fait |
+| 5 | Wikidata | Applications concrètes : construire un graphe depuis un CSV (OntoRefine), interroger Wikidata en détail, lier un graphe local à Wikidata | À écrire |
 
 Le fil rouge tennis/Roland-Garros reste la base par défaut pour les chapitres 3 et 4. Pour le chapitre 5, le choix du jeu de données (sportif ou non) dépendra de ce qui illustre le mieux OntoRefine et le liage à Wikidata : privilégier un CSV réel et propre plutôt que de forcer un jeu de données sportif si un autre convient mieux.
 
