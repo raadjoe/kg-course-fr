@@ -239,6 +239,32 @@ WHERE {
 </section>
 
 <section>
+    <h3>Les quatre formes de requêtes</h3>
+    <table class="rdf-table">
+        <thead><tr><th>Forme</th><th>Résultat</th></tr></thead>
+        <tbody>
+            <tr><td><code>SELECT</code></td><td>Une table de résultats (comme SQL)</td></tr>
+            <tr><td><code>CONSTRUCT</code></td><td>Un nouveau graphe RDF</td></tr>
+            <tr><td><code>ASK</code></td><td>Un booléen : vrai ou faux</td></tr>
+            <tr><td><code>DESCRIBE</code></td><td>Une description d'une ressource</td></tr>
+        </tbody>
+    </table>
+    <p style="font-size:0.75em; color:#6b7099; margin-top:0.8rem; text-align:center;"><code>SELECT</code> pour explorer, <code>CONSTRUCT</code> pour matérialiser,<br><code>ASK</code> pour vérifier, <code>DESCRIBE</code> pour documenter.</p>
+</section>
+
+<section>
+    <h3>La forme de base d'une requête SELECT</h3>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?nom
+WHERE {
+  ?joueur ex:nom ?nom .
+}</code></pre>
+    <p class="code-note">→ <code>PREFIX</code> déclare les abréviations, <code>SELECT</code> choisit les variables à afficher, <code>WHERE</code> contient les motifs à faire correspondre.</p>
+</section>
+
+<section>
     <h3>Un petit graphe pour commencer</h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Trois joueurs, membres de la classe <code>ex:Joueur</code> (l'équivalent d'une table en SQL), chacun relié à sa nationalité. Alcaraz et Nadal partagent la même nationalité : ils pointent vers le <strong>même</strong> littéral.</p>
     <div style="width:100%; max-width:560px; margin:0.2rem auto 0;">
@@ -289,6 +315,15 @@ WHERE {
 </section>
 
 <section>
+    <h3>Le même graphe, en Turtle</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Le schéma précédent n'est qu'une autre façon de lire ces triplets.</p>
+    <span class="code-badge">Turtle</span>
+    <pre style="font-size:0.7em;"><code class="language-turtle">ex:alcaraz a ex:Joueur ; ex:nom "Carlos Alcaraz" ; ex:nationalite "Espagne"@fr, "Spain"@en .
+ex:nadal   a ex:Joueur ; ex:nom "Rafael Nadal"    ; ex:nationalite "Espagne"@fr, "Spain"@en .
+ex:sinner  a ex:Joueur ; ex:nom "Jannik Sinner"   ; ex:nationalite "Italie"@fr, "Italy"@en .</code></pre>
+</section>
+
+<section>
     <h3>Le principe : le pattern matching</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Une requête SPARQL est elle-même un petit graphe, avec des trous : <strong>les variables</strong>. On cherche toutes les façons de le faire correspondre au graphe de données.</p>
     <p style="font-size:0.78em; color:#aaa;">Voyons-le en deux étapes sur notre graphe : d'abord filtrer par type, puis affiner par une seconde condition.</p>
@@ -297,7 +332,11 @@ WHERE {
 <section>
     <h3>Étape 1 : filtrer par type</h3>
     <span class="code-badge">SPARQL</span>
-    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">?x rdf:type ex:Joueur .</code></pre>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?x WHERE {
+  ?x a ex:Joueur .
+}</code></pre>
     <div style="width:100%; max-width:560px; margin:0.2rem auto 0;">
         <svg viewBox="0 0 600 260" style="width:100%; height:auto;">
             <defs>
@@ -344,8 +383,12 @@ WHERE {
 <section>
     <h3>Étape 2 : ajouter une condition</h3>
     <span class="code-badge">SPARQL</span>
-    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">?x rdf:type ex:Joueur ;
-   ex:nationalite "Espagne"@fr .</code></pre>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?x WHERE {
+  ?x a ex:Joueur ;
+     ex:nationalite "Espagne"@fr .
+}</code></pre>
     <div style="width:100%; max-width:560px; margin:0.2rem auto 0;">
         <svg viewBox="0 0 600 260" style="width:100%; height:auto;">
             <defs>
@@ -388,50 +431,6 @@ WHERE {
     </div>
     <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">Deux résultats : Alcaraz et Nadal. Sinner était bien un joueur, mais ne satisfait pas la seconde condition.</p>
     <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.5rem; text-align:center;">Chaque pattern supplémentaire réduit l'ensemble des résultats : c'est exactement ce que nous allons combiner en 4.2.</p>
-</section>
-
-<section>
-    <h3>Les quatre formes de requêtes</h3>
-    <table class="rdf-table">
-        <thead><tr><th>Forme</th><th>Résultat</th></tr></thead>
-        <tbody>
-            <tr><td><code>SELECT</code></td><td>Une table de résultats (comme SQL)</td></tr>
-            <tr><td><code>CONSTRUCT</code></td><td>Un nouveau graphe RDF</td></tr>
-            <tr><td><code>ASK</code></td><td>Un booléen : vrai ou faux</td></tr>
-            <tr><td><code>DESCRIBE</code></td><td>Une description d'une ressource</td></tr>
-        </tbody>
-    </table>
-    <p style="font-size:0.75em; color:#6b7099; margin-top:0.8rem; text-align:center;"><code>SELECT</code> pour explorer, <code>CONSTRUCT</code> pour matérialiser,<br><code>ASK</code> pour vérifier, <code>DESCRIBE</code> pour documenter.</p>
-</section>
-
-<section>
-    <h3>La forme de base d'une requête SELECT</h3>
-    <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
-
-SELECT ?nom
-WHERE {
-  ?joueur ex:nom ?nom .
-}</code></pre>
-    <p class="code-note">→ <code>PREFIX</code> déclare les abréviations, <code>SELECT</code> choisit les variables à afficher, <code>WHERE</code> contient les motifs à faire correspondre.</p>
-</section>
-
-<section>
-    <h3>Une première requête</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Le même graphe, en Turtle, avec les deux patterns des étapes précédentes réunis dans une vraie requête. En 4.2, nous étendrons ce même graphe avec deux nouvelles classes.</p>
-    <pre style="font-size:0.66em;"><code class="language-turtle">ex:alcaraz a ex:Joueur ; ex:nom "Carlos Alcaraz" ; ex:nationalite "Espagne"@fr, "Spain"@en .
-ex:nadal   a ex:Joueur ; ex:nom "Rafael Nadal"    ; ex:nationalite "Espagne"@fr, "Spain"@en .
-ex:sinner  a ex:Joueur ; ex:nom "Jannik Sinner"   ; ex:nationalite "Italie"@fr, "Italy"@en .</code></pre>
-    <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?nom WHERE {
-  ?joueur a ex:Joueur ;
-          ex:nom ?nom ;
-          ex:nationalite "Espagne"@fr .
-}</code></pre>
-    <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
-        <code>?nom = "Carlos Alcaraz"</code><br>
-        <code>?nom = "Rafael Nadal"</code>
-    </div>
 </section>
 
 
