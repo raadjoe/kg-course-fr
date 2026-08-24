@@ -158,7 +158,7 @@
             <div style="font-size:0.62em; color:#6b7099; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.7rem;">Sections</div>
             <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
                 <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">4.1</span>
-                <span>Introduction</span>
+                <span>Introduction à SPARQL</span>
             </div>
             <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
                 <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">4.2</span>
@@ -239,7 +239,7 @@ WHERE {
 </section>
 
 <section>
-    <h3>Les quatre formes de requêtes</h3>
+    <h3>Les quatre formes de requêtes SPARQL</h3>
     <table class="rdf-table">
         <thead><tr><th>Forme</th><th>Résultat</th></tr></thead>
         <tbody>
@@ -266,9 +266,9 @@ WHERE {
 
 <section>
     <h3>Un petit graphe pour commencer</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Trois joueurs, identifiés par leur IRI, membres de la classe <code>ex:Joueur</code>. Le français et l'anglais sont deux littéraux <strong>distincts</strong> : Alcaraz et Nadal, qui partagent la même nationalité, pointent vers les <strong>mêmes</strong> deux littéraux.</p>
-    <div style="width:100%; max-width:640px; margin:0.2rem auto 0;">
-        <svg viewBox="0 0 650 320" style="width:100%; height:auto;">
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Trois joueurs et deux pays, chacun une ressource à part entière avec son propre IRI. La nationalité pointe vers un <strong>pays</strong>, pas vers un texte : c'est ce pays qui porte ses noms en français et en anglais.</p>
+    <div style="width:100%; max-width:680px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 700 230" style="width:100%; height:auto;">
             <defs>
                 <marker id="arrowBlueIntro" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
@@ -278,58 +278,80 @@ WHERE {
                 </marker>
             </defs>
 
-            <line x1="110" y1="93" x2="260" y2="58" stroke="#3d4168" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arrowMutedIntro)"/>
-            <line x1="340" y1="93" x2="340" y2="59" stroke="#3d4168" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arrowMutedIntro)"/>
-            <line x1="570" y1="93" x2="420" y2="58" stroke="#3d4168" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arrowMutedIntro)"/>
+            <line x1="60" y1="98" x2="120" y2="58" stroke="#3d4168" stroke-width="1.1" stroke-dasharray="3,3" marker-end="url(#arrowMutedIntro)"/>
+            <text x="70" y="80" fill="#6b7099" font-size="7">rdf:type</text>
+            <line x1="180" y1="98" x2="180" y2="59" stroke="#3d4168" stroke-width="1.1" stroke-dasharray="3,3" marker-end="url(#arrowMutedIntro)"/>
+            <text x="186" y="80" fill="#6b7099" font-size="7">rdf:type</text>
+            <line x1="300" y1="98" x2="240" y2="58" stroke="#3d4168" stroke-width="1.1" stroke-dasharray="3,3" marker-end="url(#arrowMutedIntro)"/>
+            <text x="278" y="80" fill="#6b7099" font-size="7">rdf:type</text>
+            <line x1="440" y1="98" x2="475" y2="58" stroke="#3d4168" stroke-width="1.1" stroke-dasharray="3,3" marker-end="url(#arrowMutedIntro)"/>
+            <text x="440" y="80" fill="#6b7099" font-size="7">rdf:type</text>
+            <line x1="620" y1="98" x2="585" y2="58" stroke="#3d4168" stroke-width="1.1" stroke-dasharray="3,3" marker-end="url(#arrowMutedIntro)"/>
+            <text x="592" y="80" fill="#6b7099" font-size="7">rdf:type</text>
 
-            <ellipse cx="340" cy="35" rx="60" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="340" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Joueur</text>
+            <ellipse cx="180" cy="35" rx="68" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="180" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">ex:Joueur</text>
 
-            <line x1="110" y1="137" x2="110" y2="182" stroke="#7eb8f7" stroke-width="1.3" marker-end="url(#arrowBlueIntro)"/>
-            <line x1="340" y1="137" x2="340" y2="182" stroke="#7eb8f7" stroke-width="1.3" marker-end="url(#arrowBlueIntro)"/>
-            <line x1="570" y1="137" x2="570" y2="182" stroke="#7eb8f7" stroke-width="1.3" marker-end="url(#arrowBlueIntro)"/>
+            <ellipse cx="530" cy="35" rx="68" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="530" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">ex:Country</text>
 
-            <path d="M165,120 Q175,190 185,262" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
-            <path d="M165,120 Q230,190 295,262" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
-            <path d="M270,120 Q225,190 185,262" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
-            <path d="M270,120 Q280,190 295,262" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
-            <path d="M500,120 Q460,190 420,262" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
-            <path d="M500,120 Q510,190 520,262" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
+            <path d="M60,98 Q250,52 398,103" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
+            <text x="220" y="62" fill="#7eb8f7" font-size="7">ex:nationalite</text>
+            <path d="M180,98 Q300,68 398,110" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
+            <text x="290" y="88" fill="#7eb8f7" font-size="7">ex:nationalite</text>
+            <path d="M300,98 Q460,58 578,103" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
+            <text x="440" y="68" fill="#7eb8f7" font-size="7">ex:nationalite</text>
 
-            <ellipse cx="110" cy="115" rx="52" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
-            <text x="110" y="120" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:alcaraz</text>
+            <line x1="60" y1="142" x2="60" y2="178" stroke="#7eb8f7" stroke-width="1.3" marker-end="url(#arrowBlueIntro)"/>
+            <text x="66" y="163" fill="#7eb8f7" font-size="7">ex:nom</text>
+            <line x1="180" y1="142" x2="180" y2="178" stroke="#7eb8f7" stroke-width="1.3" marker-end="url(#arrowBlueIntro)"/>
+            <text x="186" y="163" fill="#7eb8f7" font-size="7">ex:nom</text>
+            <line x1="300" y1="142" x2="300" y2="178" stroke="#7eb8f7" stroke-width="1.3" marker-end="url(#arrowBlueIntro)"/>
+            <text x="306" y="163" fill="#7eb8f7" font-size="7">ex:nom</text>
+            <line x1="418" y1="142" x2="400" y2="178" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
+            <text x="385" y="163" fill="#7eb8f7" font-size="7">ex:nom</text>
+            <line x1="462" y1="142" x2="480" y2="178" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
+            <text x="466" y="163" fill="#7eb8f7" font-size="7">ex:nom</text>
+            <line x1="598" y1="142" x2="580" y2="178" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
+            <text x="565" y="163" fill="#7eb8f7" font-size="7">ex:nom</text>
+            <line x1="642" y1="142" x2="660" y2="178" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueIntro)"/>
+            <text x="646" y="163" fill="#7eb8f7" font-size="7">ex:nom</text>
 
-            <ellipse cx="340" cy="115" rx="52" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
-            <text x="340" y="120" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:nadal</text>
+            <ellipse cx="60" cy="120" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
+            <text x="60" y="125" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:player1</text>
 
-            <ellipse cx="570" cy="115" rx="52" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
-            <text x="570" y="120" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:sinner</text>
+            <ellipse cx="180" cy="120" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
+            <text x="180" y="125" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:player2</text>
 
-            <rect x="60" y="182" width="100" height="34" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="110" y="203" fill="#eef0ff" font-size="9" text-anchor="middle">"Carlos Alcaraz"</text>
+            <ellipse cx="300" cy="120" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
+            <text x="300" y="125" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:player3</text>
 
-            <rect x="290" y="182" width="100" height="34" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="340" y="203" fill="#eef0ff" font-size="9" text-anchor="middle">"Rafael Nadal"</text>
+            <ellipse cx="440" cy="120" rx="46" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
+            <text x="440" y="125" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:spain</text>
 
-            <rect x="520" y="182" width="100" height="34" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="570" y="203" fill="#eef0ff" font-size="9" text-anchor="middle">"Jannik Sinner"</text>
+            <ellipse cx="620" cy="120" rx="46" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
+            <text x="620" y="125" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:italy</text>
 
-            <rect x="142" y="262" width="86" height="32" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="185" y="282" fill="#eef0ff" font-size="9" text-anchor="middle">"Espagne"@fr</text>
+            <rect x="10" y="178" width="100" height="32" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="60" y="198" fill="#eef0ff" font-size="9" text-anchor="middle">"Carlos Alcaraz"</text>
 
-            <rect x="252" y="262" width="86" height="32" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="295" y="282" fill="#eef0ff" font-size="9" text-anchor="middle">"Spain"@en</text>
+            <rect x="130" y="178" width="100" height="32" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="180" y="198" fill="#eef0ff" font-size="9" text-anchor="middle">"Rafael Nadal"</text>
 
-            <rect x="377" y="262" width="86" height="32" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="420" y="282" fill="#eef0ff" font-size="9" text-anchor="middle">"Italie"@fr</text>
+            <rect x="250" y="178" width="100" height="32" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="300" y="198" fill="#eef0ff" font-size="9" text-anchor="middle">"Jannik Sinner"</text>
 
-            <rect x="477" y="262" width="86" height="32" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="520" y="282" fill="#eef0ff" font-size="9" text-anchor="middle">"Italy"@en</text>
+            <rect x="361" y="178" width="78" height="32" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="400" y="198" fill="#eef0ff" font-size="9" text-anchor="middle">"Espagne"@fr</text>
 
-            <line x1="20" y1="310" x2="42" y2="310" stroke="#3d4168" stroke-width="1.2" stroke-dasharray="3,3"/>
-            <text x="48" y="313" fill="#6b7099" font-size="9">rdf:type</text>
-            <line x1="150" y1="310" x2="172" y2="310" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="178" y="313" fill="#7eb8f7" font-size="9">ex:nom / ex:nationalite</text>
+            <rect x="441" y="178" width="78" height="32" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="480" y="198" fill="#eef0ff" font-size="9" text-anchor="middle">"Spain"@en</text>
+
+            <rect x="541" y="178" width="78" height="32" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="580" y="198" fill="#eef0ff" font-size="9" text-anchor="middle">"Italie"@fr</text>
+
+            <rect x="621" y="178" width="78" height="32" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="660" y="198" fill="#eef0ff" font-size="9" text-anchor="middle">"Italy"@en</text>
         </svg>
     </div>
 </section>
@@ -338,17 +360,14 @@ WHERE {
     <h3>Le même graphe, en Turtle</h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Le schéma précédent n'est qu'une autre façon de lire ces triplets.</p>
     <span class="code-badge">Turtle</span>
-    <pre style="font-size:0.7em;"><code class="language-turtle">PREFIX ex: &lt;http://example.org/&gt;
+    <pre style="font-size:0.62em;"><code class="language-turtle">PREFIX ex: &lt;http://example.org/&gt;
 
-ex:alcaraz a ex:Joueur ;
-        ex:nom "Carlos Alcaraz" ;
-        ex:nationalite "Espagne"@fr, "Spain"@en .
-ex:nadal a ex:Joueur ;
-        ex:nom "Rafael Nadal"    ;
-        ex:nationalite "Espagne"@fr, "Spain"@en .
-ex:sinner a ex:Joueur ;
-        ex:nom "Jannik Sinner"   ;
-        ex:nationalite "Italie"@fr, "Italy"@en .</code></pre>
+ex:player1 a ex:Joueur ; ex:nom "Carlos Alcaraz" ; ex:nationalite ex:spain .
+ex:player2 a ex:Joueur ; ex:nom "Rafael Nadal"   ; ex:nationalite ex:spain .
+ex:player3 a ex:Joueur ; ex:nom "Jannik Sinner"  ; ex:nationalite ex:italy .
+
+ex:spain a ex:Country ; ex:nom "Espagne"@fr, "Spain"@en .
+ex:italy a ex:Country ; ex:nom "Italie"@fr, "Italy"@en .</code></pre>
 </section>
 
 <section>
@@ -381,22 +400,22 @@ SELECT ?x WHERE {
             <text x="250" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Joueur</text>
 
             <ellipse cx="80" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
-            <text x="80" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:alcaraz</text>
+            <text x="80" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:player1</text>
 
             <ellipse cx="250" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
-            <text x="250" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:nadal</text>
+            <text x="250" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:player2</text>
 
             <ellipse cx="420" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
-            <text x="420" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:sinner</text>
+            <text x="420" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:player3</text>
         </svg>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.6rem; text-align:center;">Trois résultats : tous les <code>ex:Joueur</code>. <code>ex:nom</code> et <code>ex:nationalite</code> existent dans le graphe mais n'entrent pas en jeu ici.</p>
     <table class="fragment rdf-table" style="max-width:220px; margin:0.6rem auto 0; font-size:0.78em;">
         <thead><tr><th>?x</th></tr></thead>
         <tbody>
-            <tr><td><code>ex:alcaraz</code></td></tr>
-            <tr><td><code>ex:nadal</code></td></tr>
-            <tr><td><code>ex:sinner</code></td></tr>
+            <tr><td><code>ex:player1</code></td></tr>
+            <tr><td><code>ex:player2</code></td></tr>
+            <tr><td><code>ex:player3</code></td></tr>
         </tbody>
     </table>
 </section>
@@ -409,7 +428,7 @@ SELECT ?x WHERE {
 SELECT ?x ?nom WHERE {
   ?x a ex:Joueur ;
      ex:nom ?nom ;
-     ex:nationalite "Espagne"@fr .
+     ex:nationalite ex:spain .
 }</code></pre>
     <div style="width:100%; max-width:520px; margin:0.2rem auto 0;">
         <svg viewBox="0 0 540 260" style="width:100%; height:auto;">
@@ -432,17 +451,17 @@ SELECT ?x ?nom WHERE {
             <line x1="80" y1="115" x2="80" y2="152" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
             <line x1="250" y1="115" x2="250" y2="152" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
 
-            <path d="M115,100 Q140,175 165,222" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
-            <path d="M215,100 Q190,175 165,222" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <path d="M115,100 Q140,175 165,220" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <path d="M215,100 Q190,175 165,220" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
 
             <ellipse cx="80" cy="93" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
-            <text x="80" y="98" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:alcaraz</text>
+            <text x="80" y="98" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:player1</text>
 
             <ellipse cx="250" cy="93" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
-            <text x="250" y="98" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:nadal</text>
+            <text x="250" y="98" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:player2</text>
 
             <ellipse cx="460" cy="93" rx="52" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
-            <text x="460" y="98" fill="#aaa" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.7">ex:sinner</text>
+            <text x="460" y="98" fill="#aaa" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.7">ex:player3</text>
 
             <rect x="30" y="152" width="100" height="32" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
             <text x="80" y="172" fill="#4ade80" font-size="9" text-anchor="middle">"Carlos Alcaraz"</text>
@@ -450,16 +469,16 @@ SELECT ?x ?nom WHERE {
             <rect x="200" y="152" width="100" height="32" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
             <text x="250" y="172" fill="#4ade80" font-size="9" text-anchor="middle">"Rafael Nadal"</text>
 
-            <rect x="122" y="222" width="86" height="30" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
-            <text x="165" y="241" fill="#4ade80" font-size="9" text-anchor="middle">"Espagne"@fr</text>
+            <ellipse cx="165" cy="222" rx="48" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="165" y="227" fill="#4ade80" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ex:spain</text>
         </svg>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">Deux résultats : Alcaraz et Nadal. Sinner était bien un joueur, mais ne satisfait pas la troisième condition.</p>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">Deux résultats : player1 et player2. player3 était bien un joueur, mais sa nationalité n'est pas <code>ex:spain</code>.</p>
     <table class="fragment rdf-table" style="max-width:340px; margin:0.6rem auto 0; font-size:0.78em;">
         <thead><tr><th>?x</th><th>?nom</th></tr></thead>
         <tbody>
-            <tr><td><code>ex:alcaraz</code></td><td>"Carlos Alcaraz"</td></tr>
-            <tr><td><code>ex:nadal</code></td><td>"Rafael Nadal"</td></tr>
+            <tr><td><code>ex:player1</code></td><td>"Carlos Alcaraz"</td></tr>
+            <tr><td><code>ex:player2</code></td><td>"Rafael Nadal"</td></tr>
         </tbody>
     </table>
     <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.6rem; text-align:center;">Chaque pattern supplémentaire réduit l'ensemble des résultats : c'est exactement ce que nous allons combiner en 4.2.</p>
@@ -470,7 +489,7 @@ SELECT ?x ?nom WHERE {
     <div class="kv-row"><span class="kv-label">Un pattern</span><span class="kv-body">Une ligne de triplet avec au moins une variable, comme <code>?x a ex:Joueur .</code></span></div>
     <div class="kv-row fragment"><span class="kv-label">Plusieurs patterns</span><span class="kv-body">Chacun ajoute une condition : le résultat ne peut que rétrécir.</span></div>
     <div class="kv-row fragment"><span class="kv-label">Une vraie requête</span><span class="kv-body"><code>PREFIX</code>, <code>SELECT</code>, <code>WHERE</code> : la structure que toute requête SPARQL partage.</span></div>
-    <p class="fragment" style="font-size:0.82em; color:#eef0ff; margin-top:1rem; text-align:center;">Notre graphe n'a qu'une seule classe. En 4.2, il grandit : deux classes de plus, reliées entre elles, pour filtrer, joindre et trier à travers tout le graphe.</p>
+    <p class="fragment" style="font-size:0.82em; color:#eef0ff; margin-top:1rem; text-align:center;">Ce petit graphe était volontairement abstrait, pour se concentrer sur le mécanisme. En 4.2, nous appliquons exactement les mêmes principes à un graphe réel : Roland-Garros 2024, avec deux classes de plus, pour filtrer, joindre et trier.</p>
 </section>
 
 
@@ -485,7 +504,7 @@ SELECT ?x ?nom WHERE {
 
 <section>
     <h3>Le graphe complet</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Le même graphe qu'en 4.1, étendu avec deux nouvelles classes : <code>ex:Match</code> et <code>ex:Stade</code>. Toutes les requêtes suivantes interrogent ce même graphe.</p>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Les mêmes principes qu'en 4.1, appliqués à un graphe réel : Roland-Garros 2024, avec deux classes de plus, <code>ex:Match</code> et <code>ex:Stade</code>. Toutes les requêtes suivantes interrogent ce même graphe.</p>
     <span class="code-badge">Turtle</span>
     <pre style="font-size:0.56em;"><code class="language-turtle">ex:alcaraz a ex:Joueur ; ex:nom "Carlos Alcaraz" ; ex:nationalite "Espagne"@fr, "Spain"@en ; ex:classementATP 2 .
 ex:nadal   a ex:Joueur ; ex:nom "Rafael Nadal"    ; ex:nationalite "Espagne"@fr, "Spain"@en .
