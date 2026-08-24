@@ -432,7 +432,62 @@ SELECT ?x WHERE {
 </section>
 
 <section>
-    <h3>Étape 2 : ajouter une condition</h3>
+    <h3>Étape 2 : joindre un second pattern</h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?x WHERE {
+  ?x a ex:Joueur ;
+     ex:nationalite ?pays .
+}</code></pre>
+    <div style="width:100%; max-width:500px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 540 240" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowGreenStep2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+            </defs>
+
+            <line x1="80" y1="93" x2="200" y2="58" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
+            <line x1="250" y1="93" x2="250" y2="59" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
+            <line x1="420" y1="93" x2="300" y2="58" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
+
+            <ellipse cx="250" cy="35" rx="55" ry="22" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="250" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Joueur</text>
+
+            <path d="M115,137 Q140,175 165,183" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <path d="M215,137 Q190,175 165,183" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <line x1="420" y1="137" x2="420" y2="183" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+
+            <ellipse cx="80" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
+            <text x="80" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j1</text>
+
+            <ellipse cx="250" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
+            <text x="250" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j2</text>
+
+            <ellipse cx="420" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
+            <text x="420" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j3</text>
+
+            <ellipse cx="165" cy="205" rx="48" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="165" y="210" fill="#4ade80" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ex:pays1</text>
+
+            <ellipse cx="420" cy="205" rx="48" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="420" y="210" fill="#4ade80" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ex:pays2</text>
+        </svg>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.6rem; text-align:center;">Toujours trois résultats : chaque joueur a bien une nationalité, mais le motif ne dit pas encore laquelle.</p>
+    <table class="fragment rdf-table" style="max-width:220px; margin:0.6rem auto 0; font-size:0.78em;">
+        <thead><tr><th>?x</th></tr></thead>
+        <tbody>
+            <tr><td><code>ex:j1</code></td></tr>
+            <tr><td><code>ex:j2</code></td></tr>
+            <tr><td><code>ex:j3</code></td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Étape 3 : filtrer par valeur</h3>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -443,52 +498,42 @@ SELECT ?x ?nom WHERE {
   ?pays ex:nom "Espagne"@fr .
 }</code></pre>
     <p class="code-note">→ On ne recherche jamais une ressource par son IRI : opaque par nature, on la retrouve par sa <strong style="color:#7eb8f7;">description</strong> (un nom, un commentaire, un type...).</p>
-    <div style="width:100%; max-width:520px; margin:0.2rem auto 0;">
-        <svg viewBox="0 0 540 310" style="width:100%; height:auto;">
+    <div style="width:100%; max-width:500px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 540 255" style="width:100%; height:auto;">
             <defs>
-                <marker id="arrowGreenStep2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <marker id="arrowGreenStep3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
-                </marker>
-                <marker id="arrowMutedStep2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M0,0 L10,5 L0,10 z" fill="#6b7099"/>
                 </marker>
             </defs>
 
-            <line x1="80" y1="93" x2="220" y2="58" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
-            <line x1="250" y1="93" x2="250" y2="59" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
-            <line x1="460" y1="93" x2="300" y2="58" stroke="#3d4168" stroke-width="1.1" stroke-dasharray="3,3" marker-end="url(#arrowMutedStep2)" opacity="0.5"/>
+            <ellipse cx="80" cy="40" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
+            <text x="80" y="45" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j1</text>
 
-            <ellipse cx="250" cy="35" rx="55" ry="22" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="250" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Joueur</text>
+            <ellipse cx="250" cy="40" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
+            <text x="250" y="45" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j2</text>
 
-            <line x1="80" y1="115" x2="80" y2="152" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
-            <line x1="250" y1="115" x2="250" y2="152" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <ellipse cx="420" cy="40" rx="52" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="420" y="45" fill="#aaa" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.7">ex:j3</text>
 
-            <path d="M115,100 Q140,175 165,220" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
-            <path d="M215,100 Q190,175 165,220" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <line x1="80" y1="62" x2="80" y2="99" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep3)"/>
+            <line x1="250" y1="62" x2="250" y2="99" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep3)"/>
 
-            <ellipse cx="80" cy="93" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
-            <text x="80" y="98" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j1</text>
+            <path d="M115,62 Q140,116 165,167" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep3)"/>
+            <path d="M215,62 Q190,116 165,167" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep3)"/>
 
-            <ellipse cx="250" cy="93" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
-            <text x="250" y="98" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j2</text>
+            <rect x="30" y="99" width="100" height="32" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="80" y="119" fill="#4ade80" font-size="9" text-anchor="middle">"Carlos Alcaraz"</text>
 
-            <ellipse cx="460" cy="93" rx="52" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
-            <text x="460" y="98" fill="#aaa" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.7">ex:j3</text>
+            <rect x="200" y="99" width="100" height="32" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="250" y="119" fill="#4ade80" font-size="9" text-anchor="middle">"Rafael Nadal"</text>
 
-            <rect x="30" y="152" width="100" height="32" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
-            <text x="80" y="172" fill="#4ade80" font-size="9" text-anchor="middle">"Carlos Alcaraz"</text>
+            <ellipse cx="165" cy="169" rx="48" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="165" y="174" fill="#4ade80" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ex:pays1</text>
 
-            <rect x="200" y="152" width="100" height="32" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
-            <text x="250" y="172" fill="#4ade80" font-size="9" text-anchor="middle">"Rafael Nadal"</text>
+            <line x1="165" y1="189" x2="165" y2="213" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep3)"/>
 
-            <ellipse cx="165" cy="222" rx="48" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
-            <text x="165" y="227" fill="#4ade80" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ex:pays1</text>
-
-            <line x1="165" y1="242" x2="165" y2="266" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
-
-            <rect x="105" y="266" width="120" height="32" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
-            <text x="165" y="286" fill="#4ade80" font-size="9" text-anchor="middle">"Espagne"@fr</text>
+            <rect x="105" y="213" width="120" height="32" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="165" y="233" fill="#4ade80" font-size="9" text-anchor="middle">"Espagne"@fr</text>
         </svg>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">Deux résultats : j1 et j2. j3 était bien un joueur, mais son pays ne porte pas le nom « Espagne »@fr.</p>
@@ -499,7 +544,7 @@ SELECT ?x ?nom WHERE {
             <tr><td><code>ex:j2</code></td><td>"Rafael Nadal"</td></tr>
         </tbody>
     </table>
-    <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.6rem; text-align:center;">Chaque pattern supplémentaire réduit l'ensemble des résultats : c'est exactement ce que nous allons combiner en 4.2.</p>
+    <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.6rem; text-align:center;">Un pattern supplémentaire ne réduit le résultat que s'il exclut réellement des correspondances : joindre une ressource ne suffit pas, il faut aussi contraindre sa valeur.</p>
 </section>
 
 <section>
@@ -908,9 +953,9 @@ WHERE {
     (function () {
         var hljs = RevealHighlight().hljs;
 
-        var IRI            = { className: 'meta',     begin: /<[^\s<>]*>/ };
-        var PREFIXED_NAME  = { className: 'symbol',    begin: /[\p{L}][\p{L}\p{N}_-]*:[\p{L}_][\p{L}\p{N}_-]*/u };
-        var DATATYPE       = { className: 'symbol',    begin: /\^\^[\p{L}][\p{L}\p{N}_-]*:[\p{L}_][\p{L}\p{N}_-]*/u };
+        var IRI            = { className: 'symbol',   begin: /<[^\s<>]*>/ };
+        var PREFIXED_NAME  = { className: 'symbol',    begin: /[a-zA-Z][a-zA-Z0-9_-]*:[a-zA-Z_][a-zA-Z0-9_-]*/ };
+        var DATATYPE       = { className: 'symbol',    begin: /\^\^[a-zA-Z][a-zA-Z0-9_-]*:[a-zA-Z_][a-zA-Z0-9_-]*/ };
         var LANG_TAG       = { className: 'symbol',    begin: /@[A-Za-z-]+/ };
 
         function turtleLang(hljs) {
@@ -927,7 +972,7 @@ WHERE {
                     hljs.APOS_STRING_MODE,
                     hljs.C_NUMBER_MODE,
                     IRI, DATATYPE, PREFIXED_NAME,
-                    { className: 'variable', begin: /_:[\p{L}\p{N}_-]+/u },
+                    { className: 'variable', begin: /_:[a-zA-Z0-9_-]+/ },
                     LANG_TAG
                 ]
             };
@@ -951,7 +996,7 @@ WHERE {
                     hljs.QUOTE_STRING_MODE,
                     hljs.APOS_STRING_MODE,
                     hljs.C_NUMBER_MODE,
-                    { className: 'variable', begin: /[?$][\p{L}_][\p{L}\p{N}_]*/u },
+                    { className: 'variable', begin: /[?$][a-zA-Z_][a-zA-Z0-9_]*/ },
                     IRI, DATATYPE, PREFIXED_NAME, LANG_TAG
                 ]
             };
