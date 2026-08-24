@@ -385,7 +385,7 @@ ex:pays2 a ex:Country ; ex:nom "Italie"@fr, "Italy"@en .</code></pre>
 <section>
     <h3>Le principe : le pattern matching</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Une requête SPARQL est elle-même un petit graphe, avec des trous : <strong>les variables</strong>. On cherche toutes les façons de le faire correspondre au graphe de données.</p>
-    <p style="font-size:0.78em; color:#aaa;">Voyons-le en deux étapes sur notre graphe : d'abord filtrer par type, puis affiner par une seconde condition.</p>
+    <p style="font-size:0.78em; color:#aaa;">Voyons-le en trois étapes sur notre graphe : d'abord filtrer par type, puis affiner en précisant la nationalité des joueurs.</p>
 </section>
 
 <section>
@@ -421,7 +421,7 @@ SELECT ?x WHERE {
             <text x="420" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j3</text>
         </svg>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.6rem; text-align:center;">Trois résultats : tous les <code>ex:Joueur</code>. <code>ex:nom</code> et <code>ex:nationalite</code> existent dans le graphe mais n'entrent pas en jeu ici.</p>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.6rem; text-align:center;">Trois résultats : tous les <code>ex:Joueur</code>.</p>
     <table class="fragment rdf-table rdf-table-sm" style="max-width:150px; margin:0.6rem auto 0; font-size:0.65em;">
         <thead><tr><th>?x</th></tr></thead>
         <tbody>
@@ -441,15 +441,39 @@ SELECT ?x WHERE {
   ?x a ex:Joueur ;
      ex:nationalite ?pays .
 }</code></pre>
-    <p class="fragment" style="font-size:0.82em; color:#4ade80; margin-top:0.8rem; text-align:center;">Toujours trois résultats : chaque joueur a bien une nationalité, mais le motif ne dit pas encore laquelle.</p>
-    <table class="fragment rdf-table rdf-table-sm" style="max-width:150px; margin:0.6rem auto 0; font-size:0.65em;">
-        <thead><tr><th>?x</th></tr></thead>
-        <tbody>
-            <tr><td><code>ex:j1</code></td></tr>
-            <tr><td><code>ex:j2</code></td></tr>
-            <tr><td><code>ex:j3</code></td></tr>
-        </tbody>
-    </table>
+    <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 540 230" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowGreenStep2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+            </defs>
+
+            <line x1="80" y1="93" x2="200" y2="58" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
+            <line x1="250" y1="93" x2="250" y2="59" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
+            <line x1="420" y1="93" x2="300" y2="58" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
+
+            <ellipse cx="250" cy="35" rx="55" ry="22" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="250" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Joueur</text>
+
+            <ellipse cx="80" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
+            <text x="80" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j1</text>
+
+            <ellipse cx="250" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
+            <text x="250" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j2</text>
+
+            <ellipse cx="420" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
+            <text x="420" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j3</text>
+
+            <path d="M115,137 Q160,175 215,183" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <line x1="250" y1="137" x2="250" y2="170" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <path d="M385,137 Q340,175 285,183" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+
+            <ellipse cx="250" cy="190" rx="44" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="250" y="195" fill="#4ade80" font-size="10" font-style="italic" text-anchor="middle">?pays</text>
+        </svg>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.6rem; text-align:center;">Toujours trois résultats : chaque joueur a bien une nationalité, mais le motif ne dit pas encore laquelle.</p>
 </section>
 
 <section>
