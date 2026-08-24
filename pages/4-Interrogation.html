@@ -440,42 +440,7 @@ SELECT ?x WHERE {
   ?x a ex:Joueur ;
      ex:nationalite ?pays .
 }</code></pre>
-    <div style="width:100%; max-width:500px; margin:0.2rem auto 0;">
-        <svg viewBox="0 0 540 240" style="width:100%; height:auto;">
-            <defs>
-                <marker id="arrowGreenStep2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
-                </marker>
-            </defs>
-
-            <line x1="80" y1="93" x2="200" y2="58" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
-            <line x1="250" y1="93" x2="250" y2="59" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
-            <line x1="420" y1="93" x2="300" y2="58" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
-
-            <ellipse cx="250" cy="35" rx="55" ry="22" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="250" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Joueur</text>
-
-            <path d="M115,137 Q140,175 165,183" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
-            <path d="M215,137 Q190,175 165,183" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
-            <line x1="420" y1="137" x2="420" y2="183" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
-
-            <ellipse cx="80" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
-            <text x="80" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j1</text>
-
-            <ellipse cx="250" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
-            <text x="250" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j2</text>
-
-            <ellipse cx="420" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
-            <text x="420" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j3</text>
-
-            <ellipse cx="165" cy="205" rx="48" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
-            <text x="165" y="210" fill="#4ade80" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ex:pays1</text>
-
-            <ellipse cx="420" cy="205" rx="48" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
-            <text x="420" y="210" fill="#4ade80" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ex:pays2</text>
-        </svg>
-    </div>
-    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.6rem; text-align:center;">Toujours trois résultats : chaque joueur a bien une nationalité, mais le motif ne dit pas encore laquelle.</p>
+    <p class="fragment" style="font-size:0.82em; color:#4ade80; margin-top:0.8rem; text-align:center;">Toujours trois résultats : chaque joueur a bien une nationalité, mais le motif ne dit pas encore laquelle.</p>
     <table class="fragment rdf-table" style="max-width:220px; margin:0.6rem auto 0; font-size:0.78em;">
         <thead><tr><th>?x</th></tr></thead>
         <tbody>
@@ -536,15 +501,19 @@ SELECT ?x ?nom WHERE {
             <text x="165" y="233" fill="#4ade80" font-size="9" text-anchor="middle">"Espagne"@fr</text>
         </svg>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">Deux résultats : j1 et j2. j3 était bien un joueur, mais son pays ne porte pas le nom « Espagne »@fr.</p>
-    <table class="fragment rdf-table" style="max-width:340px; margin:0.6rem auto 0; font-size:0.78em;">
+</section>
+
+<section>
+    <h3>Étape 3 : le résultat</h3>
+    <p class="fragment" style="font-size:0.85em; color:#4ade80; margin-top:1rem; text-align:center;">Deux résultats : j1 et j2. j3 était bien un joueur, mais son pays ne porte pas le nom « Espagne »@fr.</p>
+    <table class="fragment rdf-table" style="max-width:340px; margin:0.8rem auto 0; font-size:0.85em;">
         <thead><tr><th>?x</th><th>?nom</th></tr></thead>
         <tbody>
             <tr><td><code>ex:j1</code></td><td>"Carlos Alcaraz"</td></tr>
             <tr><td><code>ex:j2</code></td><td>"Rafael Nadal"</td></tr>
         </tbody>
     </table>
-    <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.6rem; text-align:center;">Un pattern supplémentaire ne réduit le résultat que s'il exclut réellement des correspondances : joindre une ressource ne suffit pas, il faut aussi contraindre sa valeur.</p>
+    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:1.2rem; text-align:center;">Un pattern supplémentaire ne réduit le résultat que s'il exclut réellement des correspondances : joindre une ressource ne suffit pas, il faut aussi contraindre sa valeur.</p>
 </section>
 
 <section>
