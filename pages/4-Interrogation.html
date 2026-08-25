@@ -169,8 +169,12 @@
                 <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">4.3</span>
                 <span>Agréger, construire et vérifier</span>
             </div>
-            <div style="font-size:0.78em; color:#aaa; display:flex; align-items:center; gap:0.7rem;">
+            <div style="font-size:0.78em; color:#aaa; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.7rem;">
                 <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">4.4</span>
+                <span>Fonctions et opérateurs</span>
+            </div>
+            <div style="font-size:0.78em; color:#aaa; display:flex; align-items:center; gap:0.7rem;">
+                <span style="color:#4f8ef7; font-family:monospace; font-weight:600; min-width:1.8rem;">4.5</span>
                 <span>Triplestores, endpoints et fédération</span>
             </div>
         </div>
@@ -2032,11 +2036,238 @@ WHERE {
 
 
 <!-- ═══════════════════════════════════════════════════════════════
-  SECTION 4.4 : TRIPLESTORES, ENDPOINTS ET FÉDÉRATION
+  SECTION 4.4 : FONCTIONS ET OPÉRATEURS
 ═══════════════════════════════════════════════════════════════ -->
 <section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
     <div class="part-label">INTERROGATION</div>
-    <h2>4.4 Triplestores, endpoints et fédération</h2>
+    <h2>4.4 Fonctions et opérateurs</h2>
+    <p style="color:#aaa;">Le vocabulaire d'expressions disponible dans FILTER et BIND.</p>
+</section>
+
+<section>
+    <h3>Opérateurs SPARQL</h3>
+    <table class="rdf-table rdf-table-sm" style="font-size:0.66em;">
+        <thead><tr><th>Opérateur</th><th>Catégorie</th><th>Effet</th></tr></thead>
+        <tbody>
+            <tr><td><code>!</code> <code>||</code> <code>&amp;&amp;</code></td><td>Logique</td><td>Négation, OU, ET</td></tr>
+            <tr><td><code>=</code> <code>!=</code></td><td>Égalité</td><td>Termes identiques ou non</td></tr>
+            <tr><td><code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code></td><td>Comparaison</td><td>Ordre entre nombres, dates, chaînes</td></tr>
+            <tr><td><code>+</code> <code>-</code> <code>*</code> <code>/</code></td><td>Arithmétique</td><td>Opérations sur des nombres</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Exemple : <code>&gt;=</code> et <code>&amp;&amp;</code></h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?nom WHERE {
+  ?joueur ex:nom ?nom ; ex:classementATP ?rang .
+  FILTER(?rang &gt;= 1 &amp;&amp; ?rang &lt;= 5)
+}</code></pre>
+    <p class="code-note">→ <code>&amp;&amp;</code> combine deux comparaisons : la ligne survit seulement si les deux sont vraies.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?nom</th></tr></thead>
+        <tbody>
+            <tr><td>"Carlos Alcaraz"</td></tr>
+            <tr><td>"Jannik Sinner"</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Fonctions SPARQL : existence, égalité, if...</h3>
+    <table class="rdf-table rdf-table-sm" style="font-size:0.62em;">
+        <thead><tr><th>Fonction</th><th>Effet</th></tr></thead>
+        <tbody>
+            <tr><td><code>bound(?x)</code></td><td>Vrai si <code>?x</code> est liée</td></tr>
+            <tr><td><code>if(cond, a, b)</code></td><td><code>a</code> si <code>cond</code> est vraie, <code>b</code> sinon</td></tr>
+            <tr><td><code>coalesce(...)</code></td><td>Première valeur définie parmi plusieurs</td></tr>
+            <tr><td><code>exists {...}</code> / <code>not exists {...}</code></td><td>Vrai si le motif a / n'a pas de solution</td></tr>
+            <tr><td><code>sameTerm(a, b)</code></td><td>Vrai si <code>a</code> et <code>b</code> sont exactement le même terme</td></tr>
+            <tr><td><code>in</code> / <code>not in</code></td><td>Vrai si le terme figure / ne figure pas dans une liste</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Exemple : <code>BOUND</code></h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?nom (BOUND(?rang) AS ?aUnClassement) WHERE {
+  ?joueur ex:nom ?nom .
+  OPTIONAL { ?joueur ex:classementATP ?rang . }
+}</code></pre>
+    <p class="code-note">→ <code>BOUND</code> teste si une variable a reçu une valeur : utile pour distinguer les lignes issues d'un <code>OPTIONAL</code>.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?nom</th><th>?aUnClassement</th></tr></thead>
+        <tbody>
+            <tr><td>"Carlos Alcaraz"</td><td>true</td></tr>
+            <tr><td>"Rafael Nadal"</td><td>false</td></tr>
+            <tr><td>"Jannik Sinner"</td><td>true</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Fonctions SPARQL : termes</h3>
+    <table class="rdf-table rdf-table-sm" style="font-size:0.6em;">
+        <thead><tr><th>Fonction</th><th>Effet</th></tr></thead>
+        <tbody>
+            <tr><td><code>isIRI</code> / <code>isBlank</code> / <code>isLiteral</code> / <code>isNumeric</code></td><td>Teste le type du terme</td></tr>
+            <tr><td><code>str(x)</code></td><td>Valeur textuelle d'un IRI ou d'un littéral</td></tr>
+            <tr><td><code>lang(l)</code></td><td>Étiquette de langue d'un littéral</td></tr>
+            <tr><td><code>datatype(l)</code></td><td>Type de données d'un littéral</td></tr>
+            <tr><td><code>iri(s)</code></td><td>Construit un IRI à partir d'une chaîne</td></tr>
+            <tr><td><code>bnode()</code></td><td>Crée un nouveau nœud vide</td></tr>
+            <tr><td><code>strdt</code> / <code>strlang</code></td><td>Construit un littéral typé / avec langue</td></tr>
+            <tr><td><code>uuid()</code> / <code>struuid()</code></td><td>Identifiant unique généré (IRI / chaîne)</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Exemple : <code>LANG</code></h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?nomPays WHERE {
+  ?pays ex:nom ?nomPays .
+  FILTER(LANG(?nomPays) = "fr")
+}</code></pre>
+    <p class="code-note">→ <code>LANG</code> lit l'étiquette de langue d'un littéral : ici, on ne garde que les noms en français.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?nomPays</th></tr></thead>
+        <tbody>
+            <tr><td>"Espagne"@fr</td></tr>
+            <tr><td>"Italie"@fr</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Fonctions SPARQL : chaînes de caractères</h3>
+    <table class="rdf-table rdf-table-sm" style="font-size:0.6em;">
+        <thead><tr><th>Fonction</th><th>Effet</th></tr></thead>
+        <tbody>
+            <tr><td><code>strlen(s)</code></td><td>Longueur de <code>s</code></td></tr>
+            <tr><td><code>substr(s, début, [longueur])</code></td><td>Sous-chaîne de <code>s</code></td></tr>
+            <tr><td><code>ucase</code> / <code>lcase</code></td><td>Majuscules / minuscules</td></tr>
+            <tr><td><code>strstarts</code> / <code>strends</code></td><td><code>s</code> commence / finit par <code>p</code></td></tr>
+            <tr><td><code>strbefore</code> / <code>strafter</code></td><td>Texte avant / après la première occurrence de <code>p</code></td></tr>
+            <tr><td><code>concat(...)</code></td><td>Concatène plusieurs chaînes</td></tr>
+            <tr><td><code>regex(s, p, [flags])</code></td><td>Vrai si <code>s</code> correspond à l'expression régulière <code>p</code></td></tr>
+            <tr><td><code>replace(s, p, r, [flags])</code></td><td>Remplace les occurrences de <code>p</code> par <code>r</code> dans <code>s</code></td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Exemple : <code>STRSTARTS</code></h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?nom WHERE {
+  ?j ex:nom ?nom .
+  FILTER STRSTARTS(?nom, "Carlos")
+}</code></pre>
+    <p class="code-note">→ <code>STRSTARTS</code> teste le début d'une chaîne : seul un nom commençant par "Carlos" passe le filtre.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?nom</th></tr></thead>
+        <tbody>
+            <tr><td>"Carlos Alcaraz"</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Fonctions SPARQL : nombres</h3>
+    <table class="rdf-table rdf-table-sm" style="font-size:0.68em;">
+        <thead><tr><th>Fonction</th><th>Effet</th></tr></thead>
+        <tbody>
+            <tr><td><code>abs(n)</code></td><td>Valeur absolue</td></tr>
+            <tr><td><code>round(n)</code></td><td>Arrondi à l'entier le plus proche (vers <code>+∞</code> si <code>*.5</code>)</td></tr>
+            <tr><td><code>ceil(n)</code></td><td>Arrondi à l'entier supérieur</td></tr>
+            <tr><td><code>floor(n)</code></td><td>Arrondi à l'entier inférieur</td></tr>
+            <tr><td><code>rand()</code></td><td>Nombre aléatoire entre 0 et 1</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Exemple : <code>ROUND</code></h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">SELECT (ROUND(2.5) AS ?score) WHERE {}</code></pre>
+    <p class="code-note">→ <code>ROUND</code> arrondit à l'entier le plus proche : un <code>*.5</code> arrondit toujours vers le haut.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?score</th></tr></thead>
+        <tbody>
+            <tr><td>3</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Fonctions SPARQL : temporalité</h3>
+    <table class="rdf-table rdf-table-sm" style="font-size:0.64em;">
+        <thead><tr><th>Fonction</th><th>Effet</th></tr></thead>
+        <tbody>
+            <tr><td><code>now()</code></td><td>Date et heure actuelles</td></tr>
+            <tr><td><code>year</code> / <code>month</code> / <code>day</code></td><td>Composante d'une date</td></tr>
+            <tr><td><code>hours</code> / <code>minutes</code> / <code>seconds</code></td><td>Composante d'une heure</td></tr>
+            <tr><td><code>timezone</code> / <code>tz</code></td><td>Fuseau horaire d'une date</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Exemple : <code>YEAR</code></h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+
+SELECT (YEAR("2024-06-07"^^xsd:date) AS ?annee) WHERE {}</code></pre>
+    <p class="code-note">→ <code>YEAR</code> extrait l'année d'une date : celle de la demi-finale Roland-Garros 2024.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?annee</th></tr></thead>
+        <tbody>
+            <tr><td>2024</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Fonctions SPARQL : hashing</h3>
+    <table class="rdf-table rdf-table-sm" style="font-size:0.7em;">
+        <thead><tr><th>Fonction</th><th>Effet</th></tr></thead>
+        <tbody>
+            <tr><td><code>md5(s)</code></td><td>Empreinte MD5 de <code>s</code></td></tr>
+            <tr><td><code>sha1</code> / <code>sha256</code> / <code>sha384</code> / <code>sha512</code></td><td>Empreinte SHA de <code>s</code>, à différentes longueurs</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Exemple : <code>MD5</code></h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">SELECT (MD5("Carlos Alcaraz") AS ?hash) WHERE {}</code></pre>
+    <p class="code-note">→ <code>MD5</code> calcule une empreinte à sens unique : la même chaîne produit toujours le même hash.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:420px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?hash</th></tr></thead>
+        <tbody>
+            <tr><td>"1d937f1041a27ca646e9130c768dac43"</td></tr>
+        </tbody>
+    </table>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SECTION 4.5 : TRIPLESTORES, ENDPOINTS ET FÉDÉRATION
+═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)" data-transition="fade">
+    <div class="part-label">INTERROGATION</div>
+    <h2>4.5 Triplestores, endpoints et fédération</h2>
     <p style="color:#aaa;">Où vivent les graphes que l'on interroge.</p>
 </section>
 
@@ -2187,7 +2418,8 @@ WHERE {
                     literal: 'true false',
                     built_in: 'a COUNT SUM AVG MIN MAX SAMPLE GROUP_CONCAT BOUND STR LANG LANGMATCHES ' +
                         'DATATYPE ISIRI ISBLANK ISLITERAL ISNUMERIC IF COALESCE SAMETERM REGEX CONTAINS ' +
-                        'STRSTARTS STRENDS'
+                        'STRSTARTS STRENDS ROUND CEIL FLOOR ABS RAND YEAR MONTH DAY HOURS MINUTES SECONDS ' +
+                        'TIMEZONE TZ NOW MD5 SHA1 SHA256 SHA384 SHA512'
                 },
                 contains: [
                     hljs.COMMENT('#', '$'),
