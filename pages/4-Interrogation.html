@@ -1954,8 +1954,8 @@ LIMIT 1</code></pre>
 </section>
 
 <section>
-    <h3><strong style="color:#7eb8f7;">OFFSET</strong> : sauter des résultats</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Le deuxième joueur au classement, pas le premier : <code>ORDER BY</code> trie, <code>OFFSET</code> saute une ligne, <code>LIMIT</code> n'en garde qu'une.</p>
+    <h3><strong style="color:#7eb8f7;">OFFSET</strong> : paginer un résultat</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Le vrai usage d'<code>OFFSET</code> : découper un long résultat en pages, comme la page 2 d'une liste de recherche. Avec <code>LIMIT 1</code>, une page ne contient qu'un joueur ; <code>OFFSET 1</code> saute la première page pour afficher la seconde.</p>
     <span class="code-badge">SPARQL</span>
     <pre><code class="language-sparql">SELECT ?nom WHERE {
   ?joueur ex:nom ?nom ; ex:classementATP ?rang .
@@ -1966,7 +1966,7 @@ OFFSET 1</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
         <code>"Jannik Sinner"</code>
     </div>
-    <p class="code-note">→ Alcaraz arrive en tête du tri, mais <code>OFFSET 1</code> le saute : <code>LIMIT 1</code> ne garde que la ligne suivante.</p>
+    <p class="code-note">→ La page 1 (<code>OFFSET 0</code>) aurait renvoyé Alcaraz. En pratique, on fait avancer <code>OFFSET</code> par pas de <code>LIMIT</code> pour tourner les pages.</p>
 </section>
 
 <section>
