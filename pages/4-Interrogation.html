@@ -742,8 +742,8 @@ SELECT ?x ?nom WHERE {
 <section>
     <h3>+ le classement ATP</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">En <strong style="color:#a78bfa;">violet</strong>, ce qui vient d'être ajouté. Un classement ATP est un simple nombre attaché au joueur, pas une ressource à part entière. <code>ex:j2</code> (Nadal) n'en a volontairement pas.</p>
-    <div style="width:100%; max-width:680px; margin:0.2rem auto 0;">
-        <svg viewBox="0 0 700 400" style="width:100%; height:auto;">
+    <div style="width:100%; max-width:780px; margin:0.2rem auto 0;">
+        <svg viewBox="-150 0 1000 400" style="width:100%; height:auto;">
             <defs>
                 <marker id="arrowBlueGraph2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
@@ -840,16 +840,16 @@ SELECT ?x ?nom WHERE {
             <!-- ex:Pays, bas, centre 350 (aligné avec ex:Joueur) -->
             <ellipse cx="350" cy="365" rx="68" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
             <text x="350" y="370" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">ex:Pays</text>
-            <!-- ex:classementATP : j1 et j3 seulement -->
-            <line x1="104" y1="110" x2="90" y2="111" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph2)"/>
-            <text x="50" y="93" fill="#a78bfa" font-size="6" text-anchor="middle">ex:classementATP</text>
-            <rect x="10" y="98" width="80" height="26" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
-            <text x="50" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">2</text>
+            <!-- ex:classementATP : j1 et j3 seulement, arêtes longues pour laisser la place au label -->
+            <line x1="104" y1="110" x2="-50" y2="111" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph2)"/>
+            <text x="27" y="100" fill="#a78bfa" font-size="7" text-anchor="middle">ex:classementATP</text>
+            <rect x="-140" y="98" width="90" height="26" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
+            <text x="-95" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">2</text>
 
-            <line x1="596" y1="110" x2="610" y2="111" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph2)"/>
-            <text x="650" y="93" fill="#a78bfa" font-size="6" text-anchor="middle">ex:classementATP</text>
-            <rect x="610" y="98" width="80" height="26" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
-            <text x="650" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">3</text>
+            <line x1="596" y1="110" x2="750" y2="111" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph2)"/>
+            <text x="673" y="100" fill="#a78bfa" font-size="7" text-anchor="middle">ex:classementATP</text>
+            <rect x="750" y="98" width="90" height="26" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
+            <text x="795" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">3</text>
         </svg>
     </div>
 </section>
@@ -857,8 +857,8 @@ SELECT ?x ?nom WHERE {
 <section>
     <h3>+ le match</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Un match relie deux joueurs : ici la demi-finale Roland-Garros 2024 entre Alcaraz et Sinner. Comme pour les joueurs, son IRI (<code>ex:match_345</code>) est opaque : son nom lisible vit dans un triplet <code>ex:nom</code> séparé.</p>
-    <div style="width:100%; max-width:620px; margin:0.2rem auto 0;">
-        <svg viewBox="0 0 700 510" style="width:100%; height:auto;">
+    <div style="width:100%; max-width:760px; margin:0.2rem auto 0;">
+        <svg viewBox="-150 0 1000 550" style="width:100%; height:auto;">
             <defs>
                 <marker id="arrowBlueGraph3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
@@ -955,29 +955,29 @@ SELECT ?x ?nom WHERE {
             <!-- ex:Pays, bas, centre 350 (aligné avec ex:Joueur) -->
             <ellipse cx="350" cy="365" rx="68" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
             <text x="350" y="370" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">ex:Pays</text>
-            <!-- ex:classementATP : j1 et j3 seulement -->
-            <line x1="104" y1="110" x2="90" y2="111" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph3)"/>
-            <text x="50" y="93" fill="#7eb8f7" font-size="6" text-anchor="middle">ex:classementATP</text>
-            <rect x="10" y="98" width="80" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="50" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">2</text>
+            <!-- ex:classementATP : j1 et j3 seulement, arêtes longues pour laisser la place au label -->
+            <line x1="104" y1="110" x2="-50" y2="111" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph3)"/>
+            <text x="27" y="100" fill="#7eb8f7" font-size="7" text-anchor="middle">ex:classementATP</text>
+            <rect x="-140" y="98" width="90" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="-95" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">2</text>
 
-            <line x1="596" y1="110" x2="610" y2="111" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph3)"/>
-            <text x="650" y="93" fill="#7eb8f7" font-size="6" text-anchor="middle">ex:classementATP</text>
-            <rect x="610" y="98" width="80" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="650" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">3</text>
+            <line x1="596" y1="110" x2="750" y2="111" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph3)"/>
+            <text x="673" y="100" fill="#7eb8f7" font-size="7" text-anchor="middle">ex:classementATP</text>
+            <rect x="750" y="98" width="90" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="795" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">3</text>
             <!-- ex:participantA / ex:participantB : j1/j3 -> le match -->
-            <path d="M104,110 Q100,140 50,180 L50,420 Q150,460 280,465" fill="none" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph3)"/>
-            <text x="55" y="300" fill="#a78bfa" font-size="7">ex:participantA</text>
-            <path d="M596,110 Q600,140 650,180 L650,420 Q550,460 420,465" fill="none" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph3)"/>
-            <text x="600" y="300" fill="#a78bfa" font-size="7" text-anchor="end">ex:participantB</text>
+            <path d="M104,110 Q100,140 50,180 L50,450 Q150,490 280,499" fill="none" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph3)"/>
+            <text x="55" y="320" fill="#a78bfa" font-size="7">ex:participantA</text>
+            <path d="M596,110 Q600,140 650,180 L650,450 Q550,490 420,499" fill="none" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph3)"/>
+            <text x="600" y="320" fill="#a78bfa" font-size="7" text-anchor="end">ex:participantB</text>
 
-            <rect x="280" y="440" width="140" height="50" rx="8" fill="#241b3d" stroke="#a78bfa" stroke-width="1.5"/>
-            <text x="350" y="470" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:match_345</text>
+            <rect x="280" y="474" width="140" height="50" rx="8" fill="#241b3d" stroke="#a78bfa" stroke-width="1.5"/>
+            <text x="350" y="503" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:match_345</text>
 
-            <line x1="350" y1="440" x2="350" y2="428" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph3)"/>
-            <text x="356" y="418" fill="#a78bfa" font-size="7">ex:nom</text>
-            <rect x="210" y="392" width="280" height="30" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
-            <text x="350" y="411" fill="#eef0ff" font-size="9" text-anchor="middle">"Demi-finale Roland-Garros 2024"</text>
+            <line x1="350" y1="434" x2="350" y2="474" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph3)"/>
+            <text x="356" y="458" fill="#a78bfa" font-size="7">ex:nom</text>
+            <rect x="210" y="404" width="280" height="30" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
+            <text x="350" y="423" fill="#eef0ff" font-size="9" text-anchor="middle">"Demi-finale Roland-Garros 2024"</text>
         </svg>
     </div>
 </section>
@@ -985,8 +985,8 @@ SELECT ?x ?nom WHERE {
 <section>
     <h3>+ le stade</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Le match a aussi eu lieu quelque part. Même principe : <code>ex:court_812</code> est un IRI opaque, son nom "Court Philippe-Chatrier" vit dans son propre triplet <code>ex:nom</code>.</p>
-    <div style="width:100%; max-width:580px; margin:0.2rem auto 0;">
-        <svg viewBox="0 0 700 610" style="width:100%; height:auto;">
+    <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
+        <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
             <defs>
                 <marker id="arrowBlueGraph4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
@@ -1083,40 +1083,40 @@ SELECT ?x ?nom WHERE {
             <!-- ex:Pays, bas, centre 350 (aligné avec ex:Joueur) -->
             <ellipse cx="350" cy="365" rx="68" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
             <text x="350" y="370" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">ex:Pays</text>
-            <!-- ex:classementATP : j1 et j3 seulement -->
-            <line x1="104" y1="110" x2="90" y2="111" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
-            <text x="50" y="93" fill="#7eb8f7" font-size="6" text-anchor="middle">ex:classementATP</text>
-            <rect x="10" y="98" width="80" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="50" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">2</text>
+            <!-- ex:classementATP : j1 et j3 seulement, arêtes longues pour laisser la place au label -->
+            <line x1="104" y1="110" x2="-50" y2="111" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
+            <text x="27" y="100" fill="#7eb8f7" font-size="7" text-anchor="middle">ex:classementATP</text>
+            <rect x="-140" y="98" width="90" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="-95" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">2</text>
 
-            <line x1="596" y1="110" x2="610" y2="111" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
-            <text x="650" y="93" fill="#7eb8f7" font-size="6" text-anchor="middle">ex:classementATP</text>
-            <rect x="610" y="98" width="80" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="650" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">3</text>
+            <line x1="596" y1="110" x2="750" y2="111" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
+            <text x="673" y="100" fill="#7eb8f7" font-size="7" text-anchor="middle">ex:classementATP</text>
+            <rect x="750" y="98" width="90" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="795" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">3</text>
             <!-- ex:participantA / ex:participantB : j1/j3 -> le match -->
-            <path d="M104,110 Q100,140 50,180 L50,420 Q150,460 280,465" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
-            <text x="55" y="300" fill="#7eb8f7" font-size="7">ex:participantA</text>
-            <path d="M596,110 Q600,140 650,180 L650,420 Q550,460 420,465" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
-            <text x="600" y="300" fill="#7eb8f7" font-size="7" text-anchor="end">ex:participantB</text>
+            <path d="M104,110 Q100,140 50,180 L50,450 Q150,490 280,499" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
+            <text x="55" y="320" fill="#7eb8f7" font-size="7">ex:participantA</text>
+            <path d="M596,110 Q600,140 650,180 L650,450 Q550,490 420,499" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
+            <text x="600" y="320" fill="#7eb8f7" font-size="7" text-anchor="end">ex:participantB</text>
 
-            <rect x="280" y="440" width="140" height="50" rx="8" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="350" y="470" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:match_345</text>
+            <rect x="280" y="474" width="140" height="50" rx="8" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
+            <text x="350" y="503" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:match_345</text>
 
-            <line x1="350" y1="440" x2="350" y2="428" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
-            <text x="356" y="418" fill="#7eb8f7" font-size="7">ex:nom</text>
-            <rect x="210" y="392" width="280" height="30" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="350" y="411" fill="#eef0ff" font-size="9" text-anchor="middle">"Demi-finale Roland-Garros 2024"</text>
+            <line x1="350" y1="434" x2="350" y2="474" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
+            <text x="356" y="458" fill="#7eb8f7" font-size="7">ex:nom</text>
+            <rect x="210" y="404" width="280" height="30" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="350" y="423" fill="#eef0ff" font-size="9" text-anchor="middle">"Demi-finale Roland-Garros 2024"</text>
             <!-- ex:lieu : le match -> le stade -->
-            <line x1="350" y1="490" x2="350" y2="536" stroke="#a78bfa" stroke-width="1.3" marker-end="url(#arrowVioletGraph4)"/>
-            <text x="356" y="516" fill="#a78bfa" font-size="7">ex:lieu</text>
+            <line x1="350" y1="524" x2="350" y2="564" stroke="#a78bfa" stroke-width="1.3" marker-end="url(#arrowVioletGraph4)"/>
+            <text x="356" y="547" fill="#a78bfa" font-size="7">ex:lieu</text>
 
-            <ellipse cx="350" cy="560" rx="70" ry="24" fill="#241b3d" stroke="#a78bfa" stroke-width="1.5"/>
-            <text x="350" y="565" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:court_812</text>
+            <ellipse cx="350" cy="590" rx="70" ry="26" fill="#241b3d" stroke="#a78bfa" stroke-width="1.5"/>
+            <text x="350" y="595" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:court_812</text>
 
-            <line x1="420" y1="560" x2="440" y2="562" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph4)"/>
-            <text x="430" y="550" fill="#a78bfa" font-size="7">ex:nom</text>
-            <rect x="440" y="546" width="170" height="32" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
-            <text x="525" y="566" fill="#eef0ff" font-size="8" text-anchor="middle">"Court Philippe-Chatrier"</text>
+            <line x1="350" y1="616" x2="350" y2="651" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph4)"/>
+            <text x="356" y="636" fill="#a78bfa" font-size="7">ex:nom</text>
+            <rect x="210" y="651" width="280" height="32" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
+            <text x="350" y="671" fill="#eef0ff" font-size="9" text-anchor="middle">"Court Philippe-Chatrier"</text>
         </svg>
     </div>
 </section>
