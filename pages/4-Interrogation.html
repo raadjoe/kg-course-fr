@@ -741,7 +741,7 @@ SELECT ?x ?nom WHERE {
 
 <section data-transition="none">
     <h3>+ le classement ATP</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">En <strong style="color:#a78bfa;">violet</strong>, ce qui vient d'être ajouté. Un classement ATP est un simple nombre attaché au joueur, pas une ressource à part entière. <code>ex:j2</code> (Nadal) n'en a volontairement pas.</p>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">En <strong style="color:#a78bfa;">violet</strong>, ce qui vient d'être ajouté. Un classement ATP est un simple nombre attaché au joueur, pas une ressource à part entière. <code>ex:j2</code> (Nadal) n'en a pas.</p>
     <div style="width:100%; max-width:780px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 400" style="width:100%; height:auto;">
             <defs>
@@ -1138,7 +1138,7 @@ SELECT ?x ?nom WHERE {
 
 <section>
     <h3>Une jointure sur le graphe étendu</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Dans quels stades Alcaraz a-t-il gagné ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Dans quels stades Alcaraz a-t-il gagné ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
             <defs>
@@ -1222,7 +1222,7 @@ SELECT ?x ?nom WHERE {
 
 <section>
     <h3>Une jointure sur le graphe étendu</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Dans quels stades Alcaraz a-t-il gagné ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Dans quels stades Alcaraz a-t-il gagné ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -1260,7 +1260,7 @@ ex:match_678 ex:vainqueur ex:j1 ; ex:lieu ex:court_812 .</code></pre>
 
 <section>
     <h3><strong style="color:#7eb8f7;">DISTINCT</strong> : éliminer les doublons</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Dans quels stades Alcaraz a-t-il gagné ?" (sans doublon)</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Dans quels stades Alcaraz a-t-il gagné ?" (sans doublon)</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -1281,7 +1281,7 @@ SELECT DISTINCT ?nomStade WHERE {
 
 <section>
     <h3><strong style="color:#7eb8f7;">FILTER</strong> : une condition sur une variable</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Quels joueurs sont classés dans le top 5 mondial ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Quels joueurs sont classés dans le top 5 mondial ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
             <defs>
@@ -1365,7 +1365,7 @@ SELECT DISTINCT ?nomStade WHERE {
 
 <section>
     <h3><strong style="color:#7eb8f7;">FILTER</strong> : une condition sur une variable</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Quels joueurs sont classés dans le top 5 mondial ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Quels joueurs sont classés dans le top 5 mondial ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -1386,7 +1386,7 @@ SELECT ?nom WHERE {
 
 <section>
     <h3><strong style="color:#7eb8f7;">OPTIONAL</strong> : ne pas perdre une ligne</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Quels sont les noms et classements de tous les joueurs, même sans classement ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Quels sont les noms et classements de tous les joueurs, même sans classement ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
             <defs>
@@ -1470,7 +1470,7 @@ SELECT ?nom WHERE {
 
 <section>
     <h3><strong style="color:#7eb8f7;">OPTIONAL</strong> : ne pas perdre une ligne</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Quels sont les noms et classements de tous les joueurs, même sans classement ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Quels sont les noms et classements de tous les joueurs, même sans classement ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -1491,7 +1491,7 @@ SELECT ?nom ?rang WHERE {
 
 <section>
     <h3>Combiner <strong style="color:#7eb8f7;">OPTIONAL</strong> et <strong style="color:#7eb8f7;">FILTER</strong> : le piège</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Et si on filtre ce classement optionnel ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Et si on filtre ce classement optionnel ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
             <defs>
@@ -1575,7 +1575,7 @@ SELECT ?nom ?rang WHERE {
 
 <section>
     <h3>Combiner <strong style="color:#7eb8f7;">OPTIONAL</strong> et <strong style="color:#7eb8f7;">FILTER</strong> : le piège</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Et si on filtre ce classement optionnel ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Et si on filtre ce classement optionnel ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -1619,7 +1619,7 @@ SELECT ?nom ?rang WHERE {
 
 <section>
     <h3><strong style="color:#7eb8f7;">UNION</strong> : deux motifs alternatifs</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Quels joueurs ont participé à la demi-finale Roland-Garros 2024, comme vainqueur ou comme perdant ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Quels joueurs ont participé à la demi-finale Roland-Garros 2024, comme vainqueur ou comme perdant ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
             <defs>
@@ -1704,7 +1704,7 @@ SELECT ?nom ?rang WHERE {
 
 <section>
     <h3><strong style="color:#7eb8f7;">UNION</strong> : deux motifs alternatifs</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Quels joueurs ont participé à la demi-finale Roland-Garros 2024, comme vainqueur ou comme perdant ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Quels joueurs ont participé à la demi-finale Roland-Garros 2024, comme vainqueur ou comme perdant ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -1742,7 +1742,7 @@ SELECT ?nom WHERE {
 
 <section>
     <h3><strong style="color:#7eb8f7;">MINUS</strong> : exclure un motif</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Quel joueur n'a jamais de classement ATP ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Quel joueur n'a jamais de classement ATP ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
             <defs>
@@ -1826,7 +1826,7 @@ SELECT ?nom WHERE {
 
 <section>
     <h3><strong style="color:#7eb8f7;">MINUS</strong> : exclure un motif</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Quel joueur n'a jamais de classement ATP ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Quel joueur n'a jamais de classement ATP ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -1845,7 +1845,7 @@ SELECT ?nom WHERE {
 
 <section>
     <h3><strong style="color:#7eb8f7;">ORDER BY</strong> et <strong style="color:#7eb8f7;">LIMIT</strong></h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Qui est le mieux classé parmi les joueurs classés ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Qui est le mieux classé parmi les joueurs classés ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
             <defs>
@@ -1929,7 +1929,7 @@ SELECT ?nom WHERE {
 
 <section>
     <h3><strong style="color:#7eb8f7;">ORDER BY</strong> et <strong style="color:#7eb8f7;">LIMIT</strong></h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Qui est le mieux classé parmi les joueurs classés ?"</p>
+    <p style="font-size:0.8em; color:#c9d8f0; margin-bottom:0.6rem; text-align:center; font-style:italic;">"Qui est le mieux classé parmi les joueurs classés ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
