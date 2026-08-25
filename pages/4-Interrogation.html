@@ -1989,8 +1989,21 @@ OFFSET 1</code></pre>
 </section>
 
 <section>
+    <h3><strong style="color:#7eb8f7;">COUNT</strong> : compter des résultats</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Combien de joueurs le graphe connaît-il ? <code>COUNT</code> compte les liaisons de <code>?joueur</code>, sans les lister une par une.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT (COUNT(?joueur) AS ?nb) WHERE {
+  ?joueur a ex:Joueur .
+}</code></pre>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
+        <code>?nb → 3</code>
+    </div>
+    <p class="code-note">→ Une seule ligne de résultat : <code>COUNT</code> résume tout le résultat en un nombre.</p>
+</section>
+
+<section>
     <h3><strong style="color:#7eb8f7;">COUNT</strong> et <strong style="color:#7eb8f7;">GROUP BY</strong></h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Compter les joueurs par nationalité. <code>GROUP BY</code> regroupe les lignes qui partagent le même <code>?pays</code>, <code>COUNT</code> compte les joueurs dans chaque groupe.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Compter les joueurs par nationalité, pas seulement au total : <code>GROUP BY</code> sépare d'abord les lignes en groupes, un par valeur de <code>?pays</code>, avant que <code>COUNT</code> compte à l'intérieur de chacun.</p>
     <span class="code-badge">SPARQL</span>
     <pre><code class="language-sparql">SELECT ?pays (COUNT(?joueur) AS ?nb) WHERE {
   ?joueur ex:nationalite ?pays .
