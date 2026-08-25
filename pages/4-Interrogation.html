@@ -1123,7 +1123,8 @@ SELECT ?x ?nom WHERE {
 
 <section>
     <h3>Les mots-clés à connaître (1/2)</h3>
-    <div class="kv-row"><span class="kv-label">FILTER</span><span class="kv-body">Ajoute une condition sur une variable (numérique, textuelle, logique) que le motif seul ne peut pas exprimer.</span></div>
+    <div class="kv-row"><span class="kv-label">DISTINCT</span><span class="kv-body">Élimine les doublons du résultat : une même ligne n'apparaît qu'une fois.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">FILTER</span><span class="kv-body">Ajoute une condition sur une variable (numérique, textuelle, logique) que le motif seul ne peut pas exprimer.</span></div>
     <div class="kv-row fragment"><span class="kv-label">OPTIONAL</span><span class="kv-body">Garde une ligne même si le motif à l'intérieur ne correspond pas : la variable reste alors non liée.</span></div>
     <div class="kv-row fragment"><span class="kv-label">UNION</span><span class="kv-body">Combine deux motifs alternatifs : une ligne correspond si l'un <strong>ou</strong> l'autre correspond.</span></div>
 </section>
@@ -1137,7 +1138,7 @@ SELECT ?x ?nom WHERE {
 
 <section>
     <h3>Une jointure sur le graphe étendu</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Dans quel stade Alcaraz a-t-il joué ?"</p>
+    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Dans quels stades Alcaraz a-t-il gagné ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
             <defs>
@@ -1221,7 +1222,7 @@ SELECT ?x ?nom WHERE {
 
 <section>
     <h3>Une jointure sur le graphe étendu</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Dans quel stade Alcaraz a-t-il joué ?"</p>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Dans quels stades Alcaraz a-t-il gagné ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -1232,6 +1233,44 @@ SELECT ?nomStade WHERE {
   ?stade ex:nom ?nomStade .
 }</code></pre>
     <p class="code-note">→ On retrouve Alcaraz par son nom, jamais en écrivant son IRI (<code>ex:j1</code>) directement : les IRIs sont opaques.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?nomStade</th></tr></thead>
+        <tbody>
+            <tr><td>"Court Philippe-Chatrier"</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>DISTINCT : éliminer les doublons</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Imaginons qu'Alcaraz ait gagné <strong>deux</strong> matchs sur le même stade : deux triplets <code>ex:vainqueur</code>, un seul stade.</p>
+    <span class="code-badge">Turtle (hypothèse)</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-turtle">ex:match_345 ex:vainqueur ex:j1 ; ex:lieu ex:court_812 .
+ex:match_678 ex:vainqueur ex:j1 ; ex:lieu ex:court_812 .</code></pre>
+    <p style="font-size:0.82em; color:#eef0ff; margin-top:0.6rem; text-align:center;">La même jointure, sans <code>DISTINCT</code> :</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?nomStade</th></tr></thead>
+        <tbody>
+            <tr><td>"Court Philippe-Chatrier"</td></tr>
+            <tr><td>"Court Philippe-Chatrier"</td></tr>
+        </tbody>
+    </table>
+    <p class="fragment code-note-neg">↛ Une ligne par match, pas par stade : le même nom sort deux fois.</p>
+</section>
+
+<section>
+    <h3>DISTINCT : éliminer les doublons</h3>
+    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Dans quels stades Alcaraz a-t-il gagné ?" (sans doublon)</p>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT DISTINCT ?nomStade WHERE {
+  ?joueur ex:nom "Carlos Alcaraz" .
+  ?match ex:vainqueur ?joueur ;
+         ex:lieu ?stade .
+  ?stade ex:nom ?nomStade .
+}</code></pre>
+    <p class="code-note">→ <code>DISTINCT</code> élimine les doublons du résultat : une même ligne n'apparaît qu'une fois.</p>
     <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
         <thead><tr><th>?nomStade</th></tr></thead>
         <tbody>
@@ -1920,7 +1959,7 @@ GROUP BY ?natNom</code></pre>
 
 <section>
     <h3>DISTINCT : éliminer les doublons</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Alcaraz et Nadal partagent la même nationalité. Sans <code>DISTINCT</code>, "Espagne"@fr sortirait deux fois.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;"><code>DISTINCT</code> (vu en 4.2) revient ici : Alcaraz et Nadal partagent la même nationalité, donc "Espagne"@fr sortirait deux fois sans lui.</p>
     <span class="code-badge">SPARQL</span>
     <pre><code class="language-sparql">SELECT DISTINCT ?natNom WHERE {
   ?joueur ex:nationalite ?pays .
