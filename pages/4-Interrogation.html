@@ -856,7 +856,7 @@ SELECT ?x ?nom WHERE {
 
 <section data-transition="none">
     <h3>+ le match</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Un match relie deux joueurs : ici la demi-finale Roland-Garros 2024 entre Alcaraz et Sinner. Comme pour les joueurs, son IRI (<code>ex:match_345</code>) est opaque : son nom lisible vit dans un triplet <code>ex:nom</code> séparé.</p>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Un match relie son vainqueur et son perdant : ici, Alcaraz a battu Sinner en demi-finale Roland-Garros 2024. Comme pour les joueurs, l'IRI du match (<code>ex:match_345</code>) est opaque : son nom lisible vit dans un triplet <code>ex:nom</code> séparé.</p>
     <div style="width:100%; max-width:760px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 550" style="width:100%; height:auto;">
             <defs>
@@ -965,11 +965,11 @@ SELECT ?x ?nom WHERE {
             <text x="673" y="100" fill="#7eb8f7" font-size="7" text-anchor="middle">ex:classementATP</text>
             <rect x="750" y="98" width="90" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
             <text x="795" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">3</text>
-            <!-- ex:participantA / ex:participantB : j1/j3 -> le match -->
+            <!-- ex:vainqueur / ex:perdant : j1/j3 -> le match -->
             <path d="M104,110 Q100,140 50,180 L50,450 Q150,490 280,499" fill="none" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph3)"/>
-            <text x="55" y="320" fill="#a78bfa" font-size="7">ex:participantA</text>
+            <text x="55" y="320" fill="#a78bfa" font-size="7">ex:vainqueur</text>
             <path d="M596,110 Q600,140 650,180 L650,450 Q550,490 420,499" fill="none" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph3)"/>
-            <text x="600" y="320" fill="#a78bfa" font-size="7" text-anchor="end">ex:participantB</text>
+            <text x="600" y="320" fill="#a78bfa" font-size="7" text-anchor="end">ex:perdant</text>
 
             <rect x="280" y="474" width="140" height="50" rx="8" fill="#241b3d" stroke="#a78bfa" stroke-width="1.5"/>
             <text x="350" y="503" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:match_345</text>
@@ -1093,11 +1093,11 @@ SELECT ?x ?nom WHERE {
             <text x="673" y="100" fill="#7eb8f7" font-size="7" text-anchor="middle">ex:classementATP</text>
             <rect x="750" y="98" width="90" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
             <text x="795" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">3</text>
-            <!-- ex:participantA / ex:participantB : j1/j3 -> le match -->
+            <!-- ex:vainqueur / ex:perdant : j1/j3 -> le match -->
             <path d="M104,110 Q100,140 50,180 L50,450 Q150,490 280,499" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
-            <text x="55" y="320" fill="#7eb8f7" font-size="7">ex:participantA</text>
+            <text x="55" y="320" fill="#7eb8f7" font-size="7">ex:vainqueur</text>
             <path d="M596,110 Q600,140 650,180 L650,450 Q550,490 420,499" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
-            <text x="600" y="320" fill="#7eb8f7" font-size="7" text-anchor="end">ex:participantB</text>
+            <text x="600" y="320" fill="#7eb8f7" font-size="7" text-anchor="end">ex:perdant</text>
 
             <rect x="280" y="474" width="140" height="50" rx="8" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
             <text x="350" y="503" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:match_345</text>
@@ -1153,11 +1153,9 @@ SELECT ?x ?nom WHERE {
             </defs>
 
             <path d="M150,48 Q220,70 275,120" fill="none" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowJoinGreen)" opacity="1"/>
-            <text x="185" y="85" fill="#2ecc71" font-size="7" text-anchor="start" opacity="1">ex:participantA</text>
-            <path d="M62,50 Q58,80 55,95 Q120,130 300,125" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowJoinMuted)" opacity="0.4"/>
-            <text x="50" y="108" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:vainqueur</text>
+            <text x="185" y="85" fill="#2ecc71" font-size="7" text-anchor="start" opacity="1">ex:vainqueur</text>
             <path d="M490,48 Q420,70 365,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowJoinMuted)" opacity="0.45"/>
-            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:participantB</text>
+            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:perdant</text>
             <line x1="320" y1="160" x2="320" y2="179" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowJoinGreen)" opacity="1"/>
             <text x="330" y="172" fill="#2ecc71" font-size="7" text-anchor="start" opacity="1">ex:lieu</text>
 
@@ -1189,7 +1187,7 @@ SELECT ?x ?nom WHERE {
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
 SELECT ?nomStade WHERE {
-  ?match ex:participantA ex:j1 ;
+  ?match ex:vainqueur ex:j1 ;
          ex:lieu ?stade .
   ?stade ex:nom ?nomStade .
 }</code></pre>
@@ -1219,11 +1217,9 @@ SELECT ?nomStade WHERE {
             </defs>
 
             <path d="M150,48 Q220,70 275,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowFilterMuted)" opacity="0.45"/>
-            <text x="185" y="85" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:participantA</text>
-            <path d="M62,50 Q58,80 55,95 Q120,130 300,125" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowFilterMuted)" opacity="0.4"/>
-            <text x="50" y="108" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:vainqueur</text>
+            <text x="185" y="85" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:vainqueur</text>
             <path d="M490,48 Q420,70 365,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowFilterMuted)" opacity="0.45"/>
-            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:participantB</text>
+            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:perdant</text>
             <line x1="320" y1="160" x2="320" y2="179" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowFilterMuted)" opacity="0.45"/>
             <text x="330" y="172" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:lieu</text>
 
@@ -1286,11 +1282,9 @@ SELECT ?nom WHERE {
             </defs>
 
             <path d="M150,48 Q220,70 275,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOptMuted)" opacity="0.45"/>
-            <text x="185" y="85" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:participantA</text>
-            <path d="M62,50 Q58,80 55,95 Q120,130 300,125" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowOptMuted)" opacity="0.4"/>
-            <text x="50" y="108" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:vainqueur</text>
+            <text x="185" y="85" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:vainqueur</text>
             <path d="M490,48 Q420,70 365,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOptMuted)" opacity="0.45"/>
-            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:participantB</text>
+            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:perdant</text>
             <line x1="320" y1="160" x2="320" y2="179" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOptMuted)" opacity="0.45"/>
             <text x="330" y="172" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:lieu</text>
 
@@ -1353,11 +1347,9 @@ SELECT ?nom ?rang WHERE {
             </defs>
 
             <path d="M150,48 Q220,70 275,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowPiegeMuted)" opacity="0.45"/>
-            <text x="185" y="85" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:participantA</text>
-            <path d="M62,50 Q58,80 55,95 Q120,130 300,125" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowPiegeMuted)" opacity="0.4"/>
-            <text x="50" y="108" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:vainqueur</text>
+            <text x="185" y="85" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:vainqueur</text>
             <path d="M490,48 Q420,70 365,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowPiegeMuted)" opacity="0.45"/>
-            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:participantB</text>
+            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:perdant</text>
             <line x1="320" y1="160" x2="320" y2="179" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowPiegeMuted)" opacity="0.45"/>
             <text x="330" y="172" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:lieu</text>
 
@@ -1405,7 +1397,7 @@ SELECT ?nom ?rang WHERE {
 
 <section>
     <h3>UNION : deux motifs alternatifs</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Quels joueurs ont participé au match, comme vainqueur ou comme adversaire ?"</p>
+    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Quels joueurs ont participé au match, comme vainqueur ou comme perdant ?"</p>
     <div style="width:100%; max-width:560px; margin:0.2rem auto 0;">
 <svg viewBox="0 0 640 250" style="width:100%; height:auto;">
             <defs>
@@ -1420,12 +1412,10 @@ SELECT ?nom ?rang WHERE {
                 </marker>
             </defs>
 
-            <path d="M150,48 Q220,70 275,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowUnionMuted)" opacity="0.45"/>
-            <text x="185" y="85" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:participantA</text>
-            <path d="M62,50 Q58,80 55,95 Q120,130 300,125" fill="none" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowUnionGreen)" opacity="1"/>
-            <text x="50" y="108" fill="#2ecc71" font-size="7" text-anchor="end" opacity="1">ex:vainqueur</text>
+            <path d="M150,48 Q220,70 275,120" fill="none" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowUnionGreen)" opacity="1"/>
+            <text x="185" y="85" fill="#2ecc71" font-size="7" text-anchor="start" opacity="1">ex:vainqueur</text>
             <path d="M490,48 Q420,70 365,120" fill="none" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowUnionGreen)" opacity="1"/>
-            <text x="435" y="85" fill="#2ecc71" font-size="7" text-anchor="end" opacity="1">ex:participantB</text>
+            <text x="435" y="85" fill="#2ecc71" font-size="7" text-anchor="end" opacity="1">ex:perdant</text>
             <line x1="320" y1="160" x2="320" y2="179" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowUnionMuted)" opacity="0.45"/>
             <text x="330" y="172" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:lieu</text>
 
@@ -1459,7 +1449,7 @@ SELECT ?nom ?rang WHERE {
 SELECT ?nom WHERE {
   { ex:match_345 ex:vainqueur ?j . }
   UNION
-  { ex:match_345 ex:participantB ?j . }
+  { ex:match_345 ex:perdant ?j . }
   ?j ex:nom ?nom .
 }</code></pre>
     <table class="fragment rdf-table rdf-table-sm" style="max-width:260px; margin:0.6rem auto 0; font-size:0.72em;">
@@ -1504,11 +1494,9 @@ SELECT ?nom WHERE {
             </defs>
 
             <path d="M150,48 Q220,70 275,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowMinusMuted)" opacity="0.45"/>
-            <text x="185" y="85" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:participantA</text>
-            <path d="M62,50 Q58,80 55,95 Q120,130 300,125" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowMinusMuted)" opacity="0.4"/>
-            <text x="50" y="108" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:vainqueur</text>
+            <text x="185" y="85" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:vainqueur</text>
             <path d="M490,48 Q420,70 365,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowMinusMuted)" opacity="0.45"/>
-            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:participantB</text>
+            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:perdant</text>
             <line x1="320" y1="160" x2="320" y2="179" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowMinusMuted)" opacity="0.45"/>
             <text x="330" y="172" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:lieu</text>
 
@@ -1569,11 +1557,9 @@ SELECT ?nom WHERE {
             </defs>
 
             <path d="M150,48 Q220,70 275,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOrderMuted)" opacity="0.45"/>
-            <text x="185" y="85" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:participantA</text>
-            <path d="M62,50 Q58,80 55,95 Q120,130 300,125" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowOrderMuted)" opacity="0.4"/>
-            <text x="50" y="108" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:vainqueur</text>
+            <text x="185" y="85" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:vainqueur</text>
             <path d="M490,48 Q420,70 365,120" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOrderMuted)" opacity="0.45"/>
-            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:participantB</text>
+            <text x="435" y="85" fill="#3d4168" font-size="7" text-anchor="end" opacity="0.6">ex:perdant</text>
             <line x1="320" y1="160" x2="320" y2="179" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOrderMuted)" opacity="0.45"/>
             <text x="330" y="172" fill="#3d4168" font-size="7" text-anchor="start" opacity="0.6">ex:lieu</text>
 
@@ -1678,15 +1664,14 @@ GROUP BY ?natNom</code></pre>
 
 <section>
     <h3>CONSTRUCT en pratique</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Fabriquer un raccourci <code>ex:aBattu</code> à partir du match. Comme le raisonnement du chapitre 3, mais déclenché par une requête plutôt que par un raisonneur.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Fabriquer un raccourci <code>ex:aBattu</code> à partir de deux faits déjà présents dans le graphe.</p>
     <span class="code-badge">SPARQL</span>
     <pre><code class="language-sparql">CONSTRUCT { ?vainqueur ex:aBattu ?perdant . }
 WHERE {
   ?match ex:vainqueur ?vainqueur ;
-         ex:participantA ?p1 ; ex:participantB ?p2 .
-  BIND(IF(?vainqueur = ?p1, ?p2, ?p1) AS ?perdant)
+         ex:perdant ?perdant .
 }</code></pre>
-    <p class="code-note">→ <code>BIND</code> calcule "l'autre joueur". Le résultat est un nouveau graphe RDF, pas une table.</p>
+    <p class="code-note">→ Le résultat est un nouveau graphe RDF, pas une table : ici, un seul triplet.</p>
 </section>
 
 <section>
