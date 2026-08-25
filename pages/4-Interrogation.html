@@ -2064,7 +2064,7 @@ WHERE {
 
 SELECT ?nom WHERE {
   ?joueur ex:nom ?nom ; ex:classementATP ?rang .
-  FILTER(?rang &gt;= 1 &amp;&amp; ?rang &lt;= 5)
+  FILTER(?rang &gt;= 2 &amp;&amp; ?rang &lt;= 10)
 }</code></pre>
     <p class="code-note">→ <code>&amp;&amp;</code> combine deux comparaisons : la ligne survit seulement si les deux sont vraies.</p>
     <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
@@ -2107,6 +2107,26 @@ SELECT ?nom (BOUND(?rang) AS ?aUnClassement) WHERE {
             <tr><td>"Carlos Alcaraz"</td><td>true</td></tr>
             <tr><td>"Rafael Nadal"</td><td>false</td></tr>
             <tr><td>"Jannik Sinner"</td><td>true</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Exemple : <code>IF</code></h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?nom (IF(BOUND(?rang), ?rang, "non classé") AS ?rangAffiche) WHERE {
+  ?joueur ex:nom ?nom .
+  OPTIONAL { ?joueur ex:classementATP ?rang . }
+}</code></pre>
+    <p class="code-note">→ <code>IF</code> choisit entre deux valeurs selon une condition : ici, un texte de repli à la place d'un <code>?rang</code> non liée.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?nom</th><th>?rangAffiche</th></tr></thead>
+        <tbody>
+            <tr><td>"Carlos Alcaraz"</td><td>2</td></tr>
+            <tr><td>"Rafael Nadal"</td><td>"non classé"</td></tr>
+            <tr><td>"Jannik Sinner"</td><td>3</td></tr>
         </tbody>
     </table>
 </section>
