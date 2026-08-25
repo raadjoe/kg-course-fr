@@ -1242,7 +1242,7 @@ SELECT ?nomStade WHERE {
 </section>
 
 <section>
-    <h3>DISTINCT : éliminer les doublons</h3>
+    <h3><strong style="color:#7eb8f7;">DISTINCT</strong> : éliminer les doublons</h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Imaginons qu'Alcaraz ait gagné <strong>deux</strong> matchs sur le même stade : deux triplets <code>ex:vainqueur</code>, un seul stade.</p>
     <span class="code-badge">Turtle (hypothèse)</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-turtle">ex:match_345 ex:vainqueur ex:j1 ; ex:lieu ex:court_812 .
@@ -1259,7 +1259,7 @@ ex:match_678 ex:vainqueur ex:j1 ; ex:lieu ex:court_812 .</code></pre>
 </section>
 
 <section>
-    <h3>DISTINCT : éliminer les doublons</h3>
+    <h3><strong style="color:#7eb8f7;">DISTINCT</strong> : éliminer les doublons</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Dans quels stades Alcaraz a-t-il gagné ?" (sans doublon)</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
@@ -1280,7 +1280,7 @@ SELECT DISTINCT ?nomStade WHERE {
 </section>
 
 <section>
-    <h3>FILTER : une condition sur une variable</h3>
+    <h3><strong style="color:#7eb8f7;">FILTER</strong> : une condition sur une variable</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Quels joueurs sont classés dans le top 5 mondial ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
@@ -1364,7 +1364,7 @@ SELECT DISTINCT ?nomStade WHERE {
 </section>
 
 <section>
-    <h3>FILTER : une condition sur une variable</h3>
+    <h3><strong style="color:#7eb8f7;">FILTER</strong> : une condition sur une variable</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Quels joueurs sont classés dans le top 5 mondial ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
@@ -1385,7 +1385,7 @@ SELECT ?nom WHERE {
 </section>
 
 <section>
-    <h3>OPTIONAL : ne pas perdre une ligne</h3>
+    <h3><strong style="color:#7eb8f7;">OPTIONAL</strong> : ne pas perdre une ligne</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Quels sont les noms et classements de tous les joueurs, même sans classement ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
@@ -1469,7 +1469,7 @@ SELECT ?nom WHERE {
 </section>
 
 <section>
-    <h3>OPTIONAL : ne pas perdre une ligne</h3>
+    <h3><strong style="color:#7eb8f7;">OPTIONAL</strong> : ne pas perdre une ligne</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Quels sont les noms et classements de tous les joueurs, même sans classement ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
@@ -1490,7 +1490,7 @@ SELECT ?nom ?rang WHERE {
 </section>
 
 <section>
-    <h3>Combiner OPTIONAL et FILTER : le piège</h3>
+    <h3>Combiner <strong style="color:#7eb8f7;">OPTIONAL</strong> et <strong style="color:#7eb8f7;">FILTER</strong> : le piège</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Et si on filtre ce classement optionnel ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
@@ -1574,7 +1574,7 @@ SELECT ?nom ?rang WHERE {
 </section>
 
 <section>
-    <h3>Combiner OPTIONAL et FILTER : le piège</h3>
+    <h3>Combiner <strong style="color:#7eb8f7;">OPTIONAL</strong> et <strong style="color:#7eb8f7;">FILTER</strong> : le piège</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Et si on filtre ce classement optionnel ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
@@ -1595,7 +1595,7 @@ SELECT ?nom ?rang WHERE {
 </section>
 
 <section>
-    <h3>UNION : deux motifs alternatifs</h3>
+    <h3><strong style="color:#7eb8f7;">UNION</strong> : deux motifs alternatifs</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Quels joueurs ont participé au match, comme vainqueur ou comme perdant ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
@@ -1679,7 +1679,7 @@ SELECT ?nom ?rang WHERE {
 </section>
 
 <section>
-    <h3>UNION : deux motifs alternatifs</h3>
+    <h3><strong style="color:#7eb8f7;">UNION</strong> : deux motifs alternatifs</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Quels joueurs ont participé au match, comme vainqueur ou comme perdant ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
@@ -1701,7 +1701,7 @@ SELECT ?nom WHERE {
 </section>
 
 <section>
-    <h3>MINUS contre OPTIONAL</h3>
+    <h3><strong style="color:#7eb8f7;">MINUS</strong> contre <strong style="color:#7eb8f7;">OPTIONAL</strong></h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.7rem;">Une confusion classique : les deux ressemblent à un filtre négatif, mais ne font pas la même chose.</p>
     <div class="two-col" style="font-size:0.8em;">
         <div class="box box-blue">
@@ -1716,7 +1716,7 @@ SELECT ?nom WHERE {
 </section>
 
 <section>
-    <h3>MINUS : exclure un motif</h3>
+    <h3><strong style="color:#7eb8f7;">MINUS</strong> : exclure un motif</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Quel joueur n'a jamais de classement ATP ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
@@ -1800,7 +1800,7 @@ SELECT ?nom WHERE {
 </section>
 
 <section>
-    <h3>MINUS : exclure un motif</h3>
+    <h3><strong style="color:#7eb8f7;">MINUS</strong> : exclure un motif</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Quel joueur n'a jamais de classement ATP ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
@@ -1819,7 +1819,7 @@ SELECT ?nom WHERE {
 </section>
 
 <section>
-    <h3>ORDER BY et LIMIT</h3>
+    <h3><strong style="color:#7eb8f7;">ORDER BY</strong> et <strong style="color:#7eb8f7;">LIMIT</strong></h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Qui est le mieux classé parmi les joueurs classés ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
         <svg viewBox="-150 0 1000 710" style="width:100%; height:auto;">
@@ -1903,7 +1903,7 @@ SELECT ?nom WHERE {
 </section>
 
 <section>
-    <h3>ORDER BY et LIMIT</h3>
+    <h3><strong style="color:#7eb8f7;">ORDER BY</strong> et <strong style="color:#7eb8f7;">LIMIT</strong></h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center; font-style:italic;">"Qui est le mieux classé parmi les joueurs classés ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
@@ -1943,7 +1943,7 @@ LIMIT 1</code></pre>
 </section>
 
 <section>
-    <h3>COUNT et GROUP BY</h3>
+    <h3><strong style="color:#7eb8f7;">COUNT</strong> et <strong style="color:#7eb8f7;">GROUP BY</strong></h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Compter les joueurs par nationalité. La nationalité pointe vers un pays (4.1) : il faut joindre jusqu'à son nom, puis se limiter à une langue, sinon français et anglais formeraient des groupes séparés.</p>
     <span class="code-badge">SPARQL</span>
     <pre><code class="language-sparql">SELECT ?natNom (COUNT(?joueur) AS ?nb) WHERE {
@@ -1958,7 +1958,7 @@ GROUP BY ?natNom</code></pre>
 </section>
 
 <section>
-    <h3>DISTINCT : éliminer les doublons</h3>
+    <h3><strong style="color:#7eb8f7;">DISTINCT</strong> : éliminer les doublons</h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;"><code>DISTINCT</code> (vu en 4.2) revient ici : Alcaraz et Nadal partagent la même nationalité, donc "Espagne"@fr sortirait deux fois sans lui.</p>
     <span class="code-badge">SPARQL</span>
     <pre><code class="language-sparql">SELECT DISTINCT ?natNom WHERE {
@@ -1981,7 +1981,7 @@ GROUP BY ?natNom</code></pre>
 </section>
 
 <section>
-    <h3>CONSTRUCT en pratique</h3>
+    <h3><strong style="color:#7eb8f7;">CONSTRUCT</strong> en pratique</h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Fabriquer un raccourci <code>ex:aBattu</code> à partir de deux faits déjà présents dans le graphe.</p>
     <span class="code-badge">SPARQL</span>
     <pre><code class="language-sparql">CONSTRUCT { ?vainqueur ex:aBattu ?perdant . }
@@ -1993,7 +1993,7 @@ WHERE {
 </section>
 
 <section>
-    <h3>ASK en pratique</h3>
+    <h3><strong style="color:#7eb8f7;">ASK</strong> en pratique</h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">"Rafael Nadal a-t-il un classement ATP renseigné dans notre graphe ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre><code class="language-sparql">ASK {
