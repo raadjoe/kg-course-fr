@@ -2045,6 +2045,32 @@ WHERE {
 </section>
 
 <section>
+    <h3><strong style="color:#7eb8f7;">BIND</strong> : nommer une expression</h3>
+    <div class="kv-row"><span class="kv-label">Syntaxe</span><span class="kv-body"><code>BIND(expression AS ?variable)</code></span></div>
+    <div class="kv-row fragment"><span class="kv-label">Effet</span><span class="kv-body">Calcule une expression, opérateur ou fonction, et l'attache au résultat sous un nouveau nom de variable.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Différence avec FILTER</span><span class="kv-body"><code>FILTER</code> teste une condition et élimine des lignes. <code>BIND</code> ne filtre rien : il ajoute une colonne calculée.</span></div>
+</section>
+
+<section>
+    <h3>Exemple : <code>BIND</code></h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?titre WHERE {
+  ?match ex:nom ?nomMatch ; ex:lieu ?stade .
+  ?stade ex:nom ?nomStade .
+  BIND(CONCAT(?nomMatch, " (", ?nomStade, ")") AS ?titre)
+}</code></pre>
+    <p class="code-note">→ <code>BIND</code> attache le résultat de <code>CONCAT</code> à une nouvelle variable <code>?titre</code>, prête à être affichée.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:520px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?titre</th></tr></thead>
+        <tbody>
+            <tr><td>"Demi-finale Roland-Garros 2024 (Court Philippe-Chatrier)"</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
     <h3>Opérateurs SPARQL</h3>
     <table class="rdf-table rdf-table-sm" style="font-size:0.66em;">
         <thead><tr><th>Opérateur</th><th>Catégorie</th><th>Effet</th></tr></thead>
@@ -2439,7 +2465,7 @@ SELECT (YEAR("2024-06-07"^^xsd:date) AS ?annee) WHERE {}</code></pre>
                     built_in: 'a COUNT SUM AVG MIN MAX SAMPLE GROUP_CONCAT BOUND STR LANG LANGMATCHES ' +
                         'DATATYPE ISIRI ISBLANK ISLITERAL ISNUMERIC IF COALESCE SAMETERM REGEX CONTAINS ' +
                         'STRSTARTS STRENDS ROUND CEIL FLOOR ABS RAND YEAR MONTH DAY HOURS MINUTES SECONDS ' +
-                        'TIMEZONE TZ NOW MD5 SHA1 SHA256 SHA384 SHA512'
+                        'TIMEZONE TZ NOW MD5 SHA1 SHA256 SHA384 SHA512 CONCAT'
                 },
                 contains: [
                     hljs.COMMENT('#', '$'),
