@@ -1986,17 +1986,6 @@ GROUP BY ?natNom</code></pre>
     </div>
 </section>
 
-<section>
-    <h3><strong style="color:#7eb8f7;">DISTINCT</strong> : éliminer les doublons</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;"><code>DISTINCT</code> (vu en 4.2) revient ici : Alcaraz et Nadal partagent la même nationalité, donc "Espagne"@fr sortirait deux fois sans lui.</p>
-    <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT DISTINCT ?natNom WHERE {
-  ?joueur ex:nationalite ?pays .
-  ?pays ex:nom ?natNom .
-  FILTER(LANG(?natNom) = "fr")
-}</code></pre>
-    <p class="code-note">→ Deux résultats seulement : "Espagne"@fr et "Italie"@fr, malgré trois joueurs.</p>
-</section>
 
 <section>
     <h3>Les autres agrégats</h3>
@@ -2042,32 +2031,6 @@ WHERE {
     <div class="part-label">INTERROGATION</div>
     <h2>4.4 Fonctions et opérateurs</h2>
     <p style="color:#aaa;">Le vocabulaire d'expressions disponible dans FILTER et BIND.</p>
-</section>
-
-<section>
-    <h3><strong style="color:#7eb8f7;">BIND</strong> : nommer une expression</h3>
-    <div class="kv-row"><span class="kv-label">Syntaxe</span><span class="kv-body"><code>BIND(expression AS ?variable)</code></span></div>
-    <div class="kv-row fragment"><span class="kv-label">Effet</span><span class="kv-body">Calcule une expression, opérateur ou fonction, et l'attache au résultat sous un nouveau nom de variable.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Différence avec FILTER</span><span class="kv-body"><code>FILTER</code> teste une condition et élimine des lignes. <code>BIND</code> ne filtre rien : il ajoute une colonne calculée.</span></div>
-</section>
-
-<section>
-    <h3>Exemple : <code>BIND</code></h3>
-    <span class="code-badge">SPARQL</span>
-    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
-
-SELECT ?titre WHERE {
-  ?match ex:nom ?nomMatch ; ex:lieu ?stade .
-  ?stade ex:nom ?nomStade .
-  BIND(CONCAT(?nomMatch, " (", ?nomStade, ")") AS ?titre)
-}</code></pre>
-    <p class="code-note">→ <code>BIND</code> attache le résultat de <code>CONCAT</code> à une nouvelle variable <code>?titre</code>, prête à être affichée.</p>
-    <table class="fragment rdf-table rdf-table-sm" style="max-width:520px; margin:0.6rem auto 0; font-size:0.6em;">
-        <thead><tr><th>?titre</th></tr></thead>
-        <tbody>
-            <tr><td>"Demi-finale Roland-Garros 2024 (Court Philippe-Chatrier)"</td></tr>
-        </tbody>
-    </table>
 </section>
 
 <section>
@@ -2118,26 +2081,6 @@ SELECT ?nom WHERE {
 </section>
 
 <section>
-    <h3>Exemple : <code>BOUND</code></h3>
-    <span class="code-badge">SPARQL</span>
-    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
-
-SELECT ?nom (BOUND(?rang) AS ?aUnClassement) WHERE {
-  ?joueur ex:nom ?nom .
-  OPTIONAL { ?joueur ex:classementATP ?rang . }
-}</code></pre>
-    <p class="code-note">→ <code>BOUND</code> teste si une variable a reçu une valeur : utile pour distinguer les lignes issues d'un <code>OPTIONAL</code>.</p>
-    <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
-        <thead><tr><th>?nom</th><th>?aUnClassement</th></tr></thead>
-        <tbody>
-            <tr><td>"Carlos Alcaraz"</td><td>true</td></tr>
-            <tr><td>"Rafael Nadal"</td><td>false</td></tr>
-            <tr><td>"Jannik Sinner"</td><td>true</td></tr>
-        </tbody>
-    </table>
-</section>
-
-<section>
     <h3>Exemple : <code>IF</code></h3>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
@@ -2146,13 +2089,39 @@ SELECT ?nom (IF(BOUND(?rang), ?rang, "non classé") AS ?rangAffiche) WHERE {
   ?joueur ex:nom ?nom .
   OPTIONAL { ?joueur ex:classementATP ?rang . }
 }</code></pre>
-    <p class="code-note">→ <code>IF</code> choisit entre deux valeurs selon une condition : ici, un texte de repli à la place d'un <code>?rang</code> non liée.</p>
+    <p class="code-note">→ <code>IF</code> choisit entre deux valeurs selon une condition : ici, un texte de repli à la place d'un <code>?rang</code> non liée, elle-même détectée par <code>BOUND</code>.</p>
     <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
         <thead><tr><th>?nom</th><th>?rangAffiche</th></tr></thead>
         <tbody>
             <tr><td>"Carlos Alcaraz"</td><td>2</td></tr>
             <tr><td>"Rafael Nadal"</td><td>"non classé"</td></tr>
             <tr><td>"Jannik Sinner"</td><td>3</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3><strong style="color:#7eb8f7;">BIND</strong> : nommer une expression</h3>
+    <div class="kv-row"><span class="kv-label">Syntaxe</span><span class="kv-body"><code>BIND(expression AS ?variable)</code></span></div>
+    <div class="kv-row fragment"><span class="kv-label">Effet</span><span class="kv-body">Calcule une expression, opérateur ou fonction, et l'attache au résultat sous un nouveau nom de variable.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Différence avec FILTER</span><span class="kv-body"><code>FILTER</code> teste une condition et élimine des lignes. <code>BIND</code> ne filtre rien : il ajoute une colonne calculée.</span></div>
+</section>
+
+<section>
+    <h3>Exemple : <code>BIND</code></h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?titre WHERE {
+  ?match ex:nom ?nomMatch ; ex:lieu ?stade .
+  ?stade ex:nom ?nomStade .
+  BIND(CONCAT(?nomMatch, " (", ?nomStade, ")") AS ?titre)
+}</code></pre>
+    <p class="code-note">→ <code>BIND</code> attache le résultat de <code>CONCAT</code> à une nouvelle variable <code>?titre</code>, prête à être affichée.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:520px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?titre</th></tr></thead>
+        <tbody>
+            <tr><td>"Demi-finale Roland-Garros 2024 (Court Philippe-Chatrier)"</td></tr>
         </tbody>
     </table>
 </section>
