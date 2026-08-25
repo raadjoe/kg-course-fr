@@ -414,7 +414,7 @@ ex:pays2 a ex:Pays ; ex:nom "Italie"@fr, "Italy"@en .</code></pre>
     </div>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">On construit la réponse en trois motifs, un à la fois :</p>
     <div class="kv-row"><span class="kv-label">Étape 1</span><span class="kv-body">D'abord, trouver tous les <strong>joueurs</strong> : filtrer par type.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Étape 2</span><span class="kv-body">Ensuite, ne garder que ceux dont la <strong>nationalité</strong> est connue : joindre un second motif.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Étape 2</span><span class="kv-body">Ensuite, ne garder que ceux dont la <strong>nationalité</strong> est connue et ayant un <strong>nom</strong> dans le graphe : joindre deux motifs supplémentaires.</span></div>
     <div class="kv-row fragment"><span class="kv-label">Étape 3</span><span class="kv-body">Enfin, ne garder que ceux dont le pays s'appelle <strong style="color:#7eb8f7;">"Espagne"</strong> : filtrer par valeur.</span></div>
 </section>
 
@@ -469,10 +469,11 @@ SELECT ?x WHERE {
 
 SELECT ?x WHERE {
   ?x a ex:Joueur ;
-     ex:nationalite ?pays .
+     ex:nationalite ?pays ;
+     ex:nom ?nom .
 }</code></pre>
-    <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
-        <svg viewBox="0 0 540 230" style="width:100%; height:auto;">
+    <div style="width:100%; max-width:480px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 540 295" style="width:100%; height:auto;">
             <defs>
                 <marker id="arrowGreenStep2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
@@ -495,19 +496,36 @@ SELECT ?x WHERE {
             <ellipse cx="420" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
             <text x="420" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j3</text>
 
-            <path d="M115,137 Q160,175 215,183" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
-            <line x1="250" y1="137" x2="250" y2="170" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
-            <path d="M385,137 Q340,175 285,183" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <line x1="80" y1="137" x2="80" y2="160" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <line x1="250" y1="137" x2="250" y2="160" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <line x1="420" y1="137" x2="420" y2="160" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
 
-            <text x="100" y="158" fill="#7eb8f7" font-size="7">ex:nationalite</text>
-            <text x="270" y="155" fill="#7eb8f7" font-size="7">ex:nationalite</text>
-            <text x="390" y="158" fill="#7eb8f7" font-size="7">ex:nationalite</text>
+            <text x="50" y="150" fill="#7eb8f7" font-size="7" text-anchor="end">ex:nom</text>
+            <text x="280" y="150" fill="#7eb8f7" font-size="7" text-anchor="start">ex:nom</text>
+            <text x="450" y="150" fill="#7eb8f7" font-size="7" text-anchor="start">ex:nom</text>
 
-            <ellipse cx="250" cy="190" rx="44" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
-            <text x="250" y="195" fill="#4ade80" font-size="10" font-style="italic" text-anchor="middle">?pays</text>
+            <rect x="30" y="160" width="100" height="28" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="80" y="178" fill="#4ade80" font-size="8" text-anchor="middle">"Carlos Alcaraz"</text>
+
+            <rect x="200" y="160" width="100" height="28" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="250" y="178" fill="#4ade80" font-size="8" text-anchor="middle">"Rafael Nadal"</text>
+
+            <rect x="370" y="160" width="100" height="28" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="420" y="178" fill="#4ade80" font-size="8" text-anchor="middle">"Jannik Sinner"</text>
+
+            <path d="M115,137 Q127.5,132 140,155 Q140,191.5 250,228" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <path d="M230,137 Q207.5,132 185,155 Q185,191.5 250,228" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <path d="M385,137 Q372.5,132 360,155 Q360,191.5 250,228" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+
+            <text x="145" y="145" fill="#7eb8f7" font-size="7">ex:nationalite</text>
+            <text x="150" y="212" fill="#7eb8f7" font-size="7">ex:nationalite</text>
+            <text x="300" y="212" fill="#7eb8f7" font-size="7">ex:nationalite</text>
+
+            <ellipse cx="250" cy="250" rx="44" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
+            <text x="250" y="255" fill="#4ade80" font-size="10" font-style="italic" text-anchor="middle">?pays</text>
         </svg>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.6rem; text-align:center;">Toujours trois résultats : chaque joueur a bien une nationalité, mais le motif ne dit pas encore laquelle.</p>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.6rem; text-align:center;">Toujours trois résultats : chaque joueur a bien un nom et une nationalité, mais le motif ne dit pas encore laquelle.</p>
 </section>
 
 <section>
