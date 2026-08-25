@@ -405,12 +405,21 @@ ex:j3 a ex:Joueur ; ex:nom "Jannik Sinner"  ; ex:nationalite ex:pays2 .
 
 ex:pays1 a ex:Pays ; ex:nom "Espagne"@fr, "Spain"@en .
 ex:pays2 a ex:Pays ; ex:nom "Italie"@fr, "Italy"@en .</code></pre>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.6rem; text-align:center;">Voyons-le en trois étapes : d'abord filtrer par type, puis affiner en précisant la nationalité des joueurs.</p>
+</section>
+
+<section>
+    <h3>La question à résoudre</h3>
+    <div style="background:#0d1a2e; border-left:4px solid #4f8ef7; border-radius:0 6px 6px 0; padding:0.9rem 1.2rem; margin:0.6rem 0 1rem; font-size:0.9em; line-height:1.6; color:#c9d8f0; font-style:italic; text-align:center;">
+        "Afficher les noms des joueurs espagnols."
+    </div>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">On construit la réponse en trois motifs, un à la fois :</p>
+    <div class="kv-row"><span class="kv-label">Étape 1</span><span class="kv-body">D'abord, trouver tous les <strong>joueurs</strong> : filtrer par type.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Étape 2</span><span class="kv-body">Ensuite, ne garder que ceux dont la <strong>nationalité</strong> est connue : joindre un second motif.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Étape 3</span><span class="kv-body">Enfin, ne garder que ceux dont le pays s'appelle <strong style="color:#7eb8f7;">"Espagne"</strong> : filtrer par valeur.</span></div>
 </section>
 
 <section>
     <h3>Étape 1 : filtrer par type</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">"Quels sont tous les joueurs du graphe ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -455,7 +464,6 @@ SELECT ?x WHERE {
 
 <section>
     <h3>Étape 2 : joindre un second pattern</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">"Quels joueurs ont une nationalité connue, quelle qu'elle soit ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -504,7 +512,6 @@ SELECT ?x WHERE {
 
 <section>
     <h3>Étape 3 : filtrer par valeur</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">"Quels sont les joueurs espagnols ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
