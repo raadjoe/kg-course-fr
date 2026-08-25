@@ -634,7 +634,7 @@ SELECT ?x ?nom WHERE {
     <p style="color:#aaa;">Le même graphe, interrogé de plus en plus finement.</p>
 </section>
 
-<section>
+<section data-transition="none">
     <h3>Le graphe complet</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">C'est le graphe de 4.1 : trois joueurs, deux pays. On va le réutiliser tel quel et l'étendre au fil de ce chapitre.</p>
     <div style="width:100%; max-width:680px; margin:0.2rem auto 0;">
@@ -739,7 +739,7 @@ SELECT ?x ?nom WHERE {
     </div>
 </section>
 
-<section>
+<section data-transition="none">
     <h3>+ le classement ATP</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">En <strong style="color:#a78bfa;">violet</strong>, ce qui vient d'être ajouté. Un classement ATP est un simple nombre attaché au joueur, pas une ressource à part entière. <code>ex:j2</code> (Nadal) n'en a volontairement pas.</p>
     <div style="width:100%; max-width:780px; margin:0.2rem auto 0;">
@@ -854,7 +854,7 @@ SELECT ?x ?nom WHERE {
     </div>
 </section>
 
-<section>
+<section data-transition="none">
     <h3>+ le match</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Un match relie deux joueurs : ici la demi-finale Roland-Garros 2024 entre Alcaraz et Sinner. Comme pour les joueurs, son IRI (<code>ex:match_345</code>) est opaque : son nom lisible vit dans un triplet <code>ex:nom</code> séparé.</p>
     <div style="width:100%; max-width:760px; margin:0.2rem auto 0;">
@@ -982,7 +982,7 @@ SELECT ?x ?nom WHERE {
     </div>
 </section>
 
-<section>
+<section data-transition="none">
     <h3>+ le stade</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Le match a aussi eu lieu quelque part. Même principe : <code>ex:court_812</code> est un IRI opaque, son nom "Court Philippe-Chatrier" vit dans son propre triplet <code>ex:nom</code>.</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
