@@ -1986,6 +1986,37 @@ GROUP BY ?natNom</code></pre>
     </div>
 </section>
 
+<section>
+    <h3><strong style="color:#7eb8f7;">HAVING</strong> : filtrer après regroupement</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Ne garder que les nationalités avec plus d'un joueur : <code>FILTER</code> filtrerait des lignes avant le groupement, <code>HAVING</code> filtre des groupes après.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?natNom (COUNT(?joueur) AS ?nb) WHERE {
+  ?joueur ex:nationalite ?pays .
+  ?pays ex:nom ?natNom .
+  FILTER(LANG(?natNom) = "fr")
+}
+GROUP BY ?natNom
+HAVING(COUNT(?joueur) &gt; 1)</code></pre>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
+        <code>"Espagne"@fr → 2</code>
+    </div>
+    <p class="code-note">→ "Italie"@fr n'a qu'un seul joueur : son groupe est écarté par <code>HAVING</code>, pas affiché du tout.</p>
+</section>
+
+<section>
+    <h3><strong style="color:#7eb8f7;">BIND</strong> avant un <strong style="color:#7eb8f7;">GROUP BY</strong></h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;"><code>BIND(expression AS ?variable)</code> calcule une valeur et lui donne un nom : ici, une tranche de classement calculée avant de grouper dessus.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?tranche (COUNT(?joueur) AS ?nb) WHERE {
+  ?joueur ex:classementATP ?rang .
+  BIND(IF(?rang &lt;= 2, "Top 2 mondial", "Au-delà du top 2") AS ?tranche)
+}
+GROUP BY ?tranche</code></pre>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
+        <code>"Top 2 mondial" → 1</code> &nbsp;·&nbsp; <code>"Au-delà du top 2" → 1</code>
+    </div>
+    <p class="code-note">→ <code>BIND</code> crée <code>?tranche</code> avant le <code>GROUP BY</code> : c'est cette nouvelle variable qui sert de clé de regroupement.</p>
+</section>
 
 <section>
     <h3>Les autres agrégats</h3>
@@ -1996,6 +2027,55 @@ GROUP BY ?natNom</code></pre>
     <pre><code class="language-sparql">SELECT (AVG(?rang) AS ?rangMoyen) WHERE {
   ?joueur ex:classementATP ?rang .
 }</code></pre>
+</section>
+
+<section>
+    <h3>Sous-requête : un <code>SELECT</code> imbriqué</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Les joueurs mieux classés que la moyenne : la sous-requête calcule d'abord cette moyenne, la requête principale la réutilise.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom WHERE {
+  ?joueur ex:nom ?nom ; ex:classementATP ?rang .
+  {
+    SELECT (AVG(?r) AS ?moyenne) WHERE {
+      ?j ex:classementATP ?r .
+    }
+  }
+  FILTER(?rang &lt; ?moyenne)
+}</code></pre>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
+        <code>"Carlos Alcaraz"</code>
+    </div>
+    <p class="code-note">→ La moyenne des classements (2 et 3) vaut 2.5 : seul Alcaraz (2) passe sous ce seuil.</p>
+</section>
+
+<section>
+    <h3><strong style="color:#7eb8f7;">VALUES</strong> : des données à la volée</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Fournir directement un jeu de valeurs dans la requête, sans les tirer du graphe : ici, deux noms à vérifier.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom WHERE {
+  VALUES ?nom { "Carlos Alcaraz" "Novak Djokovic" }
+  ?joueur ex:nom ?nom .
+}</code></pre>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
+        <code>"Carlos Alcaraz"</code>
+    </div>
+    <p class="code-note">→ <code>VALUES</code> propose deux noms, mais "Novak Djokovic" n'existe pas dans le graphe : seul un vrai match est renvoyé.</p>
+</section>
+
+<section>
+    <h3><strong style="color:#7eb8f7;">OFFSET</strong> : sauter des résultats</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Le deuxième joueur au classement, pas le premier : <code>ORDER BY</code> trie, <code>OFFSET</code> saute une ligne, <code>LIMIT</code> n'en garde qu'une.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom WHERE {
+  ?joueur ex:nom ?nom ; ex:classementATP ?rang .
+}
+ORDER BY ?rang
+LIMIT 1
+OFFSET 1</code></pre>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
+        <code>"Jannik Sinner"</code>
+    </div>
+    <p class="code-note">→ Alcaraz arrive en tête du tri, mais <code>OFFSET 1</code> le saute : <code>LIMIT 1</code> ne garde que la ligne suivante.</p>
 </section>
 
 <section>
@@ -2021,6 +2101,20 @@ WHERE {
         <code>false</code>
     </div>
     <p class="code-note">→ Un booléen, pas une table : idéal pour une simple vérification.</p>
+</section>
+
+<section>
+    <h3><strong style="color:#7eb8f7;">DESCRIBE</strong> en pratique</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">La quatrième forme vue en 4.1 : demander tout ce que le graphe sait sur une ressource, sans écrire le moindre motif.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">DESCRIBE ex:j1</code></pre>
+    <p style="font-size:0.82em; color:#eef0ff; margin-top:0.6rem; text-align:center;">Réponse typique, sous forme de graphe :</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:j1 a ex:Joueur ;
+      ex:nom "Carlos Alcaraz" ;
+      ex:nationalite ex:pays1 ;
+      ex:classementATP 2 .</code></pre>
+    <p class="code-note">→ Un nouveau graphe RDF, comme <code>CONSTRUCT</code>, mais son contenu dépend du triplestore : la requête ne précise pas elle-même quels triplets inclure.</p>
 </section>
 
 
@@ -2096,32 +2190,6 @@ SELECT ?nom (IF(BOUND(?rang), ?rang, "non classé") AS ?rangAffiche) WHERE {
             <tr><td>"Carlos Alcaraz"</td><td>2</td></tr>
             <tr><td>"Rafael Nadal"</td><td>"non classé"</td></tr>
             <tr><td>"Jannik Sinner"</td><td>3</td></tr>
-        </tbody>
-    </table>
-</section>
-
-<section>
-    <h3><strong style="color:#7eb8f7;">BIND</strong> : nommer une expression</h3>
-    <div class="kv-row"><span class="kv-label">Syntaxe</span><span class="kv-body"><code>BIND(expression AS ?variable)</code></span></div>
-    <div class="kv-row fragment"><span class="kv-label">Effet</span><span class="kv-body">Calcule une expression, opérateur ou fonction, et l'attache au résultat sous un nouveau nom de variable.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Différence avec FILTER</span><span class="kv-body"><code>FILTER</code> teste une condition et élimine des lignes. <code>BIND</code> ne filtre rien : il ajoute une colonne calculée.</span></div>
-</section>
-
-<section>
-    <h3>Exemple : <code>BIND</code></h3>
-    <span class="code-badge">SPARQL</span>
-    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
-
-SELECT ?titre WHERE {
-  ?match ex:nom ?nomMatch ; ex:lieu ?stade .
-  ?stade ex:nom ?nomStade .
-  BIND(CONCAT(?nomMatch, " (", ?nomStade, ")") AS ?titre)
-}</code></pre>
-    <p class="code-note">→ <code>BIND</code> attache le résultat de <code>CONCAT</code> à une nouvelle variable <code>?titre</code>, prête à être affichée.</p>
-    <table class="fragment rdf-table rdf-table-sm" style="max-width:520px; margin:0.6rem auto 0; font-size:0.6em;">
-        <thead><tr><th>?titre</th></tr></thead>
-        <tbody>
-            <tr><td>"Demi-finale Roland-Garros 2024 (Court Philippe-Chatrier)"</td></tr>
         </tbody>
     </table>
 </section>
