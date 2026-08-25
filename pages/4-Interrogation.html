@@ -226,7 +226,8 @@ WHERE nationalite-fr = 'Espagne';</code></pre>
             <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.85em;">SPARQL</p>
             <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">SELECT ?nom
 WHERE {
-  ?joueur ex:nom ?nom ;
+  ?joueur a ex:Joueur ;
+          ex:nom ?nom ;
           ex:nationalite "Espagne"@fr .
 }</code></pre>
         </div>
@@ -383,9 +384,27 @@ ex:pays2 a ex:Country ; ex:nom "Italie"@fr, "Italy"@en .</code></pre>
 </section>
 
 <section>
-    <h3>Le principe : le pattern matching</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Une requête SPARQL est elle-même un petit graphe, avec des trous : <strong>les variables</strong>. On cherche toutes les façons de le faire correspondre au graphe de données.</p>
-    <p style="font-size:0.78em; color:#aaa;">Voyons-le en trois étapes sur notre graphe : d'abord filtrer par type, puis affiner en précisant la nationalité des joueurs.</p>
+    <h3>Le motif de triplet</h3>
+    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Un <strong style="color:#7eb8f7;">motif de triplet</strong> (<em>triple pattern</em>) est un triplet où n'importe quelle position, sujet, prédicat ou objet, peut être remplacée par une <strong>variable</strong> préfixée par <code>?</code>.</p>
+    <div class="two-col" style="font-size:0.8em;">
+        <div class="box">
+            <p style="color:#aaa; margin:0 0 0.4rem 0; font-size:0.85em;">Un triplet concret</p>
+            <pre style="margin:0; font-size:0.85em;"><code class="language-turtle">ex:j1 a ex:Joueur .</code></pre>
+        </div>
+        <div class="box box-blue fragment">
+            <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.85em;">Un motif de triplet</p>
+            <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">?x a ex:Joueur .</code></pre>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.7rem; text-align:center;">On cherche toutes les valeurs de <code>?x</code> qui font de ce triplet une vérité du graphe.</p>
+</section>
+
+<section>
+    <h3>Le motif de graphe</h3>
+    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Le <code>WHERE</code> peut contenir <strong>plusieurs</strong> motifs de triplet. Ensemble, ils forment un <strong style="color:#7eb8f7;">motif de graphe</strong> (<em>graph pattern</em>) : un petit graphe à trous, que l'on superpose au graphe de données.</p>
+    <div class="kv-row"><span class="kv-label">Un motif</span><span class="kv-body">Une ligne de triplet avec au moins une variable, comme <code>?x a ex:Joueur .</code></span></div>
+    <div class="kv-row fragment"><span class="kv-label">Plusieurs motifs</span><span class="kv-body">Une <strong>jointure implicite</strong> : deux motifs qui partagent une variable se joignent automatiquement, sans <code>JOIN</code> à écrire.</span></div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.6rem; text-align:center;">Voyons-le en trois étapes sur notre graphe : d'abord filtrer par type, puis affiner en précisant la nationalité des joueurs.</p>
 </section>
 
 <section>
@@ -570,10 +589,10 @@ SELECT ?x ?nom WHERE {
 
 <section>
     <h3>Ce que vous savez déjà faire</h3>
-    <div class="kv-row"><span class="kv-label">Un pattern</span><span class="kv-body">Une ligne de triplet avec au moins une variable, comme <code>?x a ex:Joueur .</code></span></div>
-    <div class="kv-row fragment"><span class="kv-label">Plusieurs patterns</span><span class="kv-body">Chacun ajoute une condition : le résultat ne peut que rétrécir.</span></div>
+    <div class="kv-row"><span class="kv-label">Motif de triplet</span><span class="kv-body">Un triplet avec au moins une variable, comme <code>?x a ex:Joueur .</code></span></div>
+    <div class="kv-row fragment"><span class="kv-label">Motif de graphe</span><span class="kv-body">Plusieurs motifs de triplet ensemble, joints par leurs variables partagées : chacun ajoute une condition, le résultat ne peut que rétrécir.</span></div>
     <div class="kv-row fragment"><span class="kv-label">Une vraie requête</span><span class="kv-body"><code>PREFIX</code>, <code>SELECT</code>, <code>WHERE</code> : la structure que toute requête SPARQL partage.</span></div>
-    <p class="fragment" style="font-size:0.82em; color:#eef0ff; margin-top:1rem; text-align:center;">Ce petit graphe était volontairement abstrait, pour se concentrer sur le mécanisme. En 4.2, nous appliquons exactement les mêmes principes à un graphe réel : Roland-Garros 2024, avec deux classes de plus, pour filtrer, joindre et trier.</p>
+    <p class="fragment" style="font-size:0.82em; color:#eef0ff; margin-top:1rem; text-align:center;">Ce petit graphe était volontairement abstrait, pour se concentrer sur le mécanisme. En 4.2, nous appliquons exactement les mêmes motifs à ce même graphe, étendu avec un match et un stade, pour filtrer, joindre et trier.</p>
 </section>
 
 
@@ -588,160 +607,421 @@ SELECT ?x ?nom WHERE {
 
 <section>
     <h3>Le graphe complet</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Le même graphe qu'en 4.1, étendu avec deux nouvelles classes : <code>ex:Match</code> et <code>ex:Stade</code>. Toutes les requêtes suivantes interrogent ce même graphe.</p>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Une extension honnête du graphe de 4.1 : mêmes <code>ex:j1</code>/<code>ex:j2</code>/<code>ex:j3</code>, mêmes <code>ex:pays1</code>/<code>ex:pays2</code>, avec ce qui est nouveau : <code>ex:Match</code>, <code>ex:Stade</code>, <code>ex:classementATP</code>.</p>
     <span class="code-badge">Turtle</span>
-    <pre style="font-size:0.56em;"><code class="language-turtle">ex:alcaraz a ex:Joueur ; ex:nom "Carlos Alcaraz" ; ex:nationalite "Espagne"@fr, "Spain"@en ; ex:classementATP 2 .
-ex:nadal   a ex:Joueur ; ex:nom "Rafael Nadal"    ; ex:nationalite "Espagne"@fr, "Spain"@en .
-ex:sinner  a ex:Joueur ; ex:nom "Jannik Sinner"   ; ex:nationalite "Italie"@fr, "Italy"@en ; ex:classementATP 3 .
+    <pre style="font-size:0.55em;"><code class="language-turtle">ex:j1 a ex:Joueur ; ex:nom "Carlos Alcaraz" ; ex:nationalite ex:pays1 ; ex:classementATP 2 .
+ex:j2 a ex:Joueur ; ex:nom "Rafael Nadal"   ; ex:nationalite ex:pays1 .
+ex:j3 a ex:Joueur ; ex:nom "Jannik Sinner"  ; ex:nationalite ex:pays2 ; ex:classementATP 3 .
+
+ex:pays1 a ex:Country ; ex:nom "Espagne"@fr, "Spain"@en .
+ex:pays2 a ex:Country ; ex:nom "Italie"@fr, "Italy"@en .
 
 ex:court_chatrier a ex:Stade ; ex:nom "Court Philippe-Chatrier" .
 
 ex:rg2024_demi1 a ex:Match ; ex:tour "Demi-finale" ;
-    ex:participantA ex:alcaraz ; ex:participantB ex:sinner ;
-    ex:vainqueur ex:alcaraz ; ex:lieu ex:court_chatrier .</code></pre>
-    <p class="code-note">→ Remarquez : <code>ex:nadal</code> n'a pas de <code>ex:classementATP</code>. Un graphe réel est rarement complet.</p>
+    ex:participantA ex:j1 ; ex:participantB ex:j3 ;
+    ex:vainqueur ex:j1 ; ex:lieu ex:court_chatrier .</code></pre>
+    <p class="code-note">→ Remarquez : <code>ex:j2</code> (Nadal) n'a pas de <code>ex:classementATP</code> et n'apparaît dans aucun match. Un graphe réel est rarement complet.</p>
 </section>
 
 <section>
     <h3>Le même graphe, en schéma</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Trois classes, désormais réellement connectées entre elles par le match.</p>
-    <div style="width:100%; max-width:600px; margin:0.2rem auto 0;">
-        <svg viewBox="0 0 600 260" style="width:100%; height:auto;">
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Trois classes, désormais réellement connectées entre elles par le match. Ce schéma revient, recolorié, sur les slides suivantes.</p>
+    <div style="width:100%; max-width:480px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 520 225" style="width:100%; height:auto;">
             <defs>
-                <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <marker id="arrowSchemaGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
                 </marker>
-                <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <marker id="arrowSchemaMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#3d4168"/>
+                </marker>
+                <marker id="arrowSchemaAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
                 </marker>
             </defs>
 
-            <line x1="215" y1="145" x2="90" y2="62" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreen)"/>
-            <line x1="285" y1="145" x2="410" y2="62" stroke="#7eb8f7" stroke-width="1.3" marker-end="url(#arrowBlue)"/>
-            <line x1="305" y1="166" x2="375" y2="166" stroke="#7eb8f7" stroke-width="1.3" marker-end="url(#arrowBlue)"/>
+            <path d="M115,60 Q170,90 215,112" fill="none" stroke="#7eb8f7" stroke-width="1.5" marker-end="url(#arrowSchemaAccent)" opacity="1"/>
+            <path d="M95,64 Q150,105 210,120" fill="none" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowSchemaGreen)" opacity="1"/>
+            <path d="M405,60 Q350,90 305,112" fill="none" stroke="#7eb8f7" stroke-width="1.5" marker-end="url(#arrowSchemaAccent)" opacity="1"/>
+            <line x1="260" y1="150" x2="260" y2="163" stroke="#7eb8f7" stroke-width="1.5" marker-end="url(#arrowSchemaAccent)" opacity="1"/>
 
-            <ellipse cx="90" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
-            <text x="90" y="45" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Alcaraz</text>
-            <text x="90" y="76" fill="#6b7099" font-size="8" text-anchor="middle">Espagne</text>
-            <text x="90" y="87" fill="#6b7099" font-size="8" text-anchor="middle">#2</text>
+            <ellipse cx="85" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5" opacity="1"/>
+            <text x="85" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j1</text>
+            <text x="85" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Espagne · #2</text>
 
-            <ellipse cx="250" cy="40" rx="44" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" stroke-dasharray="3,3"/>
-            <text x="250" y="43" fill="#aaa" font-size="11" font-weight="bold" text-anchor="middle">Nadal</text>
-            <text x="250" y="55" fill="#6b7099" font-size="7" text-anchor="middle">hors de ce match</text>
+            <ellipse cx="260" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5" opacity="1"/>
+            <text x="260" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j2</text>
+            <text x="260" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Espagne</text>
 
-            <ellipse cx="410" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5"/>
-            <text x="410" y="45" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Sinner</text>
-            <text x="410" y="76" fill="#6b7099" font-size="8" text-anchor="middle">Italie</text>
-            <text x="410" y="87" fill="#6b7099" font-size="8" text-anchor="middle">#3</text>
+            <ellipse cx="435" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.5" opacity="1"/>
+            <text x="435" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j3</text>
+            <text x="435" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Italie · #3</text>
 
-            <rect x="195" y="145" width="110" height="42" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="250" y="163" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace">rg2024_demi1</text>
-            <text x="250" y="177" fill="#7eb8f7" font-size="10" font-weight="bold" text-anchor="middle">Demi-finale</text>
+            <rect x="200" y="110" width="120" height="40" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5" opacity="1"/>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="1">rg2024_demi1</text>
+            <text x="260" y="142" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" opacity="1">Demi-finale</text>
 
-            <ellipse cx="460" cy="166" rx="85" ry="30" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="460" y="162" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle">Court</text>
-            <text x="460" y="176" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle">Philippe-Chatrier</text>
-
-            <line x1="20" y1="232" x2="42" y2="232" stroke="#2ecc71" stroke-width="1.5"/>
-            <text x="48" y="235" fill="#2ecc71" font-size="9">ex:vainqueur</text>
-            <line x1="180" y1="232" x2="202" y2="232" stroke="#7eb8f7" stroke-width="1.3"/>
-            <text x="208" y="235" fill="#7eb8f7" font-size="9">ex:participantA / ex:participantB / ex:lieu</text>
+            <ellipse cx="260" cy="185" rx="95" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5" opacity="1"/>
+            <text x="260" y="189" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" opacity="1">Court Philippe-Chatrier</text>
         </svg>
     </div>
+    <p style="font-size:0.72em; color:#aaa; margin-top:0.6rem; text-align:center;"><span style="color:#2ecc71;">■</span> <code>ex:vainqueur</code> &nbsp; <span style="color:#7eb8f7;">■</span> <code>ex:participantA</code> / <code>ex:participantB</code> / <code>ex:lieu</code></p>
 </section>
 
 <section>
-    <h3>Un pattern = une ligne de la clause WHERE</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Un pattern est un triplet où n'importe quelle position, sujet, prédicat ou objet, peut être remplacée par une variable (préfixée par <code>?</code>).</p>
+    <h3>Une jointure sur le graphe étendu</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">Le même mécanisme qu'en 4.1, sur des données réelles : <code>?match</code> relie Joueur, Match et Stade.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">?joueur ex:nationalite "Italie"@fr .</code></pre>
-    <p class="code-note">→ Trouve toutes les valeurs de <code>?joueur</code> reliées à <code>"Italie"@fr</code> par <code>ex:nationalite</code>.</p>
-</section>
-
-<section>
-    <h3>Plusieurs patterns : une jointure implicite</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Deux patterns qui partagent la même variable se joignent automatiquement, sans <code>JOIN ON</code> à écrire. Ici la jointure traverse trois classes : Joueur, Match, Stade.</p>
-    <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?nomStade WHERE {
-  ?match ex:participantA ex:alcaraz ;
+    <pre style="margin-bottom:0.4rem;"><code class="language-sparql">SELECT ?nomStade WHERE {
+  ?match ex:participantA ex:j1 ;
          ex:lieu ?stade .
   ?stade ex:nom ?nomStade .
 }</code></pre>
-    <p class="code-note">→ <code>?match</code> relie le premier pattern (trouver le match d'Alcaraz) au deuxième (son lieu), <code>?stade</code> relie le deuxième au troisième (son nom).</p>
+    <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 520 225" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowJoinGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowJoinMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#3d4168"/>
+                </marker>
+                <marker id="arrowJoinAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+            </defs>
+
+            <path d="M115,60 Q170,90 215,112" fill="none" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowJoinGreen)" opacity="1"/>
+            <path d="M95,64 Q150,105 210,120" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowJoinMuted)" opacity="0.4"/>
+            <path d="M405,60 Q350,90 305,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowJoinMuted)" opacity="0.45"/>
+            <line x1="260" y1="150" x2="260" y2="163" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowJoinGreen)" opacity="1"/>
+
+            <ellipse cx="85" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="85" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j1</text>
+            <text x="85" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Espagne · #2</text>
+
+            <ellipse cx="260" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.5"/>
+            <text x="260" y="45" fill="#6b7099" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.55">ex:j2</text>
+            <text x="260" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Espagne</text>
+
+            <ellipse cx="435" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.5"/>
+            <text x="435" y="45" fill="#6b7099" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.55">ex:j3</text>
+            <text x="435" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Italie · #3</text>
+
+            <rect x="200" y="110" width="120" height="40" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="1">rg2024_demi1</text>
+            <text x="260" y="142" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" opacity="1">Demi-finale</text>
+
+            <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="260" y="189" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" opacity="1">Court Philippe-Chatrier</text>
+        </svg>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">"Court Philippe-Chatrier"</p>
 </section>
 
 <section>
     <h3>À vous : devinez le résultat</h3>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?nomStade WHERE {
-  ?match ex:participantB ex:sinner ;
+    <pre style="margin-bottom:0.4rem;"><code class="language-sparql">SELECT ?nomStade WHERE {
+  ?match ex:participantB ex:j3 ;
          ex:lieu ?stade .
   ?stade ex:nom ?nomStade .
 }</code></pre>
-    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.7rem;">Même jointure, mais depuis Sinner plutôt qu'Alcaraz. Quel résultat ?</p>
-    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
-        <code>"Court Philippe-Chatrier"</code>
+    <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 520 225" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowAvousGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowAvousMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#3d4168"/>
+                </marker>
+                <marker id="arrowAvousAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+            </defs>
+
+            <path d="M115,60 Q170,90 215,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowAvousMuted)" opacity="0.45"/>
+            <path d="M95,64 Q150,105 210,120" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowAvousMuted)" opacity="0.4"/>
+            <path d="M405,60 Q350,90 305,112" fill="none" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowAvousGreen)" opacity="1"/>
+            <line x1="260" y1="150" x2="260" y2="163" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowAvousGreen)" opacity="1"/>
+
+            <ellipse cx="85" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.5"/>
+            <text x="85" y="45" fill="#6b7099" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.55">ex:j1</text>
+            <text x="85" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Espagne · #2</text>
+
+            <ellipse cx="260" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.5"/>
+            <text x="260" y="45" fill="#6b7099" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.55">ex:j2</text>
+            <text x="260" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Espagne</text>
+
+            <ellipse cx="435" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="435" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j3</text>
+            <text x="435" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Italie · #3</text>
+
+            <rect x="200" y="110" width="120" height="40" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="1">rg2024_demi1</text>
+            <text x="260" y="142" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" opacity="1">Demi-finale</text>
+
+            <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="260" y="189" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" opacity="1">Court Philippe-Chatrier</text>
+        </svg>
     </div>
-    <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.6rem; text-align:center;">Le même match, vu par son autre participant : la jointure aboutit au même stade.</p>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">Même stade : le même match, vu par son autre participant.</p>
 </section>
 
 <section>
     <h3>FILTER : une condition sur une variable</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Un pattern seul ne peut exprimer que de l'égalité. <code>FILTER</code> ajoute des conditions numériques, textuelles ou logiques.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">Un motif seul ne peut exprimer que de l'égalité. <code>FILTER</code> ajoute des conditions numériques, textuelles ou logiques.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?nom WHERE {
+    <pre style="margin-bottom:0.4rem;"><code class="language-sparql">SELECT ?nom WHERE {
   ?joueur ex:nom ?nom ;
           ex:classementATP ?rang .
   FILTER(?rang &lt; 5)
 }</code></pre>
-    <p class="code-note">→ Ne garde que les joueurs classés dans les 5 premiers mondiaux.</p>
+    <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 520 225" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowFilterGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowFilterMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#3d4168"/>
+                </marker>
+                <marker id="arrowFilterAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+            </defs>
+
+            <path d="M115,60 Q170,90 215,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowFilterMuted)" opacity="0.45"/>
+            <path d="M95,64 Q150,105 210,120" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowFilterMuted)" opacity="0.4"/>
+            <path d="M405,60 Q350,90 305,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowFilterMuted)" opacity="0.45"/>
+            <line x1="260" y1="150" x2="260" y2="163" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowFilterMuted)" opacity="0.45"/>
+
+            <ellipse cx="85" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="85" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j1</text>
+            <text x="85" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Espagne · #2</text>
+
+            <ellipse cx="260" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.5"/>
+            <text x="260" y="45" fill="#6b7099" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.55">ex:j2</text>
+            <text x="260" y="70" fill="#6b7099" font-size="8" text-anchor="middle">pas de classement</text>
+
+            <ellipse cx="435" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="435" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j3</text>
+            <text x="435" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Italie · #3</text>
+
+            <rect x="200" y="110" width="120" height="40" rx="6" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">rg2024_demi1</text>
+            <text x="260" y="142" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Demi-finale</text>
+
+            <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="189" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Court Philippe-Chatrier</text>
+        </svg>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">Alcaraz et Sinner : les deux joueurs classés dans les 5 premiers mondiaux.</p>
 </section>
 
 <section>
     <h3>FILTER et les étiquettes de langue</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">La nationalité existe en deux langues dans le graphe. <code>LANG()</code> récupère l'étiquette d'un littéral pour la comparer.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">La nationalité pointe vers un pays (4.1) : pour comparer une langue, il faut joindre jusqu'à son nom, comme à l'étape 3 de 4.1.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?nom ?nat WHERE {
-  ?joueur ex:nom ?nom ;
-          ex:nationalite ?nat .
-  FILTER(LANG(?nat) = "en")
+    <pre style="margin-bottom:0.4rem;"><code class="language-sparql">SELECT ?nom ?natNom WHERE {
+  ?joueur ex:nom ?nom ; ex:nationalite ?pays .
+  ?pays ex:nom ?natNom .
+  FILTER(LANG(?natNom) = "en")
 }</code></pre>
-    <p class="code-note">→ Ne garde que la forme anglaise : "Spain" (deux fois), "Italy".</p>
+    <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 520 225" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowLangGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowLangMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#3d4168"/>
+                </marker>
+                <marker id="arrowLangAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+            </defs>
+
+            <path d="M115,60 Q170,90 215,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowLangMuted)" opacity="0.45"/>
+            <path d="M95,64 Q150,105 210,120" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowLangMuted)" opacity="0.4"/>
+            <path d="M405,60 Q350,90 305,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowLangMuted)" opacity="0.45"/>
+            <line x1="260" y1="150" x2="260" y2="163" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowLangMuted)" opacity="0.45"/>
+
+            <ellipse cx="85" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="85" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j1</text>
+            <text x="85" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Spain</text>
+
+            <ellipse cx="260" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="260" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j2</text>
+            <text x="260" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Spain</text>
+
+            <ellipse cx="435" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="435" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j3</text>
+            <text x="435" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Italy</text>
+
+            <rect x="200" y="110" width="120" height="40" rx="6" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">rg2024_demi1</text>
+            <text x="260" y="142" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Demi-finale</text>
+
+            <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="189" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Court Philippe-Chatrier</text>
+        </svg>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">La forme anglaise pour chacun : "Spain", "Spain", "Italy".</p>
 </section>
 
 <section>
     <h3>OPTIONAL : ne pas perdre une ligne</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;"><code>ex:nadal</code> n'a pas de <code>ex:classementATP</code>. Un pattern normal l'exclurait entièrement du résultat.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;"><code>ex:j2</code> n'a pas de <code>ex:classementATP</code>. Un motif normal l'exclurait entièrement du résultat.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?nom ?rang WHERE {
+    <pre style="margin-bottom:0.4rem;"><code class="language-sparql">SELECT ?nom ?rang WHERE {
   ?joueur ex:nom ?nom .
   OPTIONAL { ?joueur ex:classementATP ?rang . }
 }</code></pre>
-    <p class="code-note">→ Rafael Nadal apparaît quand même dans le résultat, avec <code>?rang</code> non liée.</p>
+    <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 520 225" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowOptGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowOptMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#3d4168"/>
+                </marker>
+                <marker id="arrowOptAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+            </defs>
+
+            <path d="M115,60 Q170,90 215,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOptMuted)" opacity="0.45"/>
+            <path d="M95,64 Q150,105 210,120" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowOptMuted)" opacity="0.4"/>
+            <path d="M405,60 Q350,90 305,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOptMuted)" opacity="0.45"/>
+            <line x1="260" y1="150" x2="260" y2="163" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOptMuted)" opacity="0.45"/>
+
+            <ellipse cx="85" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="85" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j1</text>
+            <text x="85" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Espagne · #2</text>
+
+            <ellipse cx="260" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="260" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j2</text>
+            <text x="260" y="70" fill="#4ade80" font-size="8" text-anchor="middle">? (non lié)</text>
+
+            <ellipse cx="435" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="435" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j3</text>
+            <text x="435" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Italie · #3</text>
+
+            <rect x="200" y="110" width="120" height="40" rx="6" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">rg2024_demi1</text>
+            <text x="260" y="142" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Demi-finale</text>
+
+            <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="189" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Court Philippe-Chatrier</text>
+        </svg>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">Rafael Nadal apparaît quand même, avec <code>?rang</code> non liée.</p>
 </section>
 
 <section>
     <h3>Le piège : filtrer une variable optionnelle</h3>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?nom ?rang WHERE {
+    <pre style="margin-bottom:0.4rem;"><code class="language-sparql">SELECT ?nom ?rang WHERE {
   ?joueur ex:nom ?nom .
   OPTIONAL { ?joueur ex:classementATP ?rang . }
   FILTER(?rang &lt; 10)
 }</code></pre>
-    <p class="code-note-neg">↛ Pour Rafael Nadal, <code>?rang</code> n'est pas liée : le <code>FILTER</code> échoue silencieusement et la ligne disparaît, comme si <code>OPTIONAL</code> n'avait servi à rien.</p>
+    <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 520 225" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowPiegeGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowPiegeMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#3d4168"/>
+                </marker>
+                <marker id="arrowPiegeAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+            </defs>
+
+            <path d="M115,60 Q170,90 215,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowPiegeMuted)" opacity="0.45"/>
+            <path d="M95,64 Q150,105 210,120" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowPiegeMuted)" opacity="0.4"/>
+            <path d="M405,60 Q350,90 305,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowPiegeMuted)" opacity="0.45"/>
+            <line x1="260" y1="150" x2="260" y2="163" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowPiegeMuted)" opacity="0.45"/>
+
+            <ellipse cx="85" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="85" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j1</text>
+            <text x="85" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Espagne · #2</text>
+
+            <ellipse cx="260" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.5"/>
+            <text x="260" y="45" fill="#6b7099" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.55">ex:j2</text>
+            <text x="260" y="70" fill="#6b7099" font-size="8" text-anchor="middle">exclu par FILTER</text>
+
+            <ellipse cx="435" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="435" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j3</text>
+            <text x="435" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Italie · #3</text>
+
+            <rect x="200" y="110" width="120" height="40" rx="6" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">rg2024_demi1</text>
+            <text x="260" y="142" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Demi-finale</text>
+
+            <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="189" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Court Philippe-Chatrier</text>
+        </svg>
+    </div>
+    <p class="fragment code-note-neg" style="text-align:center; margin-top:0.5rem;">↛ Pour Nadal, <code>?rang</code> n'est pas liée : <code>FILTER</code> échoue silencieusement et la ligne disparaît, comme si <code>OPTIONAL</code> n'avait servi à rien.</p>
 </section>
 
 <section>
     <h3>UNION : deux motifs alternatifs</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Trouver les joueurs présents dans le match, comme vainqueur ou comme adversaire.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">Trouver les joueurs présents dans le match, comme vainqueur ou comme adversaire.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?nom WHERE {
+    <pre style="margin-bottom:0.4rem;"><code class="language-sparql">SELECT ?nom WHERE {
   { ex:rg2024_demi1 ex:vainqueur ?j . }
   UNION
   { ex:rg2024_demi1 ex:participantB ?j . }
   ?j ex:nom ?nom .
 }</code></pre>
-    <p class="code-note">→ Résultat : Carlos Alcaraz (vainqueur) et Jannik Sinner (adversaire), sans doublon.</p>
+    <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 520 225" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowUnionGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowUnionMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#3d4168"/>
+                </marker>
+                <marker id="arrowUnionAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+            </defs>
+
+            <path d="M115,60 Q170,90 215,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowUnionMuted)" opacity="0.45"/>
+            <path d="M95,64 Q150,105 210,120" fill="none" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowUnionGreen)" opacity="1"/>
+            <path d="M405,60 Q350,90 305,112" fill="none" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowUnionGreen)" opacity="1"/>
+            <line x1="260" y1="150" x2="260" y2="163" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowUnionMuted)" opacity="0.45"/>
+
+            <ellipse cx="85" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="85" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j1</text>
+            <text x="85" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Espagne · #2</text>
+
+            <ellipse cx="260" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.5"/>
+            <text x="260" y="45" fill="#6b7099" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.55">ex:j2</text>
+            <text x="260" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Espagne</text>
+
+            <ellipse cx="435" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="435" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j3</text>
+            <text x="435" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Italie · #3</text>
+
+            <rect x="200" y="110" width="120" height="40" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="1">rg2024_demi1</text>
+            <text x="260" y="142" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" opacity="1">Demi-finale</text>
+
+            <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="189" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Court Philippe-Chatrier</text>
+        </svg>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">Carlos Alcaraz (vainqueur) et Jannik Sinner (adversaire), sans doublon.</p>
 </section>
 
 <section>
@@ -760,16 +1040,105 @@ ex:rg2024_demi1 a ex:Match ; ex:tour "Demi-finale" ;
 </section>
 
 <section>
-    <h3>ORDER BY et LIMIT</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Trier les joueurs classés par rang ATP croissant, ne garder que le premier.</p>
+    <h3>MINUS : exclure un motif</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">L'exact miroir de la slide OPTIONAL : au lieu de garder les joueurs sans classement, on exclut ceux qui en ont un.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?nom ?rang WHERE {
+    <pre style="margin-bottom:0.4rem;"><code class="language-sparql">SELECT ?nom WHERE {
+  ?joueur ex:nom ?nom .
+  MINUS { ?joueur ex:classementATP ?rang . }
+}</code></pre>
+    <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 520 225" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowMinusGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowMinusMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#3d4168"/>
+                </marker>
+                <marker id="arrowMinusAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+            </defs>
+
+            <path d="M115,60 Q170,90 215,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowMinusMuted)" opacity="0.45"/>
+            <path d="M95,64 Q150,105 210,120" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowMinusMuted)" opacity="0.4"/>
+            <path d="M405,60 Q350,90 305,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowMinusMuted)" opacity="0.45"/>
+            <line x1="260" y1="150" x2="260" y2="163" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowMinusMuted)" opacity="0.45"/>
+
+            <ellipse cx="85" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.5"/>
+            <text x="85" y="45" fill="#6b7099" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.55">ex:j1</text>
+            <text x="85" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Espagne · #2</text>
+
+            <ellipse cx="260" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="260" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j2</text>
+            <text x="260" y="70" fill="#4ade80" font-size="8" text-anchor="middle">pas de classement</text>
+
+            <ellipse cx="435" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.5"/>
+            <text x="435" y="45" fill="#6b7099" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.55">ex:j3</text>
+            <text x="435" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Italie · #3</text>
+
+            <rect x="200" y="110" width="120" height="40" rx="6" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">rg2024_demi1</text>
+            <text x="260" y="142" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Demi-finale</text>
+
+            <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="189" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Court Philippe-Chatrier</text>
+        </svg>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">Seul Rafael Nadal reste : le seul joueur sans classement ATP dans ce graphe.</p>
+</section>
+
+<section>
+    <h3>ORDER BY et LIMIT</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">Trier les joueurs classés par rang ATP croissant, ne garder que le premier.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.4rem;"><code class="language-sparql">SELECT ?nom ?rang WHERE {
   ?joueur ex:nom ?nom ;
           ex:classementATP ?rang .
 }
 ORDER BY ?rang
 LIMIT 1</code></pre>
-    <p class="code-note">→ Carlos Alcaraz (2) : le mieux classé des deux joueurs pour qui un classement est renseigné. Nadal, sans <code>classementATP</code>, n'entre même pas dans ce tri.</p>
+    <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
+        <svg viewBox="0 0 520 225" style="width:100%; height:auto;">
+            <defs>
+                <marker id="arrowOrderGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
+                </marker>
+                <marker id="arrowOrderMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#3d4168"/>
+                </marker>
+                <marker id="arrowOrderAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
+                </marker>
+            </defs>
+
+            <path d="M115,60 Q170,90 215,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOrderMuted)" opacity="0.45"/>
+            <path d="M95,64 Q150,105 210,120" fill="none" stroke="#3d4168" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowOrderMuted)" opacity="0.4"/>
+            <path d="M405,60 Q350,90 305,112" fill="none" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOrderMuted)" opacity="0.45"/>
+            <line x1="260" y1="150" x2="260" y2="163" stroke="#3d4168" stroke-width="1.5" marker-end="url(#arrowOrderMuted)" opacity="0.45"/>
+
+            <ellipse cx="85" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="85" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j1</text>
+            <text x="85" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Espagne · #2</text>
+
+            <ellipse cx="260" cy="40" rx="48" ry="22" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.5"/>
+            <text x="260" y="45" fill="#6b7099" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="0.55">ex:j2</text>
+            <text x="260" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Espagne</text>
+
+            <ellipse cx="435" cy="40" rx="48" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
+            <text x="435" y="45" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace" opacity="1">ex:j3</text>
+            <text x="435" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Italie · #3</text>
+
+            <rect x="200" y="110" width="120" height="40" rx="6" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">rg2024_demi1</text>
+            <text x="260" y="142" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Demi-finale</text>
+
+            <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
+            <text x="260" y="189" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Court Philippe-Chatrier</text>
+        </svg>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.5rem; text-align:center;">Carlos Alcaraz (2) : le mieux classé des deux joueurs pour qui un classement est renseigné.</p>
 </section>
 
 <section>
@@ -793,13 +1162,14 @@ LIMIT 1</code></pre>
 
 <section>
     <h3>COUNT et GROUP BY</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Compter les joueurs par nationalité. Il faut d'abord se limiter à une langue, sinon français et anglais formeraient des groupes séparés.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Compter les joueurs par nationalité. La nationalité pointe vers un pays (4.1) : il faut joindre jusqu'à son nom, puis se limiter à une langue, sinon français et anglais formeraient des groupes séparés.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?nat (COUNT(?joueur) AS ?nb) WHERE {
-  ?joueur ex:nationalite ?nat .
-  FILTER(LANG(?nat) = "fr")
+    <pre><code class="language-sparql">SELECT ?natNom (COUNT(?joueur) AS ?nb) WHERE {
+  ?joueur ex:nationalite ?pays .
+  ?pays ex:nom ?natNom .
+  FILTER(LANG(?natNom) = "fr")
 }
-GROUP BY ?nat</code></pre>
+GROUP BY ?natNom</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
         <code>"Espagne"@fr → 2</code> &nbsp;·&nbsp; <code>"Italie"@fr → 1</code>
     </div>
@@ -809,9 +1179,10 @@ GROUP BY ?nat</code></pre>
     <h3>DISTINCT : éliminer les doublons</h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Alcaraz et Nadal partagent la même nationalité. Sans <code>DISTINCT</code>, "Espagne"@fr sortirait deux fois.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT DISTINCT ?nat WHERE {
-  ?joueur ex:nationalite ?nat .
-  FILTER(LANG(?nat) = "fr")
+    <pre><code class="language-sparql">SELECT DISTINCT ?natNom WHERE {
+  ?joueur ex:nationalite ?pays .
+  ?pays ex:nom ?natNom .
+  FILTER(LANG(?natNom) = "fr")
 }</code></pre>
     <p class="code-note">→ Deux résultats seulement : "Espagne"@fr et "Italie"@fr, malgré trois joueurs.</p>
 </section>
@@ -834,8 +1205,8 @@ GROUP BY ?nat</code></pre>
     <pre><code class="language-sparql">CONSTRUCT { ?vainqueur ex:aBattu ?perdant . }
 WHERE {
   ?match ex:vainqueur ?vainqueur ;
-         ex:participantA ?j1 ; ex:participantB ?j2 .
-  BIND(IF(?vainqueur = ?j1, ?j2, ?j1) AS ?perdant)
+         ex:participantA ?p1 ; ex:participantB ?p2 .
+  BIND(IF(?vainqueur = ?p1, ?p2, ?p1) AS ?perdant)
 }</code></pre>
     <p class="code-note">→ <code>BIND</code> calcule "l'autre joueur". Le résultat est un nouveau graphe RDF, pas une table.</p>
 </section>
@@ -845,7 +1216,7 @@ WHERE {
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">"Rafael Nadal a-t-il un classement ATP renseigné dans notre graphe ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre><code class="language-sparql">ASK {
-  ex:nadal ex:classementATP ?rang .
+  ex:j2 ex:classementATP ?rang .
 }</code></pre>
     <div class="fragment box" style="text-align:center; margin-top:0.6rem; border-left:4px solid #e05c5c;">
         <code>false</code>
@@ -897,7 +1268,7 @@ WHERE {
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">La clause <code>SERVICE</code> délègue une partie du motif à un endpoint distant, et combine le résultat avec le reste de la requête locale.</p>
     <span class="code-badge">SPARQL</span>
     <pre><code class="language-sparql">SELECT ?nom ?paysWikidata WHERE {
-  ex:alcaraz ex:nom ?nom .
+  ex:j1 ex:nom ?nom .
   SERVICE &lt;https://query.wikidata.org/sparql&gt; {
     wd:Q85518537 wdt:P27 ?paysWikidata .
   }
