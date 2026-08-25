@@ -646,6 +646,9 @@ SELECT ?x ?nom WHERE {
                 <marker id="arrowMutedGraph1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#6b7099"/>
                 </marker>
+                <marker id="arrowVioletGraph1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#a78bfa"/>
+                </marker>
             </defs>
             <!-- ex:Joueur, top, centre 350 -->
             <ellipse cx="350" cy="35" rx="65" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
@@ -738,7 +741,7 @@ SELECT ?x ?nom WHERE {
 
 <section>
     <h3>+ le classement ATP</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Un classement ATP est un simple nombre attaché au joueur, pas une ressource à part entière. <code>ex:j2</code> (Nadal) n'en a volontairement pas dans ce graphe.</p>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">En <strong style="color:#a78bfa;">violet</strong>, ce qui vient d'être ajouté. Un classement ATP est un simple nombre attaché au joueur, pas une ressource à part entière. <code>ex:j2</code> (Nadal) n'en a volontairement pas.</p>
     <div style="width:100%; max-width:680px; margin:0.2rem auto 0;">
         <svg viewBox="0 0 700 400" style="width:100%; height:auto;">
             <defs>
@@ -747,6 +750,9 @@ SELECT ?x ?nom WHERE {
                 </marker>
                 <marker id="arrowMutedGraph2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#6b7099"/>
+                </marker>
+                <marker id="arrowVioletGraph2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#a78bfa"/>
                 </marker>
             </defs>
             <!-- ex:Joueur, top, centre 350 -->
@@ -835,14 +841,14 @@ SELECT ?x ?nom WHERE {
             <ellipse cx="350" cy="365" rx="68" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
             <text x="350" y="370" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">ex:Pays</text>
             <!-- ex:classementATP : j1 et j3 seulement -->
-            <line x1="104" y1="110" x2="90" y2="111" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph2)"/>
-            <text x="50" y="93" fill="#7eb8f7" font-size="6" text-anchor="middle">ex:classementATP</text>
-            <rect x="10" y="98" width="80" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <line x1="104" y1="110" x2="90" y2="111" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph2)"/>
+            <text x="50" y="93" fill="#a78bfa" font-size="6" text-anchor="middle">ex:classementATP</text>
+            <rect x="10" y="98" width="80" height="26" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
             <text x="50" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">2</text>
 
-            <line x1="596" y1="110" x2="610" y2="111" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph2)"/>
-            <text x="650" y="93" fill="#7eb8f7" font-size="6" text-anchor="middle">ex:classementATP</text>
-            <rect x="610" y="98" width="80" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <line x1="596" y1="110" x2="610" y2="111" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph2)"/>
+            <text x="650" y="93" fill="#a78bfa" font-size="6" text-anchor="middle">ex:classementATP</text>
+            <rect x="610" y="98" width="80" height="26" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
             <text x="650" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">3</text>
         </svg>
     </div>
@@ -850,15 +856,18 @@ SELECT ?x ?nom WHERE {
 
 <section>
     <h3>+ le match</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Un match relie deux joueurs : ici la demi-finale Roland-Garros 2024 entre Carlos Alcaraz et Jannik Sinner.</p>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Un match relie deux joueurs : ici la demi-finale Roland-Garros 2024 entre Alcaraz et Sinner. Comme pour les joueurs, son IRI (<code>ex:match_345</code>) est opaque : son nom lisible vit dans un triplet <code>ex:nom</code> séparé.</p>
     <div style="width:100%; max-width:620px; margin:0.2rem auto 0;">
-        <svg viewBox="0 0 700 520" style="width:100%; height:auto;">
+        <svg viewBox="0 0 700 510" style="width:100%; height:auto;">
             <defs>
                 <marker id="arrowBlueGraph3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#7eb8f7"/>
                 </marker>
                 <marker id="arrowMutedGraph3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#6b7099"/>
+                </marker>
+                <marker id="arrowVioletGraph3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#a78bfa"/>
                 </marker>
             </defs>
             <!-- ex:Joueur, top, centre 350 -->
@@ -957,21 +966,25 @@ SELECT ?x ?nom WHERE {
             <rect x="610" y="98" width="80" height="26" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
             <text x="650" y="116" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">3</text>
             <!-- ex:participantA / ex:participantB : j1/j3 -> le match -->
-            <path d="M104,110 Q100,140 50,180 L50,420 Q150,460 280,465" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph3)"/>
-            <text x="55" y="300" fill="#7eb8f7" font-size="7">ex:participantA</text>
-            <path d="M596,110 Q600,140 650,180 L650,420 Q550,460 420,465" fill="none" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph3)"/>
-            <text x="600" y="300" fill="#7eb8f7" font-size="7" text-anchor="end">ex:participantB</text>
+            <path d="M104,110 Q100,140 50,180 L50,420 Q150,460 280,465" fill="none" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph3)"/>
+            <text x="55" y="300" fill="#a78bfa" font-size="7">ex:participantA</text>
+            <path d="M596,110 Q600,140 650,180 L650,420 Q550,460 420,465" fill="none" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph3)"/>
+            <text x="600" y="300" fill="#a78bfa" font-size="7" text-anchor="end">ex:participantB</text>
 
-            <rect x="280" y="440" width="140" height="50" rx="8" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="350" y="458" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace">rg2024_demi1</text>
-            <text x="350" y="475" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle">Demi-finale</text>
+            <rect x="280" y="440" width="140" height="50" rx="8" fill="#241b3d" stroke="#a78bfa" stroke-width="1.5"/>
+            <text x="350" y="470" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:match_345</text>
+
+            <line x1="350" y1="440" x2="350" y2="428" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph3)"/>
+            <text x="356" y="418" fill="#a78bfa" font-size="7">ex:nom</text>
+            <rect x="210" y="392" width="280" height="30" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
+            <text x="350" y="411" fill="#eef0ff" font-size="9" text-anchor="middle">"Demi-finale Roland-Garros 2024"</text>
         </svg>
     </div>
 </section>
 
 <section>
     <h3>+ le stade</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Le match a aussi eu lieu quelque part : sur le Court Philippe-Chatrier.</p>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Le match a aussi eu lieu quelque part. Même principe : <code>ex:court_812</code> est un IRI opaque, son nom "Court Philippe-Chatrier" vit dans son propre triplet <code>ex:nom</code>.</p>
     <div style="width:100%; max-width:580px; margin:0.2rem auto 0;">
         <svg viewBox="0 0 700 610" style="width:100%; height:auto;">
             <defs>
@@ -980,6 +993,9 @@ SELECT ?x ?nom WHERE {
                 </marker>
                 <marker id="arrowMutedGraph4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#6b7099"/>
+                </marker>
+                <marker id="arrowVioletGraph4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#a78bfa"/>
                 </marker>
             </defs>
             <!-- ex:Joueur, top, centre 350 -->
@@ -1084,17 +1100,28 @@ SELECT ?x ?nom WHERE {
             <text x="600" y="300" fill="#7eb8f7" font-size="7" text-anchor="end">ex:participantB</text>
 
             <rect x="280" y="440" width="140" height="50" rx="8" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="350" y="458" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace">rg2024_demi1</text>
-            <text x="350" y="475" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle">Demi-finale</text>
-            <!-- ex:lieu : le match -> le stade -->
-            <line x1="350" y1="490" x2="350" y2="532" stroke="#7eb8f7" stroke-width="1.3" marker-end="url(#arrowBlueGraph4)"/>
-            <text x="356" y="512" fill="#7eb8f7" font-size="7">ex:lieu</text>
+            <text x="350" y="470" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:match_345</text>
 
-            <ellipse cx="350" cy="560" rx="110" ry="28" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="350" y="565" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle">Court Philippe-Chatrier</text>
+            <line x1="350" y1="440" x2="350" y2="428" stroke="#7eb8f7" stroke-width="1.2" marker-end="url(#arrowBlueGraph4)"/>
+            <text x="356" y="418" fill="#7eb8f7" font-size="7">ex:nom</text>
+            <rect x="210" y="392" width="280" height="30" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
+            <text x="350" y="411" fill="#eef0ff" font-size="9" text-anchor="middle">"Demi-finale Roland-Garros 2024"</text>
+            <!-- ex:lieu : le match -> le stade -->
+            <line x1="350" y1="490" x2="350" y2="536" stroke="#a78bfa" stroke-width="1.3" marker-end="url(#arrowVioletGraph4)"/>
+            <text x="356" y="516" fill="#a78bfa" font-size="7">ex:lieu</text>
+
+            <ellipse cx="350" cy="560" rx="70" ry="24" fill="#241b3d" stroke="#a78bfa" stroke-width="1.5"/>
+            <text x="350" y="565" fill="#eef0ff" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">ex:court_812</text>
+
+            <line x1="420" y1="560" x2="440" y2="562" stroke="#a78bfa" stroke-width="1.2" marker-end="url(#arrowVioletGraph4)"/>
+            <text x="430" y="550" fill="#a78bfa" font-size="7">ex:nom</text>
+            <rect x="440" y="546" width="170" height="32" rx="6" fill="#241b3d" stroke="#a78bfa" stroke-width="1.3"/>
+            <text x="525" y="566" fill="#eef0ff" font-size="8" text-anchor="middle">"Court Philippe-Chatrier"</text>
         </svg>
     </div>
-</section><section>
+</section>
+
+<section>
     <h3>Les mots-clés à connaître (1/2)</h3>
     <div class="kv-row"><span class="kv-label">FILTER</span><span class="kv-body">Ajoute une condition sur une variable (numérique, textuelle, logique) que le motif seul ne peut pas exprimer.</span></div>
     <div class="kv-row fragment"><span class="kv-label">OPTIONAL</span><span class="kv-body">Garde une ligne même si le motif à l'intérieur ne correspond pas : la variable reste alors non liée.</span></div>
@@ -1143,7 +1170,7 @@ SELECT ?x ?nom WHERE {
             <text x="435" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Italie · #3</text>
 
             <rect x="200" y="110" width="120" height="40" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
-            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="1">rg2024_demi1</text>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="1">match_345</text>
             <text x="260" y="142" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" opacity="1">Demi-finale</text>
 
             <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
@@ -1205,7 +1232,7 @@ SELECT ?nomStade WHERE {
             <text x="435" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Italie · #3</text>
 
             <rect x="200" y="110" width="120" height="40" rx="6" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
-            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">rg2024_demi1</text>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">match_345</text>
             <text x="260" y="142" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Demi-finale</text>
 
             <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
@@ -1268,7 +1295,7 @@ SELECT ?nom WHERE {
             <text x="435" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Italie · #3</text>
 
             <rect x="200" y="110" width="120" height="40" rx="6" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
-            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">rg2024_demi1</text>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">match_345</text>
             <text x="260" y="142" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Demi-finale</text>
 
             <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
@@ -1331,7 +1358,7 @@ SELECT ?nom ?rang WHERE {
             <text x="435" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Italie · #3</text>
 
             <rect x="200" y="110" width="120" height="40" rx="6" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
-            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">rg2024_demi1</text>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">match_345</text>
             <text x="260" y="142" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Demi-finale</text>
 
             <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
@@ -1395,7 +1422,7 @@ SELECT ?nom ?rang WHERE {
             <text x="435" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Italie · #3</text>
 
             <rect x="200" y="110" width="120" height="40" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8" opacity="1"/>
-            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="1">rg2024_demi1</text>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="1">match_345</text>
             <text x="260" y="142" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" opacity="1">Demi-finale</text>
 
             <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
@@ -1410,9 +1437,9 @@ SELECT ?nom ?rang WHERE {
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
 SELECT ?nom WHERE {
-  { ex:rg2024_demi1 ex:vainqueur ?j . }
+  { ex:match_345 ex:vainqueur ?j . }
   UNION
-  { ex:rg2024_demi1 ex:participantB ?j . }
+  { ex:match_345 ex:participantB ?j . }
   ?j ex:nom ?nom .
 }</code></pre>
     <table class="fragment rdf-table rdf-table-sm" style="max-width:260px; margin:0.6rem auto 0; font-size:0.72em;">
@@ -1474,7 +1501,7 @@ SELECT ?nom WHERE {
             <text x="435" y="70" fill="#6b7099" font-size="8" text-anchor="middle">Italie · #3</text>
 
             <rect x="200" y="110" width="120" height="40" rx="6" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
-            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">rg2024_demi1</text>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">match_345</text>
             <text x="260" y="142" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Demi-finale</text>
 
             <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
@@ -1535,7 +1562,7 @@ SELECT ?nom WHERE {
             <text x="435" y="70" fill="#4ade80" font-size="8" text-anchor="middle">Italie · #3</text>
 
             <rect x="200" y="110" width="120" height="40" rx="6" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
-            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">rg2024_demi1</text>
+            <text x="260" y="126" fill="#6b7099" font-size="7" text-anchor="middle" font-family="monospace" opacity="0.55">match_345</text>
             <text x="260" y="142" fill="#6b7099" font-size="10" font-weight="bold" text-anchor="middle" opacity="0.55">Demi-finale</text>
 
             <ellipse cx="260" cy="185" rx="95" ry="24" fill="#0d1117" stroke="#3d4168" stroke-width="1.2" opacity="0.55"/>
