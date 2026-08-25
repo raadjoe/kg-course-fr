@@ -253,7 +253,7 @@ WHERE {
             <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">?x a ex:Joueur .</code></pre>
         </div>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.7rem; text-align:center;">Concrètement : on veut toutes les valeurs de <code>?x</code> qui sont de type (a) <code>ex:Joueur</code>, autrement dit tous les joueurs du graphe.</p>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.7rem; text-align:center;">Concrètement : on veut toutes les valeurs de <code>?x</code> qui sont de type  <code>ex:Joueur</code> (<code>rdf:type</code> raccourci en <code>a</code>).<br>Autrement dit tous les joueurs du graphe.</p>
 </section>
 
 <section>
@@ -292,7 +292,7 @@ WHERE {
 
 <section>
     <h3>Un petit graphe pour commencer</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Trois joueurs et deux pays, chacun une ressource à part entière avec son propre IRI. La nationalité pointe vers un <strong>pays</strong>, pas vers un texte : c'est ce pays qui porte ses noms en français et en anglais.</p>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem;">Trois joueurs et deux pays. La nationalité des joueurs pointe vers un <strong>pays</strong>, pas vers un texte :<br> c'est ce pays qui porte ses noms en français et en anglais.</p>
     <div style="width:100%; max-width:680px; margin:0.2rem auto 0;">
         <svg viewBox="0 0 700 400" style="width:100%; height:auto;">
             <defs>
@@ -410,6 +410,7 @@ ex:pays2 a ex:Pays ; ex:nom "Italie"@fr, "Italy"@en .</code></pre>
 
 <section>
     <h3>Étape 1 : filtrer par type</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">"Quels sont tous les joueurs du graphe ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -454,6 +455,7 @@ SELECT ?x WHERE {
 
 <section>
     <h3>Étape 2 : joindre un second pattern</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">"Quels joueurs ont une nationalité connue, quelle qu'elle soit ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
@@ -502,6 +504,7 @@ SELECT ?x WHERE {
 
 <section>
     <h3>Étape 3 : filtrer par valeur</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.5rem;">"Quels sont les joueurs espagnols ?"</p>
     <span class="code-badge">SPARQL</span>
     <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
 
