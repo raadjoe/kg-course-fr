@@ -469,6 +469,10 @@ SELECT ?x WHERE {
             <line x1="250" y1="137" x2="250" y2="170" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
             <path d="M385,137 Q340,175 285,183" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
 
+            <text x="100" y="158" fill="#7eb8f7" font-size="7">ex:nationalite</text>
+            <text x="270" y="155" fill="#7eb8f7" font-size="7">ex:nationalite</text>
+            <text x="390" y="158" fill="#7eb8f7" font-size="7">ex:nationalite</text>
+
             <ellipse cx="250" cy="190" rx="44" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
             <text x="250" y="195" fill="#4ade80" font-size="10" font-style="italic" text-anchor="middle">?pays</text>
         </svg>
@@ -483,11 +487,10 @@ SELECT ?x WHERE {
 
 SELECT ?x ?nom WHERE {
   ?x a ex:Joueur ;
-     ex:nom ?nom ;
-     ex:nationalite ?pays .
+     ex:nationalite ?pays ;
+     ex:nom ?nom .
   ?pays ex:nom "Espagne"@fr .
 }</code></pre>
-    <p class="code-note">→ On ne recherche jamais une ressource par son IRI : opaque par nature, on la retrouve par sa <strong style="color:#7eb8f7;">description</strong> (nom, label, type...).</p>
     <div style="width:100%; max-width:460px; margin:0.2rem auto 0;">
         <svg viewBox="0 0 540 336" style="width:100%; height:auto;">
             <defs>
@@ -533,6 +536,8 @@ SELECT ?x ?nom WHERE {
             <text x="165" y="314" fill="#4ade80" font-size="9" text-anchor="middle">"Espagne"@fr</text>
         </svg>
     </div>
+    <p class="code-note">→ On ne recherche jamais une ressource par son IRI </p>
+    
 </section>
 
 <section>
