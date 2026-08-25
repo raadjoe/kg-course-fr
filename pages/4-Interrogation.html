@@ -241,6 +241,30 @@ WHERE {
 </section>
 
 <section>
+    <h3>Le motif de triplet</h3>
+    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Un <strong style="color:#7eb8f7;">motif de triplet</strong> (<em>triple pattern</em>) est un triplet où n'importe quelle position, sujet, prédicat ou objet, peut être remplacée par une <strong>variable</strong> préfixée par <code>?</code>.</p>
+    <div class="two-col" style="font-size:0.8em;">
+        <div class="box">
+            <p style="color:#aaa; margin:0 0 0.4rem 0; font-size:0.85em;">Un triplet concret</p>
+            <pre style="margin:0; font-size:0.85em;"><code class="language-turtle">ex:j1 a ex:Joueur .</code></pre>
+        </div>
+        <div class="box box-blue fragment">
+            <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.85em;">Un motif de triplet</p>
+            <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">?x a ex:Joueur .</code></pre>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.7rem; text-align:center;">On cherche toutes les valeurs de <code>?x</code> qui font de ce triplet une vérité du graphe.</p>
+</section>
+
+<section>
+    <h3>Le motif de graphe</h3>
+    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Le <code>WHERE</code> peut contenir <strong>plusieurs</strong> motifs de triplet. Ensemble, ils forment un <strong style="color:#7eb8f7;">motif de graphe</strong> (<em>graph pattern</em>) : un petit graphe à trous, que l'on superpose au graphe de données.</p>
+    <div class="kv-row"><span class="kv-label">Un motif</span><span class="kv-body">Une ligne de triplet avec au moins une variable, comme <code>?x a ex:Joueur .</code></span></div>
+    <div class="kv-row fragment"><span class="kv-label">Plusieurs motifs</span><span class="kv-body">Une <strong>jointure implicite</strong> : deux motifs qui partagent une variable se joignent automatiquement, sans <code>JOIN</code> à écrire.</span></div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.6rem; text-align:center;">Ces deux notions suffisent pour lire n'importe quelle requête SPARQL. Voyons maintenant à quoi ressemble une vraie requête.</p>
+</section>
+
+<section>
     <h3>Les quatre formes de requêtes SPARQL</h3>
     <table class="rdf-table">
         <thead><tr><th>Forme</th><th>Résultat</th></tr></thead>
@@ -381,30 +405,7 @@ ex:j3 a ex:Joueur ; ex:nom "Jannik Sinner"  ; ex:nationalite ex:pays2 .
 
 ex:pays1 a ex:Country ; ex:nom "Espagne"@fr, "Spain"@en .
 ex:pays2 a ex:Country ; ex:nom "Italie"@fr, "Italy"@en .</code></pre>
-</section>
-
-<section>
-    <h3>Le motif de triplet</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Un <strong style="color:#7eb8f7;">motif de triplet</strong> (<em>triple pattern</em>) est un triplet où n'importe quelle position, sujet, prédicat ou objet, peut être remplacée par une <strong>variable</strong> préfixée par <code>?</code>.</p>
-    <div class="two-col" style="font-size:0.8em;">
-        <div class="box">
-            <p style="color:#aaa; margin:0 0 0.4rem 0; font-size:0.85em;">Un triplet concret</p>
-            <pre style="margin:0; font-size:0.85em;"><code class="language-turtle">ex:j1 a ex:Joueur .</code></pre>
-        </div>
-        <div class="box box-blue fragment">
-            <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.85em;">Un motif de triplet</p>
-            <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">?x a ex:Joueur .</code></pre>
-        </div>
-    </div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.7rem; text-align:center;">On cherche toutes les valeurs de <code>?x</code> qui font de ce triplet une vérité du graphe.</p>
-</section>
-
-<section>
-    <h3>Le motif de graphe</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Le <code>WHERE</code> peut contenir <strong>plusieurs</strong> motifs de triplet. Ensemble, ils forment un <strong style="color:#7eb8f7;">motif de graphe</strong> (<em>graph pattern</em>) : un petit graphe à trous, que l'on superpose au graphe de données.</p>
-    <div class="kv-row"><span class="kv-label">Un motif</span><span class="kv-body">Une ligne de triplet avec au moins une variable, comme <code>?x a ex:Joueur .</code></span></div>
-    <div class="kv-row fragment"><span class="kv-label">Plusieurs motifs</span><span class="kv-body">Une <strong>jointure implicite</strong> : deux motifs qui partagent une variable se joignent automatiquement, sans <code>JOIN</code> à écrire.</span></div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.6rem; text-align:center;">Voyons-le en trois étapes sur notre graphe : d'abord filtrer par type, puis affiner en précisant la nationalité des joueurs.</p>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.6rem; text-align:center;">Voyons-le en trois étapes : d'abord filtrer par type, puis affiner en précisant la nationalité des joueurs.</p>
 </section>
 
 <section>
