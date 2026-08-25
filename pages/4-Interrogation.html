@@ -1973,49 +1973,46 @@ LIMIT 1</code></pre>
 
 <section>
     <h3><strong style="color:#7eb8f7;">COUNT</strong> et <strong style="color:#7eb8f7;">GROUP BY</strong></h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Compter les joueurs par nationalité. La nationalité pointe vers un pays (4.1) : il faut joindre jusqu'à son nom, puis se limiter à une langue, sinon français et anglais formeraient des groupes séparés.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Compter les joueurs par nationalité. <code>GROUP BY</code> regroupe les lignes qui partagent le même <code>?pays</code>, <code>COUNT</code> compte les joueurs dans chaque groupe.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?natNom (COUNT(?joueur) AS ?nb) WHERE {
+    <pre><code class="language-sparql">SELECT ?pays (COUNT(?joueur) AS ?nb) WHERE {
   ?joueur ex:nationalite ?pays .
-  ?pays ex:nom ?natNom .
-  FILTER(LANG(?natNom) = "fr")
 }
-GROUP BY ?natNom</code></pre>
+GROUP BY ?pays</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
-        <code>"Espagne"@fr → 2</code> &nbsp;·&nbsp; <code>"Italie"@fr → 1</code>
+        <code>ex:pays1 → 2</code> &nbsp;·&nbsp; <code>ex:pays2 → 1</code>
     </div>
+    <p class="code-note">→ On groupe sur la ressource <code>?pays</code>, pas sur son nom : ce dernier a plusieurs variantes de langue (4.1), qui casseraient le regroupement.</p>
 </section>
 
 <section>
     <h3><strong style="color:#7eb8f7;">HAVING</strong> : filtrer après regroupement</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Ne garder que les nationalités avec plus d'un joueur : <code>FILTER</code> filtrerait des lignes avant le groupement, <code>HAVING</code> filtre des groupes après.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Ne garder que les pays avec plus d'un joueur : <code>FILTER</code> filtrerait des lignes avant le groupement, <code>HAVING</code> filtre des groupes après.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?natNom (COUNT(?joueur) AS ?nb) WHERE {
+    <pre><code class="language-sparql">SELECT ?pays (COUNT(?joueur) AS ?nb) WHERE {
   ?joueur ex:nationalite ?pays .
-  ?pays ex:nom ?natNom .
-  FILTER(LANG(?natNom) = "fr")
 }
-GROUP BY ?natNom
+GROUP BY ?pays
 HAVING(COUNT(?joueur) &gt; 1)</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
-        <code>"Espagne"@fr → 2</code>
+        <code>ex:pays1 → 2</code>
     </div>
-    <p class="code-note">→ "Italie"@fr n'a qu'un seul joueur : son groupe est écarté par <code>HAVING</code>, pas affiché du tout.</p>
+    <p class="code-note">→ <code>ex:pays2</code> n'a qu'un seul joueur : son groupe est écarté par <code>HAVING</code>, pas affiché du tout.</p>
 </section>
 
 <section>
     <h3><strong style="color:#7eb8f7;">BIND</strong> avant un <strong style="color:#7eb8f7;">GROUP BY</strong></h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;"><code>BIND(expression AS ?variable)</code> calcule une valeur et lui donne un nom : ici, une tranche de classement calculée avant de grouper dessus.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;"><code>BIND(expression AS ?variable)</code> calcule une valeur et lui donne un nom : ici, un booléen calculé avant de grouper dessus.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?tranche (COUNT(?joueur) AS ?nb) WHERE {
+    <pre><code class="language-sparql">SELECT ?estTop2 (COUNT(?joueur) AS ?nb) WHERE {
   ?joueur ex:classementATP ?rang .
-  BIND(IF(?rang &lt;= 2, "Top 2 mondial", "Au-delà du top 2") AS ?tranche)
+  BIND(?rang &lt;= 2 AS ?estTop2)
 }
-GROUP BY ?tranche</code></pre>
+GROUP BY ?estTop2</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
-        <code>"Top 2 mondial" → 1</code> &nbsp;·&nbsp; <code>"Au-delà du top 2" → 1</code>
+        <code>true → 1</code> &nbsp;·&nbsp; <code>false → 1</code>
     </div>
-    <p class="code-note">→ <code>BIND</code> crée <code>?tranche</code> avant le <code>GROUP BY</code> : c'est cette nouvelle variable qui sert de clé de regroupement.</p>
+    <p class="code-note">→ <code>BIND</code> crée <code>?estTop2</code> avant le <code>GROUP BY</code> : c'est cette nouvelle variable, ici un simple booléen, qui sert de clé de regroupement.</p>
 </section>
 
 <section>
