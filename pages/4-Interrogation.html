@@ -253,7 +253,7 @@ WHERE {
             <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">?x a ex:Joueur .</code></pre>
         </div>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.7rem; text-align:center;">Concrètement : on veut toutes les valeurs de <code>?x</code> qui sont de type <code>ex:Joueur</code>, autrement dit tous les joueurs du graphe.</p>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.7rem; text-align:center;">Concrètement : on veut toutes les valeurs de <code>?x</code> qui sont de type (a) <code>ex:Joueur</code>, autrement dit tous les joueurs du graphe.</p>
 </section>
 
 <section>
@@ -380,15 +380,15 @@ WHERE {
             <rect x="530" y="294" width="80" height="30" rx="6" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.3"/>
             <text x="570" y="313" fill="#eef0ff" font-size="9" text-anchor="middle">"Italy"@en</text>
 
-            <!-- rdf:type : pays -> ex:Country -->
+            <!-- rdf:type : pays -> ex:Pays -->
             <line x1="260" y1="292" x2="320" y2="342" stroke="#3d4168" stroke-width="1.1" stroke-dasharray="3,3" marker-end="url(#arrowMutedIntro)"/>
             <text x="272" y="326" fill="#6b7099" font-size="7">rdf:type</text>
             <line x1="440" y1="292" x2="380" y2="342" stroke="#3d4168" stroke-width="1.1" stroke-dasharray="3,3" marker-end="url(#arrowMutedIntro)"/>
             <text x="398" y="326" fill="#6b7099" font-size="7">rdf:type</text>
 
-            <!-- ex:Country, bas, centre 350 (aligné avec ex:Joueur) -->
+            <!-- ex:Pays, bas, centre 350 (aligné avec ex:Joueur) -->
             <ellipse cx="350" cy="365" rx="68" ry="24" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="350" y="370" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">ex:Country</text>
+            <text x="350" y="370" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">ex:Pays</text>
         </svg>
     </div>
 </section>
@@ -403,8 +403,8 @@ ex:j1 a ex:Joueur ; ex:nom "Carlos Alcaraz" ; ex:nationalite ex:pays1 .
 ex:j2 a ex:Joueur ; ex:nom "Rafael Nadal"   ; ex:nationalite ex:pays1 .
 ex:j3 a ex:Joueur ; ex:nom "Jannik Sinner"  ; ex:nationalite ex:pays2 .
 
-ex:pays1 a ex:Country ; ex:nom "Espagne"@fr, "Spain"@en .
-ex:pays2 a ex:Country ; ex:nom "Italie"@fr, "Italy"@en .</code></pre>
+ex:pays1 a ex:Pays ; ex:nom "Espagne"@fr, "Spain"@en .
+ex:pays2 a ex:Pays ; ex:nom "Italie"@fr, "Italy"@en .</code></pre>
     <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.6rem; text-align:center;">Voyons-le en trois étapes : d'abord filtrer par type, puis affiner en précisant la nationalité des joueurs.</p>
 </section>
 
@@ -614,8 +614,8 @@ SELECT ?x ?nom WHERE {
 ex:j2 a ex:Joueur ; ex:nom "Rafael Nadal"   ; ex:nationalite ex:pays1 .
 ex:j3 a ex:Joueur ; ex:nom "Jannik Sinner"  ; ex:nationalite ex:pays2 ; ex:classementATP 3 .
 
-ex:pays1 a ex:Country ; ex:nom "Espagne"@fr, "Spain"@en .
-ex:pays2 a ex:Country ; ex:nom "Italie"@fr, "Italy"@en .
+ex:pays1 a ex:Pays ; ex:nom "Espagne"@fr, "Spain"@en .
+ex:pays2 a ex:Pays ; ex:nom "Italie"@fr, "Italy"@en .
 
 ex:court_chatrier a ex:Stade ; ex:nom "Court Philippe-Chatrier" .
 
