@@ -1715,8 +1715,7 @@ SELECT ?nom WHERE {
   { ?match ex:perdant ?j . }
   ?j ex:nom ?nom .
 }</code></pre>
-    <p class="code-note">→ On retrouve le match par son nom, jamais par son IRI (<code>ex:match_345</code>) directement : les IRIs sont opaques.</p>
-    <p class="code-note">→ <code>UNION</code> combine deux motifs alternatifs : une ligne apparaît si l'un des deux correspond.</p>
+    <p class="code-note">→ Des motifs juxtaposés se combinent par un <strong style="color:#7eb8f7;">ET</strong> (tous doivent correspondre). <code>UNION</code> introduit un <strong style="color:#7eb8f7;">OU</strong> : il suffit que l'un des deux motifs corresponde.</p>
     <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
         <thead><tr><th>?nom</th></tr></thead>
         <tbody>
