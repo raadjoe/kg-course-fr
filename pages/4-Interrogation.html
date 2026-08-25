@@ -1595,6 +1595,29 @@ SELECT ?nom ?rang WHERE {
 </section>
 
 <section>
+    <h3>La solution : <strong style="color:#7eb8f7;">FILTER</strong> dans <strong style="color:#7eb8f7;">OPTIONAL</strong></h3>
+    <span class="code-badge">SPARQL</span>
+    <pre style="margin-bottom:0.5rem;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?nom ?rang WHERE {
+  ?joueur ex:nom ?nom .
+  OPTIONAL {
+    ?joueur ex:classementATP ?rang .
+    FILTER(?rang &lt; 10)
+  }
+}</code></pre>
+    <p class="code-note">→ La condition est déplacée à l'intérieur du bloc <code>OPTIONAL</code> : si <code>?rang</code> n'existe pas, <code>FILTER</code> ne s'exécute même pas, et la ligne survit non liée.</p>
+    <table class="fragment rdf-table rdf-table-sm" style="max-width:340px; margin:0.6rem auto 0; font-size:0.6em;">
+        <thead><tr><th>?nom</th><th>?rang</th></tr></thead>
+        <tbody>
+            <tr><td>"Carlos Alcaraz"</td><td>2</td></tr>
+            <tr><td>"Rafael Nadal"</td><td><span style="color:#6b7099; font-style:italic;">non liée</span></td></tr>
+            <tr><td>"Jannik Sinner"</td><td>3</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
     <h3><strong style="color:#7eb8f7;">UNION</strong> : deux motifs alternatifs</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem; text-align:center;">"Quels joueurs ont participé au match, comme vainqueur ou comme perdant ?"</p>
     <div style="width:100%; max-width:740px; margin:0.2rem auto 0;">
