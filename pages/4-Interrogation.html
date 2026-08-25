@@ -1138,6 +1138,7 @@ SELECT ?x ?nom WHERE {
     <div class="kv-row"><span class="kv-label">MINUS</span><span class="kv-body">Exclut les lignes qui correspondent à un second motif, sans jamais rien ajouter au résultat.</span></div>
     <div class="kv-row fragment"><span class="kv-label">ORDER BY</span><span class="kv-body">Trie les résultats selon une variable.</span></div>
     <div class="kv-row fragment"><span class="kv-label">LIMIT</span><span class="kv-body">N'en garde qu'un nombre fixé, après le tri.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">OFFSET</span><span class="kv-body">Saute un nombre fixé de résultats avant de commencer à en garder.</span></div>
 </section>
 
 <section>
@@ -1953,6 +1954,22 @@ LIMIT 1</code></pre>
 </section>
 
 <section>
+    <h3><strong style="color:#7eb8f7;">OFFSET</strong> : sauter des résultats</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Le deuxième joueur au classement, pas le premier : <code>ORDER BY</code> trie, <code>OFFSET</code> saute une ligne, <code>LIMIT</code> n'en garde qu'une.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">SELECT ?nom WHERE {
+  ?joueur ex:nom ?nom ; ex:classementATP ?rang .
+}
+ORDER BY ?rang
+LIMIT 1
+OFFSET 1</code></pre>
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
+        <code>"Jannik Sinner"</code>
+    </div>
+    <p class="code-note">→ Alcaraz arrive en tête du tri, mais <code>OFFSET 1</code> le saute : <code>LIMIT 1</code> ne garde que la ligne suivante.</p>
+</section>
+
+<section>
     <h3>Le piège : trier sans limiter</h3>
     <p style="font-size:0.82em; color:#eef0ff; text-align:center; margin-bottom:0.7rem;"><code>ORDER BY</code> sans <code>LIMIT</code> doit trier <strong>tout</strong> le résultat avant de répondre.</p>
     <div class="box" style="border-left:4px solid #ff9f43;">
@@ -2001,6 +2018,17 @@ HAVING(COUNT(?joueur) &gt; 1)</code></pre>
 </section>
 
 <section>
+    <h3>Les autres agrégats</h3>
+    <div class="kv-row"><span class="kv-label">AVG</span><span class="kv-body">Moyenne d'une valeur numérique.</span></div>
+    <div class="kv-row"><span class="kv-label">MIN / MAX</span><span class="kv-body">Valeur minimale ou maximale.</span></div>
+    <div class="kv-row"><span class="kv-label">SUM</span><span class="kv-body">Somme d'une valeur numérique.</span></div>
+    <span class="code-badge" style="margin-top:0.8rem;">SPARQL</span>
+    <pre><code class="language-sparql">SELECT (AVG(?rang) AS ?rangMoyen) WHERE {
+  ?joueur ex:classementATP ?rang .
+}</code></pre>
+</section>
+
+<section>
     <h3><strong style="color:#7eb8f7;">BIND</strong> avant un <strong style="color:#7eb8f7;">GROUP BY</strong></h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;"><code>BIND(expression AS ?variable)</code> calcule une valeur et lui donne un nom : ici, un booléen calculé avant de grouper dessus.</p>
     <span class="code-badge">SPARQL</span>
@@ -2013,17 +2041,6 @@ GROUP BY ?estTop2</code></pre>
         <code>true → 1</code> &nbsp;·&nbsp; <code>false → 1</code>
     </div>
     <p class="code-note">→ <code>BIND</code> crée <code>?estTop2</code> avant le <code>GROUP BY</code> : c'est cette nouvelle variable, ici un simple booléen, qui sert de clé de regroupement.</p>
-</section>
-
-<section>
-    <h3>Les autres agrégats</h3>
-    <div class="kv-row"><span class="kv-label">AVG</span><span class="kv-body">Moyenne d'une valeur numérique.</span></div>
-    <div class="kv-row"><span class="kv-label">MIN / MAX</span><span class="kv-body">Valeur minimale ou maximale.</span></div>
-    <div class="kv-row"><span class="kv-label">SUM</span><span class="kv-body">Somme d'une valeur numérique.</span></div>
-    <span class="code-badge" style="margin-top:0.8rem;">SPARQL</span>
-    <pre><code class="language-sparql">SELECT (AVG(?rang) AS ?rangMoyen) WHERE {
-  ?joueur ex:classementATP ?rang .
-}</code></pre>
 </section>
 
 <section>
@@ -2059,20 +2076,9 @@ GROUP BY ?estTop2</code></pre>
     <p class="code-note">→ <code>VALUES</code> propose deux noms, mais "Novak Djokovic" n'existe pas dans le graphe : seul un vrai match est renvoyé.</p>
 </section>
 
-<section>
-    <h3><strong style="color:#7eb8f7;">OFFSET</strong> : sauter des résultats</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Le deuxième joueur au classement, pas le premier : <code>ORDER BY</code> trie, <code>OFFSET</code> saute une ligne, <code>LIMIT</code> n'en garde qu'une.</p>
-    <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">SELECT ?nom WHERE {
-  ?joueur ex:nom ?nom ; ex:classementATP ?rang .
-}
-ORDER BY ?rang
-LIMIT 1
-OFFSET 1</code></pre>
-    <div class="fragment box box-blue" style="text-align:center; margin-top:0.5rem;">
-        <code>"Jannik Sinner"</code>
-    </div>
-    <p class="code-note">→ Alcaraz arrive en tête du tri, mais <code>OFFSET 1</code> le saute : <code>LIMIT 1</code> ne garde que la ligne suivante.</p>
+<section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
+    <h3 style="color:#4f8ef7;">Les autres formes de requête</h3>
+    <p style="color:#aaa;">SELECT n'est qu'une des quatre formes vues en 4.1 : les trois autres renvoient autre chose qu'une table.</p>
 </section>
 
 <section>
