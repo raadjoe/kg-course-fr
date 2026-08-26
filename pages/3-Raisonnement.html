@@ -631,8 +631,8 @@ ex:pierre_curie  ex:mariéÀ  ex:marie_curie .</code></pre>
     <pre><code class="language-turtle">ex:aRemporté  rdfs:domain  ex:Person ;
               rdfs:range   ex:Match .
 
-ex:djokovic  ex:aRemporté  ex:rg2023 .</code></pre>
-    <p class="code-note">→ Le raisonneur déduit <code>ex:djokovic a ex:Person</code> et <code>ex:rg2023 a ex:Match</code>, même si ces types ne sont jamais écrits.</p>
+ex:j123  ex:aRemporté  ex:m961 .</code></pre>
+    <p class="code-note">→ Le raisonneur déduit <code>ex:j123 a ex:Person</code> et <code>ex:m961 a ex:Match</code>, même si ces types ne sont jamais écrits.</p>
 </section>
 
 <section>
@@ -675,73 +675,72 @@ ex:djokovic  ex:aRemporté  ex:rg2023 .</code></pre>
             </tr>
         </tbody>
     </table>
-    <p class="fragment" style="font-size:0.75em; color:#6b7099; margin-top:0.7rem; text-align:center;">À vous de les appliquer, une par une, sur les slides suivantes.</p>
-</section>
+    </section>
 
 <section>
-    <h3>À vous : transitivité de <code style="font-size:0.85em;">subClassOf</code></h3>
+    <h3>Que peut-on en déduire sur <code style="font-size:0.85em;">ex:MatchSimple</code> ?</h3>
     <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:MatchSimple  rdfs:subClassOf  ex:Match .
 ex:Match        rdfs:subClassOf  ex:ÉvénementSportif .</code></pre>
-    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:MatchSimple</code> ?</p>
-    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
         <code style="font-size:1em;">ex:MatchSimple  rdfs:subClassOf  ex:ÉvénementSportif</code>
     </div>
+    <p class="fragment" style="font-size:0.78em; color:#7eb8f7; text-align:center; margin-top:0.6rem;">Règle appliquée : transitivité de <code>subClassOf</code></p>
 </section>
 
 <section>
-    <h3>À vous : héritage de type</h3>
+    <h3>Que peut-on en déduire sur <code style="font-size:0.85em;">ex:rg2024_finale</code> ?</h3>
     <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:rg2024_finale  a  ex:MatchSimple .
 ex:MatchSimple    rdfs:subClassOf  ex:Match .</code></pre>
-    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:rg2024_finale</code> ?</p>
-    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
         <code style="font-size:1em;">ex:rg2024_finale  a  ex:Match .</code>
     </div>
+    <p class="fragment" style="font-size:0.78em; color:#7eb8f7; text-align:center; margin-top:0.6rem;">Règle appliquée : héritage de type</p>
 </section>
 
 <section>
-    <h3>À vous : transitivité de <code style="font-size:0.85em;">subPropertyOf</code></h3>
+    <h3>Que peut-on en déduire sur <code style="font-size:0.85em;">ex:aRemporté</code> ?</h3>
     <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:aRemporté  rdfs:subPropertyOf  ex:aJoué .
 ex:aJoué      rdfs:subPropertyOf  ex:aParticipéÀ .</code></pre>
-    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:aRemporté</code> ?</p>
-    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
         <code style="font-size:1em;">ex:aRemporté  rdfs:subPropertyOf  ex:aParticipéÀ .</code>
     </div>
+    <p class="fragment" style="font-size:0.78em; color:#7eb8f7; text-align:center; margin-top:0.6rem;">Règle appliquée : transitivité de <code>subPropertyOf</code></p>
 </section>
 
 <section>
-    <h3>À vous : héritage de triplet</h3>
+    <h3>Que peut-on en déduire sur <code style="font-size:0.85em;">ex:djokovic</code> ?</h3>
     <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:djokovic   ex:aRemporté  ex:rg2023 .
 ex:aRemporté  rdfs:subPropertyOf  ex:aJoué .</code></pre>
-    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:djokovic</code> ?</p>
-    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
         <code style="font-size:1em;">ex:djokovic  ex:aJoué  ex:rg2023 .</code>
     </div>
+    <p class="fragment" style="font-size:0.78em; color:#7eb8f7; text-align:center; margin-top:0.6rem;">Règle appliquée : héritage de triplet</p>
 </section>
 
 <section>
-    <h3>À vous : <code style="font-size:0.85em;">domain</code></h3>
+    <h3>Que peut-on en déduire sur <code style="font-size:0.85em;">ex:djokovic</code> ?</h3>
     <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:aRemporté  rdfs:domain  ex:Person .
 ex:djokovic   ex:aRemporté  ex:rg2023 .</code></pre>
-    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:djokovic</code> ?</p>
-    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
         <code style="font-size:1em;">ex:djokovic  a  ex:Person .</code>
     </div>
+    <p class="fragment" style="font-size:0.78em; color:#7eb8f7; text-align:center; margin-top:0.6rem;">Règle appliquée : <code>rdfs:domain</code></p>
 </section>
 
 <section>
-    <h3>À vous : <code style="font-size:0.85em;">range</code></h3>
+    <h3>Que peut-on en déduire sur <code style="font-size:0.85em;">ex:rg2023</code> ?</h3>
     <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:aRemporté  rdfs:range  ex:Match .
 ex:djokovic   ex:aRemporté  ex:rg2023 .</code></pre>
-    <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:rg2023</code> ?</p>
-    <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
+    <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
         <code style="font-size:1em;">ex:rg2023  a  ex:Match .</code>
     </div>
+    <p class="fragment" style="font-size:0.78em; color:#7eb8f7; text-align:center; margin-top:0.6rem;">Règle appliquée : <code>rdfs:range</code></p>
 </section>
 
 <section>
