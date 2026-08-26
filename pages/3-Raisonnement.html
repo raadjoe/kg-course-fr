@@ -679,7 +679,6 @@ ex:j123  ex:aRemporté  ex:m961 .</code></pre>
 
 <section>
     <h3>1. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:MatchSimple</code> ?</h3>
-    <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:MatchSimple  rdfs:subClassOf  ex:Match .
 ex:Match        rdfs:subClassOf  ex:ÉvénementSportif .</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
@@ -690,7 +689,6 @@ ex:Match        rdfs:subClassOf  ex:ÉvénementSportif .</code></pre>
 
 <section>
     <h3>2. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:rg2024_finale</code> ?</h3>
-    <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:rg2024_finale  a  ex:MatchSimple .
 ex:MatchSimple    rdfs:subClassOf  ex:Match .</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
@@ -701,7 +699,6 @@ ex:MatchSimple    rdfs:subClassOf  ex:Match .</code></pre>
 
 <section>
     <h3>3. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:aRemporté</code> ?</h3>
-    <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:aRemporté  rdfs:subPropertyOf  ex:aJoué .
 ex:aJoué      rdfs:subPropertyOf  ex:aParticipéÀ .</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
@@ -711,34 +708,31 @@ ex:aJoué      rdfs:subPropertyOf  ex:aParticipéÀ .</code></pre>
 </section>
 
 <section>
-    <h3>4. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:djokovic</code> ?</h3>
-    <span class="code-badge">Turtle</span>
-    <pre><code class="language-turtle">ex:djokovic   ex:aRemporté  ex:rg2023 .
+    <h3>4. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:alcaraz</code> ?</h3>
+    <pre><code class="language-turtle">ex:alcaraz    ex:aRemporté  ex:wimbledon2023 .
 ex:aRemporté  rdfs:subPropertyOf  ex:aJoué .</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
-        <code style="font-size:1em;">ex:djokovic  ex:aJoué  ex:rg2023 .</code>
+        <code style="font-size:1em;">ex:alcaraz  ex:aJoué  ex:wimbledon2023 .</code>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#7eb8f7; text-align:center; margin-top:0.6rem;">Règle appliquée : héritage de triplet</p>
 </section>
 
 <section>
-    <h3>5. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:djokovic</code> ?</h3>
-    <span class="code-badge">Turtle</span>
+    <h3>5. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:swiatek</code> ?</h3>
     <pre><code class="language-turtle">ex:aRemporté  rdfs:domain  ex:Person .
-ex:djokovic   ex:aRemporté  ex:rg2023 .</code></pre>
+ex:swiatek    ex:aRemporté  ex:rg2022 .</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
-        <code style="font-size:1em;">ex:djokovic  a  ex:Person .</code>
+        <code style="font-size:1em;">ex:swiatek  a  ex:Person .</code>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#7eb8f7; text-align:center; margin-top:0.6rem;">Règle appliquée : <code>rdfs:domain</code></p>
 </section>
 
 <section>
-    <h3>6. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:rg2023</code> ?</h3>
-    <span class="code-badge">Turtle</span>
+    <h3>6. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:ausopen2024</code> ?</h3>
     <pre><code class="language-turtle">ex:aRemporté  rdfs:range  ex:Match .
-ex:djokovic   ex:aRemporté  ex:rg2023 .</code></pre>
+ex:sinner     ex:aRemporté  ex:ausopen2024 .</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
-        <code style="font-size:1em;">ex:rg2023  a  ex:Match .</code>
+        <code style="font-size:1em;">ex:ausopen2024  a  ex:Match .</code>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#7eb8f7; text-align:center; margin-top:0.6rem;">Règle appliquée : <code>rdfs:range</code></p>
 </section>
