@@ -612,20 +612,27 @@
 </section>
 
 <section>
-    <h3><code style="color:#4f8ef7; font-size:0.9em;">rdfs:subPropertyOf</code> : organiser les propriétés</h3>
-    <p style="font-size:0.88em; color:#eef0ff; margin-bottom:0.8rem;">P <code>rdfs:subPropertyOf</code> Q signifie : <strong style="color:#7eb8f7;">tout triplet utilisant P entraîne le même triplet avec Q</strong>.</p>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.8rem;">Le même principe que <code>subClassOf</code>, appliqué aux relations plutôt qu'aux classes.</p>
-    <span class="code-badge">Turtle</span>
+    <h3><code style="color:#4f8ef7; font-size:0.9em;">rdfs:subPropertyOf</code> : organiser les propriétés</h3> <br>
+    <p style="font-size:0.88em; color:#eef0ff; margin-bottom:0.8rem;">P <code>rdfs:subPropertyOf</code> Q signifie que tout triplet utilisant P entraîne le même triplet avec Q.</p>
+    
+    <p  style="font-size:0.8em; color:#aaa; margin-bottom:0.8rem;">Le même principe que <code>subClassOf</code>, appliqué aux relations plutôt qu'aux classes.</p>
+    <div class="fragment">
     <pre><code class="language-turtle">ex:mariéÀ  rdfs:subPropertyOf  ex:connait .
-
 ex:pierre_curie  ex:mariéÀ  ex:marie_curie .</code></pre>
-    <p class="code-note">→ Le raisonneur déduit automatiquement <code>ex:pierre_curie ex:connait ex:marie_curie</code>, sans que ce triplet soit écrit.</p>
-</section>
+        <p class="code-note">→ Le raisonneur déduit automatiquement <code>ex:pierre_curie ex:connait ex:marie_curie</code>, sans que ce triplet soit écrit.</p>
+    </div>
+    </section>
 
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">rdfs:domain</code> et <code style="color:#4f8ef7; font-size:0.9em;">rdfs:range</code></h3>
     <div class="kv-row"><span class="kv-label">domain</span><span class="kv-body">Type attendu du <strong>sujet</strong>. Seul un <code>ex:Person</code> peut <code>ex:aRemporté</code> quelque chose.</span></div>
     <div class="kv-row fragment"><span class="kv-label">range</span><span class="kv-body">Type attendu de l'<strong>objet</strong>. Ce qu'on <code>ex:aRemporté</code> est toujours un <code>ex:Match</code>.</span></div>
+    <span class="code-badge" style="margin-top:0.8rem;">Turtle</span>
+    <pre><code class="language-turtle">ex:aRemporté  rdfs:domain  ex:Person ;
+              rdfs:range   ex:Match .
+
+ex:djokovic  ex:aRemporté  ex:rg2023 .</code></pre>
+    <p class="code-note">→ Le raisonneur déduit <code>ex:djokovic a ex:Person</code> et <code>ex:rg2023 a ex:Match</code>, même si ces types ne sont jamais écrits.</p>
 </section>
 
 <section>
