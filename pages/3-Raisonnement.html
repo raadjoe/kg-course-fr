@@ -505,9 +505,9 @@
             <p style="font-size:0.8em; color:#eef0ff; margin-top:0.4rem;">Répondre à une question avec des faits jamais écrits explicitement.</p>
         </div>
     </div>
-    <div class="box fragment" style="border-left:3px solid #4f8ef7; margin-top:0.9rem;">
-        <strong style="color:#4f8ef7;">Intégration de données</strong>
-        <p style="font-size:0.8em; color:#eef0ff; margin-top:0.4rem;">Un quatrième usage majeur : relier des sources hétérogènes, à la fois leurs vocabulaires (mêmes concepts, noms différents) et leurs entités (même chose réelle, IRIs différents), grâce à des règles communes.</p>
+    <div class="box fragment" style="border-left:3px solid #f74f8d; margin-top:0.9rem;">
+        <strong style="color:#f74f8d;">Intégration de données</strong>
+        <p style="font-size:0.8em; color:#eef0ff; margin-top:0.4rem;">Un quatrième usage majeur : relier des sources hétérogènes, à la fois leurs vocabulaires et leurs entités, grâce à des règles communes.</p>
     </div>
 </section>
 
@@ -540,7 +540,7 @@
             <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Beaucoup plus expressif, avec plusieurs profils qui font varier le coût de calcul.</p>
         </div>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; text-align:center;">La suite du chapitre présente ces deux langages en détail : RDFS (3.2), puis OWL (3.3).</p>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; text-align:center;">La suite du chapitre présente ces deux langages de raisonnement : <br>RDFS <code>(3.2)</code>, puis OWL <code>(3.3)</code>.</p>
 </section>
 
 
@@ -562,16 +562,16 @@
 
 <section>
     <h3>RDFS en une phrase</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">RDFS ajoute à RDF le vocabulaire minimal pour décrire des classes et des propriétés, et pour en tirer des inférences simples.</p>
-    <div class="kv-row"><span class="kv-label">Ajoute</span><span class="kv-body"><code>rdfs:Class</code>, <code>rdfs:subClassOf</code>, <code>rdfs:subPropertyOf</code>, <code>rdfs:domain</code>, <code>rdfs:range</code>.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Laisse de côté</span><span class="kv-body">Disjonction entre classes, cardinalités, caractéristiques de propriétés (symétrie, transitivité). Réservé à OWL, section 3.3.</span></div>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">RDFS ajoute à RDF le vocabulaire minimal pour décrire des classes et des propriétés, et pour en tirer des inférences simples :</p>
+    <div class="kv-body"><span class="kv-body"><code>rdfs:Class</code>, <code>rdfs:subClassOf</code>, <code>rdfs:subPropertyOf</code>,<br><code>rdfs:domain</code>, <code>rdfs:range</code>.</span></div>
+    <!-- <div class="kv-row fragment"><span class="kv-label">Laisse de côté</span><span class="kv-body">Disjonction entre classes, cardinalités, caractéristiques de propriétés (symétrie, transitivité). Réservé à OWL, section 3.3.</span></div> -->
 </section>
 
 <section>
     <h3>Qu'est-ce qu'une classe ?</h3>
-    <div class="kv-row"><span class="kv-label">Définition</span><span class="kv-body">Un ensemble de ressources qui partagent une même nature : <code>ex:Person</code>, <code>ex:Match</code>, <code>ex:Tournoi</code>...</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Instance</span><span class="kv-body">Une ressource appartient à une classe via <code>rdf:type</code>, vu au chapitre 2 : <code>ex:djokovic rdf:type ex:Person</code>.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">rdfs:Class</span><span class="kv-body">Pour déclarer qu'un terme est lui-même une classe : <code>ex:Person rdf:type rdfs:Class</code>.</span></div>
+    <div class="kv-row"><span class="kv-label">Définition</span><span class="kv-body">Un ensemble de ressources qui partagent une même nature : <code>ex:Personne</code>, <code>ex:Match</code>, <code>ex:Tournoi</code>...</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Instance</span><span class="kv-body">Une ressource appartient à une classe via <code>rdf:type</code>, vu au chapitre 2 : <code>ex:djokovic rdf:type ex:Personne</code>.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">rdfs:Class</span><span class="kv-body">Pour déclarer qu'un terme est lui-même une classe : <code>ex:Personne rdf:type rdfs:Class</code>.</span></div>
     <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.8rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Inutile de l'écrire à la main : dès qu'une classe est utilisée dans un <code>rdf:type</code>, RDFS le déduit automatiquement<br>(via la règle du <code>rdfs:range</code> vue plus loin).</p>
 </section>
 
@@ -586,14 +586,14 @@
     <div class="two-col">
         <div class="box" style="border-left:3px solid #2ecc71;">
             <strong style="color:#2ecc71;">Correct</strong>
-            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;"><code>ex:GrandChelem rdfs:subClassOf ex:Tournoi</code>. Tout Grand Chelem est bien un tournoi.</p>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;"><code>ex:Match rdfs:subClassOf ex:ÉvénementSportif</code>. Tout Grand Chelem est bien un tournoi.</p>
         </div>
         <div class="box fragment" style="border-left:3px solid #e05c5c;">
             <strong style="color:#e05c5c;">Incorrect</strong>
             <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;"><code>ex:Set rdfs:subClassOf ex:Match</code>. Un set n'est pas une sorte de match : il en est une <strong style="color:#eef0ff;">partie</strong>.</p>
         </div>
-    </div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">"Plus large" ou "fait partie de" ne suffisent pas : seule une véritable relation de généralisation justifie <code>subClassOf</code>.</p>
+    </div> <br>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">"Plus large" ou "fait partie de" ne suffisent pas :<br/>seule une véritable relation de généralisation justifie <code>subClassOf</code>.</p>
 </section>
 
 <section>
@@ -604,8 +604,8 @@
             <circle cx="200" cy="200" r="170" fill="#4f8ef7" fill-opacity="0.06" stroke="#4f8ef7" stroke-width="2"/>
             <circle cx="200" cy="200" r="115" fill="#4f8ef7" fill-opacity="0.12" stroke="#7eb8f7" stroke-width="2"/>
             <circle cx="200" cy="200" r="60"  fill="#4f8ef7" fill-opacity="0.22" stroke="#eef0ff" stroke-width="2"/>
-            <text x="200" y="48"  fill="#4f8ef7" font-size="17" font-weight="bold" text-anchor="middle">ÉvénementSportif</text>
-            <text x="200" y="103" fill="#7eb8f7" font-size="16" font-weight="bold" text-anchor="middle">Match</text>
+            <text x="200" y="68"  fill="#4f8ef7" font-size="17" font-weight="bold" text-anchor="middle">ÉvénementSportif</text>
+            <text x="200" y="123" fill="#7eb8f7" font-size="16" font-weight="bold" text-anchor="middle">Match</text>
             <text x="200" y="205" fill="#eef0ff" font-size="16" font-weight="bold" text-anchor="middle">MatchSimple</text>
         </svg>
     </div>
@@ -614,7 +614,12 @@
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">rdfs:subPropertyOf</code> : organiser les propriétés</h3>
     <p style="font-size:0.88em; color:#eef0ff; margin-bottom:0.8rem;">P <code>rdfs:subPropertyOf</code> Q signifie : <strong style="color:#7eb8f7;">tout triplet utilisant P entraîne le même triplet avec Q</strong>.</p>
-    <p style="font-size:0.8em; color:#aaa;">Le même principe que <code>subClassOf</code>, appliqué aux relations plutôt qu'aux classes.</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.8rem;">Le même principe que <code>subClassOf</code>, appliqué aux relations plutôt qu'aux classes.</p>
+    <span class="code-badge">Turtle</span>
+    <pre><code class="language-turtle">ex:mariéÀ  rdfs:subPropertyOf  ex:connait .
+
+ex:pierre_curie  ex:mariéÀ  ex:marie_curie .</code></pre>
+    <p class="code-note">→ Le raisonneur déduit automatiquement <code>ex:pierre_curie ex:connait ex:marie_curie</code>, sans que ce triplet soit écrit.</p>
 </section>
 
 <section>
