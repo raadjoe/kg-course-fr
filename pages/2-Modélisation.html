@@ -1242,7 +1242,6 @@ ex:tour_eiffel  ex:construitPour  ex:expo_universelle_1889 .</code></pre>
 <section>
     <h3>Le graphe complet</h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Les 6 triplets, regroupés avec le raccourci <code>;</code> vu en 2.3.</p>
-    <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">@prefix ex:  &lt;http://example.org/&gt; .
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 
@@ -1364,7 +1363,6 @@ ex:expo_universelle_1889   ex:nom  "Exposition universelle de 1889"@fr,
 <section>
     <h3>Le problème : RDF sans annotation</h3>
     <p style="font-size:0.75em; color:#aaa; margin-bottom:0.5rem;">Si l'on tente de représenter ces trois assertions en RDF de base :</p>
-    <span class="code-badge">Turtle</span>
     <pre style="font-size:0.62em;"><code class="language-turtle">@prefix ex: &lt;http://example.org/&gt; .
 
 ex:armstrong  ex:titresTDF  7 .
@@ -1450,7 +1448,7 @@ _:s3  a              rdf:Statement ;
       rdf:object     7 ;
       ex:source      ex:source-velonews ;
       ex:statut      ex:nonOfficiel .</code></pre>
-    <p class="code-note">→ 3 assertions = 18 triplets de réification au total. Verbeux mais standard RDF 1.0 : aucune extension de syntaxe requise.</p>
+    <p class="code-note">→ 3 assertions = 18 triplets de réification au total.<br>Verbeux mais standard RDF 1.0 : aucune extension de syntaxe requise.</p>
 </section>
 
 <!-- ── Sous-section 2.4.2 ─────────────────────────────────── -->
@@ -1469,11 +1467,11 @@ _:s3  a              rdf:Statement ;
     <div class="box fragment" style="font-size:0.58em; margin:0.7rem 0;">
         <p style="margin:0 0 0.5rem 0; color:#7eb8f7;">Même fait, trois sources — chacune dans son graphe nommé</p>
         <table class="rdf-table" style="font-size:0.9em;">
-            <thead><tr><th>Sujet</th><th>Prédicat</th><th>Objet</th><th>Graphe</th></tr></thead>
+            <thead><tr><th>Sujet</th><th>Prédicat</th><th>Objet</th><th style="color:#7eb8f7;">Graphe</th></tr></thead>
             <tbody>
-                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>7</td><td>ex:g-uci-2005</td></tr>
-                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>0</td><td>ex:g-uci-2012</td></tr>
-                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>7</td><td>ex:g-unofficial</td></tr>
+                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>7</td><td><strong style="color:#7eb8f7;">ex:g-uci-2005</strong></td></tr>
+                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>0</td><td><strong style="color:#7eb8f7;">ex:g-uci-2012</strong></td></tr>
+                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>7</td><td><strong style="color:#7eb8f7;">ex:g-unofficial</strong></td></tr>
             </tbody>
         </table>
     </div>
