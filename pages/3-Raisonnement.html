@@ -626,13 +626,15 @@ ex:pierre_curie  ex:mariéÀ  ex:marie_curie .</code></pre>
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">rdfs:domain</code> et <code style="color:#4f8ef7; font-size:0.9em;">rdfs:range</code></h3>
     <div class="kv-row"><span class="kv-label">domain</span><span class="kv-body">Type attendu du <strong>sujet</strong>. Seul un <code>ex:Scientifique</code> peut <code>ex:aDécouvert</code> quelque chose.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">range</span><span class="kv-body">Type attendu de l'<strong>objet</strong>. Ce qu'on <code>ex:aDécouvert</code> est toujours un <code>ex:ÉlémentChimique</code>.</span></div>
-    <span class="code-badge" style="margin-top:0.8rem;">Turtle</span>
+    <div class="kv-row"><span class="kv-label">range</span><span class="kv-body">Type attendu de l'<strong>objet</strong>. Ce qu'on <code>ex:aDécouvert</code> est toujours un <code>ex:ÉlémentChimique</code>.</span></div>
+    <div class="fragment">
+
     <pre><code class="language-turtle">ex:aDécouvert  rdfs:domain  ex:Scientifique ;
                rdfs:range   ex:ÉlémentChimique .
 
 ex:marie_curie  ex:aDécouvert  ex:polonium .</code></pre>
     <p class="code-note">→ Le raisonneur déduit <code>ex:marie_curie a ex:Scientifique</code> et <code>ex:polonium a ex:ÉlémentChimique</code>, même si ces types ne sont jamais écrits.</p>
+    </div>
 </section>
 
 <section>
@@ -718,21 +720,21 @@ ex:aRemporté  rdfs:subPropertyOf  ex:aJoué .</code></pre>
 </section>
 
 <section>
-    <h3>5. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:swiatek</code> ?</h3>
+    <h3>5. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:djokovic</code> ?</h3>
     <pre><code class="language-turtle">ex:aRemporté  rdfs:domain  ex:Person .
-ex:swiatek    ex:aRemporté  ex:rg2022 .</code></pre>
+ex:djokovic   ex:aRemporté  ex:m961 .</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
-        <code style="font-size:1em;">ex:swiatek  a  ex:Person .</code>
+        <code style="font-size:1em;">ex:djokovic  a  ex:Person .</code>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#7eb8f7; text-align:center; margin-top:0.6rem;">Règle appliquée : <code>rdfs:domain</code></p>
 </section>
 
 <section>
-    <h3>6. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:ausopen2024</code> ?</h3>
+    <h3>6. Que peut-on en déduire sur <code style="font-size:0.85em;">ex:m961</code> ?</h3>
     <pre><code class="language-turtle">ex:aRemporté  rdfs:range  ex:Match .
-ex:sinner     ex:aRemporté  ex:ausopen2024 .</code></pre>
+ex:djokovic   ex:aRemporté  ex:m961 .</code></pre>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.9rem;">
-        <code style="font-size:1em;">ex:ausopen2024  a  ex:Match .</code>
+        <code style="font-size:1em;">ex:m961  a  ex:Match .</code>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#7eb8f7; text-align:center; margin-top:0.6rem;">Règle appliquée : <code>rdfs:range</code></p>
 </section>
@@ -744,10 +746,10 @@ ex:sinner     ex:aRemporté  ex:ausopen2024 .</code></pre>
     <pre><code class="language-turtle">ex:aRemporté  rdfs:domain  ex:Person ;
               rdfs:range   ex:Match .
 
-ex:court_chatrier  ex:aRemporté  ex:alcaraz .</code></pre>
+ex:rg2023  ex:aRemporté  ex:djokovic .</code></pre>
     <div class="box" style="border-left:4px solid #e05c5c; margin-top:0.7rem;">
         <strong style="color:#e05c5c;">Aucune erreur.</strong>
-        <p style="font-size:0.85em; color:#eef0ff; margin-top:0.3rem;">Un raisonneur RDFS déduit <code>ex:court_chatrier a ex:Person</code> et <code>ex:alcaraz a ex:Match</code> : un court devenu une personne, un joueur devenu un match, sans jamais signaler le problème.</p>
+        <p style="font-size:0.85em; color:#eef0ff; margin-top:0.3rem;">Sujet et objet ont été inversés par erreur (ce triplet dit que le tournoi a remporté le joueur). Un raisonneur RDFS déduit pourtant <code>ex:rg2023 a ex:Person</code> et <code>ex:djokovic a ex:Match</code> : un tournoi devenu une personne, un joueur devenu un match, sans jamais signaler le problème.</p>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.7rem; text-align:center;">Conséquence directe de l'hypothèse du monde ouvert (OWA), vue en 3.1.</p>
 </section>
