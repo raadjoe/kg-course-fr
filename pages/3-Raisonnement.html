@@ -743,15 +743,30 @@ ex:djokovic   ex:aRemporté  ex:m961 .</code></pre>
     <h3>Le piège : domain et range ne valident rien</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">RDFS ne rejette jamais un triplet. Il ne fait qu'en déduire d'autres, même absurdes.</p>
     <span class="code-badge">Turtle</span>
-    <pre><code class="language-turtle">ex:aRemporté  rdfs:domain  ex:Person ;
-              rdfs:range   ex:Match .
+    <pre><code class="language-turtle">ex:aRemporté  rdfs:range  ex:Match .
 
-ex:rg2023  ex:aRemporté  ex:djokovic .</code></pre>
+ex:djokovic  ex:aRemporté  ex:rg2023 .</code></pre>
     <div class="box" style="border-left:4px solid #e05c5c; margin-top:0.7rem;">
         <strong style="color:#e05c5c;">Aucune erreur.</strong>
-        <p style="font-size:0.85em; color:#eef0ff; margin-top:0.3rem;">Sujet et objet ont été inversés par erreur (ce triplet dit que le tournoi a remporté le joueur). Un raisonneur RDFS déduit pourtant <code>ex:rg2023 a ex:Person</code> et <code>ex:djokovic a ex:Match</code> : un tournoi devenu une personne, un joueur devenu un match, sans jamais signaler le problème.</p>
+        <p style="font-size:0.85em; color:#eef0ff; margin-top:0.3rem;"><code>ex:rg2023</code> est un <strong>tournoi</strong> (<code>ex:Tournoi</code>), pas un simple match. Un raisonneur RDFS déduit pourtant <code>ex:rg2023 a ex:Match</code>, sans jamais signaler le problème.</p>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.7rem; text-align:center;">Conséquence directe de l'hypothèse du monde ouvert (OWA), vue en 3.1.</p>
+</section>
+
+<section>
+    <h3>Le compromis : spécifique ou réutilisable ?</h3>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.8rem;">Le choix d'un domain ou d'un range plus ou moins précis a un prix.</p>
+    <div class="two-col">
+        <div class="box box-blue">
+            <strong style="color:#7eb8f7;">Plus spécifique</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Plus de conclusions utiles, mais la propriété devient fragile : elle casse dès qu'on l'emploie dans un contexte légèrement différent.</p>
+        </div>
+        <div class="box box-blue fragment">
+            <strong style="color:#7eb8f7;">Moins spécifique</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Plus réutilisable dans des contextes variés, mais le raisonneur en tire moins de faits nouveaux.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; text-align:center;">Ici, remplacer <code>ex:Match</code> par <code>ex:ÉvénementSportif</code> (leur ancêtre commun) aurait évité l'erreur, au prix d'une déduction moins précise.</p>
 </section>
 
 <section>
@@ -772,7 +787,9 @@ ex:rg2023  ex:aRemporté  ex:djokovic .</code></pre>
 <section>
     <h3>Le reste du vocabulaire RDFS</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">D'autres termes existent, mais sans pouvoir d'inférence : ils documentent le graphe plutôt qu'ils ne le structurent.</p>
+    <br>
     <div class="kv-row"><span class="kv-label">Documentation</span><span class="kv-body"><code>rdfs:label</code>, <code>rdfs:comment</code>, <code>rdfs:seeAlso</code>, <code>rdfs:isDefinedBy</code> : lisibles par un humain, ignorés par un raisonneur.</span></div>
+    <br>
     <div class="kv-row fragment"><span class="kv-label">Rarement utilisés</span><span class="kv-body"><code>rdfs:Resource</code>, <code>rdfs:Literal</code>, <code>rdfs:Datatype</code>, le vocabulaire des conteneurs (<code>rdfs:member</code>...) : présents dans le standard, peu présents en pratique.</span></div>
 </section>
 
