@@ -1547,28 +1547,27 @@ ex:obama  ex:paysDeNaissance  ex:usa .
 &lt;&lt; ex:obama  ex:paysDeNaissance  ex:kenya &gt;&gt;
     ex:source  ex:source-foxnews ;
     ex:date    "2011-04-27"^^xsd:date .</code></pre>
-    <p class="code-note">→ Le triplet cité (<code>&lt;&lt; ... ex:kenya &gt;&gt;</code>) n'est jamais affirmé, seulement annoté avec sa source et sa date. Le seul fait réellement asserté dans le graphe est la ligne 1 : USA.</p>
+    <p class="code-note">→ Le triplet cité <code>&lt;&lt; ex:obama  ex:paysDeNaissance  ex:kenya &gt;&gt;</code> n'est jamais affirmé, seulement annoté avec sa source et sa date. Le seul fait réellement asserté dans le graphe est la ligne 1 (Obama né au USA)</p>
 </section>
 
 <section>
     <h3>RDF-star : exemple Armstrong</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Les trois assertions coexistent dans le même graphe.<br>Chaque <code>&lt;&lt; … &gt;&gt;</code> identifie précisément l'assertion annotée.</p>
-    
-    <pre style="font-size:0.54em;"><code class="language-turtle">@prefix ex:  &lt;http://example.org/&gt; .
-@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Trois sources annotent la même relation avec des valeurs différentes.<br>Chaque <code>&lt;&lt; … &gt;&gt;</code> identifie précisément le triplet cité, sans l'affirmer.</p>
+    <pre style="font-size:0.54em;"><code class="language-turtle"># Fait asserté dans le graphe : palmarès officiel actuel
+ex:armstrong  ex:titresTDF  0 .
 
-# UCI 2005 — 7 titres homologués
+# UCI 2005 : 7 titres homologués
 &lt;&lt; ex:armstrong  ex:titresTDF  7 &gt;&gt;
     ex:source  ex:source-uci ;  ex:date  "2005-07-24"^^xsd:date .
 
-# UCI 2012 — 0 titre (retrait USADA)
+# UCI 2012 : 0 titre, retrait USADA
 &lt;&lt; ex:armstrong  ex:titresTDF  0 &gt;&gt;
     ex:source  ex:source-uci ;  ex:date  "2012-10-22"^^xsd:date .
 
-# Source non officielle — 7 titres contestés
+# Source non officielle : 7 titres contestés
 &lt;&lt; ex:armstrong  ex:titresTDF  7 &gt;&gt;
     ex:source  ex:source-velonews ;  ex:statut  ex:nonOfficiel .</code></pre>
-    <p class="code-note">→ 3 assertions = 9 triplets au total. Aucun blank node intermédiaire — syntaxe plus compacte que la réification.</p>
+    <p class="code-note">→ Seul <code>ex:armstrong ex:titresTDF 0</code> est asserté dans le graphe. Les trois <code>&lt;&lt; … &gt;&gt;</code> ne sont que des triplets cités et annotés, jamais affirmés par leur seule présence.</p>
 </section>
 
 <section>
