@@ -1465,19 +1465,19 @@ _:s3  a              rdf:Statement ;
         <span class="kv-body">Quadruplet = <strong>(Sujet, Prédicat, Objet, NomDuGraphe)</strong>. L'ensemble de ces quads forme un <em>RDF Dataset</em>.</span>
     </div>
     <div class="box fragment" style="font-size:0.58em; margin:0.7rem 0;">
-        <p style="margin:0 0 0.5rem 0; color:#7eb8f7;">Même fait, trois sources — chacune dans son graphe nommé</p>
+        <p style="margin:0 0 0.5rem 0; color:#7eb8f7;">Même fait, différentes sources : chacune dans son graphe nommé</p>
         <table class="rdf-table" style="font-size:0.9em;">
             <thead><tr><th>Sujet</th><th>Prédicat</th><th>Objet</th><th style="color:#7eb8f7;">Graphe</th></tr></thead>
             <tbody>
-                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>7</td><td><strong style="color:#7eb8f7;">ex:g-uci-2005</strong></td></tr>
-                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>0</td><td><strong style="color:#7eb8f7;">ex:g-uci-2012</strong></td></tr>
-                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>7</td><td><strong style="color:#7eb8f7;">ex:g-unofficial</strong></td></tr>
+                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>7</td><td><strong style="color:#3ccc14;">ex:g-uci-2005</strong></td></tr>
+                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>0</td><td><strong style="color:#3ccc14;">ex:g-uci-2012</strong></td></tr>
+                <tr><td>ex:armstrong</td><td>ex:titresTDF</td><td>7</td><td><strong style="color:#3ccc14;">ex:g-unofficial</strong></td></tr>
             </tbody>
         </table>
     </div>
     <div class="kv-row fragment">
         <span class="kv-label">RDF Dataset</span>
-        <span class="kv-body">Un dataset = un <strong>graphe par défaut</strong> (sans nom) + N <strong>graphes nommés</strong>, chacun identifié par un IRI.</span>
+        <span class="kv-body">Un <em>RDF Dataset</em> regroupe plusieurs graphes : un <strong>graphe par défaut</strong>, sans nom, pour les triplets qu'on n'attribue à aucune source précise, plus autant de <strong>graphes nommés</strong> que nécessaire, chacun avec son propre IRI, comme les trois graphes de l'exemple ci-dessus.</span>
     </div>
 </section>
 
