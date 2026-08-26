@@ -258,21 +258,21 @@
         "Une ontologie est une spécification explicite d'une conceptualisation."
         <p style="font-size:0.7em; color:#6b7099; margin-top:0.5rem; font-style:normal;">Tom Gruber, 1993, la définition la plus citée du domaine.</p>
     </blockquote>
-    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.9rem;">Autrement dit : une <strong style="color:#7eb8f7;">conceptualisation</strong> est l'idée qu'on se fait d'un domaine (quelles choses existent, comment elles se relient) ; la rendre <strong style="color:#7eb8f7;">explicite</strong>, c'est l'écrire dans un format que la machine peut aussi exploiter, pas seulement dans la tête d'un expert.</p>
-    <p class="fragment" style="font-size:0.82em; color:#aaa; margin-top:1rem;">Dans ce cours, l'ontologie, c'est le <strong style="color:#7eb8f7;">vocabulaire</strong> RDFS/OWL d'un graphe : ses classes, ses propriétés, ses règles.<br><br> Les triplets RDF sont les <strong style="color:#eef0ff;">données</strong> qui s'appuient dessus.</p>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.9rem;">Autrement dit : une <strong style="color:#7eb8f7;">conceptualisation</strong> est l'idée qu'on se fait d'un domaine (quelles choses existent, comment elles se relient) ;<br> la rendre <strong style="color:#7eb8f7;">explicite</strong>, c'est l'écrire dans un format que la machine peut aussi exploiter, pas seulement dans la tête d'un expert.<br><br></p>
+    <p class="fragment" style="font-size:0.82em; color:#aaa; margin-top:1rem;">Dans ce cours, l'ontologie, c'est le <strong style="color:#7eb8f7;">vocabulaire</strong> RDFS/OWL d'un graphe : ses classes, ses propriétés, ses règles.<br> Les triplets RDF sont les <strong style="color:#eef0ff;">données</strong> qui s'appuient dessus.</p>
 </section>
 
 <section>
     <h3>Vocabulaire ou ontologie ?</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">Beaucoup de vocabulaires RDF se limitent à nommer des classes et des propriétés. Une ontologie, au sens fort, ajoute des règles logiques qu'un raisonneur peut réellement exploiter.</p>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">RDFS permet déjà un raisonnement taxonomique simple (3.2) : ce n'est pas rien. Une ontologie, au sens fort, ajoute des règles logiques bien plus riches.</p>
     <div class="two-col">
         <div class="box" style="border-left:3px solid #ff9f43;">
-            <strong style="color:#ff9f43;">Vocabulaire</strong>
-            <p style="margin-top:0.4rem; font-size:0.82em; color:#eef0ff;">Une hiérarchie de classes (<code>rdfs:subClassOf</code>), peu ou pas de restrictions OWL. Utile pour nommer et indexer, mais un raisonneur n'en tire presque rien de nouveau.</p>
+            <strong style="color:#ff9f43;">Vocabulaire RDFS</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#eef0ff;">Une hiérarchie de classes (<code>rdfs:subClassOf</code>), peu ou pas de restrictions OWL. Un raisonneur en tire l'héritage de type et la transitivité des hiérarchies (vu en 3.2), mais rien de plus fin.</p>
         </div>
         <div class="box box-blue fragment">
-            <strong style="color:#7eb8f7;">Ontologie (raisonnement)</strong>
-            <p style="margin-top:0.4rem; font-size:0.82em; color:#eef0ff;">Restrictions, disjonctions, propriétés caractérisées (transitive, fonctionnelle, inverse...). Un raisonneur peut classifier automatiquement et détecter des incohérences.</p>
+            <strong style="color:#7eb8f7;">Ontologie OWL</strong>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#eef0ff;">Restrictions, disjonctions, propriétés caractérisées (transitive, fonctionnelle, inverse...). Un raisonneur peut classifier automatiquement selon des critères logiques et détecter des incohérences.</p>
         </div>
     </div>
 </section>
