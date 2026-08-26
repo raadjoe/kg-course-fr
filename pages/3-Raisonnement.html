@@ -240,8 +240,8 @@
     <h3>Le même principe, appliqué à un graphe</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Le graphe ne contient que des faits assertés. Un moteur de raisonnement peut en tirer davantage.</p>
     <div class="kv-row"><span class="kv-label">Faits assertés</span><span class="kv-body"><code>ex:djokovic ex:aRemporté ex:rg2023</code>. <code>ex:rg2023 ex:surface ex:terreBattue</code>.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Règle</span><span class="kv-body">Tout joueur ayant remporté un tournoi sur terre battue est un <code>ex:ChampionTerre</code>.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Fait inféré</span><span class="kv-body"><code>ex:djokovic rdf:type ex:ChampionTerre</code>, sans que ce triplet ait jamais été écrit.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Règle</span><span class="kv-body">Tout joueur ayant remporté un tournoi sur terre battue est un <code>ex:ChampionTerreBattue</code>.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Fait inféré</span><span class="kv-body"><code>ex:djokovic rdf:type ex:ChampionTerreBattue</code>, sans que ce triplet ait jamais été écrit.</span></div>
     <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.8rem; text-align:center;">L'ensemble des classes et des règles qui rendent cette inférence possible porte un nom : une <strong style="color:#7eb8f7;">ontologie</strong>.</p>
 </section>
 
@@ -258,7 +258,8 @@
         "Une ontologie est une spécification explicite d'une conceptualisation."
         <p style="font-size:0.7em; color:#6b7099; margin-top:0.5rem; font-style:normal;">Tom Gruber, 1993, la définition la plus citée du domaine.</p>
     </blockquote>
-    <p style="font-size:0.82em; color:#aaa; margin-top:1rem;">Dans ce cours, l'ontologie, c'est le <strong style="color:#7eb8f7;">vocabulaire</strong> RDFS/OWL d'un graphe : ses classes, ses propriétés, ses règles. Les triplets RDF sont les <strong style="color:#eef0ff;">données</strong> qui s'appuient dessus.</p>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.9rem;">Autrement dit : une <strong style="color:#7eb8f7;">conceptualisation</strong> est l'idée qu'on se fait d'un domaine (quelles choses existent, comment elles se relient) ; la rendre <strong style="color:#7eb8f7;">explicite</strong>, c'est l'écrire dans un format que la machine peut aussi exploiter, pas seulement dans la tête d'un expert.</p>
+    <p class="fragment" style="font-size:0.82em; color:#aaa; margin-top:1rem;">Dans ce cours, l'ontologie, c'est le <strong style="color:#7eb8f7;">vocabulaire</strong> RDFS/OWL d'un graphe : ses classes, ses propriétés, ses règles.<br><br> Les triplets RDF sont les <strong style="color:#eef0ff;">données</strong> qui s'appuient dessus.</p>
 </section>
 
 <section>
