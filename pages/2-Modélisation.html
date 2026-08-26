@@ -1477,7 +1477,7 @@ _:s3  a              rdf:Statement ;
     </div>
     <div class="kv-row fragment">
         <span class="kv-label">RDF Dataset</span>
-        <span class="kv-body">Un <em>RDF Dataset</em> regroupe plusieurs graphes : un <strong>graphe par défaut</strong>, sans nom, pour les triplets qu'on n'attribue à aucune source précise, plus autant de <strong>graphes nommés</strong> que nécessaire, chacun avec son propre IRI, comme les trois graphes de l'exemple ci-dessus.</span>
+        <span class="kv-body">Un <em>RDF Dataset</em> regroupe plusieurs graphes : un <strong>graphe par défaut</strong>, sans nom, pour les triplets qu'on n'attribue à aucune source précise, plus autant de <strong>graphes nommés</strong> que nécessaire, chacun avec son propre IRI, comme les trois graphes ci-dessus.</span>
     </div>
 </section>
 
@@ -1547,7 +1547,7 @@ ex:obama  ex:paysDeNaissance  ex:usa .
 &lt;&lt; ex:obama  ex:paysDeNaissance  ex:kenya &gt;&gt;
     ex:source  ex:source-foxnews ;
     ex:date    "2011-04-27"^^xsd:date .</code></pre>
-    <p class="code-note">→ L'annotation et l'assertion sont deux triplets distincts. Sans la ligne 1, le fait n'existe pas dans le graphe.</p>
+    <p class="code-note">→ Le triplet cité (<code>&lt;&lt; ... ex:kenya &gt;&gt;</code>) n'est jamais affirmé, seulement annoté avec sa source et sa date. Le seul fait réellement asserté dans le graphe est la ligne 1 : USA.</p>
 </section>
 
 <section>
