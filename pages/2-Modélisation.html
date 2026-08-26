@@ -1044,7 +1044,7 @@ ex:rg2025  ex:startDate  "2025-05-25"^^xsd:date .</code></pre>
         <div class="box">
             <p style="color:#aaa; font-size:0.85em; margin:0 0 0.3rem 0;">Sans raccourci : sujet répété à chaque ligne :</p>
             <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:alcaraz  a               ex:Person .
-ex:alcaraz  ex:name     "Carlos Alcaraz"@fr .
+ex:alcaraz  ex:name     "Carlos Alcaraz" .
 ex:alcaraz  ex:nationalite  ex:espagne .
 ex:alcaraz  ex:rang         "1"^^xsd:integer .</code></pre>
         </div>
@@ -1052,7 +1052,7 @@ ex:alcaraz  ex:rang         "1"^^xsd:integer .</code></pre>
             <p style="color:#7eb8f7; font-size:0.85em; margin:0 0 0.3rem 0;">Avec <code>;</code> : sujet déclaré une seule fois :</p>
             <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:alcaraz
     a               ex:Person ;
-    ex:name     "Carlos Alcaraz"@fr ;
+    ex:name     "Carlos Alcaraz" ;
     ex:nationalite  ex:espagne ;
     ex:rang         "1"^^xsd:integer .</code></pre>
         </div>
@@ -1073,11 +1073,10 @@ ex:rg2025  ex:surface  "terra battuta"@it .</code></pre>
         </div>
         <div class="box box-blue fragment">
             <p style="color:#7eb8f7; font-size:0.85em; margin:0 0 0.3rem 0;">Avec <code>,</code> : sujet et prédicat déclarés une seule fois :</p>
-            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:rg2025  ex:surface
-    "terre battue"@fr ,
-    "clay"@en ,
-    "arcilla"@es ,
-    "terra battuta"@it .</code></pre>
+            <pre style="margin:0; font-size:0.9em;"><code class="language-turtle">ex:rg2025  ex:surface "terre battue"@fr ,
+                      "clay"@en ,
+                      "arcilla"@es ,
+                      "terra battuta"@it .</code></pre>
         </div>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.5rem;"><code>,</code> = même sujet, même prédicat, nouvel objet.<br>Les raccourcis <code>;</code> et <code>,</code> peuvent se combiner.</p>
@@ -1170,7 +1169,7 @@ _:n3  rdf:first  ex:djokovic .  _:n3  rdf:rest  rdf:nil .</code></pre>
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 
 ex:alcaraz  a               ex:Person ;
-            ex:name         "Carlos Alcaraz"@fr , "Carlos Alcaraz"@en ;
+            ex:name         "Carlos Alcaraz" ;
             ex:nationalite  ex:espagne ;
             ex:classement   1 .
 
@@ -1209,9 +1208,9 @@ ex:rg2025   a            ex:GrandChelem ;
     <div class="fragment">
         <pre style="margin:0;"><code class="language-turtle">ex:tour_eiffel  a  ex:Monument .
 
-ex:tour_eiffel  ex:localisation  ex:champ_de_mars .</code></pre>
+ex:tour_eiffel  ex:lieu  ex:champ_de_mars .</code></pre>
     </div>
-    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.7rem;">"est un monument" → <code>rdf:type</code> (raccourci <code>a</code>). Le Champ-de-Mars est un lieu identifiable → IRI en objet, pas un littéral.</p>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.7rem;">"est un monument" → <code>rdf:type</code> (raccourci <code>a</code>).<br>Le Champ-de-Mars est un lieu identifiable (entité) → IRI, pas un littéral.</p>
 </section>
 
 <section>
@@ -1224,7 +1223,7 @@ ex:tour_eiffel  ex:localisation  ex:champ_de_mars .</code></pre>
 
 ex:tour_eiffel  ex:dateAchevement  "1889-03-31"^^xsd:date .</code></pre>
     </div>
-    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.7rem;">Gustave Eiffel est une personne identifiable → IRI. La date est une valeur brute → littéral typé <code>xsd:date</code>.</p>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.7rem;">Gustave Eiffel est une personne identifiable → IRI.<br>La date est une valeur brute → littéral typé <code>xsd:date</code>.</p>
 </section>
 
 <section>
@@ -1237,7 +1236,7 @@ ex:tour_eiffel  ex:dateAchevement  "1889-03-31"^^xsd:date .</code></pre>
 
 ex:tour_eiffel  ex:construitPour  ex:expo_universelle_1889 .</code></pre>
     </div>
-    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.7rem;">300 mètres est une mesure → littéral numérique (raccourci Turtle vu en 2.3 → <code>xsd:integer</code>). L'exposition est un événement identifiable → IRI.</p>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.7rem;">300 mètres est une mesure → littéral numérique (en raccourci Turtle).<br> L'exposition est un événement identifiable → IRI.</p>
 </section>
 
 <section>
@@ -1249,7 +1248,7 @@ ex:tour_eiffel  ex:construitPour  ex:expo_universelle_1889 .</code></pre>
 
 ex:tour_eiffel
     a                  ex:Monument ;
-    ex:localisation    ex:champ_de_mars ;
+    ex:lieu            ex:champ_de_mars ;
     ex:architecte      ex:gustave_eiffel ;
     ex:dateAchevement  "1889-03-31"^^xsd:date ;
     ex:hauteur         300 ;
@@ -1258,14 +1257,27 @@ ex:tour_eiffel
 </section>
 
 <section>
-    <h3>Enrichir le graphe</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.9rem;">Optionnel, mais recommandé : typer aussi les entités référencées, pas seulement <code>ex:tour_eiffel</code>.</p>
-    <pre><code class="language-turtle">ex:champ_de_mars           ex:localisation  ex:paris .
+    <h3>Enrichir le graphe (1/2)</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.9rem;">Optionnel, mais recommandé : décrire aussi les entités référencées, pas seulement <code>ex:tour_eiffel</code>.</p>
+    <pre><code class="language-turtle">ex:champ_de_mars           ex:lieu          ex:paris .
 ex:paris                   a                ex:Ville .
-ex:gustave_eiffel          a                ex:Person .
+ex:gustave_eiffel          a                ex:Personne .
 ex:expo_universelle_1889   a                ex:Exposition .</code></pre>
     <div class="box box-blue fragment" style="margin-top:0.8rem; font-size:0.82em;">
         Sans ces triplets, <code>ex:paris</code>, <code>ex:gustave_eiffel</code> et <code>ex:expo_universelle_1889</code> restent des IRIs muets. Un graphe où toute ressource référencée porte au moins un <code>rdf:type</code> se laisse interroger, valider et faire raisonner bien plus facilement.
+    </div>
+</section>
+
+<section>
+    <h3>Enrichir le graphe (2/2)</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.9rem;">Ajouter aussi un nom lisible, en français et en anglais, à chaque entité du graphe.</p>
+    <pre><code class="language-turtle">ex:tour_eiffel             ex:nom  "Tour Eiffel"@fr, "Eiffel Tower"@en .
+ex:champ_de_mars           ex:nom  "Champ-de-Mars"@fr, "Champ de Mars"@en .
+ex:paris                   ex:nom  "Paris"@fr, "Paris"@en .
+ex:gustave_eiffel          ex:nom  "Gustave Eiffel"@fr, "Gustave Eiffel"@en .
+ex:expo_universelle_1889   ex:nom  "Exposition universelle de 1889"@fr, "1889 World's Fair"@en .</code></pre>
+    <div class="box box-blue fragment" style="margin-top:0.8rem; font-size:0.82em;">
+        <code>rdf:type</code> dit ce qu'est chaque ressource ; <code>ex:nom</code> dit comment l'afficher. Les deux sont indépendants, et les deux rendent le graphe plus utile.
     </div>
 </section>
 
@@ -1323,8 +1335,8 @@ ex:expo_universelle_1889   a                ex:Exposition .</code></pre>
 <section>
     <h3>Le cas Armstrong</h3>
     <img src="../figures/armstrong.jpg" alt="Lance Armstrong"
-         style="max-width:45%; max-height:35vh; object-fit:contain; display:block; margin:0.5rem auto; border-radius:16px; border:1px solid #3d4168;">
-    <p style="font-size:0.78em; color:#6b7099; text-align:center;">Sept victoires au Tour de France, retirées puis contestées : un cas réel de faits qui se contredisent selon la source.</p>
+         style="max-width:65%; max-height:35vh; object-fit:contain; display:block; margin:0.5rem auto; border-radius:16px; border:1px solid #3d4168;">
+    <p style="font-size:0.78em; color:#6b7099; text-align:center;">Sept victoires au Tour de France, retirées puis contestées :<br>un cas réel de faits qui se contredisent selon la source.</p>
 </section>
 
 <section>
