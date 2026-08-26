@@ -281,19 +281,19 @@
     <h3>schema.org : annoter, pas raisonner</h3>
     <img src="../figures/schema-org.png" alt="Page d'accueil de schema.org"
          style="max-width:62%; max-height:36vh; object-fit:contain; display:block; margin:0.5rem auto; border-radius:16px; border:1px solid #3d4168;">
-    <p style="font-size:0.8em; color:#aaa; text-align:center; margin-top:0.7rem;">Le vocabulaire derrière le Knowledge Graph de Google (chapitre 1) : plus de 45 millions de sites l'utilisent pour annoter leurs pages, mais aucun raisonneur n'en tire de nouveaux faits.</p>
+    <p style="font-size:0.8em; color:#aaa; text-align:center; margin-top:0.7rem;">Le vocabulaire créé par Google, Microsoft, Yahoo and Yandex :<br> plus de 45 millions de sites l'utilisent pour annoter leurs pages, mais aucun raisonneur n'en tire de nouveaux faits.</p>
 </section>
 
 <section>
     <h3>SNOMED CT : le raisonnement en pratique</h3>
     <img src="../figures/snomed.png" alt="Hiérarchie de classes inférée dans SNOMED CT"
-         style="max-width:75%; max-height:36vh; object-fit:contain; display:block; margin:0.5rem auto; border-radius:16px; border:1px solid #3d4168;">
-    <p style="font-size:0.8em; color:#aaa; text-align:center; margin-top:0.7rem;">La terminologie clinique de référence, utilisée dans plus de 50 pays : ses règles permettent à un raisonneur de déduire automatiquement toute la hiérarchie ("inferred"), pas seulement de l'afficher.</p>
+         style="max-width:70%; max-height:36vh; object-fit:contain; display:block; margin:0.5rem auto; border-radius:16px; border:1px solid #3d4168;">
+    <p style="font-size:0.8em; color:#aaa; text-align:center; margin-top:0.7rem;">La terminologie clinique de référence, utilisée dans plus de 50 pays : ses règles permettent à un raisonneur de déduire automatiquement de nouvelles faits pour améliorer le diagnostic et le traitement.</p>
 </section>
 
 <section>
     <h3>Des centaines d'autres ontologies</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">BioPortal, le catalogue de référence en biomédecine, recense à lui seul plus de 1 500 ontologies.</p>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">BioPortal, le catalogue de référence en biomédecine, recense à lui seul plus de 1200 ontologies.</p>
     <div class="kv-row"><span class="kv-label">Gene Ontology</span><span class="kv-body">Fonctions des gènes et protéines, l'une des plus utilisées de BioPortal.</span></div>
     <div class="kv-row fragment"><span class="kv-label">FIBO</span><span class="kv-body">Hors biomédecine : instruments financiers, utilisée par des banques.</span></div>
     <div class="kv-row fragment"><span class="kv-label">Et bien d'autres domaines</span><span class="kv-body">Chimie, droit, agriculture... dès qu'un domaine a besoin de raisonner, pas seulement de nommer.</span></div>
@@ -336,7 +336,7 @@
     <h3>Un fait absent est-il faux, ou juste inconnu ?</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">Le graphe ne dit rien sur les tournois sur gazon de Djokovic. Faut-il en conclure qu'il n'en a jamais gagné ?</p>
     <div class="two-col">
-        <div class="box" style="border-left:3px solid #ff9f43;">
+        <div class="box fragment" style="border-left:3px solid #ff9f43;">
             <strong style="color:#ff9f43;">Base de données<br>(Closed World Assumption)</strong>
             <p style="margin-top:0.4rem; font-size:0.82em; color:#aaa;">Hypothèse du monde clos. Tout fait absent est considéré faux : une ligne manquante est une réponse en soi.</p>
         </div>
@@ -505,7 +505,10 @@
             <p style="font-size:0.8em; color:#eef0ff; margin-top:0.4rem;">Répondre à une question avec des faits jamais écrits explicitement.</p>
         </div>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Un quatrième usage majeur : l'intégration de données provenant de sources hétérogènes, en reliant leurs vocabulaires respectifs par des règles communes.</p>
+    <div class="box fragment" style="border-left:3px solid #4f8ef7; margin-top:0.9rem;">
+        <strong style="color:#4f8ef7;">Intégration de données</strong>
+        <p style="font-size:0.8em; color:#eef0ff; margin-top:0.4rem;">Un quatrième usage majeur : relier des sources hétérogènes, à la fois leurs vocabulaires (mêmes concepts, noms différents) et leurs entités (même chose réelle, IRIs différents), grâce à des règles communes.</p>
+    </div>
 </section>
 
 <section>
