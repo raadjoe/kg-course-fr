@@ -324,16 +324,14 @@
     <h3>RDF à l'échelle du Web</h3>
     <div style="display:flex; gap:1.5rem; margin-top:0.5rem; align-items:stretch;">
         <div class="box" style="flex:1; text-align:center; padding:1.2rem 1rem;">
-            <img src="../figures/logo-wikidata.png" alt="Logo Wikidata" style="height:28px; width:auto; display:block; margin:0 auto 0.5rem;">
-            <div style="font-size:0.72em; color:#6b7099; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem;">Wikidata</div>
+            <img src="../figures/logo-wikidata.png" alt="Logo Wikidata" style="height:80px; width:auto; display:block; margin:0 auto 0.5rem;">
             <div style="font-size:2.4em; color:#4f8ef7; font-weight:700; line-height:1.1;">&gt;17 Md</div>
             <div style="color:#aaa; font-size:0.78em; margin:0.4rem 0 0.8rem 0;">de triplets RDF</div><br>
             <div style="font-size:1.5em; color:#7eb8f7; font-weight:700; line-height:1.1;">&gt;122 M</div>
             <div style="color:#aaa; font-size:0.72em; margin-top:0.3rem;">d'entités avec IRI unique (personnes, lieux, concepts...)</div>
         </div>
         <div class="box fragment" style="flex:1; text-align:center; padding:1.2rem 1rem; border-color:#4f8ef7;">
-            <img src="../figures/logo-uniprot.png" alt="Logo UniProt" style="height:28px; width:auto; display:block; margin:0 auto 0.5rem;">
-            <div style="font-size:0.72em; color:#6b7099; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem;">UniProt</div>
+            <img src="../figures/logo-uniprot.png" alt="Logo UniProt" style="height:80px; width:auto; display:block; margin:0 auto 0.5rem;">
             <div style="font-size:2.4em; color:#4f8ef7; font-weight:700; line-height:1.1;">&gt;232 Md</div>
             <div style="color:#aaa; font-size:0.78em; margin:0.4rem 0 0.8rem 0;">de triplets RDF</div><br>
             <div  style="font-size:1.5em; color:#7eb8f7; font-weight:700; line-height:1.1;">&gt;150 M</div>
@@ -416,31 +414,35 @@
 </section>
 
 <section>
-    <h3>Le problème : les chaînes ne sont pas des identifiants</h3>
-    <div class="two-col fragment" style="font-size:0.82em; margin-top:0.4rem; align-items:stretch;">
-        <div class="box" style="border-left:3px solid #f87171;">
-            <p style="color:#f87171; font-size:0.8em; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 0.7rem 0;">Problème 1 : un nom, plusieurs entités</p>
-            <div class="kv-row" style="margin-bottom:0.55rem;">
-                <span class="kv-label" style="min-width:70px;">"Mars"</span>
-                <span class="kv-body">planète · dieu romain de la guerre · barre chocolatée · Bruno Mars</span>
-            </div>
-            <div class="kv-row" style="margin-bottom:0;">
-                <span class="kv-label" style="min-width:70px;">"Mercure"</span>
-                <span class="kv-body">planète · élément chimique · dieu messager · programme spatial NASA</span>
-            </div>
+    <h3>Problème 1 : un nom, plusieurs entités</h3>
+    <div class="box" style="border-left:3px solid #f87171; font-size:0.82em;">
+        <div class="kv-row" style="margin-bottom:0.55rem;">
+            <span class="kv-label" style="min-width:70px;">"Mars"</span>
+            <span class="kv-body">planète · dieu romain de la guerre · barre chocolatée · Bruno Mars</span>
         </div>
-        <div class="box fragment" style="border-left:3px solid #fbbf24;">
-            <p style="color:#fbbf24; font-size:0.8em; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 0.7rem 0;">Problème 2 : une entité, plusieurs noms</p>
-            <div class="kv-row" style="margin-bottom:0.55rem;">
-                <span class="kv-label" style="min-width:70px;">Nadal</span>
-                <span class="kv-body">"Rafa" · "Rafael Nadal" · "Rafael Nadal Parera" · "El Rey de la Tierra Batida"</span>
-            </div>
-            <div class="kv-row" style="margin-bottom:0;">
-                <span class="kv-label" style="min-width:70px;">Le Pape</span>
-                <span class="kv-body">"Jorge Bergoglio" · "Pape François" · "Pope Francis" · "Papa Francisco"</span>
-            </div>
+        <div class="kv-row" style="margin-bottom:0;">
+            <span class="kv-label" style="min-width:70px;">"Mercure"</span>
+            <span class="kv-body">planète · élément chimique · dieu messager · programme spatial NASA</span>
         </div>
     </div>
+    <img src="../figures/mars_confusion.jpg" alt="Confusion entre les différents sens possibles du mot Mars"
+         style="max-width:60%; max-height:32vh; object-fit:contain; display:block; margin:0.8rem auto 0; border-radius:16px; border:1px solid #3d4168;">
+</section>
+
+<section>
+    <h3>Problème 2 : une entité, plusieurs noms</h3>
+    <div class="box" style="border-left:3px solid #fbbf24; font-size:0.82em;">
+        <div class="kv-row" style="margin-bottom:0.55rem;">
+            <span class="kv-label" style="min-width:70px;">Nadal</span>
+            <span class="kv-body">"Rafa" · "Rafael Nadal" · "Rafael Nadal Parera" · "El Rey de la Tierra Batida"</span>
+        </div>
+        <div class="kv-row" style="margin-bottom:0;">
+            <span class="kv-label" style="min-width:70px;">Le Pape</span>
+            <span class="kv-body">"Jorge Bergoglio" · "Pape François" · "Pope Francis" · "Papa Francisco"</span>
+        </div>
+    </div>
+    <img src="../figures/pape-francois.jpg" alt="Le Pape François, connu sous plusieurs noms différents"
+         style="max-width:52%; max-height:28vh; object-fit:contain; display:block; margin:0.7rem auto 0; border-radius:16px; border:1px solid #3d4168;">
     <div class="box box-blue fragment" style="margin-top:0.7rem; font-size:0.78em;">
         Les machines ne peuvent pas deviner le contexte. Il faut un <strong>identifiant sans ambiguïté, stable et mondial</strong>.
     </div>
