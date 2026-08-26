@@ -1260,6 +1260,7 @@ ex:tour_eiffel
     <h3>Enrichir le graphe (1/2)</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.9rem;">Optionnel, mais recommandé : décrire aussi les entités référencées, pas seulement <code>ex:tour_eiffel</code>.</p>
     <pre><code class="language-turtle">ex:champ_de_mars           ex:lieu          ex:paris .
+ex:champ_de_mars           a                ex:Place .
 ex:paris                   a                ex:Ville .
 ex:gustave_eiffel          a                ex:Personne .
 ex:expo_universelle_1889   a                ex:Exposition .</code></pre>
@@ -1275,9 +1276,10 @@ ex:expo_universelle_1889   a                ex:Exposition .</code></pre>
 ex:champ_de_mars           ex:nom  "Champ-de-Mars"@fr, "Champ de Mars"@en .
 ex:paris                   ex:nom  "Paris"@fr, "Paris"@en .
 ex:gustave_eiffel          ex:nom  "Gustave Eiffel"@fr, "Gustave Eiffel"@en .
-ex:expo_universelle_1889   ex:nom  "Exposition universelle de 1889"@fr, "1889 World's Fair"@en .</code></pre>
+ex:expo_universelle_1889   ex:nom  "Exposition universelle de 1889"@fr, 
+                                   "1889 World's Fair"@en .</code></pre>
     <div class="box box-blue fragment" style="margin-top:0.8rem; font-size:0.82em;">
-        <code>rdf:type</code> dit ce qu'est chaque ressource ; <code>ex:nom</code> dit comment l'afficher. Les deux sont indépendants, et les deux rendent le graphe plus utile.
+        <code>rdf:type</code> dit ce qu'est chaque ressource ; <code>ex:nom</code> dit comment l'afficher et le chercher. Les deux sont indépendants, et les deux rendent le graphe plus utile.
     </div>
 </section>
 
@@ -1311,8 +1313,8 @@ ex:expo_universelle_1889   ex:nom  "Exposition universelle de 1889"@fr, "1889 Wo
 </section>
 
 <section>
-    <h3>Trois mécanismes dans le standard RDF</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">RDF offre trois approches, du plus verbeux au plus concis.</p>
+    <h3>Trois mécanismes pour contextualiser un triplet</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:1rem;">RDF offre trois façons d'annoter un triplet avec ce type de métadonnées (provenance, date, confiance), du plus verbeux au plus concis.</p>
     <div style="display:flex; gap:0.6rem; font-size:0.82em; align-items:stretch;">
         <div class="box" style="flex:1; border-left:3px solid #4f8ef7;">
             <strong style="color:#7eb8f7; display:block; margin-bottom:0.4rem;">2.4.1 Réification</strong>
