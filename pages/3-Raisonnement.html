@@ -268,35 +268,35 @@
     <div class="two-col">
         <div class="box" style="border-left:3px solid #ff9f43;">
             <strong style="color:#ff9f43;">Vocabulaire</strong>
-            <p style="margin-top:0.4rem; font-size:0.82em; color:#eef0ff;">Une liste de termes organisés en catégories, comme un glossaire ou une taxonomie. Utile pour nommer et classer, mais rien à en déduire automatiquement.</p>
+            <p style="margin-top:0.4rem; font-size:0.82em; color:#eef0ff;">Une liste de termes organisés en catégories, comme un glossaire ou une taxonomie. Utile pour nommer et classer, mais rien (ou très peu) à en déduire automatiquement.</p>
         </div>
         <div class="box box-blue fragment">
-            <strong style="color:#7eb8f7;">Ontologie (raisonnement)</strong>
+            <strong style="color:#7eb8f7;">Ontologie<br>(raisonnement)</strong>
             <p style="margin-top:0.4rem; font-size:0.82em; color:#eef0ff;">Des règles logiques explicites, en plus des termes. Une machine peut alors déduire de nouveaux faits, pas seulement chercher ceux déjà écrits.</p>
         </div>
     </div>
 </section>
 
 <section>
-    <h3>schema.org : un vocabulaire, pas une ontologie</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">Le vocabulaire utilisé par Google pour son Knowledge Graph, déjà vu au chapitre 1.</p>
-    <div class="kv-row"><span class="kv-label">Taille</span><span class="kv-body">Plus de 800 types et 1 500 propriétés, pour couvrir presque tous les domaines.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Structure</span><span class="kv-body">Une simple hiérarchie de classes, quasiment aucune restriction OWL en pratique.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Limite</span><span class="kv-body">Un raisonneur n'y trouve presque rien à déduire : ce n'est pas sa fonction.</span></div>
+    <h3>schema.org : annoter, pas raisonner</h3>
+    <img src="../figures/schema-org.png" alt="Page d'accueil de schema.org"
+         style="max-width:62%; max-height:36vh; object-fit:contain; display:block; margin:0.5rem auto; border-radius:16px; border:1px solid #3d4168;">
+    <p style="font-size:0.8em; color:#aaa; text-align:center; margin-top:0.7rem;">Le vocabulaire derrière le Knowledge Graph de Google (chapitre 1) : plus de 45 millions de sites l'utilisent pour annoter leurs pages, mais aucun raisonneur n'en tire de nouveaux faits.</p>
 </section>
 
 <section>
-    <h3>SNOMED CT : le raisonnement à l'échelle</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">La terminologie clinique de référence, utilisée dans les dossiers médicaux de plus de 50 pays.</p>
-    <div class="kv-row"><span class="kv-label">Taille</span><span class="kv-body">Environ 370 000 concepts cliniques et 1,37 million de relations.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Formalisme</span><span class="kv-body">Écrite dans le profil <code>OWL EL</code>, pensée dès le départ pour le raisonnement automatique.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Usage réel</span><span class="kv-body">Des raisonneurs (<em>ELK</em>, <em>Snorocket</em>) classifient automatiquement chaque nouveau concept clinique et vérifient la cohérence de toute la terminologie.</span></div>
+    <h3>SNOMED CT : le raisonnement en pratique</h3>
+    <img src="../figures/snomed.png" alt="Hiérarchie de classes inférée dans SNOMED CT"
+         style="max-width:75%; max-height:36vh; object-fit:contain; display:block; margin:0.5rem auto; border-radius:16px; border:1px solid #3d4168;">
+    <p style="font-size:0.8em; color:#aaa; text-align:center; margin-top:0.7rem;">La terminologie clinique de référence, utilisée dans plus de 50 pays : ses règles permettent à un raisonneur de déduire automatiquement toute la hiérarchie ("inferred"), pas seulement de l'afficher.</p>
 </section>
 
 <section>
-    <h3>D'autres ontologies pensées pour le raisonnement</h3>
-    <div class="kv-row"><span class="kv-label">Gene Ontology</span><span class="kv-body">Fonctions des gènes et protéines. Le raisonneur <em>ELK</em> y infère automatiquement plus de <strong style="color:#4ade80;">32 000</strong> relations <code>subClassOf</code> non écrites à la main.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">FIBO</span><span class="kv-body">Ontologie financière (<em>Financial Industry Business Ontology</em>), en <code>OWL 2 DL</code>. Des banques l'utilisent pour classifier automatiquement des instruments financiers complexes et vérifier leur cohérence.</span></div>
+    <h3>Des centaines d'autres ontologies</h3>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">BioPortal, le catalogue de référence en biomédecine, recense à lui seul plus de 1 500 ontologies.</p>
+    <div class="kv-row"><span class="kv-label">Gene Ontology</span><span class="kv-body">Fonctions des gènes et protéines, l'une des plus utilisées de BioPortal.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">FIBO</span><span class="kv-body">Hors biomédecine : instruments financiers, utilisée par des banques.</span></div>
+    <div class="kv-row fragment"><span class="kv-label">Et bien d'autres domaines</span><span class="kv-body">Chimie, droit, agriculture... dès qu'un domaine a besoin de raisonner, pas seulement de nommer.</span></div>
 </section>
 
 <section>
