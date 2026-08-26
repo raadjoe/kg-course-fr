@@ -1567,7 +1567,7 @@ ex:armstrong  ex:titresTDF  0 .
 # Source non officielle : 7 titres contestés
 &lt;&lt; ex:armstrong  ex:titresTDF  7 &gt;&gt;
     ex:source  ex:source-velonews ;  ex:statut  ex:nonOfficiel .</code></pre>
-    <p class="code-note">→ Seul <code>ex:armstrong ex:titresTDF 0</code> est asserté dans le graphe. Les trois <code>&lt;&lt; … &gt;&gt;</code> ne sont que des triplets cités et annotés, jamais affirmés par leur seule présence.</p>
+    <p class="code-note">→ Seul <code>ex:armstrong ex:titresTDF 0</code> est asserté dans le graphe. <br>Les trois <code>&lt;&lt; … &gt;&gt;</code> ne sont que des triplets cités et annotés, jamais affirmés par leur seule présence.</p>
 </section>
 
 <section>
@@ -1579,7 +1579,7 @@ ex:armstrong  ex:titresTDF  0 .
         </thead>
         <tbody>
             <tr>
-                <td><strong>Triplets / assertion</strong><br><span style="color:#6b7099; font-weight:normal;">cas Armstrong (3 assertions)</span></td>
+                <td><strong>Nb de Triplets</strong><br><span style="color:#6b7099; font-weight:normal;">cas Armstrong <br>(3 assertions)</span></td>
                 <td style="color:#e07b7b; font-weight:600;">18</td>
                 <td style="color:#f59e0b; font-weight:600;">9–12</td>
                 <td style="color:#34d399; font-weight:600;">9</td>
@@ -1610,6 +1610,7 @@ ex:armstrong  ex:titresTDF  0 .
             </tr>
         </tbody>
     </table>
+    <br>
     <p class="fragment" style="font-size:0.72em; color:#6b7099; margin-top:0.7rem; text-align:center;">Pour notre scénario : <strong style="color:#7eb8f7;">RDF-star</strong> est le plus concis ; <strong style="color:#7eb8f7;">Graphes nommés</strong> est le plus interopérable.</p>
 </section>
 
@@ -1632,15 +1633,15 @@ ex:armstrong  ex:titresTDF  0 .
 
 <section>
     <h3>Décomposition</h3>
-    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.8rem;">Deux assertions à écrire, chacune avec sa date de validité :</p>
+    <p style="font-size:0.8em; color:#aaa; margin-bottom:0.8rem;">Une valeur actuelle à asserter, une valeur historique à seulement citer et dater :</p>
     <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.82em;">
         <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
             <span class="kv-label">1889</span>
-            <span class="kv-body"><code>ex:tour_eiffel  ex:hauteur  300</code> : valable depuis le <code>"1889-03-31"^^xsd:date</code></span>
+            <span class="kv-body"><code>ex:tour_eiffel  ex:hauteur  300</code> : cité et daté (<code>"1889-03-31"^^xsd:date</code>), pas asserté comme valeur actuelle</span>
         </div>
         <div class="kv-row fragment" style="margin:0; align-items:flex-start;">
             <span class="kv-label">2022</span>
-            <span class="kv-body"><code>ex:tour_eiffel  ex:hauteur  330</code> : valable depuis le <code>"2022-01-01"^^xsd:date</code></span>
+            <span class="kv-body"><code>ex:tour_eiffel  ex:hauteur  330</code> : asserté et daté (<code>"2022-01-01"^^xsd:date</code>), c'est la valeur actuelle</span>
         </div>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.9rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Rappel : <code>&lt;&lt; S P O &gt;&gt;</code> désigne le triplet lui-même, asserté séparément (<code>S P O .</code>) pour exister dans le graphe.</p>
@@ -1652,14 +1653,15 @@ ex:armstrong  ex:titresTDF  0 .
     <pre><code class="language-turtle">@prefix ex:  &lt;http://example.org/&gt; .
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 
-ex:tour_eiffel  ex:hauteur  300 .
-&lt;&lt; ex:tour_eiffel  ex:hauteur  300 &gt;&gt;
-    ex:depuis  "1889-03-31"^^xsd:date .
-
+# Valeur actuelle : seule assertion réelle du graphe
 ex:tour_eiffel  ex:hauteur  330 .
 &lt;&lt; ex:tour_eiffel  ex:hauteur  330 &gt;&gt;
-    ex:depuis  "2022-01-01"^^xsd:date .</code></pre>
-    <p class="code-note">→ Les deux assertions coexistent sans contradiction : chacune est individuellement datée, sans blank node ni graphe nommé intermédiaire.</p>
+    ex:depuis  "2022-01-01"^^xsd:date .
+
+# Valeur historique : citée et datée, jamais asserté comme actuelle
+&lt;&lt; ex:tour_eiffel  ex:hauteur  300 &gt;&gt;
+    ex:depuis  "1889-03-31"^^xsd:date .</code></pre>
+    <p class="code-note">→ Seule <code>ex:tour_eiffel ex:hauteur 330</code> est asserté : c'est la valeur actuelle. La valeur de 1889 reste citée et datée, sans blank node ni graphe nommé intermédiaire.</p>
 </section>
 
 
