@@ -1073,7 +1073,7 @@ ex:djokovic  owl:sameAs  wd:Q5812 .</code></pre>
 
 <section>
     <h3>Un cas réel : Barack Obama sur DBpedia</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center;">Par transitivité, <strong style="color:#eef0ff;">440 IRIs</strong> se retrouvent reliées par <code>owl:sameAs</code> à partir d'une seule entité "Barack Obama".</p>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center;">Par transitivité, <strong style="color:#eef0ff;">440 IRIs</strong> se retrouvent reliées par <code>owl:sameAs</code> à partir d'une seule entité de DBpedia : "Barack Obama".</p>
     <div style="display:flex; gap:0.8rem; align-items:flex-start;">
         <div style="flex:1; text-align:center;">
             <img src="../figures/obama-eq-set.png" alt="Les 440 IRIs reliées par owl:sameAs à Barack Obama sur DBpedia"
@@ -1083,16 +1083,15 @@ ex:djokovic  owl:sameAs  wd:Q5812 .</code></pre>
         <div style="flex:1; text-align:center;">
             <img src="../figures/obama-communities.png" alt="Détection de communautés : quatre groupes distincts reliés par quelques ponts"
                  style="max-width:100%; max-height:28vh; object-fit:contain; border-radius:10px; border:1px solid #3d4168;">
-            <p style="font-size:0.68em; color:#6b7099; margin-top:0.4rem;">En réalité, quatre communautés distinctes.</p>
+            <p style="font-size:0.68em; color:#6b7099; margin-top:0.4rem;">En réalité, 4 communautés distinctes.</p>
         </div>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.8rem; text-align:center;">La personne, son administration, sa carrière de sénateur... : quelques liens erronés suffisent à tout fusionner par transitivité.</p>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.8rem; text-align:center;">La personne, son administration, sa carrière de sénateur... :<br><strong style="color:#e05c5c;">quelques liens erronés suffisent à tout fusionner par transitivité</strong>.</p>
 </section>
 
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:equivalentClass</code></h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Ce que <code>owl:sameAs</code> fait pour deux individus, <code>owl:equivalentClass</code> le fait pour deux classes : elles décrivent exactement le même ensemble de ressources.</p>
-    <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
 
 ex:Person  owl:equivalentClass  foaf:Person .</code></pre>
@@ -1102,7 +1101,6 @@ ex:Person  owl:equivalentClass  foaf:Person .</code></pre>
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:equivalentProperty</code></h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Et au niveau des propriétés : deux propriétés de vocabulaires différents qui expriment exactement la même relation.</p>
-    <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
 
 ex:name  owl:equivalentProperty  foaf:name .</code></pre>
