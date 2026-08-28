@@ -1092,19 +1092,19 @@ ex:djokovic  owl:sameAs  wd:Q5812 .</code></pre>
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:equivalentClass</code></h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Ce que <code>owl:sameAs</code> fait pour deux individus, <code>owl:equivalentClass</code> le fait pour deux classes : elles décrivent exactement le même ensemble de ressources.</p>
-    <pre><code class="language-turtle">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+    <pre><code class="language-turtle">ex:Human  owl:equivalentClass  foaf:Person .
 
-ex:Human  owl:equivalentClass  foaf:Person .</code></pre>
-    <p class="code-note">→ Des noms différents mais le même ensemble de ressources : toute instance de <code>ex:Human</code> est aussi une instance de <code>foaf:Person</code>,<br> et inversement.</p>
+ex:djokovic  a  ex:Human .</code></pre>
+    <p class="code-note">→ Le raisonneur déduit <code>ex:djokovic a foaf:Person</code>, sans que ce triplet soit jamais écrit.</p>
 </section>
 
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:equivalentProperty</code></h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Et au niveau des propriétés : deux propriétés de vocabulaires différents qui expriment exactement la même relation.</p>
-    <pre><code class="language-turtle">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+    <pre><code class="language-turtle">ex:surname  owl:equivalentProperty  foaf:familyName .
 
-ex:surname  owl:equivalentProperty  foaf:familyName .</code></pre>
-    <p class="code-note">→ <code>ex:alcaraz ex:surname "Alcaraz"</code> entraîne aussi<br> <code>ex:alcaraz foaf:familyName "Alcaraz"</code>.</p>
+ex:alcaraz  ex:surname  "Alcaraz" .</code></pre>
+    <p class="code-note">→ Le raisonneur déduit <code>ex:alcaraz foaf:familyName "Alcaraz"</code>, sans que ce triplet soit jamais écrit.</p>
 </section>
 
 
@@ -1136,8 +1136,10 @@ ex:surname  owl:equivalentProperty  foaf:familyName .</code></pre>
         </svg>
     </div>
     
-    <pre><code class="language-turtle">ex:MatchSimple  owl:disjointWith  ex:MatchDouble .</code></pre>
-    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.6rem; text-align:center;">Un match à la fois <code>MatchSimple</code> et <code>MatchDouble</code> deviendrait une instance de <code>owl:Nothing</code> : le graphe serait incohérent.</p>
+    <pre><code class="language-turtle">ex:MatchSimple  owl:disjointWith  ex:MatchDouble .
+
+ex:match42  a  ex:MatchSimple, ex:MatchDouble .</code></pre>
+    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.6rem; text-align:center;">Un raisonneur détecte l'incohérence immédiatement : <code>ex:match42</code> devient une instance de <code>owl:Nothing</code>.</p>
 </section>
 
 <section>
@@ -1154,8 +1156,10 @@ ex:surname  owl:equivalentProperty  foaf:familyName .</code></pre>
     </div>
     
     <pre><code class="language-turtle">ex:ChampionGaucher  a  owl:Class ;
-    owl:intersectionOf  ( ex:Gaucher  ex:ChampionGrandChelem ) .</code></pre>
-    <p class="code-note">→ La syntaxe <code>( ... )</code> est le raccourci Turtle pour les listes, vu en 2.3.</p>
+    owl:intersectionOf  ( ex:Gaucher  ex:ChampionGrandChelem ) .
+
+ex:nadal  a  ex:Gaucher, ex:ChampionGrandChelem .</code></pre>
+    <p class="code-note">→ Le raisonneur déduit <code>ex:nadal a ex:ChampionGaucher</code> : il appartient déjà aux deux classes listées.</p>
 </section>
 
 <section>
@@ -1172,8 +1176,10 @@ ex:surname  owl:equivalentProperty  foaf:familyName .</code></pre>
     </div>
 
     <pre><code class="language-turtle">ex:VainqueurMajeur  a  owl:Class ;
-    owl:unionOf  ( ex:VainqueurRolandGarros  ex:VainqueurWimbledon ) .</code></pre>
-    <p class="code-note">→ <code>ex:swiatek</code> n'a gagné que Roland-Garros, jamais Wimbledon : une seule des deux classes suffit, c'est le sens du <strong style="color:#7eb8f7;">OU</strong> de <code>owl:unionOf</code>.</p>
+    owl:unionOf  ( ex:VainqueurRolandGarros  ex:VainqueurWimbledon ) .
+
+ex:swiatek  a  ex:VainqueurRolandGarros .</code></pre>
+    <p class="code-note">→ <code>ex:swiatek</code> n'a jamais gagné Wimbledon, mais le raisonneur déduit quand même <code>ex:swiatek a ex:VainqueurMajeur</code> : une seule des deux classes suffit, c'est le sens du <strong style="color:#7eb8f7;">OU</strong>.</p>
 </section>
 
 <section>
@@ -1189,7 +1195,10 @@ ex:surname  owl:equivalentProperty  foaf:familyName .</code></pre>
     </div>
     
     <pre><code class="language-turtle">ex:NonChampion  a  owl:Class ;
-    owl:complementOf  ex:Champion .</code></pre>
+    owl:complementOf  ex:Champion .
+
+ex:sinner  a  ex:Champion, ex:NonChampion .</code></pre>
+    <p class="code-note">→ Contradiction immédiate : <code>ex:sinner</code> ne peut pas être à la fois un <code>ex:Champion</code> et son contraire. Le graphe devient incohérent.</p>
 </section>
 
 <!-- <section>
