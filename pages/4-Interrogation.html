@@ -239,9 +239,9 @@ WHERE nationalite-fr = 'Espagne';</code></pre>
 
 SELECT ?nom
 WHERE {
-  ?joueur a ex:Joueur ;
-          ex:nom ?nom ;
-          ex:nationalite "Espagne"@fr .
+?joueur a ex:Joueur ;
+        ex:nom ?nom ;
+        ex:nationalite "Espagne"@fr .
 }</code></pre>
         </div>
     </div>
@@ -250,23 +250,28 @@ WHERE {
 <section>
     <h3>La vraie différence : tables contre motifs</h3>
     <div class="kv-row"><span class="kv-label">SQL</span><span class="kv-body">Filtre des <strong>lignes</strong> dans des <strong>tables à schéma fixe</strong>. Les jointures suivent des clés étrangères déclarées à l'avance.</span></div>
+    <br>
     <div class="kv-row fragment"><span class="kv-label">SPARQL</span><span class="kv-body">Filtre des <strong>motifs de triplets</strong> dans un graphe <strong>sans schéma préétabli</strong>. Les jointures se font en réutilisant la même variable, sans rien déclarer.</span></div>
 </section>
 
 <section>
     <h3>Le motif de triplet</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Un <strong style="color:#7eb8f7;">motif de triplet</strong> (<em>triple pattern</em>) est un triplet où n'importe quelle position, sujet, prédicat ou objet, peut être remplacée par une <strong>variable</strong> préfixée par <code>?</code>.</p>
-    <div class="two-col" style="font-size:0.8em;">
-        <div class="box">
-            <p style="color:#aaa; margin:0 0 0.4rem 0; font-size:0.85em;">Un triplet concret</p>
+    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Un <strong style="color:#7eb8f7;">motif de triplet</strong> (<em>triple pattern</em>) est un triplet où sujet, prédicat et objet peuvent <em>chacun, indépendamment</em>, être remplacés par une <strong>variable</strong> préfixée par <code>?</code> : une seule position, plusieurs, ou les trois à la fois.</p>
+    <div style="display:flex; gap:0.7rem; font-size:0.78em;">
+        <div class="box" style="flex:1;">
+            <p style="color:#aaa; margin:0 0 0.4rem 0; font-size:0.9em;">0 variable</p>
             <pre style="margin:0; font-size:0.85em;"><code class="language-turtle">ex:j1 a ex:Joueur .</code></pre>
         </div>
-        <div class="box box-blue fragment">
-            <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.85em;">Un motif de triplet</p>
+        <div class="box box-blue fragment" style="flex:1;">
+            <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.9em;">1 variable</p>
             <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">?x a ex:Joueur .</code></pre>
         </div>
+        <div class="box box-blue fragment" style="flex:1;">
+            <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.9em;">3 variables</p>
+            <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">?s ?p ?o .</code></pre>
+        </div>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.7rem; text-align:center;">Concrètement : on veut toutes les valeurs de <code>?x</code> qui sont de type  <code>ex:Joueur</code> (<code>rdf:type</code> raccourci en <code>a</code>).<br>Autrement dit tous les joueurs du graphe.</p>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.7rem; text-align:center;">Avec <code>?x a ex:Joueur .</code> : toutes les valeurs de <code>?x</code> de type <code>ex:Joueur</code>, tous les joueurs du graphe.<br>Avec <code>?s ?p ?o .</code> : absolument tous les triplets du graphe.</p>
 </section>
 
 <section>
