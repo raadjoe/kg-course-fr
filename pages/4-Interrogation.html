@@ -288,7 +288,7 @@ WHERE {
   ?j  a  ex:Joueur .
   ?j  ex:aBattu  ex:sinner .
 }</code></pre>
-    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.6rem; text-align:center;">La même variable <code style="color:#7eb8f7; font-weight:700;">?j</code> dans les deux lignes : c'est elle qui les <strong style="color:#eef0ff;">joint</strong>, sans <code>JOIN</code> à écrire.<br>On obtient tous les <code>?j</code> qui sont des joueurs <strong>et</strong> qui ont battu Sinner.</p>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.6rem; text-align:center;">La même variable <code style="color:#7eb8f7; font-weight:700;">?j</code> dans les deux lignes :<br> c'est elle qui les <strong style="color:#eef0ff;">joint</strong>, sans <code>JOIN</code> à écrire.<br><br>On obtient tous les <code>?j</code> qui sont des joueurs <strong>et</strong> qui ont battu Sinner.</p>
 </section>
 
 <section>
@@ -440,9 +440,9 @@ ex:pays2 a ex:Pays ; ex:nom "Italie"@fr, "Italy"@en .</code></pre>
         "Afficher les noms des joueurs espagnols."
     </div>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">On construit la réponse en trois motifs, un à la fois :</p>
-    <div class="kv-row"><span class="kv-label">Étape 1</span><span class="kv-body">D'abord, trouver tous les <strong>joueurs</strong> : filtrer par type.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Étape 2</span><span class="kv-body">Ensuite, ne garder que ceux dont la <strong>nationalité</strong> est connue et ayant un <strong>nom</strong> dans le graphe : joindre deux motifs supplémentaires.</span></div>
-    <div class="kv-row fragment"><span class="kv-label">Étape 3</span><span class="kv-body">Enfin, ne garder que ceux dont le pays s'appelle <strong style="color:#7eb8f7;">"Espagne"</strong> : filtrer par valeur.</span></div>
+    <div class="kv-row" style="text-align:left;"><span class="kv-label">Étape 1</span><span class="kv-body">D'abord, trouver tous les <strong>joueurs</strong></span></div>
+    <div class="kv-row fragment" style="text-align:left;"><span class="kv-label">Étape 2</span><span class="kv-body">Ensuite, ne garder que ceux dont la <strong>nationalité</strong> est connue et ayant un <strong>nom</strong> dans le graphe : joindre deux motifs supplémentaires.</span></div>
+    <div class="kv-row fragment" style="text-align:left;"><span class="kv-label">Étape 3</span><span class="kv-body">Enfin, ne garder que ceux dont le pays s'appelle <strong style="color:#7eb8f7;">"Espagne"</strong> : filtrer par valeur.</span></div>
 </section>
 
 <section>
