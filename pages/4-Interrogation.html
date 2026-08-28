@@ -277,15 +277,16 @@ WHERE {
             <p style="font-size:0.8em; color:#aaa; margin-top:0.5rem;">Absolument tous les triplets du graphe, sans exception.</p>
         </div>
     </div>
-    <p style="font-size:0.68em; color:#6b7099; margin-top:0.8rem; text-align:center;">Le symbole <code>$</code> peut aussi préfixer une variable, à la place de <code>?</code> (autorisé par la norme, mais très rarement utilisé en pratique).</p>
+    <p style="font-size:0.68em; color:#6b7099; margin-top:0.8rem; text-align:center;">Le symbole <code>$</code> peut aussi préfixer une variable, à la place de <code>?</code><br>(autorisé par la norme, mais très rarement utilisé en pratique).</p>
 </section>
 
 <section>
     <h3>Le motif de graphe</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Le <code>WHERE</code> peut contenir <strong>plusieurs</strong> motifs de triplet. Ensemble, ils forment un <strong style="color:#7eb8f7;">motif de graphe</strong> (<em>graph pattern</em>) : un petit graphe à trous, que l'on superpose au graphe de données.</p>
-    <div class="kv-row"><span class="kv-label">Un motif</span><span class="kv-body">Une ligne de triplet avec au moins une variable, comme <code>?x a ex:Joueur .</code></span></div>
-    <div class="kv-row fragment"><span class="kv-label">Plusieurs motifs</span><span class="kv-body">Une <strong>jointure implicite</strong> : deux motifs qui partagent une variable se joignent automatiquement, sans <code>JOIN</code> à écrire.</span></div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.6rem; text-align:center;">Ces deux notions suffisent pour lire n'importe quelle requête SPARQL.</p>
+    <span class="code-badge">SPARQL</span>
+    <pre><code class="language-sparql">?j  a  ex:Joueur .
+?j  ex:aBattu  ex:sinner .</code></pre>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.6rem; text-align:center;">La même variable <code style="color:#7eb8f7; font-weight:700;">?j</code> dans les deux lignes : c'est elle qui les <strong style="color:#eef0ff;">joint</strong>, sans <code>JOIN</code> à écrire.<br>On obtient tous les <code>?j</code> qui sont des joueurs <strong>et</strong> qui ont battu Sinner.</p>
 </section>
 
 <section>
