@@ -235,7 +235,9 @@ WHERE nationalite-fr = 'Espagne';</code></pre>
         </div>
         <div class="box box-blue fragment">
             <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.85em;">SPARQL</p>
-            <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">SELECT ?nom
+            <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">PREFIX ex: &lt;http://example.org/&gt;
+
+SELECT ?nom
 WHERE {
   ?joueur a ex:Joueur ;
           ex:nom ?nom ;
