@@ -1062,13 +1062,31 @@ ex:djokovic  owl:sameAs  wd:Q5812 .</code></pre>
 </section>
 
 <section>
-    <h3>Le piège : <code style="font-size:0.85em;">sameAs</code> n'est pas "ressemble à"</h3>
+    <h3>Le piège : <code style="font-size:0.85em;">owl:sameAs</code> n'est pas "ressemble à"</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.8rem;">Deux joueurs distincts qui partagent un nom de famille ne sont pas la même personne.</p>
     <div class="box" style="border-left:4px solid #e05c5c;">
         <strong style="color:#e05c5c;">Incorrect</strong>
-        <p style="font-size:0.85em; color:#eef0ff; margin-top:0.3rem;"><code>ex:williams_serena owl:sameAs ex:williams_venus</code>. Deux sœurs, deux personnes, deux IRIs distincts : ce n'est pas une question de ressemblance ou de similarité.</p>
+        <p style="font-size:0.85em; color:#eef0ff; margin-top:0.3rem;"><code>ex:williams_serena owl:sameAs ex:williams_venus</code>.<br>Deux sœurs, deux personnes, deux IRIs distincts :<br> ce n'est pas une question de ressemblance ou de similarité.</p>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.7rem; text-align:center;">À cause de la transitivité, une seule erreur de <code>sameAs</code> fusionne silencieusement deux entités, et tout ce qu'on sait sur elles.</p>
+    <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.7rem; text-align:center;">À cause de la transitivité, une seule erreur de <code>owl:sameAs</code> fusionne silencieusement deux entités, et tout ce qu'on sait sur elles.</p>
+</section>
+
+<section>
+    <h3>Un cas réel : Barack Obama sur DBpedia</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.5rem; text-align:center;">Par transitivité, <strong style="color:#eef0ff;">440 IRIs</strong> se retrouvent reliées par <code>owl:sameAs</code> à partir d'une seule entité "Barack Obama".</p>
+    <div style="display:flex; gap:0.8rem; align-items:flex-start;">
+        <div style="flex:1; text-align:center;">
+            <img src="../figures/obama-eq-set.png" alt="Les 440 IRIs reliées par owl:sameAs à Barack Obama sur DBpedia"
+                 style="max-width:100%; max-height:28vh; object-fit:contain; border-radius:10px; border:1px solid #3d4168;">
+            <p style="font-size:0.68em; color:#6b7099; margin-top:0.4rem;">Un seul ensemble, en apparence.</p>
+        </div>
+        <div style="flex:1; text-align:center;">
+            <img src="../figures/obama-communities.png" alt="Détection de communautés : quatre groupes distincts reliés par quelques ponts"
+                 style="max-width:100%; max-height:28vh; object-fit:contain; border-radius:10px; border:1px solid #3d4168;">
+            <p style="font-size:0.68em; color:#6b7099; margin-top:0.4rem;">En réalité, quatre communautés distinctes.</p>
+        </div>
+    </div>
+    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.8rem; text-align:center;">La personne, son administration, sa carrière de sénateur... : quelques liens erronés suffisent à tout fusionner par transitivité.</p>
 </section>
 
 <section>
