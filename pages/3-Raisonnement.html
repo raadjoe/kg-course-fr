@@ -877,7 +877,7 @@ ex:djokovic  ex:aRemporté  ex:rolandgarros2023 .</code></pre>
 
 <section>
     <h3>Propriétés transitives</h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">N'importe quelle propriété métier peut être déclarée transitive, pas seulement <code>subClassOf</code> et <code>subPropertyOf</code> vus en 3.2.</p>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">N'importe quelle propriété métier peut être déclarée transitive, pas seulement <code>rdfs:subClassOf</code> et <code>rdfs:subPropertyOf</code> vus en 3.2.</p>
     <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:estSituéDans  a  owl:TransitiveProperty .
 
@@ -911,7 +911,7 @@ ex:sebastian_nadal  ex:pèreDe  ex:rafael_nadal .</code></pre>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Toute ressource est liée à elle-même par cette propriété, même sans l'écrire.</p>
     <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:aMêmeNationalitéQue  a  owl:ReflexiveProperty .</code></pre>
-    <p class="code-note">→ On en déduit <code>ex:djokovic ex:aMêmeNationalitéQue ex:djokovic</code>, pour absolument tout le monde. Le même principe que la réflexivité de <code>owl:sameAs</code>, vue en 3.3.2, mais applicable à n'importe quelle propriété.</p>
+    <p class="code-note">→ On en déduit <code>ex:djokovic ex:aMêmeNationalitéQue ex:djokovic</code>, pour absolument tout le monde.</p>
 </section>
 
 <section>
@@ -940,8 +940,8 @@ ex:rafael_nadal     ex:pèreDe  ex:sebastian_nadal .</code></pre>
     <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:aRemporté  owl:inverseOf  ex:remportéPar .
 
-ex:djokovic  ex:aRemporté  ex:rg2023 .</code></pre>
-    <p class="code-note">→ On en déduit <code>ex:rg2023 ex:remportéPar ex:djokovic</code>.</p>
+ex:djokovic  ex:aRemporté  ex:rolandgarros2023 .</code></pre>
+    <p class="code-note">→ On en déduit <code>ex:rolandgarros2023 ex:remportéPar ex:djokovic</code>.</p>
 </section>
 
 <section>
@@ -985,8 +985,8 @@ ex:djokovic  owl:sameAs  wd:Q5812 .</code></pre>
 </section>
 
 <section>
-    <h3><code style="font-size:0.85em;">sameAs</code> : l'impact sur l'exemple universitaire</h3>
-    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Rappel de 3.1 : sans le savoir, <code>etu2</code> était inscrit à "au moins 1" cours, faute de savoir si <code>web_sémantique</code> et <code>graphes_connaissances</code> sont un seul et même cours.</p>
+    <h3><code style="font-size:0.85em;">owl:sameAs</code> : Exemple</h3>
+    <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">Rappel de 3.1 : sans le savoir, <code>ex:etu2</code> était inscrit à "au moins 1" cours, faute de savoir si <code>ex:web_sémantique</code> et <code>ex:graphes_connaissances</code> sont un seul et même cours.</p>
     <div style="width:100%; max-width:320px; margin:0.2rem auto 0.3rem;">
         <svg viewBox="0 0 380 190" style="width:100%; height:auto;">
             <defs>
@@ -995,23 +995,23 @@ ex:djokovic  owl:sameAs  wd:Q5812 .</code></pre>
                 </marker>
             </defs>
             <line x1="85" y1="85" x2="165" y2="52" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen3)"/>
-            <text x="88" y="78" fill="#2ecc71" font-size="8">ex:inscrit</text>
+            <text x="88" y="68" fill="#2ecc71" font-size="8">ex:inscrit</text>
             <line x1="85" y1="105" x2="175" y2="138" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen3)"/>
-            <text x="88" y="120" fill="#2ecc71" font-size="8">ex:inscrit</text>
+            <text x="88" y="130" fill="#2ecc71" font-size="8">ex:inscrit</text>
             <line x1="210" y1="64" x2="228" y2="126" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,3"/>
-            <text x="130" y="98" fill="#a78bfa" font-size="9">owl:sameAs =</text>
+            <text x="230" y="98" fill="#a78bfa" font-size="9">owl:sameAs</text>
             <ellipse cx="55" cy="95" rx="34" ry="17" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
-            <text x="55" y="100" fill="#eef0ff" font-size="11" text-anchor="middle">etu2</text>
+            <text x="55" y="100" fill="#eef0ff" font-size="11" text-anchor="middle">ex:etu2</text>
             <ellipse cx="210" cy="45" rx="55" ry="19" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
-            <text x="210" y="42" fill="#eef0ff" font-size="9" text-anchor="middle">web_</text>
+            <text x="210" y="42" fill="#eef0ff" font-size="9" text-anchor="middle">ex:web_</text>
             <text x="210" y="54" fill="#eef0ff" font-size="9" text-anchor="middle">sémantique</text>
             <ellipse cx="230" cy="145" rx="68" ry="19" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
-            <text x="230" y="142" fill="#eef0ff" font-size="9" text-anchor="middle">graphes_</text>
+            <text x="230" y="142" fill="#eef0ff" font-size="9" text-anchor="middle">ex:graphes_</text>
             <text x="230" y="154" fill="#eef0ff" font-size="9" text-anchor="middle">connaissances</text>
         </svg>
     </div>
-    <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:web_sémantique  owl:sameAs  ex:graphes_connaissances .</code></pre>
+    <p style="font-size:0.82em; color:#eef0ff; text-align:center; margin-top:0.5rem;">À combien de cours <code>ex:etu2</code> est-il inscrit ?</p>
     <div class="box box-blue fragment" style="text-align:center; margin-top:0.5rem;">
         <strong style="color:#7eb8f7;">Nouvelle réponse : au moins 1 cours.</strong>
         <p style="font-size:0.75em; color:#aaa; margin-top:0.3rem;">Les deux noms fusionnent en un seul cours. Sous l'OWA, rien n'exclut d'autres inscriptions non renseignées : "exactement 1" resterait une conclusion abusive.</p>
@@ -1019,7 +1019,7 @@ ex:djokovic  owl:sameAs  wd:Q5812 .</code></pre>
 </section>
 
 <section>
-    <h3>Les propriétés de <code style="font-size:0.85em;">sameAs</code></h3>
+    <h3>Les propriétés de <code style="font-size:0.85em;">owl:sameAs</code></h3>
     <div class="kv-row"><span class="kv-label">Transitif</span><span class="kv-body">Si A <code>sameAs</code> B et B <code>sameAs</code> C, alors A <code>sameAs</code> C.</span></div>
     <div class="kv-row fragment"><span class="kv-label">Symétrique</span><span class="kv-body">Si A <code>sameAs</code> B, alors B <code>sameAs</code> A.</span></div>
     <div class="kv-row fragment"><span class="kv-label">Réflexif</span><span class="kv-body">A <code>sameAs</code> A est toujours vrai, même sans l'écrire.</span></div>
@@ -1028,33 +1028,33 @@ ex:djokovic  owl:sameAs  wd:Q5812 .</code></pre>
 </section>
 
 <section>
-    <h3><code style="font-size:0.85em;">differentFrom</code> : l'impact sur l'exemple universitaire</h3>
+    <h3><code style="font-size:0.85em;">owl:differentFrom</code> : Exemple</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.4rem;">La déclaration inverse résout l'incertitude dans l'autre sens.</p>
     <div style="width:100%; max-width:320px; margin:0.2rem auto 0.3rem;">
         <svg viewBox="0 0 380 190" style="width:100%; height:auto;">
             <defs>
-                <marker id="arrowGreen4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <marker id="arrowGreen3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
                 </marker>
             </defs>
-            <line x1="85" y1="85" x2="165" y2="52" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen4)"/>
-            <text x="88" y="78" fill="#2ecc71" font-size="8">ex:inscrit</text>
-            <line x1="85" y1="105" x2="175" y2="138" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen4)"/>
-            <text x="88" y="120" fill="#2ecc71" font-size="8">ex:inscrit</text>
+            <line x1="85" y1="85" x2="165" y2="52" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen3)"/>
+            <text x="88" y="68" fill="#2ecc71" font-size="8">ex:inscrit</text>
+            <line x1="85" y1="105" x2="175" y2="138" stroke="#2ecc71" stroke-width="1.5" marker-end="url(#arrowGreen3)"/>
+            <text x="88" y="130" fill="#2ecc71" font-size="8">ex:inscrit</text>
             <line x1="210" y1="64" x2="228" y2="126" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,3"/>
-            <text x="112" y="98" fill="#a78bfa" font-size="9">owl:differentFrom ≠</text>
+            <text x="230" y="98" fill="#a78bfa" font-size="9">owl:differentFrom</text>
             <ellipse cx="55" cy="95" rx="34" ry="17" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
-            <text x="55" y="100" fill="#eef0ff" font-size="11" text-anchor="middle">etu2</text>
+            <text x="55" y="100" fill="#eef0ff" font-size="11" text-anchor="middle">ex:etu2</text>
             <ellipse cx="210" cy="45" rx="55" ry="19" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
-            <text x="210" y="42" fill="#eef0ff" font-size="9" text-anchor="middle">web_</text>
+            <text x="210" y="42" fill="#eef0ff" font-size="9" text-anchor="middle">ex:web_</text>
             <text x="210" y="54" fill="#eef0ff" font-size="9" text-anchor="middle">sémantique</text>
             <ellipse cx="230" cy="145" rx="68" ry="19" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.5"/>
-            <text x="230" y="142" fill="#eef0ff" font-size="9" text-anchor="middle">graphes_</text>
+            <text x="230" y="142" fill="#eef0ff" font-size="9" text-anchor="middle">ex:graphes_</text>
             <text x="230" y="154" fill="#eef0ff" font-size="9" text-anchor="middle">connaissances</text>
         </svg>
     </div>
-    <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">ex:web_sémantique  owl:differentFrom  ex:graphes_connaissances .</code></pre>
+    <p style="font-size:0.82em; color:#eef0ff; text-align:center; margin-top:0.5rem;">À combien de cours <code>ex:etu2</code> est-il inscrit ?</p>
     <div class="box box-blue fragment" style="text-align:center; margin-top:0.5rem;">
         <strong style="color:#7eb8f7;">Nouvelle réponse : au moins 2 cours.</strong>
         <p style="font-size:0.75em; color:#aaa; margin-top:0.3rem;">Les deux cours sont désormais garantis distincts. Sous l'OWA, rien n'exclut d'autres inscriptions non renseignées : "exactement 2" resterait une conclusion abusive.</p>
