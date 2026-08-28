@@ -466,7 +466,7 @@ SELECT ?x WHERE {
             <line x1="420" y1="93" x2="300" y2="58" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep1)"/>
 
             <ellipse cx="250" cy="35" rx="55" ry="22" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="250" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Joueur</text>
+            <text x="250" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">ex:Joueur</text>
 
             <ellipse cx="80" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
             <text x="80" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j1</text>
@@ -500,7 +500,7 @@ SELECT ?x WHERE {
      ex:nom ?nom .
 }</code></pre>
     <div style="width:100%; max-width:480px; margin:0.2rem auto 0;">
-        <svg viewBox="0 0 540 295" style="width:100%; height:auto;">
+        <svg viewBox="0 0 560 295" style="width:100%; height:auto;">
             <defs>
                 <marker id="arrowGreenStep2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="#2ecc71"/>
@@ -512,7 +512,7 @@ SELECT ?x WHERE {
             <line x1="420" y1="93" x2="300" y2="58" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep2)"/>
 
             <ellipse cx="250" cy="35" rx="55" ry="22" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="250" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Joueur</text>
+            <text x="250" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">ex:Joueur</text>
 
             <ellipse cx="80" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
             <text x="80" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j1</text>
@@ -540,19 +540,22 @@ SELECT ?x WHERE {
             <rect x="370" y="160" width="100" height="28" rx="6" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
             <text x="420" y="178" fill="#4ade80" font-size="8" text-anchor="middle">"Jannik Sinner"</text>
 
-            <path d="M115,137 Q127.5,132 140,155 Q140,191.5 250,228" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
-            <path d="M230,137 Q207.5,132 185,155 Q185,191.5 250,228" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
-            <path d="M385,137 Q372.5,132 360,155 Q360,191.5 250,228" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <path d="M120,132 Q150,190 165,230" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <path d="M212,130 Q180,195 165,230" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
+            <path d="M445,130 Q510,185 490,230" fill="none" stroke="#2ecc71" stroke-width="1.6" marker-end="url(#arrowGreenStep2)"/>
 
-            <text x="145" y="145" fill="#7eb8f7" font-size="7">ex:nationalite</text>
-            <text x="150" y="212" fill="#7eb8f7" font-size="7">ex:nationalite</text>
-            <text x="300" y="212" fill="#7eb8f7" font-size="7">ex:nationalite</text>
+            <text x="128" y="163" fill="#7eb8f7" font-size="7" text-anchor="end">ex:nationalite</text>
+            <text x="202" y="163" fill="#7eb8f7" font-size="7" text-anchor="start">ex:nationalite</text>
+            <text x="500" y="163" fill="#7eb8f7" font-size="7" text-anchor="end">ex:nationalite</text>
 
-            <ellipse cx="250" cy="250" rx="44" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.6"/>
-            <text x="250" y="255" fill="#4ade80" font-size="10" font-style="italic" text-anchor="middle">?pays</text>
+            <ellipse cx="165" cy="250" rx="48" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
+            <text x="165" y="255" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:pays1</text>
+
+            <ellipse cx="490" cy="250" rx="44" ry="20" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
+            <text x="490" y="255" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:pays2</text>
         </svg>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.6rem; text-align:center;">Toujours trois résultats : chaque joueur a bien un nom et une nationalité, mais le motif ne dit pas encore laquelle.</p>
+    <p class="fragment" style="font-size:0.78em; color:#4ade80; margin-top:0.6rem; text-align:center;">Toujours trois résultats : chaque joueur est bien relié à son pays (<code>ex:pays1</code> ou <code>ex:pays2</code>), mais le motif ne filtre pas encore lequel.</p>
 </section>
 
 <section>
@@ -579,7 +582,7 @@ SELECT ?x ?nom WHERE {
             <line x1="420" y1="93" x2="300" y2="58" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGreenStep3)"/>
 
             <ellipse cx="250" cy="35" rx="55" ry="22" fill="#1e3a5f" stroke="#7eb8f7" stroke-width="1.5"/>
-            <text x="250" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">Joueur</text>
+            <text x="250" y="40" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">ex:Joueur</text>
 
             <ellipse cx="80" cy="115" rx="52" ry="22" fill="#0f2a1a" stroke="#2ecc71" stroke-width="1.8"/>
             <text x="80" y="120" fill="#eef0ff" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ex:j1</text>
