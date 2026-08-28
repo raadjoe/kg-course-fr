@@ -284,8 +284,10 @@ WHERE {
     <h3>Le motif de graphe</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Le <code>WHERE</code> peut contenir <strong>plusieurs</strong> motifs de triplet. Ensemble, ils forment un <strong style="color:#7eb8f7;">motif de graphe</strong> (<em>graph pattern</em>) : un petit graphe à trous, que l'on superpose au graphe de données.</p>
     <span class="code-badge">SPARQL</span>
-    <pre><code class="language-sparql">?j  a  ex:Joueur .
-?j  ex:aBattu  ex:sinner .</code></pre>
+    <pre><code class="language-sparql">WHERE {
+  ?j  a  ex:Joueur .
+  ?j  ex:aBattu  ex:sinner .
+}</code></pre>
     <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.6rem; text-align:center;">La même variable <code style="color:#7eb8f7; font-weight:700;">?j</code> dans les deux lignes : c'est elle qui les <strong style="color:#eef0ff;">joint</strong>, sans <code>JOIN</code> à écrire.<br>On obtient tous les <code>?j</code> qui sont des joueurs <strong>et</strong> qui ont battu Sinner.</p>
 </section>
 
@@ -433,7 +435,7 @@ ex:pays2 a ex:Pays ; ex:nom "Italie"@fr, "Italy"@en .</code></pre>
 </section>
 
 <section>
-    <h3>La question à résoudre</h3>
+    <h3>Comment écrire une requête SPARQL</h3>
     <div style="background:#0d1a2e; border-left:4px solid #4f8ef7; border-radius:0 6px 6px 0; padding:0.9rem 1.2rem; margin:0.6rem 0 1rem; font-size:0.9em; line-height:1.6; color:#c9d8f0; font-style:italic; text-align:center;">
         "Afficher les noms des joueurs espagnols."
     </div>
