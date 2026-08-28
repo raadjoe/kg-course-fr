@@ -257,26 +257,29 @@ WHERE {
 <section>
     <h3>Le motif de triplet</h3>
     <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Un <strong style="color:#7eb8f7;">motif de triplet</strong> (<em>triple pattern</em>) est un triplet où sujet, prédicat et objet peuvent <em>chacun, indépendamment</em>, être remplacés par une <strong>variable</strong> préfixée par <code>?</code> : une seule position, plusieurs, ou les trois à la fois.</p>
-    <div style="display:flex; gap:0.7rem; font-size:0.78em;">
+    <div style="display:flex; gap:0.7rem; font-size:0.78em; align-items:stretch;">
         <div class="box" style="flex:1;">
-            <p style="color:#aaa; margin:0 0 0.4rem 0; font-size:0.9em;">0 variable</p>
-            <pre style="margin:0; font-size:0.85em;"><code class="language-turtle">ex:j1 a ex:Joueur .</code></pre>
+            <p style="color:#aaa; margin:0 0 0.4rem 0; font-size:0.9em;">1 variable</p>
+            <pre style="margin:0; font-size:0.85em;"><code class="language-turtle">?x a ex:Joueur .</code></pre>
+            <p style="font-size:0.72em; color:#6b7099; margin-top:0.5rem;">Tous les <code>?x</code> de type <code>ex:Joueur</code> : tous les joueurs du graphe.</p>
         </div>
         <div class="box box-blue fragment" style="flex:1;">
-            <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.9em;">1 variable</p>
-            <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">?x a ex:Joueur .</code></pre>
+            <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.9em;">2 variables</p>
+            <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">?x a ?y .</code></pre>
+            <p style="font-size:0.72em; color:#6b7099; margin-top:0.5rem;">Toute paire <code>?x</code>/<code>?y</code> : chaque ressource avec chacun de ses types.</p>
         </div>
         <div class="box box-blue fragment" style="flex:1;">
             <p style="color:#7eb8f7; margin:0 0 0.4rem 0; font-size:0.9em;">3 variables</p>
-            <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">?s ?p ?o .</code></pre>
+            <pre style="margin:0; font-size:0.85em;"><code class="language-sparql">?x ?y ?z .</code></pre>
+            <p style="font-size:0.72em; color:#6b7099; margin-top:0.5rem;">Absolument tous les triplets du graphe, sans exception.</p>
         </div>
     </div>
-    <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.7rem; text-align:center;">Avec <code>?x a ex:Joueur .</code> : toutes les valeurs de <code>?x</code> de type <code>ex:Joueur</code>, tous les joueurs du graphe.<br>Avec <code>?s ?p ?o .</code> : absolument tous les triplets du graphe.</p>
+    <p style="font-size:0.65em; color:#3d4168; margin-top:0.8rem; text-align:center;">Le symbole <code>$</code> peut aussi préfixer une variable, à la place de <code>?</code> (autorisé par la norme, mais très rarement utilisé en pratique).</p>
 </section>
 
 <section>
     <h3>Le motif de graphe</h3>
-    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Le <code>WHERE</code> peut contenir <strong>plusieurs</strong> motifs de triplet. Ensemble, ils forment un <strong style="color:#7eb8f7;">motif de graphe</strong> (<em>graph pattern</em>) : un petit graphe à trous, que l'on superpose au graphe de données.</p>
+    <p style="font-size:0.82em; color:#eef0ff; margin-bottom:0.6rem;">Le <code>WHERE</code> peut contenir <strong>plusieurs</strong> motifs de triplet.<Ensemble, ils forment un <strong style="color:#7eb8f7;">motif de graphe</strong> (<em>graph pattern</em>) : un petit graphe à trous, que l'on superpose au graphe de données.</p>
     <div class="kv-row"><span class="kv-label">Un motif</span><span class="kv-body">Une ligne de triplet avec au moins une variable, comme <code>?x a ex:Joueur .</code></span></div>
     <div class="kv-row fragment"><span class="kv-label">Plusieurs motifs</span><span class="kv-body">Une <strong>jointure implicite</strong> : deux motifs qui partagent une variable se joignent automatiquement, sans <code>JOIN</code> à écrire.</span></div>
     <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:0.6rem; text-align:center;">Ces deux notions suffisent pour lire n'importe quelle requête SPARQL.</p>
