@@ -1094,8 +1094,8 @@ ex:djokovic  owl:sameAs  wd:Q5812 .</code></pre>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Ce que <code>owl:sameAs</code> fait pour deux individus, <code>owl:equivalentClass</code> le fait pour deux classes : elles décrivent exactement le même ensemble de ressources.</p>
     <pre><code class="language-turtle">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
 
-ex:Personne  owl:equivalentClass  foaf:Person .</code></pre>
-    <p class="code-note">→ Des noms différents (français, anglais), mais le même ensemble de ressources : toute instance de <code>ex:Personne</code> est aussi une instance de <code>foaf:Person</code>, et inversement.</p>
+ex:Human  owl:equivalentClass  foaf:Person .</code></pre>
+    <p class="code-note">→ Des noms différents mais le même ensemble de ressources : toute instance de <code>ex:Human</code> est aussi une instance de <code>foaf:Person</code>,<br> et inversement.</p>
 </section>
 
 <section>
@@ -1103,8 +1103,8 @@ ex:Personne  owl:equivalentClass  foaf:Person .</code></pre>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Et au niveau des propriétés : deux propriétés de vocabulaires différents qui expriment exactement la même relation.</p>
     <pre><code class="language-turtle">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
 
-ex:name  owl:equivalentProperty  foaf:name .</code></pre>
-    <p class="code-note">→ <code>ex:alcaraz ex:name "Carlos Alcaraz"</code> entraîne aussi <code>ex:alcaraz foaf:name "Carlos Alcaraz"</code>.</p>
+ex:surname  owl:equivalentProperty  foaf:familyName .</code></pre>
+    <p class="code-note">→ <code>ex:alcaraz ex:surname "Alcaraz"</code> entraîne aussi<br> <code>ex:alcaraz foaf:familyName "Alcaraz"</code>.</p>
 </section>
 
 
@@ -1123,16 +1123,19 @@ ex:name  owl:equivalentProperty  foaf:name .</code></pre>
 
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">owl:disjointWith</code></h3>
-    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Deux classes disjointes n'ont jamais d'instance en commun, l'inverse exact de la hiérarchie emboîtée vue en 3.2.</p>
+    <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Deux classes disjointes n'ont jamais d'instance en commun.</p>
     <div style="width:100%; max-width:340px; margin:0.4rem auto 0.6rem;">
         <svg viewBox="0 0 400 220" style="width:100%; height:auto;">
             <circle cx="130" cy="110" r="90" fill="#4f8ef7" fill-opacity="0.14" stroke="#7eb8f7" stroke-width="2"/>
             <circle cx="270" cy="110" r="90" fill="#4f8ef7" fill-opacity="0.14" stroke="#7eb8f7" stroke-width="2"/>
             <text x="130" y="115" fill="#eef0ff" font-size="15" font-weight="bold" text-anchor="middle">MatchSimple</text>
             <text x="270" y="115" fill="#eef0ff" font-size="15" font-weight="bold" text-anchor="middle">MatchDouble</text>
+            <line x1="190" y1="95" x2="210" y2="125" stroke="#e05c5c" stroke-width="3" stroke-linecap="round"/>
+            <line x1="210" y1="95" x2="190" y2="125" stroke="#e05c5c" stroke-width="3" stroke-linecap="round"/>
+            <text x="200" y="155" fill="#e05c5c" font-size="13" font-weight="bold" text-anchor="middle">∅</text>
         </svg>
     </div>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:MatchSimple  owl:disjointWith  ex:MatchDouble .</code></pre>
     <p class="fragment" style="font-size:0.78em; color:#6b7099; margin-top:0.6rem; text-align:center;">Un match à la fois <code>MatchSimple</code> et <code>MatchDouble</code> deviendrait une instance de <code>owl:Nothing</code> : le graphe serait incohérent.</p>
 </section>
@@ -1142,14 +1145,14 @@ ex:name  owl:equivalentProperty  foaf:name .</code></pre>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.6rem;">Une nouvelle classe définie comme l'ensemble des ressources qui appartiennent à toutes les classes listées à la fois.</p>
     <div style="width:100%; max-width:340px; margin:0.4rem auto 0.6rem;">
         <svg viewBox="0 0 400 220" style="width:100%; height:auto;">
-            <circle cx="135" cy="110" r="85" fill="#4f8ef7" fill-opacity="0.18" stroke="#7eb8f7" stroke-width="2"/>
-            <circle cx="265" cy="110" r="85" fill="#4f8ef7" fill-opacity="0.18" stroke="#7eb8f7" stroke-width="2"/>
+            <circle cx="135" cy="130" r="85" fill="#4f8ef7" fill-opacity="0.18" stroke="#7eb8f7" stroke-width="2"/>
+            <circle cx="245" cy="130" r="85" fill="#4f8ef7" fill-opacity="0.18" stroke="#7eb8f7" stroke-width="2"/>
             <text x="90"  y="45" fill="#7eb8f7" font-size="14" font-weight="bold" text-anchor="middle">Gaucher</text>
             <text x="310" y="45" fill="#7eb8f7" font-size="14" font-weight="bold" text-anchor="middle">Champion</text>
             <text x="200" y="115" fill="#eef0ff" font-size="12" font-weight="bold" text-anchor="middle">intersection</text>
         </svg>
     </div>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:ChampionGaucher  a  owl:Class ;
     owl:intersectionOf  ( ex:Gaucher  ex:ChampionGrandChelem ) .</code></pre>
     <p class="code-note">→ La syntaxe <code>( ... )</code> est le raccourci Turtle pour les listes, vu en 2.3.</p>
@@ -1166,7 +1169,7 @@ ex:name  owl:equivalentProperty  foaf:name .</code></pre>
             <text x="310" y="45" fill="#eef0ff" font-size="14" font-weight="bold" text-anchor="middle">Wimbledon</text>
         </svg>
     </div>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:VainqueurMajeur  a  owl:Class ;
     owl:unionOf  ( ex:VainqueurRolandGarros  ex:VainqueurWimbledon ) .</code></pre>
 </section>
@@ -1182,7 +1185,7 @@ ex:name  owl:equivalentProperty  foaf:name .</code></pre>
             <text x="150" y="28"  fill="#eef0ff" font-size="13" font-weight="bold" text-anchor="middle">NonChampion</text>
         </svg>
     </div>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:NonChampion  a  owl:Class ;
     owl:complementOf  ex:Champion .</code></pre>
 </section>
@@ -1228,7 +1231,7 @@ ex:name  owl:equivalentProperty  foaf:name .</code></pre>
 <section>
     <h3>Les classes : Personne, Joueur, Entraineur</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Une hiérarchie RDFS, complétée par une disjonction OWL.</p>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:Joueur      rdfs:subClassOf  ex:Personne .
 ex:Entraineur  rdfs:subClassOf  ex:Personne .
 ex:Joueur      owl:disjointWith  ex:Entraineur .</code></pre>
@@ -1238,34 +1241,34 @@ ex:Joueur      owl:disjointWith  ex:Entraineur .</code></pre>
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">ex:entraine</code> et <code style="color:#4f8ef7; font-size:0.9em;">ex:aCommeEntraineur</code></h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Deux propriétés inverses l'une de l'autre, vues en 3.3.1.</p>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:entraine  owl:inverseOf  ex:aCommeEntraineur .</code></pre>
 </section>
 
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">ex:aClasséAuDessusDe</code> : une propriété transitive</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Si un joueur est classé au-dessus d'un deuxième, lui-même classé au-dessus d'un troisième, le premier est classé au-dessus du troisième.</p>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:aClasséAuDessusDe  a  owl:TransitiveProperty .</code></pre>
 </section>
 
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">ex:aJouéContre</code> : une propriété symétrique</h3>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:aJouéContre  a  owl:SymmetricProperty .</code></pre>
 </section>
 
 <section>
     <h3><code style="color:#4f8ef7; font-size:0.9em;">ex:aCommeEntraineurPrincipal</code> : une propriété fonctionnelle</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Un joueur n'a qu'un seul entraîneur principal à la fois.</p>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:aCommeEntraineurPrincipal  a  owl:FunctionalProperty .</code></pre>
 </section>
 
 <section>
     <h3>Le graphe complet</h3>
     <p style="font-size:0.78em; color:#aaa; margin-bottom:0.6rem;">Les seuls faits assertés. Tout le reste sera déduit par le raisonneur.</p>
-    <span class="code-badge">Turtle</span>
+    
     <pre style="font-size:0.56em;"><code class="language-turtle">ex:rafael_nadal  a  ex:Joueur .      ex:toni_nadal   a  ex:Entraineur .
 ex:djokovic      a  ex:Joueur .      ex:carlos_moya  a  ex:Entraineur .
 ex:alcaraz       a  ex:Joueur .
@@ -1282,7 +1285,7 @@ ex:rafael_nadal  ex:aCommeEntraineurPrincipal  ex:toni_nadal .</code></pre>
 
 <section>
     <h3>À vous : qui est l'entraîneur de qui ?</h3>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:toni_nadal  ex:entraine  ex:rafael_nadal .</code></pre>
     <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:rafael_nadal</code> ?</p>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
@@ -1292,7 +1295,7 @@ ex:rafael_nadal  ex:aCommeEntraineurPrincipal  ex:toni_nadal .</code></pre>
 
 <section>
     <h3>À vous : qui a joué contre qui ?</h3>
-    <span class="code-badge">Turtle</span>
+   
     <pre><code class="language-turtle">ex:djokovic  ex:aJouéContre  ex:alcaraz .</code></pre>
     <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire sur <code>ex:alcaraz</code> ?</p>
     <div class="fragment box box-blue" style="text-align:center; margin-top:0.6rem;">
@@ -1303,7 +1306,7 @@ ex:rafael_nadal  ex:aCommeEntraineurPrincipal  ex:toni_nadal .</code></pre>
 <section>
     <h3>À vous : le classement en chaîne</h3>
     <p style="font-size:0.8em; color:#aaa; margin-bottom:0.6rem;">Aucun triplet ne relie directement <code>ex:djokovic</code> à <code>ex:zverev</code>.</p>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:djokovic  ex:aClasséAuDessusDe  ex:alcaraz .
 ex:alcaraz   ex:aClasséAuDessusDe  ex:zverev .</code></pre>
     <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;">Que peut-on en déduire ?</p>
@@ -1316,7 +1319,7 @@ ex:alcaraz   ex:aClasséAuDessusDe  ex:zverev .</code></pre>
 <section>
     <h3>Le piège : un entraîneur principal fonctionnel</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.7rem;">Historiquement, Toni Nadal puis Carlos Moyá ont tous deux été présentés comme l'entraîneur principal de Rafael Nadal.</p>
-    <span class="code-badge">Turtle</span>
+    
     <pre><code class="language-turtle">ex:rafael_nadal  ex:aCommeEntraineurPrincipal  ex:toni_nadal .
 ex:rafael_nadal  ex:aCommeEntraineurPrincipal  ex:carlos_moya .</code></pre>
     <p style="font-size:0.85em; color:#eef0ff; text-align:center; margin-top:0.9rem;"><code>ex:aCommeEntraineurPrincipal</code> est fonctionnelle. Que peut-on en déduire ?</p>
