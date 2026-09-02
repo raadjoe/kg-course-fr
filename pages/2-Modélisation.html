@@ -433,12 +433,12 @@
     <h3>Problème 2 : une entité, plusieurs noms</h3>
     <div class="box" style="border-left:3px solid #fbbf24; font-size:0.82em;">
         <div class="kv-row" style="margin-bottom:0.55rem;">
-            <span class="kv-label" style="min-width:70px;">Nadal</span>
-            <span class="kv-body">"Rafael Nadal Parera" · "Rafa" · "El Rey de la Tierra Batida"</span>
-        </div>
-        <div class="kv-row" style="margin-bottom:0;">
             <span class="kv-label" style="min-width:70px;">Le Pape</span>
             <span class="kv-body">"Jorge Bergoglio" · "Pape François" · "Pope Francis" · "Papa Francisco"</span>
+        </div>
+        <div class="kv-row" style="margin-bottom:0;">
+            <span class="kv-label" style="min-width:70px;">Nadal</span>
+            <span class="kv-body">"Rafael Nadal Parera" · "Rafa" · "El Rey de la Tierra Batida"</span>
         </div>
     </div>
     <img src="../figures/pape-francois.jpg" alt="Le Pape François, connu sous plusieurs noms différents"
@@ -507,7 +507,7 @@
         </div>
     </div>
     <div class="box box-blue fragment" style="margin-top:0.7rem; font-size:0.78em;">
-        Les deux sont des IRIs RDF valides. La signification de l'IRI est définie par les triplets qui lui sont associés (pas par les caractères qui le composent).
+        Les quatre sont des IRIs RDF valides. La signification de l'IRI est définie par les triplets qui lui sont associés (pas par les caractères qui le composent).
     </div>
 </section>
 
@@ -675,7 +675,7 @@ _:n3  rdf:rest   rdf:nil .          # fin de liste</code></pre>
         <div class="kv-row fragment" style="margin-top:0.55rem;"><span class="kv-label">Position</span><span class="kv-body">Un littéral n'est autorisé <strong>qu'en position Objet</strong>. Il ne peut jamais être sujet ni prédicat d'un triplet.</span></div>
         <div class="kv-row fragment"><span class="kv-label">Trois formes</span><span class="kv-body">
             Simple : texte sans type : <code>"Carlos Alcaraz"</code><br>
-            Typé : valeur avec datatype : <code>"2025-06-08"^^xsd:date</code><br>
+            Typé : valeur avec datatype : <code>"2024-12-24"^^xsd:date</code><br>
             Étiqueté : texte avec langue : <code>"terre-battue"@fr</code>
         </span></div>
     </div>
@@ -733,9 +733,9 @@ ex:surface1  ex:nom  "terra battuta"@it . </code></pre>
             <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:rg2025  ex:dotation  "2.5e6"^^xsd:double .</code></span>
         </div>
         <div class="kv-row" style="align-items:flex-start; margin:0;">
-            <span class="kv-label">xsd:float</span>
-            <span class="kv-body">Virgule flottante simple précision (moins courant)<br>
-            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:court  ex:superficie  "2804.5"^^xsd:float .</code></span>
+            <span class="kv-label">xsd:nonNegativeInteger</span>
+            <span class="kv-body">Sous-type de <code>xsd:integer</code> contraint à ≥ 0.<br>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:alcaraz  ex:nbTitresGrandChelem  "3"^^xsd:nonNegativeInteger .</code></span>
         </div>
     </div>
     <p class="fragment" style="font-size:0.72em; color:#aaa; margin-top:0.8rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Préférer <code>xsd:decimal</code> à <code>xsd:double</code> quand la précision exacte compte.</p>
@@ -747,7 +747,7 @@ ex:surface1  ex:nom  "terra battuta"@it . </code></pre>
         <div class="kv-row" style="align-items:flex-start; margin:0;">
             <span class="kv-label">xsd:date</span>
             <span class="kv-body">Date seule (AAAA-MM-JJ)<br>
-            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:rg2025  ex:startDate  "2025-05-26"^^xsd:date .</code></span>
+            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:rg2025  ex:debut  "2025-05-26"^^xsd:date .</code></span>
         </div>
         <div class="kv-row" style="align-items:flex-start; margin:0;">
             <span class="kv-label">xsd:dateTime</span>
@@ -781,11 +781,6 @@ ex:surface1  ex:nom  "terra battuta"@it . </code></pre>
             <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:alcaraz  ex:estTetesDeSerie  "true"^^xsd:boolean .</code></span>
         </div>
         <div class="kv-row" style="align-items:flex-start; margin:0;">
-            <span class="kv-label">xsd:nonNegativeInteger</span>
-            <span class="kv-body">Sous-type de <code>xsd:integer</code> contraint à ≥ 0.<br>
-            <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:alcaraz  ex:nbTitresGrandChelem  "3"^^xsd:nonNegativeInteger .</code></span>
-        </div>
-        <div class="kv-row" style="align-items:flex-start; margin:0;">
             <span class="kv-label">xsd:anyURI</span>
             <span class="kv-body">URI stockée comme donnée, non comme identifiant RDF<br>
             <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:rg2025  ex:siteWeb  "https://www.rolandgarros.com"^^xsd:anyURI .</code></span>
@@ -796,9 +791,20 @@ ex:surface1  ex:nom  "terra battuta"@it . </code></pre>
             <code style="display:block; margin-top:0.35rem; background:#0d0d1a; border-radius:5px; padding:0.35em 0.7em; color:#c9d8f0;">ex:logo  ex:hash  "a3f2b1c4"^^xsd:hexBinary .</code></span>
         </div>
     </div>
-    <p class="fragment" style="font-size:0.72em; color:#aaa; margin-top:0.8rem;">
-        Liste complète : <a href="https://www.w3.org/TR/xmlschema11-2/#built-in-datatypes" target="_blank">www.w3.org/TR/xmlschema11-2/#built-in-datatypes</a>
-    </p>
+</section>
+        
+<section>
+    <h3>Liste complète de littéraux</h3>
+    <div>
+        <img src="../figures/litteraux.png" alt="Les littéraux"
+         style="max-width:46%; object-fit:contain; display:block; margin:0 auto; border-radius:16px; border:1px solid #3d4168;">    
+    </div>
+    <div style="font-size:0.78em; display:flex; flex-direction:column; gap:1rem; margin-top:0.6rem;">
+        <p class="fragment" style="font-size:0.2em; color:#aaa; margin-top:0.0rem;"></p>
+        Recommandation W3C : <a href="https://www.w3.org/TR/xmlschema11-2/#built-in-datatypes" target="_blank">www.w3.org/TR/xmlschema11-2/#built-in-datatypes</a>
+        </p>
+    </div>
+     
 </section>
 
 <section>
@@ -830,7 +836,7 @@ ex:surface1  ex:nom  "terra battuta"@it . </code></pre>
         <div class="box box-blue fragment">
             <strong style="color:#7eb8f7; display:block; margin-bottom:0.5rem;">✓ Typé</strong>
             <code style="display:block; background:#0d0d1a; border-radius:5px; padding:0.4em 0.8em; color:#c9d8f0;">ex:rg2025  ex:startDate  "2025-05-25"^^xsd:date .</code>
-            <p style="font-size:0.85em; color:#aaa; margin:0.7rem 0 0; line-height:1.5;">Date reconnue. Calculs d'intervalles et filtres <code>FILTER(?d > …)</code> fonctionnent en SPARQL.</p>
+            <p style="font-size:0.85em; color:#aaa; margin:0.7rem 0 0; line-height:1.5;">Date reconnue. Calculs d'intervalles et filtres <code>FILTER(?mois > …)</code> fonctionnent en SPARQL.</p>
         </div>
     </div>
     <p class="fragment" style="font-size:0.78em; color:#aaa; margin-top:1rem; padding-left:0.8rem; border-left:3px solid #4f8ef7;">Règle générale : un littéral sans <code>^^type</code> est toujours traité comme <code>xsd:string</code>. Toujours typer les nombres et les dates.</p>
@@ -848,7 +854,7 @@ ex:surface1  ex:nom  "terra battuta"@it . </code></pre>
     <div style="display:flex; flex-direction:column; gap:1rem; margin-top:0.5rem;">
         <div class="kv-row" style="align-items:flex-start; margin:0;">
             <span class="kv-label">Définition</span>
-            <span class="kv-body">Un blank node est une ressource <strong>sans IRI</strong>. Elle existe dans le graphe mais n'a pas d'identifiant mondial.</span>
+            <span class="kv-body">Un blank node est une ressource <strong>sans IRI</strong>. Elle existe dans le graphe mais n'a pas d'identifiant global.</span>
         </div>
         <div class="kv-row fragment" style="align-items:flex-start; margin:0;">
             <span class="kv-label">Positions</span>
@@ -1171,12 +1177,13 @@ _:n3  rdf:first  ex:djokovic .  _:n3  rdf:rest  rdf:nil .</code></pre>
 ex:alcaraz  a               ex:Person ;
             ex:name         "Carlos Alcaraz" ;
             ex:nationalite  ex:espagne ;
-            ex:classement   1 .
+            ex:rang   1 .
 
 ex:rg2025   a            ex:GrandChelem ;
             ex:surface   "terre battue"@fr , "clay"@en , "arcilla"@es ;
             ex:startDate "2025-05-25"^^xsd:date ;
             ex:vainqueur ex:alcaraz ;
+            ex:classement  ( ex:alcaraz  ex:zverev  ex:djokovic ) ;
             ex:location  [ ex:latitude   48.8470 ;
                            ex:longitude  2.2493 ] .</code></pre>
 </section>
@@ -1210,7 +1217,7 @@ ex:rg2025   a            ex:GrandChelem ;
 
 ex:tour_eiffel  ex:lieu  ex:champ_de_mars .</code></pre>
     </div>
-    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.7rem;">"est un monument" → <code>rdf:type</code> (raccourci <code>a</code>).<br>Le Champ-de-Mars est un lieu identifiable (entité) → IRI, pas un littéral.</p>
+    <p class="fragment" style="font-size:0.8em; color:#aaa; margin-top:0.7rem;">"est un monument" → <code>rdf:type ex:Monument</code> (raccourci <code>a</code>).<br>Le Champ-de-Mars est un lieu identifiable (entité) → IRI, pas un littéral.</p>
 </section>
 
 <section>
@@ -1342,7 +1349,7 @@ ex:expo_universelle_1889   ex:nom  "Exposition universelle de 1889"@fr,
 </section>
 
 <section>
-    <h3>Trois assertions incompatibles</h3>
+    <h3>Incompatibilité des assertions</h3>
     <p style="font-size:0.82em; color:#aaa; margin-bottom:0.9rem;">Trois assertions sur le même sujet, issues de sources réelles<br><u>mais incompatibles sans contexte.</u></p>
     <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.84em;">
         <div class="box fragment" style="border-left:3px solid #34d399;">
@@ -1540,6 +1547,9 @@ ex:g-unofficial  { ex:armstrong  ex:titresTDF  7 . }</code></pre>
             <span class="kv-body">L'annotation <code>&lt;&lt; S P O &gt;&gt;</code> n'<strong>affirme pas</strong> le triplet S P O. Pour qu'il soit un fait du graphe, il doit être écrit <strong>séparément</strong> : <code>S P O .</code></span>
         </div>
     </div>
+    <div class="fragment">
+
+    
     <pre style="font-size:0.62em;"><code class="language-turtle"># 1. Assertion du fait (triplet ordinaire)
 ex:obama  ex:paysDeNaissance  ex:usa .
 
@@ -1548,6 +1558,7 @@ ex:obama  ex:paysDeNaissance  ex:usa .
     ex:source  ex:source-foxnews ;
     ex:date    "2011-04-27"^^xsd:date .</code></pre>
     <p class="code-note">→ Le triplet cité <code>&lt;&lt; ex:obama  ex:paysDeNaissance  ex:kenya &gt;&gt;</code> n'est jamais affirmé, seulement annoté avec sa source et sa date. Le seul fait réellement asserté dans le graphe est la ligne 1 (Obama né au USA)</p>
+    </div>
 </section>
 
 <section>
@@ -1567,7 +1578,7 @@ ex:armstrong  ex:titresTDF  0 .
 # Source non officielle : 7 titres contestés
 &lt;&lt; ex:armstrong  ex:titresTDF  7 &gt;&gt;
     ex:source  ex:source-velonews ;  ex:statut  ex:nonOfficiel .</code></pre>
-    <p class="code-note">→ Seul <code>ex:armstrong ex:titresTDF 0</code> est asserté dans le graphe. <br>Les trois <code>&lt;&lt; … &gt;&gt;</code> ne sont que des triplets cités et annotés, jamais affirmés par leur seule présence.</p>
+    <p class="code-note fragment">→ Seul <code>ex:armstrong ex:titresTDF 0</code> est asserté dans le graphe. <br>Les trois <code>&lt;&lt; … &gt;&gt;</code> ne sont que des triplets cités et annotés, jamais affirmés par leur seule présence.</p>
 </section>
 
 <section>
@@ -1614,6 +1625,42 @@ ex:armstrong  ex:titresTDF  0 .
     <p class="fragment" style="font-size:0.72em; color:#6b7099; margin-top:0.7rem; text-align:center;">Pour notre scénario : <strong style="color:#7eb8f7;">RDF-star</strong> est le plus concis ; <strong style="color:#7eb8f7;">Graphes nommés</strong> est le plus interopérable.</p>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════════
+  CONCLUSION
+═══════════════════════════════════════════════════════════════ -->
+
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
+    <h2 style="font-size:1.25em; margin-bottom:1.2rem;">Synthèse — RDF (1/2)</h2>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.84em;">
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">Toute connaissance est un <strong>triplet (Sujet, Prédicat, Objet)</strong>. Le sujet et le prédicat sont toujours des IRIs ; l'objet peut être un IRI ou un littéral.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">Les <strong>IRIs</strong> identifient les ressources de façon globale et unique sur le Web. Ils s'abrègent avec <code>@prefix</code> en Turtle. Un IRI identifie une ressource, pas un document.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">Les <strong>littéraux</strong> sont toujours typés (<code>^^xsd:integer</code>, <code>^^xsd:date</code>…) ou étiquetés par langue (<code>@fr</code>, <code>@en</code>). Sans type explicite : <code>xsd:string</code>.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.5;">Les <strong>blank nodes</strong> (<code>_:label</code> ou <code>[ ]</code> en Turtle) sont des ressources anonymes sans IRI global : utiles pour les structures intermédiaires, non référençables de l'extérieur.</p>
+        </div>
+    </div>
+</section>
+
+<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
+    <h2 style="font-size:1.25em; margin-bottom:1.2rem;">Synthèse — RDF (2/2)</h2>
+    <div style="display:flex; flex-direction:column; gap:0.6rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.84em;">
+        <div class="box " style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;">RDF peut être sérialisé dans plusieurs formats (N-Triples, RDF/XML, JSON-LD, RDFa…), chacun adapté à un usage différent. Dans ce cours, nous utilisons <strong>Turtle</strong> — lisible par les humains et réutilisé mot pour mot par le langage de requête SPARQL.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;">Pour contextualiser les triplets (provenance, temporalité, confiance) : les <strong>graphes nommés</strong> attribuent un ensemble de faits à une source, et <strong>RDF-star</strong> annote un triplet individuel directement.</p>
+        </div>
+        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
+            <p style="margin:0; line-height:1.6;">RDF dit <em>quels faits existent</em>. Il ne dit pas encore <em>ce qu'on peut en déduire</em>. Le chapitre suivant introduit <strong>RDFS et OWL</strong> : les langages qui permettent aux machines de faire des inférences automatiques.</p>
+        </div>
+    </div>
+</section>
 
 <!-- ── Sous-section : Exercice (suite, RDF-star) ───────────── -->
 <section data-background-color="#0a1020" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.18) 0px,rgba(79,142,247,0.18) 1px,transparent 1px,transparent 60px)">
@@ -1649,7 +1696,6 @@ ex:armstrong  ex:titresTDF  0 .
 
 <section>
     <h3>Correction : RDF-star</h3>
-    <span class="code-badge">Turtle</span>
     <pre><code class="language-turtle">@prefix ex:  &lt;http://example.org/&gt; .
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 
@@ -1665,42 +1711,7 @@ ex:tour_eiffel  ex:hauteur  330 .
 </section>
 
 
-<!-- ═══════════════════════════════════════════════════════════════
-  CONCLUSION
-═══════════════════════════════════════════════════════════════ -->
 
-<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
-    <h2 style="font-size:1.25em; margin-bottom:1.2rem;">Synthèse — RDF (1/2)</h2>
-    <div style="display:flex; flex-direction:column; gap:0.6rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.84em;">
-        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
-            <p style="margin:0; line-height:1.5;">Toute connaissance est un <strong>triplet (Sujet, Prédicat, Objet)</strong>. Le sujet et le prédicat sont toujours des IRIs ; l'objet peut être un IRI ou un littéral.</p>
-        </div>
-        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
-            <p style="margin:0; line-height:1.5;">Les <strong>IRIs</strong> identifient les ressources de façon globale et unique sur le Web. Ils s'abrègent avec <code>@prefix</code> en Turtle. Un IRI identifie une ressource, pas un document.</p>
-        </div>
-        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
-            <p style="margin:0; line-height:1.5;">Les <strong>littéraux</strong> sont toujours typés (<code>^^xsd:integer</code>, <code>^^xsd:date</code>…) ou étiquetés par langue (<code>@fr</code>, <code>@en</code>). Sans type explicite : <code>xsd:string</code>.</p>
-        </div>
-        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
-            <p style="margin:0; line-height:1.5;">Les <strong>blank nodes</strong> (<code>_:label</code> ou <code>[ ]</code> en Turtle) sont des ressources anonymes sans IRI global : utiles pour les structures intermédiaires, non référençables de l'extérieur.</p>
-        </div>
-    </div>
-</section>
-
-<section data-background-color="#060d18" data-background-gradient="repeating-linear-gradient(rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(79,142,247,0.22) 0px,rgba(79,142,247,0.22) 1px,transparent 1px,transparent 60px)">
-    <h2 style="font-size:1.25em; margin-bottom:1.2rem;">Synthèse — RDF (2/2)</h2>
-    <div style="display:flex; flex-direction:column; gap:0.6rem; max-width:820px; margin:0 auto; text-align:left; font-size:0.84em;">
-        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
-            <p style="margin:0; line-height:1.6;">RDF peut être sérialisé dans plusieurs formats (N-Triples, RDF/XML, JSON-LD, RDFa…), chacun adapté à un usage différent. Dans ce cours, nous utilisons <strong>Turtle</strong> — lisible par les humains et réutilisé mot pour mot par le langage de requête SPARQL.</p>
-        </div>
-        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
-            <p style="margin:0; line-height:1.6;">Pour contextualiser les triplets (provenance, temporalité, confiance) : les <strong>graphes nommés</strong> attribuent un ensemble de faits à une source, et <strong>RDF-star</strong> annote un triplet individuel directement.</p>
-        </div>
-        <div class="box fragment" style="border-left:3px solid #4f8ef7; background:#0a1020;">
-            <p style="margin:0; line-height:1.6;">RDF dit <em>quels faits existent</em>. Il ne dit pas encore <em>ce qu'on peut en déduire</em>. Le chapitre suivant introduit <strong>RDFS et OWL</strong> : les langages qui permettent aux machines de faire des inférences automatiques.</p>
-        </div>
-    </div>
-</section>
 
 </div><!-- .slides -->
 </div><!-- .reveal -->
